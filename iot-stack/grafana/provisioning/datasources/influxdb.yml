@@ -1,0 +1,14 @@
+# Datasource InfluxDB provisionado automaticamente no Grafana
+apiVersion: 1
+datasources:
+  - name: InfluxDB-sensores
+    type: influxdb
+    access: proxy
+    url: http://influxdb:8086
+    isDefault: true
+    jsonData:
+      version: Flux
+      organization: escola
+      defaultBucket: sensores
+    secureJsonData:
+      token: token-aula-sensores-123

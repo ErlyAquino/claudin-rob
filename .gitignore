@@ -1,0 +1,27 @@
+# dependencias reinstalaveis
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# modelos grandes baixados pelo setup (ver CLAUDE.md / setup-linux-mint.sh)
+aula-esp32cam/python/modelos/*.task
+aula-esp32cam/python/modelos/*.xml
+
+# intermediarios de exportacao (regeraveis)
+aula-*/esquemas/saida/*_breadboard.svg
+aula-*/esquemas/saida/*_schematic.svg
+aula-*/esquemas/saida/*_pcb.svg
+aula-*/saida/*.jpg
+aula-*/esquemas/tmp*/
+
+# build do arduino-cli
+**/build/
+*.bin
+*.elf
+
+# credenciais nunca
+credenciais.h
+*.env
+.env
