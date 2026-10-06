@@ -8,6 +8,7 @@ __pycache__/
 # modelos grandes baixados pelo setup (ver CLAUDE.md / setup-linux-mint.sh)
 aula-esp32cam/python/modelos/*.task
 aula-esp32cam/python/modelos/*.xml
+aula-esp32cam/python/modelos/*.onnx
 
 # intermediarios de exportacao (regeraveis)
 aula-*/esquemas/saida/*_breadboard.svg
@@ -25,3 +26,6 @@ aula-*/esquemas/tmp*/
 credenciais.h
 *.env
 .env
+
+# arquivos de bloqueio do LibreOffice
+.~lock.*#

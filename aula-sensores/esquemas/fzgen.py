@@ -10,7 +10,12 @@ _fzp_cache = {}
 
 # Pecas extras do curso (ESP32 DevKit, ESP32-CAM, DHT11, BME680, MQ, PIR): copie ferramentas/fritzing/user-parts para
 # ~/Documents/Fritzing/parts (todos os SOs) ou aponte FRITZING_USER_PARTS.
-USER_PARTS = os.environ.get("FRITZING_USER_PARTS") or os.path.expanduser("~/Documents/Fritzing/parts")
+# No Linux o Fritzing usa a pasta XDG de documentos (ex.: ~/Documentos em pt-BR); o setup copia para as duas.
+def _xdg_documents():
+    try:
+        import subprocess; return subprocess.run(["xdg-user-dir", "DOCUMENTS"], capture_output=True, text=True, timeout=5).stdout.strip()
+    except Exception: return ""
+USER_PARTS = os.environ.get("FRITZING_USER_PARTS") or next((p for p in [os.path.expanduser("~/Documents/Fritzing/parts"), os.path.join(_xdg_documents() or "/nonexistent", "Fritzing/parts")] if os.path.isdir(os.path.join(p, "user"))), os.path.expanduser("~/Documents/Fritzing/parts"))
 
 def find_fzp(module_id):
     if module_id in _fzp_cache: return _fzp_cache[module_id]
