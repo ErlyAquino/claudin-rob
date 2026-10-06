@@ -9,11 +9,11 @@ SEM_GUI=${1:-}
 echo "=== 1/8 pacotes do sistema (apt) ==="
 sudo apt update
 sudo apt install -y git curl unzip build-essential python3 python3-venv nodejs npm \
-  libreoffice-writer libreoffice-draw poppler-utils pandoc fritzing fritzing-parts \
+  libreoffice-writer libreoffice-draw fonts-crosextra-carlito fonts-liberation poppler-utils pandoc fritzing fritzing-parts \
   mosquitto mosquitto-clients
 sudo usermod -aG dialout "$USER" || true
 if [ "$SEM_GUI" != "--sem-gui" ]; then
-  sudo apt install -y thonny putty sqlitebrowser docker.io docker-compose-plugin || true
+  sudo apt install -y thonny putty sqlitebrowser docker.io docker-compose-v2 || true
   sudo usermod -aG docker "$USER" || true
   sudo npm install -g node-red @anthropic-ai/claude-code || true
 fi
@@ -49,14 +49,21 @@ M=aula-esp32cam/python/modelos; mkdir -p "$M"
 [ -f "$M/gesture_recognizer.task" ] || curl -L -o "$M/gesture_recognizer.task" https://storage.googleapis.com/mediapipe-models/gesture_recognizer/gesture_recognizer/float16/latest/gesture_recognizer.task
 [ -f "$M/hand_landmarker.task" ]    || curl -L -o "$M/hand_landmarker.task" https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/latest/hand_landmarker.task
 [ -f "$M/haarcascade_frontalface_default.xml" ] || curl -L -o "$M/haarcascade_frontalface_default.xml" https://raw.githubusercontent.com/opencv/opencv/4.x/data/haarcascades/haarcascade_frontalface_default.xml
+[ -f "$M/face_detection_yunet_2023mar.onnx" ] || curl -L -o "$M/face_detection_yunet_2023mar.onnx" https://github.com/opencv/opencv_zoo/raw/main/models/face_detection_yunet/face_detection_yunet_2023mar.onnx
 
 echo "=== 6/8 Node: docx-js em cada gerador ==="
-for d in aula-*/gerador; do (cd "$d" && npm install --no-audit --no-fund docx@9 >/dev/null && echo "  $d ok"); done
+for d in aula-*/gerador; do (cd "$d" && { [ -f package-lock.json ] && npm ci --no-audit --no-fund >/dev/null || npm install --no-audit --no-fund docx@9 >/dev/null; } && echo "  $d ok"); done
 
 echo "=== 7/8 pecas extras do Fritzing ==="
 mkdir -p ~/Documents/Fritzing/parts
 cp -r ferramentas/fritzing/user-parts/* ~/Documents/Fritzing/parts/
 echo "  copiadas para ~/Documents/Fritzing/parts (user/ e svg/user/)"
+# O Fritzing 1.0.x le as pecas de usuario na pasta XDG de documentos (em pt-BR: ~/Documentos) - copia tambem para la
+XDG_DOCS=$(xdg-user-dir DOCUMENTS 2>/dev/null || echo "$HOME/Documents")
+if [ "$XDG_DOCS" != "$HOME/Documents" ]; then
+  mkdir -p "$XDG_DOCS/Fritzing/parts" && cp -r ferramentas/fritzing/user-parts/* "$XDG_DOCS/Fritzing/parts/"
+  echo "  copiadas tambem para $XDG_DOCS/Fritzing/parts (pasta que o Fritzing usa neste sistema)"
+fi
 
 echo "=== 8/8 verificacao rapida ==="
 bash verificar.sh || true

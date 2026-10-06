@@ -36,11 +36,12 @@ Guia-do-Professor-*). `aula-distancia/python/` e `aula-esp32cam/python/` têm os
 | `python3` (≥ 3.13 — usar o do `uv`, ver 2.3), `python3-venv` | scripts |
 | `nodejs` (≥ 18; usamos 24) + `npm` | gerador dos guias (docx-js) |
 | `libreoffice-writer`, `libreoffice-draw` | DOCX→ODT/PDF e SVG→PNG dos esquemas |
+| `fonts-crosextra-carlito`, `fonts-liberation` | **obrigatório para os guias**: Carlito tem as métricas da Calibri (fonte do corpo); o código usa Liberation Mono. Sem a Carlito o LibreOffice substitui por Noto Sans (mais larga) e toda a paginação do ODT/PDF muda |
 | `poppler-utils` (`pdftoppm`, `pdfinfo`, `pdftotext`) | conferência dos PDFs |
 | `pandoc` | leitura de DOCX (opcional) |
 | `fritzing` + `fritzing-parts` | exportar os esquemas (`fritzing --svg`); no Mint vem 0.9.3b (funciona) |
 | `mosquitto`, `mosquitto-clients` | broker MQTT das aulas de IoT |
-| `docker.io`/`docker-compose-plugin` (opcional) | InfluxDB + Grafana (`iot-stack/`) |
+| `docker.io` + `docker-compose-v2` (opcional; **não** existe `docker-compose-plugin` no apt do Ubuntu/Mint — esse nome é do repositório da Docker) | InfluxDB + Grafana (`iot-stack/`); depois `sudo usermod -aG docker $USER` e logout/login |
 | `dialout` no grupo do usuário (`sudo usermod -aG dialout $USER`) | acesso às portas seriais `/dev/ttyUSB*` / `/dev/ttyACM*` |
 | Opcionais GUI: `arduino-ide` (AppImage/flatpak), `thonny`, `putty`, `sqlitebrowser`, Node-RED (`npm i -g node-red`), Cursor, Claude Code (`npm i -g @anthropic-ai/claude-code`) | ambiente completo do laboratório |
 
@@ -60,7 +61,8 @@ Bibliotecas (`arduino-cli lib install "<nome>"`), versões usadas na compilaçã
 | Biblioteca | Versão | Aulas |
 |---|---|---|
 | ESP32Servo | 3.2.1 | servos (ESP32) |
-| Servo (core AVR), EEPROM, Preferences, WiFi, WebServer, WiFiClientSecure, HTTPClient, SD_MMC, FS, esp_camera, esp_http_server | vêm com os cores | várias |
+| Servo | 1.3.0 | servos (Uno) — **não vem com o core AVR**, instalar com `arduino-cli lib install Servo` |
+| EEPROM, Preferences, WiFi, WebServer, WiFiClientSecure, HTTPClient, SD_MMC, FS, esp_camera, esp_http_server | vêm com os cores | várias |
 | OneWire | 2.3.8 | sensores (DS18B20) |
 | DallasTemperature | 4.0.6 | sensores (DS18B20) |
 | DHT sensor library | 1.4.7 | sensores (DHT11) |
@@ -90,16 +92,23 @@ Arquivos de modelo (NÃO estão no git — o `setup-linux-mint.sh` baixa; ~17 MB
 - `gesture_recognizer.task` — https://storage.googleapis.com/mediapipe-models/gesture_recognizer/gesture_recognizer/float16/latest/gesture_recognizer.task
 - `hand_landmarker.task` — https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/latest/hand_landmarker.task
 - `haarcascade_frontalface_default.xml` — https://raw.githubusercontent.com/opencv/opencv/4.x/data/haarcascades/haarcascade_frontalface_default.xml
+- `face_detection_yunet_2023mar.onnx` — https://github.com/opencv/opencv_zoo/raw/main/models/face_detection_yunet/face_detection_yunet_2023mar.onnx
+  (o OpenCV 5 removeu `cv2.CascadeClassifier`; `reconhecer_imagem.py` usa o Haar se existir e a API estiver disponível, senão o YuNet)
 
 ### 2.4 Node (gerador dos guias)
 Em cada `aula-*/gerador/`: `npm install docx@9` (único pacote; `package.json` já aponta `docx ^9.7`). Node 18+.
 
 ### 2.5 Fritzing (esquemas)
-- App: `sudo apt install fritzing fritzing-parts` (0.9.3b) — ou a build portátil usada no Windows (GitHub fritzing-app,
-  release CD-548). O gerador chama `fritzing --svg <pasta>`; caminho ajustável por `FRITZING_BIN`.
+- App: `sudo apt install fritzing fritzing-parts` (Mint 22.x instala **1.0.1**, testado; Mint 21 traz 0.9.3b) — ou a build
+  portátil usada no Windows (GitHub fritzing-app, release CD-548). O gerador chama `fritzing --svg <pasta>`; caminho
+  ajustável por `FRITZING_BIN`. Precisa de sessão gráfica (`DISPLAY`), mesmo em modo `--svg`.
 - Biblioteca core: `/usr/share/fritzing/parts` (apt) — ajustável por `FRITZING_PARTS` (precisa das subpastas `core/` e `svg/core/`).
+  O pacote Debian do 1.0.1 copia isso para `~/.local/lib/fritzing/fritzing-parts/` na 1ª execução (não mexer lá).
 - Peças extras do curso: copie `ferramentas/fritzing/user-parts/*` para `~/Documents/Fritzing/parts/` (cria `user/` e
   `svg/user/{breadboard,schematic,pcb,icon}`) — ou aponte `FRITZING_USER_PARTS`. Já incluem o patch de `id="breadboard"` do BME680.
+  **Atenção (Linux):** o Fritzing procura as peças em `$(xdg-user-dir DOCUMENTS)/Fritzing/parts` — em sistema em português
+  isso é `~/Documentos/Fritzing/parts`. Sem a cópia lá, o export dá `module id ESP32-CAM_1 not found in database` e a peça
+  some do PNG. O `setup-linux-mint.sh` copia para as duas pastas; o `fzgen.py` também procura nas duas.
 - Conversão SVG→PNG: LibreOffice (`soffice`), ajustável por `SOFFICE_BIN`.
 
 ### 2.6 Serviços externos (só para as aulas que os usam; credenciais NUNCA no git)
@@ -131,6 +140,10 @@ Os sketches do ESP32 das aulas de sensores e ESP32-CAM precisam dos headers comu
 `camera_aithinker.h`) **dentro da pasta de cada sketch** — já estão copiados; se editar o header, copie de novo.
 
 ## 4. Convenções e armadilhas conhecidas
+- Guias no LibreOffice (Linux, 24.2): todo `spacing.line` precisa de `lineRule: LineRuleType.AUTO` (sem isso vira entrelinha
+  fixa: logos cortadas, título da capa sobreposto); o estilo `Normal` tem de ser declarado em `paragraphStyles` (o LibreOffice
+  não leva o `docDefaults` para o ODT e a entrelinha 1,15 some). Já corrigido no `lib.js` de `aula-sensores` — os `lib.js` das
+  outras aulas ainda são a versão antiga; copie o de sensores antes de regerar. Capa: logos em faixas (`ORDEM_LOGOS`, `LOGO_H`).
 - Guias: `lib.js` monta o sumário manualmente (o LibreOffice não atualiza campos TOC) e aplica quebras de página no
   título seguinte (`pageBreakBefore`), evitando páginas em branco. Figuras aceitam PNG e JPG. Logos só na capa.
 - Fritzing: pinos de trilha da protoboard pulam as colunas 8, 14, 20, … (helper `rz()`); resistores ocupam 4 colunas
