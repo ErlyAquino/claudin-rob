@@ -13,7 +13,7 @@ sudo apt install -y git curl unzip build-essential python3 python3-venv nodejs n
   mosquitto mosquitto-clients
 sudo usermod -aG dialout "$USER" || true
 if [ "$SEM_GUI" != "--sem-gui" ]; then
-  sudo apt install -y thonny putty sqlitebrowser docker.io docker-compose-v2 || true
+  sudo apt install -y thonny putty sqlitebrowser vlc docker.io docker-compose-v2 || true
   sudo usermod -aG docker "$USER" || true
   sudo npm install -g node-red @anthropic-ai/claude-code || true
 fi
@@ -50,6 +50,10 @@ M=aula-esp32cam/python/modelos; mkdir -p "$M"
 [ -f "$M/hand_landmarker.task" ]    || curl -L -o "$M/hand_landmarker.task" https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/latest/hand_landmarker.task
 [ -f "$M/haarcascade_frontalface_default.xml" ] || curl -L -o "$M/haarcascade_frontalface_default.xml" https://raw.githubusercontent.com/opencv/opencv/4.x/data/haarcascades/haarcascade_frontalface_default.xml
 [ -f "$M/face_detection_yunet_2023mar.onnx" ] || curl -L -o "$M/face_detection_yunet_2023mar.onnx" https://github.com/opencv/opencv_zoo/raw/main/models/face_detection_yunet/face_detection_yunet_2023mar.onnx
+T=aula-tapo/python/modelos; mkdir -p "$T"
+[ -f "$T/face_detection_yunet_2023mar.onnx" ] || curl -L -o "$T/face_detection_yunet_2023mar.onnx" https://media.githubusercontent.com/media/opencv/opencv_zoo/main/models/face_detection_yunet/face_detection_yunet_2023mar.onnx
+[ -f "$T/face_recognition_sface_2021dec.onnx" ] || curl -L -o "$T/face_recognition_sface_2021dec.onnx" https://media.githubusercontent.com/media/opencv/opencv_zoo/main/models/face_recognition_sface/face_recognition_sface_2021dec.onnx
+cp -n "$M/gesture_recognizer.task" "$T/" 2>/dev/null || true
 
 echo "=== 6/8 Node: docx-js em cada gerador ==="
 for d in aula-*/gerador; do (cd "$d" && { [ -f package-lock.json ] && npm ci --no-audit --no-fund >/dev/null || npm install --no-audit --no-fund docx@9 >/dev/null; } && echo "  $d ok"); done

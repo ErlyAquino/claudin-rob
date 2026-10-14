@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<svg xmlns="http://www.w3.org/2000/svg" height="34mm" id="svg16594"  version="1.1" gorn="0" width="27.00761mm" viewBox="0 0 95.696258 120.47244">
+    <desc >
+        <referenceFile >keyes_ky-019_5v_relay_module_breakout_3_300mil_pcb.svg</referenceFile>
+    </desc>
+    <defs id="defs16596" />
+    <metadata id="metadata16599" >
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            <cc:Work xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
+                <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/">image/svg+xml</dc:format>
+                <dc:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://purl.org/dc/dcmitype/StillImage" xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+                <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+            </cc:Work>
+        </rdf:RDF>
+    </metadata>
+    <g transform="translate(-226.18746,-458.58091)" >
+        <g >
+            <g >
+                <g id="silkscreen"  gorn="0.3.0.0.0">
+                    <path stroke-opacity="1" style="fill-rule:evenodd;stroke-linecap:butt;stroke-linejoin:miter;" id="path20585" stroke-width="1.0185" d="M 226.69954,579.05335 V 458.58091"  gorn="0.3.0.0.0.0" stroke="#000000" fill="none"/>
+                    <path stroke-opacity="1" style="fill-rule:evenodd;stroke-linecap:butt;stroke-linejoin:miter;" id="path20585-5" stroke-width="1.0185" d="M 321.37447,579.05335 V 458.58091"  gorn="0.3.0.0.0.1" stroke="#000000" fill="none"/>
+                    <path stroke-opacity="1" style="fill-rule:evenodd;stroke-linecap:butt;stroke-linejoin:miter;" id="path20602" stroke-width="1.01854" d="m 226.18746,459.09207 h 95.66929"  gorn="0.3.0.0.0.2" stroke="#000000" fill="none"/>
+                    <path stroke-opacity="1" style="fill-rule:evenodd;stroke-linecap:butt;stroke-linejoin:miter;" id="path20602-6" stroke-width="1.01854" d="m 226.18746,578.51791 h 95.66929"  gorn="0.3.0.0.0.3" stroke="#000000" fill="none"/>
+                    <g stroke-opacity="1" font-size="5.3125" style="font-style:normal;font-weight:normal;line-height:125%;font-family:Droid Sans;letter-spacing:0px;word-spacing:0px;stroke-linecap:butt;stroke-linejoin:miter;" id="text21167" fill-opacity="1" stroke-width="1"  gorn="0.3.0.0.0.4" stroke="none" fill="#000000" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve">
+                        <text style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:OCRA;-inkscape-font-specification:OCRA" id="tspan21169"  gorn="0.3.0.0.0.4.0" y="500.20377" x="262.7059">KY-019</text>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+    <g transform="translate(32.466023,55.678914)" >
+        <g >
+            <g >
+                <g id="copper1"  gorn="0.4.0.0.0">
+                    <g id="copper0"  gorn="0.4.0.0.0.0"/>
+                    <rect height="5.8958373" id="rect134" stroke-width="1.12416244"  gorn="0.4.0.0.0.1" stroke="#f7bd13" width="5.8958373" y="51.661449" fill="none" x="33.263805"/>
+                    <rect height="5.8958373" id="rect136" stroke-width="1.12416244"  gorn="0.4.0.0.0.2" stroke="#f7bd13" width="5.8958373" y="-41.848545" fill="none" x="-3.1861889"/>
+                    <rect height="5.8958373" id="rect142" stroke-width="1.12416244"  gorn="0.4.0.0.0.3" stroke="#f7bd13" width="5.8958373" y="-41.848545" fill="none" x="15.533808"/>
+                    <rect height="5.8958373" id="rect146" stroke-width="1.12416244"  gorn="0.4.0.0.0.4" stroke="#f7bd13" width="5.8958373" y="-41.848545" fill="none" x="34.253807"/>
+                    <circle cx="18.211729" id="connector0pin" stroke-width="1.79999936"  gorn="0.4.0.0.0.5" stroke="#f7bd13" cy="54.602444" r="2.6099992" fill="none"/>
+                    <circle cx="27.251293" id="connector1pin" stroke-width="1.79999936"  gorn="0.4.0.0.0.6" stroke="#f7bd13" cy="54.602444" r="2.6099992" fill="none"/>
+                    <circle cx="36.211723" id="connector2pin" stroke-width="1.79999936"  gorn="0.4.0.0.0.7" stroke="#f7bd13" cy="54.602444" r="2.6099992" fill="none"/>
+                    <circle cx="-0.23827238" id="connector3pin" stroke-width="1.79999936"  gorn="0.4.0.0.0.8" stroke="#f7bd13" cy="-38.900627" r="2.6099992" fill="none"/>
+                    <circle cx="18.48173" id="connector4pin" stroke-width="1.79999936"  gorn="0.4.0.0.0.9" stroke="#f7bd13" cy="-38.900627" r="2.6099992" fill="none"/>
+                    <circle cx="37.201729" id="connector5pin" stroke-width="1.79999936"  gorn="0.4.0.0.0.10" stroke="#f7bd13" cy="-38.900627" r="2.6099992" fill="none"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

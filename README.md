@@ -137,6 +137,12 @@ Pasta `aula-esp32cam/`: `codigo/` (01 foto/stream, 02 segurança PIR+SD, 03 Driv
 `modelos/` com gesture_recognizer.task, hand_landmarker.task, haarcascade); `esquemas/` (3 Fritzing + 2 figuras OpenCV); `saida/` (guias).
 Python: opencv-python 5, mediapipe 1.0 (API `tasks`), requests — no ambiente `python-dados`.
 
+## Aula: Câmera Tapo C200/TC70 (6 aulas)
+
+Pasta `aula-tapo/`: instalação/posicionamento, app, microSD × Tapo Care × NVR local (`python/tapo_gravar.py`), RTSP/ONVIF (`tapo_ver.py`),
+ESP32 atuador (`codigo/01_esp32_luzes_alerta`: relé, buzzer, RGB, botão, `luzes.local`), gestos + reconhecimento facial
+(`rostos.py`, `cadastrar_rosto.py`, `tapo_gestos_faces.py`; modelos YuNet/SFace em `python/modelos`). Guias em `saida/`.
+
 ## Pendências / manuais
 
 - **Drivers USB-serial**: se a placa não aparecer em `arduino-cli board list`, instalar

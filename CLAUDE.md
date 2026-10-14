@@ -17,15 +17,16 @@ documentado no README.md) e para saber como cada peça é regenerada.
 | `aula-distancia/` | HC-SR04, serial + Python ao vivo, buzzer, alarme de ré, ESP32 web, WhatsApp/e-mail (6 aulas) |
 | `aula-sensores/` | DS18B20, DHT11, MQ-2, MQ-135, BME680, pH-4502C — Uno e ESP32 com monitor Wi-Fi (6 aulas) |
 | `aula-esp32cam/` | ESP32-CAM OV3660: stream, PIR+SD, Drive/Telegram, OpenCV, MediaPipe gestos→LEDs (5 aulas) |
+| `aula-tapo/` | Câmera Tapo C200/TC70: instalação, app, microSD/nuvem/NVR, RTSP/ONVIF, ESP32 atuador (relé/buzzer/RGB), gestos + reconhecimento facial (6 aulas) |
 | `python-dados/` | Ambiente Python (uv) usado por TODOS os scripts Python das aulas (`pyproject.toml` + `uv.lock`) |
 | `iot-stack/` | docker-compose InfluxDB 2 + Grafana + ponte MQTT→InfluxDB (opcional, laboratório) |
-| `ferramentas/fritzing/user-parts/` | Peças Fritzing extras (ESP32 DevKit, ESP32-CAM, DHT11, BME680, módulo MQ, PIR) já corrigidas |
+| `ferramentas/fritzing/user-parts/` | Peças Fritzing extras (ESP32 DevKit, ESP32-CAM, DHT11, BME680, módulo MQ, PIR, módulo relé KY-019) já corrigidas |
 | `imagens/logos/` | Logos da capa dos guias (só na 1ª página) |
 
 Cada `aula-*/` tem: `codigo/` (sketches `.ino`, um por pasta, + headers comuns), `esquemas/` (gerador Fritzing:
 `esquemas.py`, `fzgen.py`, `fzparse.py`, `export.py` → `saida/*.fzz` e `*.png`), `gerador/` (guias: `guia-aluno.js`,
 `guia-professor.js`, `lib.js`, `gerar.js`, `converter.sh`/`.ps1`) e `saida/` (Guia-do-Aluno-*.docx/odt/pdf e
-Guia-do-Professor-*). `aula-distancia/python/` e `aula-esp32cam/python/` têm os scripts Python.
+Guia-do-Professor-*). `aula-distancia/python/`, `aula-esp32cam/python/` e `aula-tapo/python/` têm os scripts Python.
 
 ## 2. Dependências — lista completa
 
@@ -75,7 +76,7 @@ Bibliotecas (`arduino-cli lib install "<nome>"`), versões usadas na compilaçã
 | LiquidCrystal I2C, Adafruit SSD1306, Adafruit GFX Library, NewPing | 1.1.2 / 2.5.17 / 1.12.6 / 1.9.7 | extras/desafios |
 | ESP Mail Client (Mobizt) | 3.4.24 | opcional (o sketch de e-mail usa SMTP manual, sem lib) |
 
-FQBNs usados: `arduino:avr:uno`, `esp32:esp32:esp32`, `esp32:esp32:esp32cam`.
+FQBNs usados: `arduino:avr:uno`, `esp32:esp32:esp32`, `esp32:esp32:esp32cam`. (aula-tapo: `esp32:esp32:esp32`; ESPmDNS vem no core.)
 Gravar: `arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32 <pasta_do_sketch>`.
 
 ### 2.3 Python (todos os scripts) — pasta `python-dados/`, gerenciada por **uv**
@@ -94,6 +95,13 @@ Arquivos de modelo (NÃO estão no git — o `setup-linux-mint.sh` baixa; ~17 MB
 - `haarcascade_frontalface_default.xml` — https://raw.githubusercontent.com/opencv/opencv/4.x/data/haarcascades/haarcascade_frontalface_default.xml
 - `face_detection_yunet_2023mar.onnx` — https://github.com/opencv/opencv_zoo/raw/main/models/face_detection_yunet/face_detection_yunet_2023mar.onnx
   (o OpenCV 5 removeu `cv2.CascadeClassifier`; `reconhecer_imagem.py` usa o Haar se existir e a API estiver disponível, senão o YuNet)
+
+E em `aula-tapo/python/modelos/` (reconhecimento facial OpenCV, ~47 MB; o setup baixa):
+- `face_detection_yunet_2023mar.onnx` — https://media.githubusercontent.com/media/opencv/opencv_zoo/main/models/face_detection_yunet/face_detection_yunet_2023mar.onnx
+- `face_recognition_sface_2021dec.onnx` — https://media.githubusercontent.com/media/opencv/opencv_zoo/main/models/face_recognition_sface/face_recognition_sface_2021dec.onnx
+- `gesture_recognizer.task` — cópia do modelo acima (mesmo arquivo)
+
+A aula Tapo usa também: VLC (`apt install vlc`, opcional) e, para o desafio ONVIF, `uv add onvif-zeep`.
 
 ### 2.4 Node (gerador dos guias)
 Em cada `aula-*/gerador/`: `npm install docx@9` (único pacote; `package.json` já aponta `docx ^9.7`). Node 18+.

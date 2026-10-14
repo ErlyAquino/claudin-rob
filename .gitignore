@@ -9,6 +9,10 @@ __pycache__/
 aula-esp32cam/python/modelos/*.task
 aula-esp32cam/python/modelos/*.xml
 aula-esp32cam/python/modelos/*.onnx
+aula-tapo/python/modelos/*
+aula-tapo/python/rostos_cadastrados.npz
+aula-tapo/python/alertas/
+aula-tapo/python/gravacoes/
 
 # intermediarios de exportacao (regeraveis)
 aula-*/esquemas/saida/*_breadboard.svg
