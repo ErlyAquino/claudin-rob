@@ -4,7 +4,7 @@ const path = require("path");
 const {
   Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, Table, TableRow, TableCell,
   WidthType, ShadingType, BorderStyle, ImageRun, PageBreak, LevelFormat, Footer, Header, PageNumber,
-  TableOfContents, VerticalAlign,
+  TableOfContents, VerticalAlign, LineRuleType,
 } = require("docx");
 
 const COR = { primaria: "1F4E79", acento: "C55A11", cinza: "595959", fundoCod: "F2F2F2", fundoNota: "FFF4E5", fundoTab: "DEEAF6", borda: "BFBFBF" };
@@ -20,7 +20,7 @@ function runs(texto, base = {}) {
     if (m.index > last) out.push(new TextRun({ text: texto.slice(last, m.index), ...base }));
     const t = m[0];
     if (t.startsWith("**")) out.push(new TextRun({ text: t.slice(2, -2), bold: true, ...base }));
-    else out.push(new TextRun({ text: t.slice(1, -1), font: "Consolas", size: (base.size || 22) - 2, shading: { type: ShadingType.CLEAR, fill: COR.fundoCod }, ...base }));
+    else out.push(new TextRun({ text: t.slice(1, -1), font: "Liberation Mono", size: (base.size || 22) - 2, shading: { type: ShadingType.CLEAR, fill: COR.fundoCod }, ...base }));
     last = m.index + t.length;
   }
   if (last < texto.length) out.push(new TextRun({ text: texto.slice(last), ...base }));
@@ -79,8 +79,8 @@ function CODIGO(fonte, { arquivo = true, titulo } = {}) {
   const linhas = texto.replace(/\r/g, "").split("\n");
   const borda = { style: BorderStyle.SINGLE, size: 4, color: COR.borda };
   const children = [];
-  if (titulo) children.push(new Paragraph({ children: [new TextRun({ text: titulo, bold: true, font: "Consolas", size: 17, color: COR.primaria })], spacing: { after: 60 } }));
-  linhas.forEach((l) => children.push(new Paragraph({ children: [new TextRun({ text: l.replace(/\t/g, "    ") || " ", font: "Consolas", size: 16 })], spacing: { after: 0, line: 240 } })));
+  if (titulo) children.push(new Paragraph({ children: [new TextRun({ text: titulo, bold: true, font: "Liberation Mono", size: 17, color: COR.primaria })], spacing: { after: 60 } }));
+  linhas.forEach((l) => children.push(new Paragraph({ children: [new TextRun({ text: l.replace(/\t/g, "    ") || " ", font: "Liberation Mono", size: 16 })], spacing: { after: 0, line: 240, lineRule: LineRuleType.AUTO } })));
   return new Table({
     width: { size: CONTENT_W, type: WidthType.DXA }, columnWidths: [CONTENT_W],
     rows: [new TableRow({ cantSplit: false, children: [new TableCell({
@@ -105,31 +105,46 @@ function FIGURA(arquivo, legenda, larguraFrac = 1) {
 }
 
 // --- capa com logos ---
+// Logos em "faixas": cada linha tem logos da mesma altura (LOGO_H pt); logos largas sao limitadas a LOGO_WMAX pt.
+// Ordem preferida (as demais entram em ordem alfabetica no fim); linhas preenchidas em sequencia ate caber na largura.
+const ORDEM_LOGOS = ["logo espaco cria", "ete", "nct", "seepe", "facepe"];
+const LOGO_H = 96, LOGO_WMAX = 210, LOGO_GAP = 28;
 function CAPA({ logosDir, titulo, subtitulo, tipo, info }) {
   numFig = 0;   // numeracao de figuras por documento
   titulos = []; quebraPendente = false;
-  const arquivos = fs.readdirSync(logosDir).filter((f) => /\.(png|jpe?g)$/i.test(f)).sort();
-  // todas as logos ocupam a mesma caixa (CAIXA_W x CAIXA_H pt), mantendo a proporcao de cada uma
-  const n = Math.max(1, arquivos.length);
-  const CAIXA_W = Math.floor((CONTENT_W / 20) / n) - 12, CAIXA_H = 84;
-  const imgs = arquivos.map((f) => {
+  const pos = (f) => { const i = ORDEM_LOGOS.indexOf(f.replace(/\.(png|jpe?g)$/i, "").toLowerCase()); return i < 0 ? 99 : i; };
+  const arquivos = fs.readdirSync(logosDir).filter((f) => /\.(png|jpe?g)$/i.test(f)).sort((a, b) => pos(a) - pos(b) || a.localeCompare(b));
+  const logos = arquivos.map((f) => {
     const buf = fs.readFileSync(path.join(logosDir, f));
     const { w, h } = dimensoesPng(buf);
-    const k = Math.min(CAIXA_W / w, CAIXA_H / h);
-    return new ImageRun({ type: /png$/i.test(f) ? "png" : "jpg", data: buf, transformation: { width: Math.round(w * k), height: Math.round(h * k) } });
+    const k = Math.min(LOGO_H / h, LOGO_WMAX / w);
+    return { f, buf, width: Math.round(w * k), height: Math.round(h * k) };
   });
+  // distribui em linhas (largura em pt)
+  const LARG = CONTENT_W / 20;
+  const linhas = [[]];
+  for (const lg of logos) {
+    const atual = linhas[linhas.length - 1];
+    const usado = atual.reduce((a, l) => a + l.width, 0) + atual.length * LOGO_GAP;
+    if (atual.length && usado + lg.width > LARG) linhas.push([lg]); else atual.push(lg);
+  }
   const semBorda = { style: BorderStyle.NONE, size: 0, color: "FFFFFF" };
   const bordas = { top: semBorda, bottom: semBorda, left: semBorda, right: semBorda };
-  const wCel = Math.round(CONTENT_W / Math.max(1, imgs.length));
-  const tabelaLogos = new Table({
-    width: { size: CONTENT_W, type: WidthType.DXA }, columnWidths: imgs.map(() => wCel),
-    rows: [new TableRow({ children: imgs.map((im) => new TableCell({ width: { size: wCel, type: WidthType.DXA }, borders: bordas, verticalAlign: VerticalAlign.CENTER,
-      children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [im] })] })) })],
+  const tabelas = linhas.map((ln) => {
+    const wCel = Math.round(CONTENT_W / ln.length);
+    return new Table({
+      width: { size: CONTENT_W, type: WidthType.DXA }, columnWidths: ln.map(() => wCel),
+      rows: [new TableRow({ height: { value: (LOGO_H + 16) * 20, rule: "atLeast" }, children: ln.map((lg) => new TableCell({
+        width: { size: wCel, type: WidthType.DXA }, borders: bordas, verticalAlign: VerticalAlign.CENTER,
+        margins: { top: 100, bottom: 100, left: 60, right: 60 },
+        children: [new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 0 }, children: [
+          new ImageRun({ type: /png$/i.test(lg.f) ? "png" : "jpg", data: lg.buf, transformation: { width: lg.width, height: lg.height } })] })] })) })],
+    });
   });
   const linha = new Paragraph({ border: { bottom: { style: BorderStyle.SINGLE, size: 12, color: COR.acento, space: 4 } }, spacing: { after: 200 }, children: [] });
   return [
-    tabelaLogos,
-    ESPACO(70),
+    ...tabelas.flatMap((t, i) => (i < tabelas.length - 1 ? [t, ESPACO(6)] : [t])),
+    ESPACO(40),
     new Paragraph({ alignment: AlignmentType.LEFT, spacing: { after: 120 }, children: [new TextRun({ text: tipo.toUpperCase(), bold: true, color: COR.acento, size: 26, characterSpacing: 40 })] }),
     new Paragraph({ alignment: AlignmentType.LEFT, spacing: { after: 160 }, children: [new TextRun({ text: titulo, bold: true, color: COR.primaria, size: 60 })] }),
     new Paragraph({ alignment: AlignmentType.LEFT, spacing: { after: 240 }, children: [new TextRun({ text: subtitulo, color: COR.cinza, size: 30 })] }),
@@ -157,8 +172,10 @@ function DOC({ titulo, rodape, corpo }) {
   return new Document({
     creator: "Espaço Cria", title: titulo,
     styles: {
-      default: { document: { run: { font: "Calibri", size: 22 }, paragraph: { spacing: { line: 276 } } } },
+      default: { document: { run: { font: "Calibri", size: 22 }, paragraph: { spacing: { line: 276, lineRule: LineRuleType.AUTO } } } },
       paragraphStyles: [
+        // "Normal" explicito: o LibreOffice nao exporta o docDefaults para o ODT; sem isto o ODT perde a entrelinha de 1,15
+        { id: "Normal", name: "Normal", quickFormat: true, run: { font: "Calibri", size: 22 }, paragraph: { spacing: { line: 276, lineRule: LineRuleType.AUTO } } },
         { id: "Heading1", name: "Heading 1", basedOn: "Normal", next: "Normal", quickFormat: true, run: { size: 34, bold: true, color: COR.primaria, font: "Calibri" }, paragraph: { outlineLevel: 0, spacing: { before: 360, after: 160 } } },
         { id: "Heading2", name: "Heading 2", basedOn: "Normal", next: "Normal", quickFormat: true, run: { size: 27, bold: true, color: COR.acento, font: "Calibri" }, paragraph: { outlineLevel: 1, spacing: { before: 280, after: 120 } } },
         { id: "Heading3", name: "Heading 3", basedOn: "Normal", next: "Normal", quickFormat: true, run: { size: 23, bold: true, color: COR.primaria, font: "Calibri" }, paragraph: { outlineLevel: 2, spacing: { before: 200, after: 80 } } },
