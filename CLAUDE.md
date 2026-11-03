@@ -1,6 +1,6 @@
 # claudin-rob — kit de aulas de Arduino/ESP32/IoT (Espaço Cria)
 
-Repositório com 5 sequências didáticas completas (sketches compilados, esquemas Fritzing, scripts Python e guias
+Repositório com 7 sequências didáticas completas (sketches compilados, esquemas Fritzing, scripts Python e guias
 Aluno/Professor em DOCX/ODT/PDF) e um gerador reproduzível para tudo isso. Este arquivo é a referência para
 **instalar todas as dependências em outra máquina** (o alvo principal é **Linux Mint**; o Windows original está
 documentado no README.md) e para saber como cada peça é regenerada.
@@ -17,10 +17,11 @@ documentado no README.md) e para saber como cada peça é regenerada.
 | `aula-distancia/` | HC-SR04, serial + Python ao vivo, buzzer, alarme de ré, ESP32 web, WhatsApp/e-mail (6 aulas) |
 | `aula-sensores/` | DS18B20, DHT11, MQ-2, MQ-135, BME680, pH-4502C — Uno e ESP32 com monitor Wi-Fi (6 aulas) |
 | `aula-esp32cam/` | ESP32-CAM OV3660: stream, PIR+SD, Drive/Telegram, OpenCV, MediaPipe gestos→LEDs (5 aulas) |
+| `aula-ar/` | Qualidade do ar: DHT11 (módulo 3 pinos), DHT22/AM2302, MQ-2, MQ-135, MH-Z19B — teste individual Uno/ESP32 + monitor completo (Uno via gateway USB, ESP32 via CriaTelemetria → painel da telemetria-cria) |
 | `aula-tapo/` | Câmera Tapo C200/TC70: instalação, app, microSD/nuvem/NVR, RTSP/ONVIF, ESP32 atuador (relé/buzzer/RGB), gestos + reconhecimento facial (6 aulas) |
 | `python-dados/` | Ambiente Python (uv) usado por TODOS os scripts Python das aulas (`pyproject.toml` + `uv.lock`) |
 | `iot-stack/` | docker-compose InfluxDB 2 + Grafana + ponte MQTT→InfluxDB (opcional, laboratório) |
-| `ferramentas/fritzing/user-parts/` | Peças Fritzing extras (ESP32 DevKit, ESP32-CAM, DHT11, BME680, módulo MQ, PIR, módulo relé KY-019) já corrigidas |
+| `ferramentas/fritzing/user-parts/` | Peças Fritzing extras (ESP32 DevKit, ESP32-CAM, DHT11, BME680, módulo MQ, PIR, módulo relé KY-019, e `cria_dht11_mod3`, `cria_dht22_fios`, `cria_mhz19b` geradas por `ferramentas/fritzing/gerar_pecas_ar.py`) |
 | `imagens/logos/` | Logos da capa dos guias (só na 1ª página) |
 
 Cada `aula-*/` tem: `codigo/` (sketches `.ino`, um por pasta, + headers comuns), `esquemas/` (gerador Fritzing:
@@ -75,8 +76,9 @@ Bibliotecas (`arduino-cli lib install "<nome>"`), versões usadas na compilaçã
 | ArduinoJson | 7.4.3 | desafios |
 | LiquidCrystal I2C, Adafruit SSD1306, Adafruit GFX Library, NewPing | 1.1.2 / 2.5.17 / 1.12.6 / 1.9.7 | extras/desafios |
 | ESP Mail Client (Mobizt) | 3.4.24 | opcional (o sketch de e-mail usa SMTP manual, sem lib) |
+| CriaTelemetria | 0.2.0 | aula-ar 06b — não está no gerenciador: `ln -s /dados/Projetos/telemetria-cria/firmware/biblioteca-cria ~/Arduino/libraries/CriaTelemetria` (depende de PubSubClient). O MH-Z19B e os MQ da aula-ar não usam biblioteca (protocolo e contas no sketch) |
 
-FQBNs usados: `arduino:avr:uno`, `esp32:esp32:esp32`, `esp32:esp32:esp32cam`. (aula-tapo: `esp32:esp32:esp32`; ESPmDNS vem no core.)
+FQBNs usados: `arduino:avr:uno`, `esp32:esp32:esp32`, `esp32:esp32:esp32cam`, `esp32:esp32:esp32doit-devkit-v1` (nó da telemetria, aula-ar 06b; precisa de `credenciais.h` copiado de `credenciais.exemplo.h`, fora do git). (aula-tapo: `esp32:esp32:esp32`; ESPmDNS vem no core.)
 Gravar: `arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32 <pasta_do_sketch>`.
 
 ### 2.3 Python (todos os scripts) — pasta `python-dados/`, gerenciada por **uv**

@@ -36,6 +36,14 @@ for lib in "ESP32Servo" "OneWire" "DallasTemperature" "DHT sensor library" "Adaf
            "Adafruit SSD1306" "Adafruit GFX Library" "NewPing" "Servo" "ESP Mail Client"; do
   arduino-cli lib install "$lib" || echo "  (falhou: $lib)"
 done
+# CriaTelemetria (aula-ar 06b): biblioteca do projeto telemetria-cria, nao esta no gerenciador.
+# Ajuste TELEMETRIA_CRIA se o repositorio estiver em outro lugar.
+TELEMETRIA_CRIA="${TELEMETRIA_CRIA:-$(dirname "$PWD")/telemetria-cria}"
+if [ -d "$TELEMETRIA_CRIA/firmware/biblioteca-cria" ]; then
+  mkdir -p ~/Arduino/libraries && ln -sfn "$TELEMETRIA_CRIA/firmware/biblioteca-cria" ~/Arduino/libraries/CriaTelemetria && echo "  CriaTelemetria -> $TELEMETRIA_CRIA"
+else
+  echo "  (telemetria-cria nao encontrado em $TELEMETRIA_CRIA: clone-o ao lado deste repositorio para compilar a aula-ar 06b)"
+fi
 
 echo "=== 4/8 uv + ambiente Python (python-dados) ==="
 if ! command -v uv >/dev/null; then

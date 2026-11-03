@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.2" width="1.400in" height="1.000in" viewBox="0 0 1400 1000">
+<g id="silkscreen"><rect x="10" y="10" width="1380" height="980" fill="none" stroke="#000" stroke-width="10"/></g>
+<g id="copper0">
+<circle id="connector0pin" cx="500" cy="930" r="38" fill="none" stroke="#f7bd13" stroke-width="20"/>
+<circle id="connector1pin" cx="600" cy="930" r="38" fill="none" stroke="#f7bd13" stroke-width="20"/>
+<circle id="connector2pin" cx="700" cy="930" r="38" fill="none" stroke="#f7bd13" stroke-width="20"/>
+<circle id="connector3pin" cx="800" cy="930" r="38" fill="none" stroke="#f7bd13" stroke-width="20"/>
+<circle id="connector4pin" cx="900" cy="930" r="38" fill="none" stroke="#f7bd13" stroke-width="20"/>
+</g>
+<g id="copper1">
+<circle id="connector0pin" cx="500" cy="930" r="38" fill="none" stroke="#f7bd13" stroke-width="20"/>
+<circle id="connector1pin" cx="600" cy="930" r="38" fill="none" stroke="#f7bd13" stroke-width="20"/>
+<circle id="connector2pin" cx="700" cy="930" r="38" fill="none" stroke="#f7bd13" stroke-width="20"/>
+<circle id="connector3pin" cx="800" cy="930" r="38" fill="none" stroke="#f7bd13" stroke-width="20"/>
+<circle id="connector4pin" cx="900" cy="930" r="38" fill="none" stroke="#f7bd13" stroke-width="20"/>
+</g>
+</svg>

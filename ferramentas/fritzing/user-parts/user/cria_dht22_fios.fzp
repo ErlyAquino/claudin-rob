@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module moduleId="cria_dht22_fios" fritzingVersion="0.9.4">
+ <version>1</version>
+ <author>Espaço Cria (gerar_pecas_ar.py)</author>
+ <title>DHT22 / AM2302 com 3 fios (vermelho, amarelo, preto)</title>
+ <label>DHT</label>
+ <date>2026-11-03</date>
+ <tags><tag>cria</tag><tag>qualidade do ar</tag></tags>
+ <properties><property name="family">cria_dht22_fios</property><property name="variant">variant 1</property></properties>
+ <description>DHT22 (AM2302) com cabo: vermelho = VCC, amarelo = dados, preto = GND. A versão com cabo já tem o pull-up interno.</description>
+ <views>
+  <iconView><layers image="icon/cria_dht22_fios_icon.svg"><layer layerId="icon"/></layers></iconView>
+  <breadboardView><layers image="breadboard/cria_dht22_fios_breadboard.svg"><layer layerId="breadboard"/></layers></breadboardView>
+  <schematicView><layers image="schematic/cria_dht22_fios_schematic.svg"><layer layerId="schematic"/></layers></schematicView>
+  <pcbView><layers image="pcb/cria_dht22_fios_pcb.svg"><layer layerId="silkscreen"/><layer layerId="copper0"/><layer layerId="copper1"/></layers></pcbView>
+ </views>
+ <connectors>
+  <connector id="connector0" type="male" name="VCC">
+   <description>fio vermelho, 3,3–6 V</description>
+   <views>
+    <breadboardView><p layer="breadboard" svgId="connector0pin"/></breadboardView>
+    <schematicView><p layer="schematic" svgId="connector0pin" terminalId="connector0terminal"/></schematicView>
+    <pcbView><p layer="copper0" svgId="connector0pin"/><p layer="copper1" svgId="connector0pin"/></pcbView>
+   </views>
+  </connector>
+  <connector id="connector1" type="male" name="DATA">
+   <description>fio amarelo, dados</description>
+   <views>
+    <breadboardView><p layer="breadboard" svgId="connector1pin"/></breadboardView>
+    <schematicView><p layer="schematic" svgId="connector1pin" terminalId="connector1terminal"/></schematicView>
+    <pcbView><p layer="copper0" svgId="connector1pin"/><p layer="copper1" svgId="connector1pin"/></pcbView>
+   </views>
+  </connector>
+  <connector id="connector2" type="male" name="GND">
+   <description>fio preto, terra</description>
+   <views>
+    <breadboardView><p layer="breadboard" svgId="connector2pin"/></breadboardView>
+    <schematicView><p layer="schematic" svgId="connector2pin" terminalId="connector2terminal"/></schematicView>
+    <pcbView><p layer="copper0" svgId="connector2pin"/><p layer="copper1" svgId="connector2pin"/></pcbView>
+   </views>
+  </connector>
+ </connectors>
+</module>
