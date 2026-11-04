@@ -33,7 +33,7 @@ arduino-cli core install esp32:esp32
 echo "=== 3/8 bibliotecas Arduino ==="
 for lib in "ESP32Servo" "OneWire" "DallasTemperature" "DHT sensor library" "Adafruit Unified Sensor" "Adafruit BusIO" \
            "Adafruit BME680 Library" "MQUnifiedsensor" "PubSubClient" "ArduinoJson" "LiquidCrystal I2C" \
-           "Adafruit SSD1306" "Adafruit GFX Library" "NewPing" "Servo" "ESP Mail Client"; do
+           "Adafruit SSD1306" "Adafruit GFX Library" "NewPing" "Servo" "ESP Mail Client" "Adafruit ADS1X15"; do
   arduino-cli lib install "$lib" || echo "  (falhou: $lib)"
 done
 # CriaTelemetria (aula-ar 06b): biblioteca do projeto telemetria-cria, nao esta no gerenciador.

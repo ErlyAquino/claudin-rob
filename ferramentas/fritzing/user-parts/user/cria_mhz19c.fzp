@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module moduleId="cria_mhz19c" fritzingVersion="0.9.4">
+ <version>1</version>
+ <author>Espaço Cria (gerar_pecas_ar.py)</author>
+ <title>MH-Z19C sensor de CO2 (NDIR), 9 pinos</title>
+ <label>CO2</label>
+ <date>2026-11-03</date>
+ <tags><tag>cria</tag><tag>qualidade do ar</tag></tags>
+ <properties><property name="family">cria_mhz19c</property><property name="variant">variant 1</property></properties>
+ <description>Sensor de CO2 por infravermelho não dispersivo (Winsen MH-Z19C, manual v1.2): 5,0 V ±0,1 V, UART 9600 baud e PWM com nível de 3,3 V, aquece em 1 min. Pinos reais em duas fileiras: HD SR Tx Rx Vo | PWM AOT GND Vin.</description>
+ <views>
+  <iconView><layers image="icon/cria_mhz19c_icon.svg"><layer layerId="icon"/></layers></iconView>
+  <breadboardView><layers image="breadboard/cria_mhz19c_breadboard.svg"><layer layerId="breadboard"/></layers></breadboardView>
+  <schematicView><layers image="schematic/cria_mhz19c_schematic.svg"><layer layerId="schematic"/></layers></schematicView>
+  <pcbView><layers image="pcb/cria_mhz19c_pcb.svg"><layer layerId="silkscreen"/><layer layerId="copper0"/><layer layerId="copper1"/></layers></pcbView>
+ </views>
+ <connectors>
+  <connector id="connector0" type="male" name="HD">
+   <description>calibração do zero: 0 V por mais de 7 s (não ligar)</description>
+   <views>
+    <breadboardView><p layer="breadboard" svgId="connector0pin"/></breadboardView>
+    <schematicView><p layer="schematic" svgId="connector0pin" terminalId="connector0terminal"/></schematicView>
+    <pcbView><p layer="copper0" svgId="connector0pin"/><p layer="copper1" svgId="connector0pin"/></pcbView>
+   </views>
+  </connector>
+  <connector id="connector1" type="male" name="SR">
+   <description>reservado</description>
+   <views>
+    <breadboardView><p layer="breadboard" svgId="connector1pin"/></breadboardView>
+    <schematicView><p layer="schematic" svgId="connector1pin" terminalId="connector1terminal"/></schematicView>
+    <pcbView><p layer="copper0" svgId="connector1pin"/><p layer="copper1" svgId="connector1pin"/></pcbView>
+   </views>
+  </connector>
+  <connector id="connector2" type="male" name="Tx">
+   <description>UART TXD (sensor fala), 3,3 V</description>
+   <views>
+    <breadboardView><p layer="breadboard" svgId="connector2pin"/></breadboardView>
+    <schematicView><p layer="schematic" svgId="connector2pin" terminalId="connector2terminal"/></schematicView>
+    <pcbView><p layer="copper0" svgId="connector2pin"/><p layer="copper1" svgId="connector2pin"/></pcbView>
+   </views>
+  </connector>
+  <connector id="connector3" type="male" name="Rx">
+   <description>UART RXD (sensor ouve), 3,3 V</description>
+   <views>
+    <breadboardView><p layer="breadboard" svgId="connector3pin"/></breadboardView>
+    <schematicView><p layer="schematic" svgId="connector3pin" terminalId="connector3terminal"/></schematicView>
+    <pcbView><p layer="copper0" svgId="connector3pin"/><p layer="copper1" svgId="connector3pin"/></pcbView>
+   </views>
+  </connector>
+  <connector id="connector4" type="male" name="Vo">
+   <description>reservado</description>
+   <views>
+    <breadboardView><p layer="breadboard" svgId="connector4pin"/></breadboardView>
+    <schematicView><p layer="schematic" svgId="connector4pin" terminalId="connector4terminal"/></schematicView>
+    <pcbView><p layer="copper0" svgId="connector4pin"/><p layer="copper1" svgId="connector4pin"/></pcbView>
+   </views>
+  </connector>
+  <connector id="connector5" type="male" name="PWM">
+   <description>saída PWM (ciclo 1004 ms)</description>
+   <views>
+    <breadboardView><p layer="breadboard" svgId="connector5pin"/></breadboardView>
+    <schematicView><p layer="schematic" svgId="connector5pin" terminalId="connector5terminal"/></schematicView>
+    <pcbView><p layer="copper0" svgId="connector5pin"/><p layer="copper1" svgId="connector5pin"/></pcbView>
+   </views>
+  </connector>
+  <connector id="connector6" type="male" name="AOT">
+   <description>saída analógica 0,4–2 V (não documentada no manual)</description>
+   <views>
+    <breadboardView><p layer="breadboard" svgId="connector6pin"/></breadboardView>
+    <schematicView><p layer="schematic" svgId="connector6pin" terminalId="connector6terminal"/></schematicView>
+    <pcbView><p layer="copper0" svgId="connector6pin"/><p layer="copper1" svgId="connector6pin"/></pcbView>
+   </views>
+  </connector>
+  <connector id="connector7" type="male" name="GND">
+   <description>terra</description>
+   <views>
+    <breadboardView><p layer="breadboard" svgId="connector7pin"/></breadboardView>
+    <schematicView><p layer="schematic" svgId="connector7pin" terminalId="connector7terminal"/></schematicView>
+    <pcbView><p layer="copper0" svgId="connector7pin"/><p layer="copper1" svgId="connector7pin"/></pcbView>
+   </views>
+  </connector>
+  <connector id="connector8" type="male" name="Vin">
+   <description>alimentação 5,0 V ±0,1 V (pico 125 mA)</description>
+   <views>
+    <breadboardView><p layer="breadboard" svgId="connector8pin"/></breadboardView>
+    <schematicView><p layer="schematic" svgId="connector8pin" terminalId="connector8terminal"/></schematicView>
+    <pcbView><p layer="copper0" svgId="connector8pin"/><p layer="copper1" svgId="connector8pin"/></pcbView>
+   </views>
+  </connector>
+ </connectors>
+</module>

@@ -1,7 +1,7 @@
 """Esquemas de montagem (Fritzing) da aula de qualidade do ar: 5 sensores x (Uno, ESP32) + monitor completo.
 python esquemas.py            -> saida/*.fzz + *.png  (precisa de sessao grafica para o Fritzing)
 python esquemas.py --sem-export -> so os .fzz
-Pecas novas (DHT11 3 pinos, DHT22 3 fios, MH-Z19B): ferramentas/fritzing/gerar_pecas_ar.py"""
+Pecas novas (DHT11 3 pinos, DHT22 3 fios, MH-Z19C, ADS1115): ferramentas/fritzing/gerar_pecas_ar.py e gerar_pecas_agua.py"""
 import os, sys, math
 from fzgen import *
 from export import export
@@ -12,7 +12,8 @@ RES, RGB = "ResistorModuleID", "d4d5af9700923b8a114f57961f29a8a0"
 DHT11 = "cria_dht11_mod3"        # c0 VCC, c1 DATA, c2 GND
 DHT22 = "cria_dht22_fios"        # c0 VCC (vermelho), c1 DATA (amarelo), c2 GND (preto)
 MQ = "MQ-5_1"                    # c0 VCC, c1 GND, c2 DO, c3 AO
-MHZ = "cria_mhz19b"              # c0 Vin, c1 GND, c2 RX, c3 TX, c4 PWM
+MHZ = "cria_mhz19c"              # c0 HD, c1 SR, c2 Tx, c3 Rx, c4 Vo, c5 PWM, c6 AOT, c7 GND, c8 Vin (9 pinos; SR/Vo reservados)
+ADS = "cria_ads1115"             # c0 VDD c1 GND c2 SCL c3 SDA c4 ADDR c5 ALRT c6 A0 c7 A1 c8 A2 c9 A3
 LARANJA_3V3 = "#ff7033"
 
 def rz(col): return col + 1 if col % 6 == 2 else col      # trilhas pulam as colunas 8, 14, 20...
@@ -80,20 +81,33 @@ def mq(sk, placa, bb, nome, col, ao, do=None, divisor=False):
     if divisor: divisor_desce(sk, bb, col + 3, placa, ao)
     else: sk.wire(bb, f"pin{col+3}H", placa, ao, AMARELO)
 
-def mhz19b(sk, placa, bb, col, rx_placa, tx_placa, divisor_rx):
-    """rx_placa recebe do TX do sensor; tx_placa vai ao RX do sensor (pelo divisor 1k/2k no Uno)."""
-    montar(sk, bb, MHZ, "MH-Z19B", col, 5)
-    sk.wire(bb, f"pin{col}F", bb, f"pin{rz(col)}X", VERMELHO)            # Vin 5 V
-    sk.wire(bb, f"pin{col+1}F", bb, f"pin{rz(col+1)}W", PRETO)          # GND
-    sk.wire(bb, f"pin{col+3}F", placa, rx_placa, VERDE)                # TX do sensor -> RX da placa
-    rx = col + 2
-    if divisor_rx:                                                     # TX da placa (5 V) -> 1 k -> RX -> 2 k -> GND
-        resistor(sk, bb, "1k", "1 kΩ", rx, "G")                        # RX (rx) a coluna livre rx+4
-        resistor(sk, bb, "2k", "2 kΩ", rx - 4, "H", rx)                # coluna livre rx-4 a RX
-        sk.wire(bb, f"pin{rx-4}F", bb, f"pin{rz(rx-4)}W", PRETO)
-        sk.wire(bb, f"pin{rx+4}I", placa, tx_placa, AZUL)
+def mhz19c(sk, placa, bb, col, rx_placa, tx_placa, divisor_rx):
+    """MH-Z19C (9 pinos). rx_placa recebe do Tx do sensor; tx_placa vai ao Rx do sensor (pelo divisor 1k/2k no Uno).
+    Vin = col+8, GND = col+7, Tx = col+2, Rx = col+3. SR, Vo, HD, PWM e AOT ficam livres."""
+    montar(sk, bb, MHZ, "MH-Z19C", col, 9)
+    sk.wire(bb, f"pin{col+8}F", bb, f"pin{rz(col+8)}X", VERMELHO)          # Vin 5 V
+    sk.wire(bb, f"pin{col+7}F", bb, f"pin{rz(col+7)}W", PRETO)            # GND
+    sk.wire(bb, f"pin{col+2}G", placa, rx_placa, VERDE)                  # Tx do sensor -> RX da placa
+    rx = col + 3
+    if divisor_rx:                                                       # TX da placa (5 V) -> 1 k -> Rx -> 2 k -> GND, na metade de baixo
+        sk.wire(bb, f"pin{rx}F", bb, f"pin{rx}E", AZUL)                  # coluna do Rx desce para a metade de baixo
+        resistor(sk, bb, "1k", "1 kΩ", rx, "D")                          # Rx (rx) ... no (rx+4)
+        resistor(sk, bb, "2k", "2 kΩ", rx + 4, "C")                      # no ... rx+8 -> GND
+        sk.wire(bb, f"pin{rx+8}A", bb, f"pin{rz(rx+8)}W", PRETO)
+        sk.wire(bb, f"pin{rx+4}B", placa, tx_placa, AZUL)
     else:
         sk.wire(bb, f"pin{rx}G", placa, tx_placa, AZUL)
+mhz19b = mhz19c   # nome antigo
+
+def ads(sk, esp, bb, col):
+    """ADS1115 em 3,3 V: VDD <- 3V3, GND, SCL <- D22, SDA <- D21, ADDR -> GND (0x48). Devolve a coluna do A0."""
+    montar(sk, bb, ADS, "ADS1115", col, 10)
+    sk.wire(esp, "3V3", bb, f"pin{col}G", LARANJA_3V3)
+    sk.wire(bb, f"pin{col+1}F", bb, f"pin{rz(col+1)}W", PRETO)
+    sk.wire(bb, f"pin{col+2}H", esp, "D22", VERDE)
+    sk.wire(bb, f"pin{col+3}I", esp, "D21", AZUL)
+    sk.wire(bb, f"pin{col+4}F", bb, f"pin{rz(col+4)}W", PRETO)
+    return col + 6
 
 def rgb(sk, placa, pinos, bb, col):
     """RGB catodo comum: R(col) K(col+1) G(col+2) B(col+3) na linha F; 220 R nos anodos ate col+4.."""
@@ -115,12 +129,19 @@ def e_mq_uno(nome, arq):  sk, u, bb = base_uno(); mq(sk, u, bb, nome, 10, "A0", 
 def e_mq_esp(nome, arq):  sk, e, bb = base_esp32(alim="VIN"); mq(sk, e, bb, nome, 10, "D34", divisor=True); return sk.save(SAIDA, arq)
 def e3():  return e_mq_uno("MQ-2", "03_mq2_uno")
 def e3b(): return e_mq_esp("MQ-2", "03b_mq2_esp32")
+def e3c():
+    """MQ-2 lido pelo ADS1115 (3,3 V): AO -> divisor 1k/2k -> A0"""
+    sk, e, bb = base_esp32(alim="VIN"); a0 = ads(sk, e, bb, 2)
+    montar(sk, bb, MQ, "MQ-2", 30, 4)
+    sk.wire(bb, "pin30F", bb, "pin30X", VERMELHO); sk.wire(bb, "pin31F", bb, "pin31W", PRETO)
+    divisor_desce(sk, bb, 33, bb, f"pin{a0}I")
+    return sk.save(SAIDA, "03c_mq2_esp32_ads1115")
 def e4():  return e_mq_uno("MQ-135", "04_mq135_uno")
 def e4b(): return e_mq_esp("MQ-135", "04b_mq135_esp32")
 
-# ---------- 5: MH-Z19B ----------
-def e5():  sk, u, bb = base_uno(); mhz19b(sk, u, bb, 8, "D10 PWM/SS", "D11 PWM/MOSI", True); return sk.save(SAIDA, "05_mhz19b_uno")
-def e5b(): sk, e, bb = base_esp32(alim="VIN"); mhz19b(sk, e, bb, 10, "RX2", "TX2", False); return sk.save(SAIDA, "05b_mhz19b_esp32")
+# ---------- 5: MH-Z19C ----------
+def e5():  sk, u, bb = base_uno(); mhz19b(sk, u, bb, 8, "D10 PWM/SS", "D11 PWM/MOSI", True); return sk.save(SAIDA, "05_mhz19c_uno")
+def e5b(): sk, e, bb = base_esp32(alim="VIN"); mhz19b(sk, e, bb, 10, "RX2", "TX2", False); return sk.save(SAIDA, "05b_mhz19c_esp32")
 
 # ---------- 6: monitor completo ----------
 def e6():
@@ -143,7 +164,7 @@ def e6b():
     rgb(sk, e, ["D25", "D26", "D27"], bb, prox + 1)
     return sk.save(SAIDA, "06b_monitor_ar_esp32")
 
-TODOS = (e1, e1b, e2, e2b, e3, e3b, e4, e4b, e5, e5b, e6, e6b)
+TODOS = (e1, e1b, e2, e2b, e3, e3b, e3c, e4, e4b, e5, e5b, e6, e6b)
 if __name__ == "__main__":
     os.makedirs(SAIDA, exist_ok=True)
     for f in os.listdir(SAIDA): os.remove(os.path.join(SAIDA, f))

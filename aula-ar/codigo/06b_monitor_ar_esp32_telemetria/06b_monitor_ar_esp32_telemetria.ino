@@ -7,7 +7,7 @@
   catalogo (telemetria-cria/mqtt/catalogo-topicos.md, secao 4.1):
      cria/ar/<no>/temperatura   C       DHT22
      cria/ar/<no>/umidade       %       DHT22
-     cria/ar/<no>/co2           ppm     MH-Z19B (depois de 3 min de aquecimento)
+     cria/ar/<no>/co2           ppm     MH-Z19C (depois de 1 min de aquecimento)
      cria/ar/<no>/mq2           Rs/R0   MQ-2   (depois do aquecimento e com R0 medido)
      cria/ar/<no>/mq135         Rs/R0   MQ-135 (idem)
   O servidor grava no InfluxDB e o painel web mostra tudo ao vivo, sem mudar nada no servidor.
@@ -19,7 +19,7 @@
     DHT11 (modulo 3 pinos)  + -> 3V3          DATA (meio) -> GPIO 13   - -> GND
     MQ-2                    VCC -> VIN (5 V)  GND -> GND   AO -> 1 k -> GPIO 34 -> 2 k -> GND
     MQ-135                  VCC -> VIN (5 V)  GND -> GND   AO -> 1 k -> GPIO 35 -> 2 k -> GND
-    MH-Z19B                 Vin -> VIN (5 V)  GND -> GND   TX -> GPIO 16 (RX2)   RX -> GPIO 17 (TX2)
+    MH-Z19C                 Vin -> VIN (5 V)  GND -> GND   TX -> GPIO 16 (RX2)   RX -> GPIO 17 (TX2)
     LED RGB catodo comum    R -> 220 R -> GPIO 25   G -> 220 R -> GPIO 26   B -> 220 R -> GPIO 27
   GPIO 21 e 22 ficam livres para o I2C, como manda o projeto. GPIO 34/35 sao do ADC1 (o ADC2 nao
   funciona com o Wi-Fi ligado).
@@ -58,7 +58,7 @@ const float R0_MQ2_KOHM = 0.0, R0_MQ135_KOHM = 0.0;   // ar limpo, medido por vo
 const float LIMIAR_GAS_MQ2 = 0.5;
 
 const int FAIXA_CO2_PPM = 5000;
-const uint32_t PREAQUECIMENTO_CO2_MS = 3UL * 60 * 1000;
+const uint32_t PREAQUECIMENTO_CO2_MS = 1UL * 60 * 1000;   // MH-Z19C: 1 min
 const uint32_t PREAQUECIMENTO_MQ_MS = 10UL * 60 * 1000;
 const uint32_t MENOR_MV = 150, MAIOR_MV = 2450;      // faixa confiavel do ADC (11 dB)
 // ----------------------------------------------------------------------
@@ -118,7 +118,7 @@ void atualizarLed() {
   if (gasDetectado)        cor(piscaAceso, 0, 0);       // gas: vermelho piscando
   else if (!no.conectado()) cor(piscaAceso, 0, piscaAceso);   // sem broker: roxo piscando (leituras vao para a fila)
   else if (!co2Aquecido)   cor(0, 0, 1);                // aquecendo: azul
-  else if (ultimoCO2 < 0)  cor(0, 0, piscaAceso);       // MH-Z19B sem resposta: azul piscando
+  else if (ultimoCO2 < 0)  cor(0, 0, piscaAceso);       // MH-Z19C sem resposta: azul piscando
   else if (ultimoCO2 <= 800)  cor(0, 1, 0);
   else if (ultimoCO2 <= 1000) cor(1, 1, 0);
   else                        cor(1, 0, 0);
@@ -160,7 +160,7 @@ void loop() {
   if (co2Aquecido) {
     int co2 = lerCO2();
     if (co2 > 0 && co2 <= FAIXA_CO2_PPM) { ultimoCO2 = co2; no.publicar("co2", co2, "ppm"); }
-    else { ultimoCO2 = -1; Serial.printf("[ar] MH-Z19B sem resposta ou fora da faixa (%d)\n", co2); }
+    else { ultimoCO2 = -1; Serial.printf("[ar] MH-Z19C sem resposta ou fora da faixa (%d)\n", co2); }
   }
 
   if (mqAquecidos) {

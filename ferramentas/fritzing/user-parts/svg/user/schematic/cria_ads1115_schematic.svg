@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.2" width="1.500in" height="3.300in" viewBox="0 0 1500 3300">
+<g id="schematic">
+<rect x="500" y="100" width="900" height="3100" fill="none" stroke="#000" stroke-width="20"/>
+<text x="950" y="220" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="90" font-weight="bold" fill="#000" text-anchor="middle">ADC</text>
+<line id="connector0pin" x1="0" y1="400" x2="500" y2="400" stroke="#000" stroke-width="20"/>
+<rect id="connector0terminal" x="0" y="390" width="20" height="20" fill="none"/>
+<text x="540" y="430" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="90" font-weight="normal" fill="#000" text-anchor="start">VDD</text>
+<line id="connector1pin" x1="0" y1="700" x2="500" y2="700" stroke="#000" stroke-width="20"/>
+<rect id="connector1terminal" x="0" y="690" width="20" height="20" fill="none"/>
+<text x="540" y="730" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="90" font-weight="normal" fill="#000" text-anchor="start">GND</text>
+<line id="connector2pin" x1="0" y1="1000" x2="500" y2="1000" stroke="#000" stroke-width="20"/>
+<rect id="connector2terminal" x="0" y="990" width="20" height="20" fill="none"/>
+<text x="540" y="1030" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="90" font-weight="normal" fill="#000" text-anchor="start">SCL</text>
+<line id="connector3pin" x1="0" y1="1300" x2="500" y2="1300" stroke="#000" stroke-width="20"/>
+<rect id="connector3terminal" x="0" y="1290" width="20" height="20" fill="none"/>
+<text x="540" y="1330" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="90" font-weight="normal" fill="#000" text-anchor="start">SDA</text>
+<line id="connector4pin" x1="0" y1="1600" x2="500" y2="1600" stroke="#000" stroke-width="20"/>
+<rect id="connector4terminal" x="0" y="1590" width="20" height="20" fill="none"/>
+<text x="540" y="1630" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="90" font-weight="normal" fill="#000" text-anchor="start">ADDR</text>
+<line id="connector5pin" x1="0" y1="1900" x2="500" y2="1900" stroke="#000" stroke-width="20"/>
+<rect id="connector5terminal" x="0" y="1890" width="20" height="20" fill="none"/>
+<text x="540" y="1930" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="90" font-weight="normal" fill="#000" text-anchor="start">ALRT</text>
+<line id="connector6pin" x1="0" y1="2200" x2="500" y2="2200" stroke="#000" stroke-width="20"/>
+<rect id="connector6terminal" x="0" y="2190" width="20" height="20" fill="none"/>
+<text x="540" y="2230" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="90" font-weight="normal" fill="#000" text-anchor="start">A0</text>
+<line id="connector7pin" x1="0" y1="2500" x2="500" y2="2500" stroke="#000" stroke-width="20"/>
+<rect id="connector7terminal" x="0" y="2490" width="20" height="20" fill="none"/>
+<text x="540" y="2530" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="90" font-weight="normal" fill="#000" text-anchor="start">A1</text>
+<line id="connector8pin" x1="0" y1="2800" x2="500" y2="2800" stroke="#000" stroke-width="20"/>
+<rect id="connector8terminal" x="0" y="2790" width="20" height="20" fill="none"/>
+<text x="540" y="2830" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="90" font-weight="normal" fill="#000" text-anchor="start">A2</text>
+<line id="connector9pin" x1="0" y1="3100" x2="500" y2="3100" stroke="#000" stroke-width="20"/>
+<rect id="connector9terminal" x="0" y="3090" width="20" height="20" fill="none"/>
+<text x="540" y="3130" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="90" font-weight="normal" fill="#000" text-anchor="start">A3</text>
+</g>
+</svg>

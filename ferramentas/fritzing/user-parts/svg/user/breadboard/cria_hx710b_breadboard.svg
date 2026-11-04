@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.2" width="0.900in" height="1.100in" viewBox="0 0 900 1100">
+<g id="breadboard">
+<rect x="10" y="300" width="880" height="760" rx="30" fill="#5b2c6f" stroke="#3b1a4a" stroke-width="10"/>
+<circle cx="80" cy="370" r="35" fill="#ffffff" stroke="#999" stroke-width="6"/>
+<circle cx="820" cy="370" r="35" fill="#ffffff" stroke="#999" stroke-width="6"/>
+<rect x="250" y="80" width="400" height="330" rx="30" fill="#222" stroke="#000" stroke-width="10"/>
+<rect x="420" y="10" width="60" height="90" rx="10" fill="#444" stroke="#000" stroke-width="6"/>
+<text x="450" y="230" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="54" font-weight="bold" fill="#dddddd" text-anchor="middle">MPS20N</text>
+<text x="450" y="300" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="54" font-weight="bold" fill="#dddddd" text-anchor="middle">0040D</text>
+<text x="450" y="370" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="40" font-weight="normal" fill="#bbbbbb" text-anchor="middle">0–40 kPa</text>
+<rect x="320" y="470" width="260" height="140" rx="10" fill="#111" stroke="#000" stroke-width="6"/>
+<text x="450" y="555" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="56" font-weight="bold" fill="#ffffff" text-anchor="middle">HX710B</text>
+<text x="450" y="700" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="46" font-weight="normal" fill="#f3e5f5" text-anchor="middle">24 bits · pressão</text>
+<text x="450" y="780" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="44" font-weight="bold" fill="#ffffff" text-anchor="middle">VCC   OUT   SCK   GND</text>
+<rect x="100" y="640" width="110" height="60" fill="#333" stroke="#000" stroke-width="4"/>
+<rect x="690" y="640" width="110" height="60" fill="#333" stroke="#000" stroke-width="4"/>
+<text x="300" y="950" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="40" font-weight="bold" fill="#ffffff" text-anchor="middle">VCC</text>
+<rect id="connector0pin" x="270" y="1000" width="60" height="60" fill="#c8a24a" stroke="#7a5c12" stroke-width="6"/>
+<text x="400" y="950" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="40" font-weight="bold" fill="#ffffff" text-anchor="middle">OUT</text>
+<rect id="connector1pin" x="370" y="1000" width="60" height="60" fill="#c8a24a" stroke="#7a5c12" stroke-width="6"/>
+<text x="500" y="950" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="40" font-weight="bold" fill="#ffffff" text-anchor="middle">SCK</text>
+<rect id="connector2pin" x="470" y="1000" width="60" height="60" fill="#c8a24a" stroke="#7a5c12" stroke-width="6"/>
+<text x="600" y="950" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="40" font-weight="bold" fill="#ffffff" text-anchor="middle">GND</text>
+<rect id="connector3pin" x="570" y="1000" width="60" height="60" fill="#c8a24a" stroke="#7a5c12" stroke-width="6"/>
+</g>
+</svg>

@@ -143,6 +143,21 @@ Pasta `aula-tapo/`: instalação/posicionamento, app, microSD × Tapo Care × NV
 ESP32 atuador (`codigo/01_esp32_luzes_alerta`: relé, buzzer, RGB, botão, `luzes.local`), gestos + reconhecimento facial
 (`rostos.py`, `cadastrar_rosto.py`, `tapo_gestos_faces.py`; modelos YuNet/SFace em `python/modelos`). Guias em `saida/`.
 
+## Aula: Monitor de água — pH, vazão e nível (5 partes)
+
+Pasta `aula-agua/`: pH-4502C (Nernst, calibração de 2 pontos), YF-S201/ZJ-S201 (efeito Hall, interrupções, calibração pelo balde),
+HX710B + MPS20N0040D (Stevin, ponte de Wheatstone, protocolo de 24 bits → nível por tubo de bolha), ADS1115 (ADC de 16 bits, PGA, I2C;
+por que o nó `horta/no1` da telemetria-cria o usa) e projeto com LED RGB + buzzer (alertas de pH, vazamento, consumo, transbordo).
+Sketches `01..04` (Uno), `01b..04b` (ESP32 + monitor Wi-Fi) e `01c` (pH pelo ADS1115). Peças Fritzing novas por
+`ferramentas/fritzing/gerar_pecas_agua.py`. Guias em `saida/`.
+
+## Apresentação: Rede de Telemetria do Espaço CRIA (slides interativos)
+
+Pasta `apresentacao-telemetria/`: deck de 29 slides (capa com logos e equipe, telemetria com o exemplo da F1, laboratórios de ar e
+horta, hardware e sensores com imagens das peças Fritzing, coleta MQTT → InfluxDB → painel, critérios de aceitação, habilidades,
+caso Tractian, IoT). Navegação por hyperlinks (roteiro e barra de rodapé). `gerador/gerar_tudo.sh` gera PPTX, PDF, ODP e a apostila
+DOCX/ODT com as notas do apresentador. Dados da equipe e do orçamento vêm do `mythos-fomento` (relatório parcial ARC-0645).
+
 ## Pendências / manuais
 
 - **Drivers USB-serial**: se a placa não aparecer em `arduino-cli board list`, instalar

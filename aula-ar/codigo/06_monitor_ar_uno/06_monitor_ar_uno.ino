@@ -7,23 +7,23 @@
     DHT22 (3 fios)          vermelho -> 5V   amarelo -> D4   preto -> GND
     MQ-2                    VCC -> 5V   GND -> GND   AO -> A0
     MQ-135                  VCC -> 5V   GND -> GND   AO -> A1
-    MH-Z19B                 Vin -> 5V   GND -> GND   TX -> D10   RX <- divisor (D11 -> 1 k -> RX -> 2 k -> GND)
+    MH-Z19C                 Vin -> 5V   GND -> GND   TX -> D10   RX <- divisor (D11 -> 1 k -> RX -> 2 k -> GND)
     LED RGB (catodo comum)  R -> 220 R -> D9   G -> 220 R -> D6   B -> 220 R -> D5   catodo -> GND
 
-  ALIMENTACAO: 2 aquecedores MQ (~150 mA cada) + MH-Z19B (picos de 150 mA) + Uno ~ 0,5 A. A USB do PC
+  ALIMENTACAO: 2 aquecedores MQ (~150 mA cada) + MH-Z19C (picos de 125 mA) + Uno ~ 0,5 A. A USB do PC
   fornece 0,5 A no limite: alimente os SENSORES por uma FONTE 5 V / 2 A nas trilhas da protoboard e ligue
   so o GND da fonte ao GND do Uno. NAO ligue a fonte no pino 5V do Uno com a USB conectada (empurra
   corrente para a porta do PC). Meca o 5V do Uno e escreva em VC (o ADC usa o 5V do Uno como referencia).
 
   LED de status: AZUL = aquecendo | VERDE = CO2 ate 800 ppm | AMARELO = ate 1000 | VERMELHO = acima de 1000
-                 VERMELHO PISCANDO = MQ-2 detectou gas (prioridade) | AZUL PISCANDO = MH-Z19B sem resposta
+                 VERMELHO PISCANDO = MQ-2 detectou gas (prioridade) | AZUL PISCANDO = MH-Z19C sem resposta
 
   SAIDA na USB (115200 baud):
     SAIDA_GATEWAY 0 -> tabela legivel para o Monitor Serial
     SAIDA_GATEWAY 1 -> uma linha JSON por leitura, no formato do gateway da telemetria-cria
                        {"no":"no3","grandeza":"co2","valor":612,"unidade":"ppm","seq":12}
                        Rode gateway/gateway.py (projeto no .env do gateway) e os dados aparecem no painel.
-  Grandezas publicadas (catalogo, projeto "ar"): temperatura e umidade (DHT22), co2 (MH-Z19B),
+  Grandezas publicadas (catalogo, projeto "ar"): temperatura e umidade (DHT22), co2 (MH-Z19C),
   mq2 e mq135 (Rs/R0, so depois do aquecimento e com R0 medido). O DHT11 aparece so na tabela,
   para comparar com o DHT22: o catalogo nao deixa duas "temperatura" no mesmo no.
 */
@@ -47,7 +47,7 @@ const float R0_MQ2_KOHM = 0.0, R0_MQ135_KOHM = 0.0;
 const float LIMIAR_GAS_MQ2 = 0.5;       // Rs/R0 do MQ-2 abaixo disso = gas
 
 const unsigned long INTERVALO_MS = 10000;                 // padrao do catalogo
-const unsigned long PREAQUECIMENTO_CO2_MS = 3UL * 60 * 1000;
+const unsigned long PREAQUECIMENTO_CO2_MS = 1UL * 60 * 1000;   // MH-Z19C: 1 min
 const unsigned long PREAQUECIMENTO_MQ_MS = 10UL * 60 * 1000;
 const int FAIXA_CO2_PPM = 5000;
 // ----------------------------------------------------------------------

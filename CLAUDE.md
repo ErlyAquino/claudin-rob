@@ -17,11 +17,13 @@ documentado no README.md) e para saber como cada peça é regenerada.
 | `aula-distancia/` | HC-SR04, serial + Python ao vivo, buzzer, alarme de ré, ESP32 web, WhatsApp/e-mail (6 aulas) |
 | `aula-sensores/` | DS18B20, DHT11, MQ-2, MQ-135, BME680, pH-4502C — Uno e ESP32 com monitor Wi-Fi (6 aulas) |
 | `aula-esp32cam/` | ESP32-CAM OV3660: stream, PIR+SD, Drive/Telegram, OpenCV, MediaPipe gestos→LEDs (5 aulas) |
-| `aula-ar/` | Qualidade do ar: DHT11 (módulo 3 pinos), DHT22/AM2302, MQ-2, MQ-135, MH-Z19B — teste individual Uno/ESP32 + monitor completo (Uno via gateway USB, ESP32 via CriaTelemetria → painel da telemetria-cria) |
+| `aula-ar/` | Qualidade do ar: DHT11 (módulo 3 pinos), DHT22/AM2302, MQ-2, MQ-135, MH-Z19C — teste individual Uno/ESP32 + monitor completo (Uno via gateway USB, ESP32 via CriaTelemetria → painel da telemetria-cria) |
+| `aula-agua/` | Monitor de água: pH-4502C, YF-S201/ZJ-S201 (vazão, efeito Hall), HX710B+MPS20N0040D (pressão → nível) e ADS1115 (ADC 16 bits, como no nó `horta/no1` da telemetria-cria) — teste individual Uno/ESP32 + projeto com LED RGB e buzzer (Uno e ESP32 com monitor Wi-Fi) |
 | `aula-tapo/` | Câmera Tapo C200/TC70: instalação, app, microSD/nuvem/NVR, RTSP/ONVIF, ESP32 atuador (relé/buzzer/RGB), gestos + reconhecimento facial (6 aulas) |
+| `apresentacao-telemetria/` | Apresentação interativa do projeto telemetria-cria (29 slides, pptxgenjs): `gerador/gerar_slides.js` → `saida/*.pptx`; `gerador/gerar_tudo.sh` converte para PDF/ODP e gera a apostila DOCX/ODT (`gerar_docx.js`). Imagens das peças em `imagens/pecas` vêm dos SVG do Fritzing (`gerador/raster.js`, sharp). Precisa de `npm install` em `gerador/` e da skill pptx do Claude (`PPTX_SKILL_DIR`, para `apply_theme.js`) |
 | `python-dados/` | Ambiente Python (uv) usado por TODOS os scripts Python das aulas (`pyproject.toml` + `uv.lock`) |
 | `iot-stack/` | docker-compose InfluxDB 2 + Grafana + ponte MQTT→InfluxDB (opcional, laboratório) |
-| `ferramentas/fritzing/user-parts/` | Peças Fritzing extras (ESP32 DevKit, ESP32-CAM, DHT11, BME680, módulo MQ, PIR, módulo relé KY-019, e `cria_dht11_mod3`, `cria_dht22_fios`, `cria_mhz19b` geradas por `ferramentas/fritzing/gerar_pecas_ar.py`) |
+| `ferramentas/fritzing/user-parts/` | Peças Fritzing extras (ESP32 DevKit, ESP32-CAM, DHT11, BME680, módulo MQ, PIR, módulo relé KY-019, e `cria_dht11_mod3`, `cria_dht22_fios`, `cria_mhz19b`, `cria_mhz19c` geradas por `ferramentas/fritzing/gerar_pecas_ar.py`; `cria_yfs201`, `cria_hx710b`, `cria_ads1115` por `gerar_pecas_agua.py`) |
 | `imagens/logos/` | Logos da capa dos guias (só na 1ª página) |
 
 Cada `aula-*/` tem: `codigo/` (sketches `.ino`, um por pasta, + headers comuns), `esquemas/` (gerador Fritzing:
@@ -72,11 +74,12 @@ Bibliotecas (`arduino-cli lib install "<nome>"`), versões usadas na compilaçã
 | Adafruit BusIO | 1.17.4 | BME680 |
 | Adafruit BME680 Library | 2.0.6 | sensores (BME680) |
 | MQUnifiedsensor | 3.0.0 | sensores (MQ-2, MQ-135) |
+| Adafruit ADS1X15 | 2.6.2 | aula-agua 01c e aula-ar 03c (ADS1115; depende de Adafruit BusIO). pH, YF-S201 e HX710B da aula-agua não usam biblioteca (protocolo/contas no sketch) |
 | PubSubClient | 2.8 | desafios MQTT |
 | ArduinoJson | 7.4.3 | desafios |
 | LiquidCrystal I2C, Adafruit SSD1306, Adafruit GFX Library, NewPing | 1.1.2 / 2.5.17 / 1.12.6 / 1.9.7 | extras/desafios |
 | ESP Mail Client (Mobizt) | 3.4.24 | opcional (o sketch de e-mail usa SMTP manual, sem lib) |
-| CriaTelemetria | 0.2.0 | aula-ar 06b — não está no gerenciador: `ln -s /dados/Projetos/telemetria-cria/firmware/biblioteca-cria ~/Arduino/libraries/CriaTelemetria` (depende de PubSubClient). O MH-Z19B e os MQ da aula-ar não usam biblioteca (protocolo e contas no sketch) |
+| CriaTelemetria | 0.2.0 | aula-ar 06b — não está no gerenciador: `ln -s /dados/Projetos/telemetria-cria/firmware/biblioteca-cria ~/Arduino/libraries/CriaTelemetria` (depende de PubSubClient). O MH-Z19C e os MQ da aula-ar não usam biblioteca (protocolo e contas no sketch) |
 
 FQBNs usados: `arduino:avr:uno`, `esp32:esp32:esp32`, `esp32:esp32:esp32cam`, `esp32:esp32:esp32doit-devkit-v1` (nó da telemetria, aula-ar 06b; precisa de `credenciais.h` copiado de `credenciais.exemplo.h`, fora do git). (aula-tapo: `esp32:esp32:esp32`; ESPmDNS vem no core.)
 Gravar: `arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32 <pasta_do_sketch>`.

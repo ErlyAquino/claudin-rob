@@ -12,7 +12,7 @@
   limpo e cai com gas - e exatamente o que o projeto "ar" da telemetria-cria publica (unidade Rs/R0).
   A estimativa em ppm usa a curva da folha de dados e serve so como ordem de grandeza.
   ATENCAO: o MQ-135 NAO mede CO2 de verdade - ele reage a varios gases ao mesmo tempo. O "CO2"
-  dele e um chute pela curva (+400 ppm de base). Na aula 5 comparamos com o MH-Z19B (NDIR), que mede.
+  dele e um chute pela curva (+400 ppm de base). Na aula 5 comparamos com o MH-Z19C (NDIR), que mede.
 
   Passos do teste (Monitor Serial 115200 baud):
    1. Ligue e espere o PRE-AQUECIMENTO (contagem regressiva). Sensor novo: deixe 24-48 h ligado antes.

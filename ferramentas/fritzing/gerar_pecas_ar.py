@@ -1,7 +1,8 @@
 """Gera as pecas Fritzing extras da aula de qualidade do ar (aula-ar):
   - cria_dht11_mod3 : modulo DHT11 de 3 pinos (VCC | DATA no meio | GND), com LED e resistor de pull-up na placa
   - cria_dht22_fios : DHT22/AM2302 com 3 fios (vermelho VCC, amarelo DATA, preto GND)
-  - cria_mhz19b     : sensor de CO2 MH-Z19B (NDIR), barra de pinos Vin GND RX TX PWM
+  - cria_mhz19b     : sensor de CO2 MH-Z19B (NDIR), barra de pinos Vin GND RX TX PWM (versao antiga)
+  - cria_mhz19c     : sensor de CO2 MH-Z19C (NDIR), 9 pinos HD SR Tx Rx Vo PWM AOT GND Vin (o da aula)
 
 Saida: ferramentas/fritzing/user-parts/{user/*.fzp, svg/user/{breadboard,schematic,pcb,icon}/*.svg}
 Depois copie user-parts/* para ~/Documentos/Fritzing/parts (e ~/Documents/Fritzing/parts) - o setup-linux-mint.sh faz isso.
@@ -101,6 +102,32 @@ def mhz19b():
                 bb=svg(W, H, "\n".join(c)), w=W, h=H, xs=xs, yp=yp)
 
 
+def mhz19c():
+    """MH-Z19C (manual Winsen v1.2): 9 pinos em DUAS fileiras na peca real (HD SR Tx Rx Vo | PWM AOT GND Vin).
+    Aqui ficam numa fileira so, para a protoboard; siga os NOMES ao ligar."""
+    W, H = 1400, 1000
+    nomes = ["HD", "SR", "Tx", "Rx", "Vo", "PWM", "AOT", "GND", "Vin"]
+    xs = [300 + 100 * i for i in range(len(nomes))]; yp = 930
+    c = ['<g id="breadboard">',
+         '<rect x="10" y="10" width="1380" height="960" rx="30" fill="#38761d" stroke="#274e13" stroke-width="10"/>',
+         '<rect x="70" y="70" width="1260" height="640" rx="40" fill="#d4af37" stroke="#8a6d1c" stroke-width="12"/>',
+         '<rect x="110" y="110" width="1180" height="560" rx="30" fill="none" stroke="#b8952b" stroke-width="8"/>',
+         texto(700, 340, "MH-Z19C", 150, cor="#5b4300"),
+         texto(700, 480, "CO₂ NDIR 400–5000 ppm · aquece em 1 min", 50, cor="#5b4300", peso="normal"),
+         '<circle cx="1230" cy="600" r="30" fill="#ffffff" stroke="#8a6d1c" stroke-width="6"/>',
+         texto(700, 780, "SR e Vo: reservados (não ligar)   AOT: saída analógica 0,4–2 V", 32, cor="#ffffff", peso="normal")]
+    for i, (x, n) in enumerate(zip(xs, nomes)):
+        c.append(texto(x, 860, n, 30, cor="#dddddd" if n in ("SR", "Vo") else "#ffffff"))
+        c.append(pino_bb(i, x, yp))
+    c.append("</g>")
+    return dict(mid="cria_mhz19c", titulo="MH-Z19C sensor de CO2 (NDIR), 9 pinos", label="CO2",
+                desc="Sensor de CO2 por infravermelho não dispersivo (Winsen MH-Z19C, manual v1.2): 5,0 V ±0,1 V, UART 9600 baud e PWM com nível de 3,3 V, aquece em 1 min. Pinos reais em duas fileiras: HD SR Tx Rx Vo | PWM AOT GND Vin.",
+                pinos=[("HD", "calibração do zero: 0 V por mais de 7 s (não ligar)"), ("SR", "reservado"), ("Tx", "UART TXD (sensor fala), 3,3 V"),
+                       ("Rx", "UART RXD (sensor ouve), 3,3 V"), ("Vo", "reservado"), ("PWM", "saída PWM (ciclo 1004 ms)"),
+                       ("AOT", "saída analógica 0,4–2 V (não documentada no manual)"), ("GND", "terra"), ("Vin", "alimentação 5,0 V ±0,1 V (pico 125 mA)")],
+                bb=svg(W, H, "\n".join(c)), w=W, h=H, xs=xs, yp=yp)
+
+
 # ---------------------------------------------------------------- vistas comuns
 def esquematico(p):
     n = len(p["pinos"]); h = 300 + 300 * n; w = 1500
@@ -168,7 +195,7 @@ def gravar(caminho, conteudo):
 
 
 if __name__ == "__main__":
-    for p in (dht11_mod3(), dht22_fios(), mhz19b()):
+    for p in (dht11_mod3(), dht22_fios(), mhz19b(), mhz19c()):
         a = p["mid"]
         gravar(f"{BASE}/user/{a}.fzp", fzp(p))
         gravar(f"{BASE}/svg/user/breadboard/{a}_breadboard.svg", p["bb"])

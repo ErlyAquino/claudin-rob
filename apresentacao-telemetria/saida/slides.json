@@ -1,0 +1,176 @@
+[
+ {
+  "n": 1,
+  "secao": "Abertura",
+  "titulo": "Rede de Telemetria do Espaço CRIA",
+  "notas": "Capa. Projeto aprovado no Edital 19/2026 FACEPE (Espaços CRIA), processo ARC-0645-1.03/26, ETE Epitácio Pessoa, Cabo de Santo Agostinho."
+ },
+ {
+  "n": 2,
+  "secao": "Abertura",
+  "titulo": "Quem faz o projeto",
+  "notas": "Seis bolsas FACEPE (2 BFI-8 e 4 BFI-10) homologadas em 31/08/2026, mais dois professores voluntários. Quatro frentes com rodízio quinzenal."
+ },
+ {
+  "n": 3,
+  "secao": "Abertura",
+  "titulo": "Roteiro — clique para navegar",
+  "notas": "Agenda interativa: cada item é um link para a seção. A barra no rodapé de todos os slides também navega."
+ },
+ {
+  "n": 4,
+  "secao": "1 · O projeto",
+  "titulo": "1 · O projeto",
+  "notas": ""
+ },
+ {
+  "n": 5,
+  "secao": "1 · O projeto",
+  "titulo": "O que é telemetria?",
+  "notas": "Tele (longe) + metron (medida). Exemplo da F1: cerca de 300 sensores por carro e ~1,1 milhão de pontos de dados por segundo (AWS/F1). Engenheiros no muro dos boxes e na fábrica decidem estratégia em tempo real."
+ },
+ {
+  "n": 6,
+  "secao": "1 · O projeto",
+  "titulo": "Da pista para a escola",
+  "notas": "A mesma ideia, com outro orçamento: o carro vira um nó ESP32, o rádio vira Wi-Fi + MQTT, o muro dos boxes vira o painel web, o engenheiro vira o estudante."
+ },
+ {
+  "n": 7,
+  "secao": "1 · O projeto",
+  "titulo": "O problema e a plataforma",
+  "notas": "Cada projeto do Espaço CRIA refazia do zero a coleta, o transporte e a exibição dos dados, e o histórico se perdia. A plataforma separa a infraestrutura de telemetria dos projetos que a usam: um serviço comum da escola."
+ },
+ {
+  "n": 8,
+  "secao": "1 · O projeto",
+  "titulo": "O projeto em números",
+  "notas": "Dados do Termo de Outorga e do relatório parcial (mythos-fomento): R$ 41.646 concedidos, 6 bolsas, 6 meses, 13 oficinas, TRL 3 para 7, 2 projetos-teste, 6 critérios de aceitação."
+ },
+ {
+  "n": 9,
+  "secao": "2 · Laboratórios",
+  "titulo": "2 · Laboratórios de teste",
+  "notas": ""
+ },
+ {
+  "n": 10,
+  "secao": "2 · Laboratórios",
+  "titulo": "Laboratório 1 — Monitor de qualidade do ar",
+  "notas": "Reconstrói em ESP32 o monitor que a escola tinha em Arduino. MQ-2 e MQ-135 (Rs/R0, relativos), MH-Z19C (CO2 em ppm), DHT22. Referência ANVISA RE 9/2003: 1000 ppm de CO2."
+ },
+ {
+  "n": 11,
+  "secao": "2 · Laboratórios",
+  "titulo": "Laboratório 2 — Bancada hidropônica NFT",
+  "notas": "25 posições de alface em NFT (lâmina de nutrientes). Três nós: no1 solução nutritiva (pH, condutividade, temperatura, vazão, pressão, nível, bomba), no2 ambiente (umidade, iluminância), no3 câmera (time-lapse). Caso difícil: 8 grandezas correlacionadas (as seis do no1 + umidade e iluminância do no2; bomba e temperatura do ar são complementares), ambiente úmido, calibração real."
+ },
+ {
+  "n": 12,
+  "secao": "3 · Hardware",
+  "titulo": "3 · Hardware",
+  "notas": ""
+ },
+ {
+  "n": 13,
+  "secao": "3 · Hardware",
+  "titulo": "O cérebro de cada nó: ESP32 + ADS1115",
+  "notas": "ESP32: Wi-Fi integrado, dois núcleos, barato. ADS1115: conversor A/D de 16 bits por I2C, porque o ADC interno do ESP32 é não linear e ruidoso — pH e condutividade exigem resolução fina. Conversor de nível lógico quando o ADS1115 é alimentado em 5 V."
+ },
+ {
+  "n": 14,
+  "secao": "3 · Hardware",
+  "titulo": "Sensores do monitor de ar",
+  "notas": "Quatro sensores do nó de ar. Imagens dos esquemas Fritzing das aulas do Espaço CRIA."
+ },
+ {
+  "n": 15,
+  "secao": "3 · Hardware",
+  "titulo": "Sensores da horta — a solução nutritiva",
+  "notas": "Nó no1: pH-4502C pelo ADS1115 (calibrado com tampões 4 e 7), condutividade/TDS pelo ADS1115 (compensada por temperatura), DS18B20 à prova d'água, YF-S201 (pulsos por litro)."
+ },
+ {
+  "n": 16,
+  "secao": "3 · Hardware",
+  "titulo": "Sensores da horta — ambiente, nível e atuadores",
+  "notas": "Pressão da linha da bomba (0–1,2 MPa, ADS1115), boia de nível (protege a bomba: corta em ~7 s, religa em ~1 min), DHT22 e BH1750 no no2, ESP32-CAM no no3, RTC DS3231 e módulo relé."
+ },
+ {
+  "n": 17,
+  "secao": "4 · Dados",
+  "titulo": "4 · Dados",
+  "notas": ""
+ },
+ {
+  "n": 18,
+  "secao": "4 · Dados",
+  "titulo": "Coleta: do sensor à mensagem",
+  "notas": "Cada leitura vira uma linha JSON publicada num tópico MQTT. seq e boot permitem medir perda de pacotes; t (ms) permite medir latência. A biblioteca guarda em flash as leituras que não puder enviar e reenvia quando a rede volta."
+ },
+ {
+  "n": 19,
+  "secao": "4 · Dados",
+  "titulo": "Transporte: MQTT com Mosquitto",
+  "notas": "Publicar/assinar: o nó publica num tópico, o servidor assina cria/#. Senha e ACL por projeto (quem pode publicar onde). Arduinos legados entram pela USB através do gateway em Python, que envia por HTTP com a senha do projeto."
+ },
+ {
+  "n": 20,
+  "secao": "4 · Dados",
+  "titulo": "Armazenamento: séries temporais",
+  "notas": "InfluxDB 2: banco feito para séries temporais (valor + hora). chrony dá a hora certa aos nós (NTP local) porque a rede não tem internet; sem hora certa o servidor recusa a leitura. Exportação em CSV no padrão brasileiro. Backup do banco em servidor/base/backup."
+ },
+ {
+  "n": 21,
+  "secao": "4 · Dados",
+  "titulo": "Frontend: o painel web da escola",
+  "notas": "Node.js com Fastify e Socket.IO: o servidor recebe do MQTT, grava no InfluxDB e empurra ao navegador por WebSocket. Meta: menos de 2 s entre a leitura no nó e o gráfico. Um cartão por grandeza, estado on-line/off-line de cada nó, CSV por nó e por período."
+ },
+ {
+  "n": 22,
+  "secao": "4 · Dados",
+  "titulo": "A arquitetura completa",
+  "notas": "Diagrama do repositório telemetria-cria (tutoriais/imagens/arquitetura.svg). Tudo roda na rede local da escola, num computador Linux com no-break e IP fixo."
+ },
+ {
+  "n": 23,
+  "secao": "4 · Dados",
+  "titulo": "Quando a plataforma está pronta? Seis critérios",
+  "notas": "Teste de aceitação declarado de antemão no plano de trabalho. Resultados em validacao/relatorio-validacao.md."
+ },
+ {
+  "n": 24,
+  "secao": "4 · Dados",
+  "titulo": "Como trabalhamos",
+  "notas": "Aprendizagem baseada em projetos com entrega real para terceiros. Quatro frentes com rodízio quinzenal, caderno de projeto versionado em Git, 13 oficinas (Git, ESP32, MQTT, ADS1115, impressão 3D...), decisões técnicas registradas em decisoes/."
+ },
+ {
+  "n": 25,
+  "secao": "5 · E depois?",
+  "titulo": "5 · E depois?",
+  "notas": ""
+ },
+ {
+  "n": 26,
+  "secao": "5 · E depois?",
+  "titulo": "As habilidades que o projeto ensina",
+  "notas": "Mapa das competências desenvolvidas e de onde o mercado as usa. IoT industrial, agricultura de precisão, cidades inteligentes, energia e saúde contratam exatamente esta pilha."
+ },
+ {
+  "n": 27,
+  "secao": "5 · E depois?",
+  "titulo": "Caso: Tractian — telemetria que vira empresa",
+  "notas": "Startup brasileira fundada em 2019 (São Paulo) por Igor Marinelli e Gabriel Lameirinhas. Produto principal: Smart Trac, sensor sem fio de vibração e temperatura colado na máquina; a IA diagnostica desbalanceamento, desalinhamento, folga, falta de lubrificação. TracOS: plataforma de gestão da manutenção. Rodadas divulgadas na imprensa: R$ 17 mi (2021), R$ 80 mi (2022, fundo ligado à Siemens) e Série C de US$ 120 mi (2024). Mesma cadeia do nosso projeto: sensor → rádio → banco → painel → decisão."
+ },
+ {
+  "n": 28,
+  "secao": "5 · E depois?",
+  "titulo": "IoT em todo lugar",
+  "notas": "A Internet das Coisas (Gubbi et al., 2013): objetos com sensores e conexão trocando dados. As mesmas camadas — nó, transporte, banco, painel — aparecem em todas estas áreas."
+ },
+ {
+  "n": 29,
+  "secao": "5 · E depois?",
+  "titulo": "Encerramento",
+  "notas": "Encerramento. Repositório público sob MIT (código) e CC BY (textos, vídeos, modelos 3D) na entrega do mês 6. Perguntas."
+ }
+]
