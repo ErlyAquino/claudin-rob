@@ -1,0 +1,15 @@
+# auxiliares do LaTeX e imagens de conferência
+tex/*.aux
+tex/*.log
+tex/*.out
+tex/rev/
+# páginas rasterizadas e textos extraídos das provas (regeneráveis)
+provas/pag/
+provas/*.txt
+# figuras extraídas do LaTeX (regeneráveis com tex/figs-extrair.tex)
+tex/figs/
+# cópias: o PDF final e a apresentação ficam na raiz de revisao-enem-fisica/
+tex/revisao-enem-fisica.pdf
+apresentacao/saida/
+# skills de terceiros baixadas do GitHub só para consulta (licenças próprias; não redistribuir)
+skills_github/

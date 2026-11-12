@@ -1,0 +1,207 @@
+% ---------------------------------------------------------------- LISTA DE TREINO
+\clearpage
+\titulo{Treino}{Hora de treinar}\label{pg:treino}
+Seis questões no estilo do ENEM, duas por assunto, inspiradas em questões que caíram entre 2021 e 2025.
+Tente fazer sem olhar o resumo. O gabarito comentado vem logo depois.
+
+\corcap{corA}
+\begin{treino}{Mecânica · movimento\hfill\normalfont\footnotesize inspirada no ENEM 2023, questão 124}
+\begin{minipage}[c]{0.56\linewidth}
+Uma família vai de carro a uma cidade a 240~km de distância. O carro mantém 80~km/h na estrada, mas faz duas paradas de 15~minutos.
+Um ônibus sai junto, faz o mesmo trajeto a 60~km/h e não para.
+
+\smallskip Quantos minutos antes do ônibus o carro chega ao destino?
+\end{minipage}\hfill
+\begin{minipage}[c]{0.41\linewidth}\centering
+\begin{tikzpicture}
+  \draw[cinza!60,line width=7pt] (0,0) -- (6.4,0);
+  \draw[white,line width=0.8pt,dash pattern=on 5pt off 5pt] (0,0) -- (6.4,0);
+  \node[font=\Large,text=tema] at (0.6,0.55) {\faCarSide};
+  \node[font=\Large,text=tinta!70] at (0.6,-0.55) {\faBus};
+  \node[font=\Large,text=alerta] at (6.15,0.6) {\faMapMarker*};
+  \node[font=\small,anchor=west] at (1.2,0.55) {80 km/h, 2 paradas};
+  \node[font=\small,anchor=west] at (1.2,-0.55) {60 km/h, sem parar};
+  \draw[cota] (0,-1.1) -- (6.4,-1.1) node[midway,below,font=\small,text=tinta] {240 km};
+\end{tikzpicture}
+\end{minipage}
+\begin{multicols}{5}
+\begin{alternativas}\item 15 \item 30 \item 45 \item 60 \item 90\end{alternativas}
+\end{multicols}
+\end{treino}
+
+\begin{treino}{Mecânica · forças\hfill\normalfont\footnotesize inspirada no ENEM 2025, questão 108, e 2023, questão 114}
+\begin{minipage}[c]{0.56\linewidth}
+Em um depósito, um funcionário empurra na horizontal uma caixa de 40~kg, que desliza sobre o piso com \textbf{velocidade constante}.
+O coeficiente de atrito entre a caixa e o piso é 0,25 e $g = 10$~m/s$^2$.
+
+\smallskip A força que o funcionário aplica na caixa vale
+\end{minipage}\hfill
+\begin{minipage}[c]{0.41\linewidth}\centering
+\begin{tikzpicture}
+  \fill[cinza!25] (0,-0.15) rectangle (6.4,0);
+  \draw[tinta,line width=1pt,fill=tema!15] (2.5,0) rectangle (4.1,1.25);
+  \node[font=\small\bfseries] at (3.3,0.62) {40 kg};
+  \draw[seta,tema] (0.9,0.62) -- (2.45,0.62) node[midway,above,font=\small\bfseries,text=tinta] {$F = {?}$};
+  \draw[seta,ouro] (2.5,0.14) -- (1.2,0.14) node[midway,below,font=\small\bfseries,text=tinta,yshift=-1.5mm] {atrito};
+  \draw[seta,cinza,line width=1pt] (4.4,0.62) -- (5.9,0.62) node[midway,above,font=\footnotesize,text=cinza,align=center] {velocidade\\constante};
+\end{tikzpicture}
+\end{minipage}
+\begin{alternativas}
+  \item zero, pois com velocidade constante não é preciso força.
+  \item 10~N.
+  \item 40~N.
+  \item 100~N.
+  \item 400~N.
+\end{alternativas}
+\end{treino}
+
+\corcap{corB}
+\begin{treino}{Eletricidade · circuitos\hfill\normalfont\footnotesize inspirada no ENEM 2024, questão 131, e 2025, questão 130}
+\begin{minipage}[c]{0.56\linewidth}
+Um estudante quer acender um LED que funciona com 2~V e corrente de 20~mA, mas só tem uma fonte de 5~V. Para não queimar o LED,
+ele liga um resistor em série, como na figura.
+
+\smallskip Qual deve ser a resistência desse resistor?
+\end{minipage}\hfill
+\begin{minipage}[c]{0.41\linewidth}\centering
+\begin{circuitikz}
+  \draw[fio] (0,0) to[battery1] (0,2.2) to[R] (2.8,2.2) -- (4.4,2.2) to[leDo] (4.4,0) -- (0,0);
+  \node[font=\small,anchor=west] at (0.45,1.1) {fonte: 5~V};
+  \node[font=\small\bfseries,text=alerta] at (-0.3,1.5) {$+$};
+  \node[font=\small,anchor=south] at (1.4,2.5) {$R = {?}$};
+  \node[font=\small,anchor=east] at (3.95,1.1) {LED: 2~V};
+\end{circuitikz}
+\end{minipage}
+\begin{multicols}{5}
+\begin{alternativas}\item 0,15~$\Omega$ \item 100~$\Omega$ \item 150~$\Omega$ \item 250~$\Omega$ \item 350~$\Omega$\end{alternativas}
+\end{multicols}
+\end{treino}
+
+\clearpage
+\begin{treino}{Eletricidade · potência\hfill\normalfont\footnotesize inspirada no ENEM 2025, questão 94}
+\begin{minipage}[c]{0.56\linewidth}
+Na cozinha, uma extensão ligada em 220~V tem um disjuntor que desarma se a corrente passar de 10~A. Nela já estão funcionando
+a geladeira (300~W) e o micro‑ondas (1\,200~W).
+
+\smallskip Qual destes aparelhos ainda pode ser ligado na mesma extensão sem desarmar o disjuntor?
+\end{minipage}\hfill
+\begin{minipage}[c]{0.41\linewidth}\centering
+\begin{tikzpicture}
+  \draw[tinta,line width=1pt,rounded corners=3pt,fill=cinzaclaro] (0,0) rectangle (6.4,1.2);
+  \foreach \x in {0.95,2.75,4.55}{\fill[tinta!70] (\x-0.16,0.6) circle (0.07); \fill[tinta!70] (\x+0.16,0.6) circle (0.07); \draw[tinta!50,line width=0.8pt] (\x,0.6) circle (0.4);}
+  \node[font=\small\bfseries,text=alerta] at (5.75,0.6) {10 A};
+  \node[font=\footnotesize,align=center,anchor=north] at (0.95,-0.1) {geladeira\\300 W};
+  \node[font=\footnotesize,align=center,anchor=north] at (2.75,-0.1) {micro‑ondas\\1\,200 W};
+  \node[font=\large\bfseries,align=center,anchor=north,text=tema] at (4.55,-0.1) {?};
+\end{tikzpicture}
+\end{minipage}
+\begin{alternativas}
+  \item Liquidificador (500~W).
+  \item Secador de cabelo (900~W).
+  \item Ferro de passar (1\,000~W).
+  \item Fritadeira elétrica (1\,500~W).
+  \item Chaleira elétrica (1\,800~W).
+\end{alternativas}
+\end{treino}
+
+\corcap{corC}
+\begin{treino}{Ondas · eco\hfill\normalfont\footnotesize inspirada no ENEM 2023, questão 135}
+\begin{minipage}[c]{0.56\linewidth}
+O sonar de um barco de pesca emite um pulso de som para o fundo do mar e recebe o eco 0,4~s depois.
+O som viaja na água a 1\,500~m/s.
+
+\smallskip A profundidade no local é de
+\end{minipage}\hfill
+\begin{minipage}[c]{0.41\linewidth}\centering
+\begin{tikzpicture}
+  \fill[corA!18] (0,0) rectangle (6.4,2.4);
+  \fill[ouro!45] (0,0) rectangle (6.4,0.22);
+  \draw[tinta,line width=1pt,fill=white] (2.4,2.4) -- (4.0,2.4) -- (3.7,2.05) -- (2.7,2.05) -- cycle;
+  \draw[seta,tema] (3.0,2.0) -- (3.0,0.32);
+  \draw[seta,alerta] (3.4,0.32) -- (3.4,2.0);
+  \draw[cota] (5.3,0.22) -- (5.3,2.05) node[midway,right,font=\small\bfseries,text=tinta] {?};
+  \node[font=\small,anchor=east] at (2.7,1.15) {eco em 0,4 s};
+\end{tikzpicture}
+\end{minipage}
+\begin{multicols}{5}
+\begin{alternativas}\item 3\,750~m \item 1\,500~m \item 1\,200~m \item 600~m \item 300~m\end{alternativas}
+\end{multicols}
+\end{treino}
+
+\begin{treino}{Ondas · som\hfill\normalfont\footnotesize inspirada no ENEM 2021, questão 92}
+\begin{minipage}[c]{0.56\linewidth}
+Uma flauta de brinquedo é feita com canudos de tamanhos diferentes, tampados embaixo.
+
+\smallskip Soprando o canudo \textbf{mais curto}, em comparação com o mais comprido, o som produzido tem
+\end{minipage}\hfill
+\begin{minipage}[c]{0.41\linewidth}\centering
+\begin{tikzpicture}
+  \foreach \i/\h in {0/2.4,1/2.05,2/1.7,3/1.35,4/1.0}{
+    \draw[tinta,line width=0.8pt,fill=tema!25] (\i*0.6,2.4-\h) rectangle (\i*0.6+0.44,2.4);
+    \fill[tinta] (\i*0.6,2.4-\h) rectangle (\i*0.6+0.44,2.4-\h+0.09);}
+  \draw[tinta!60,line width=2.5pt] (-0.12,1.9) -- (2.96,1.9);
+  \node[font=\small,anchor=east] at (-0.15,0.3) {comprido};
+  \node[font=\small,anchor=west] at (3.0,1.3) {curto};
+  \node[font=\footnotesize,text=cinza,anchor=south] at (1.42,2.45) {sopra‑se aqui em cima};
+\end{tikzpicture}
+\end{minipage}
+\begin{alternativas}
+  \item frequência maior (mais agudo) e a mesma velocidade no ar.
+  \item frequência menor (mais grave) e a mesma velocidade no ar.
+  \item frequência maior e velocidade maior no ar.
+  \item frequência menor e velocidade menor no ar.
+  \item a mesma frequência e velocidade maior no ar.
+\end{alternativas}
+\end{treino}
+
+% ---------------------------------------------------------------- GABARITO
+\clearpage
+\titulo{Gabarito}{Gabarito comentado}
+\vspace{-9.5mm}\hfill
+\begin{tikzpicture}[baseline=-1mm]
+  \foreach \i/\r/\cor in {1/B/corA,2/D/corA,3/C/corB,4/A/corB,5/E/corC,6/A/corC}{
+    \node[font=\small\bfseries,anchor=east] at (\i*1.45-0.22,0) {\i};
+    \node[circle,fill=\cor,text=white,font=\bfseries,minimum size=6mm,inner sep=0pt] at (\i*1.45+0.12,0) {\r};}
+\end{tikzpicture}\par\vspace{1mm}
+
+\corcap{corA}
+\begin{comentario}{corA}{Questão 1 · resposta B (30 minutos)}
+\passo{Carro:} $240 \div 80 = 3$~h $= 180$~min andando, mais $2 \times 15 = 30$~min parado. Total: 210~min.
+\passo{Ônibus:} $240 \div 60 = 4$~h $= 240$~min.
+\passo{Diferença:} $240 - 210 = 30$~min.
+\nota{Se você marcou 60, esqueceu as paradas. Ferramenta usada: $\Delta t = \Delta s \div v$.}
+\end{comentario}
+
+\begin{comentario}{corA}{Questão 2 · resposta D (100~N)}
+\passo{Velocidade constante:} a resultante é zero. A força do funcionário \textbf{empata} com o atrito.
+\passo{Atrito:} o piso é horizontal, então $N = P = m \cdot g = 40 \times 10 = 400$~N. Daí $F_{\text{at}} = \mu \cdot N = 0{,}25 \times 400 = 100$~N.
+\nota{Se você marcou A: sem força nenhuma, o atrito frearia a caixa. Se marcou 10~N, multiplicou 0,25 pela massa (40~kg) e não pelo peso (400~N).}
+\end{comentario}
+
+\corcap{corB}
+\begin{comentario}{corB}{Questão 3 · resposta C (150~$\Omega$)}
+\passo{Tensão que sobra para o resistor:} $5 - 2 = 3$~V (em série, a tensão se divide).
+\passo{Corrente:} a mesma do LED: 20~mA $= 0{,}020$~A.
+\passo{Lei de Ohm:} $R = U \div i = 3 \div 0{,}020 = 150~\Omega$.
+\nota{Se você marcou 250~$\Omega$, usou os 5~V inteiros. Se marcou 100~$\Omega$, usou os 2~V do LED. Se marcou 0,15~$\Omega$, esqueceu de passar mA para A (divida por 1\,000).}
+\end{comentario}
+
+\begin{comentario}{corB}{Questão 4 · resposta A (liquidificador)}
+\passo{Limite da extensão:} $P = U \cdot i = 220 \times 10 = 2\,200$~W.
+\passo{Já em uso:} $300 + 1\,200 = 1\,500$~W. Sobram $2\,200 - 1\,500 = 700$~W.
+\passo{Quem cabe em 700~W?} Só o liquidificador (500~W).
+\nota{Se você marcou outro aparelho, comparou só ele com 2\,200~W e esqueceu de somar os que já estavam ligados. Na mesma extensão, as potências somam.}
+\end{comentario}
+
+\corcap{corC}
+\begin{comentario}{corC}{Questão 5 · resposta E (300~m)}
+\passo{Distância total percorrida pelo som:} $v \cdot t = 1\,500 \times 0{,}4 = 600$~m.
+\passo{Eco é ida e volta,} então a profundidade é a metade: $600 \div 2 = 300$~m.
+\nota{Se você marcou 600~m, esqueceu de dividir por 2. Se marcou 1\,200~m, dobrou em vez de dividir. Se marcou 3\,750~m, dividiu a velocidade pelo tempo.}
+\end{comentario}
+
+\begin{comentario}{corC}{Questão 6 · resposta A (mais agudo, mesma velocidade)}
+\passo{Velocidade:} o som dos dois canudos viaja pelo mesmo ar. A velocidade é a mesma (a velocidade é do meio).
+\passo{Frequência:} no canudo curto cabe uma onda mais curta ($\lambda$ menor). Como $f = v \div \lambda$, a frequência é maior. O som é mais agudo.
+\nota{Se você marcou C, D ou E, esqueceu a regra de ouro: a velocidade é do meio, e o meio (o ar) é o mesmo. Mesmo raciocínio do sino dos ventos (ENEM 2021).}
+\end{comentario}

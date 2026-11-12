@@ -1,0 +1,18 @@
+% Extrai cada figura (tikzpicture/circuitikz) do material como uma página recortada, para a apresentação.
+% pdflatex -jobname=figs/figs figs-extrair.tex ; pdftoppm -r 220 -png figs/figs.pdf figs/f
+\documentclass[11pt]{article}
+\input{estilo}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\PreviewEnvironment{circuitikz}
+\setlength\PreviewBorder{3pt}
+\begin{document}
+\input{capa}
+\input{raiox}
+\input{mecanica}
+\input{eletricidade}
+\input{ondas}
+\input{treino}
+\input{cola}
+\input{analise}
+\end{document}

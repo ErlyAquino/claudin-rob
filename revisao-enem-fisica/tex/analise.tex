@@ -1,0 +1,135 @@
+% ---------------------------------------------------------------- APÊNDICE: ANÁLISE COMPLETA DAS PROVAS (para o professor e para quem quiser os detalhes)
+\clearpage
+\titulo{Análise completa}{Análise completa das provas de 2021 a 2025}\label{pg:analise}
+Esta parte mostra os números por trás do material. Serve ao professor e a quem quiser saber de onde vieram as escolhas.
+
+\subsecao{Os 20 assuntos, do que mais cai ao que menos cai}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  xbar, width=0.70\linewidth, height=12.2cm, bar width=9pt,
+  xmin=0, xmax=12.5, ymin=0.3, ymax=20.7,
+  axis x line=none, axis y line*=left, axis line style={cinza!60}, tick style={draw=none},
+  ytick={1,...,20}, y dir=reverse,
+  yticklabels={\textbf{Circuitos elétricos e Lei de Ohm},\textbf{Cinemática (movimento)},\textbf{Leis de Newton e forças},\textbf{Acústica (som)},
+    Calorimetria e mudanças de fase,Propagação de calor,Ondas: propriedades e fenômenos,Ondas eletromagnéticas e radiações,Eletromagnetismo,
+    {Energia, trabalho e potência},Potência e energia elétrica,Termodinâmica e gases,Óptica geométrica,Física moderna,
+    Hidrostática,Gravitação,Eletrostática,Termometria e dilatação,Impulso e quantidade de movimento,Estática e equilíbrio},
+  yticklabel style={font=\small,color=tinta},
+  nodes near coords, nodes near coords style={font=\small\bfseries,color=tinta,anchor=west},
+  clip=false]
+  \addplot[fill=corB,draw=none,bar shift=0pt] coordinates {(11,1) (4,9) (3,11) (2,17)};
+  \addplot[fill=corA,draw=none,bar shift=0pt] coordinates {(7,2) (7,3) (3,10) (2,15) (2,16) (1,19) (1,20)};
+  \addplot[fill=corC,draw=none,bar shift=0pt] coordinates {(7,4) (4,7) (4,8)};
+  \addplot[fill=cinza!40,draw=none,bar shift=0pt] coordinates {(5,5) (5,6) (3,12) (3,13) (3,14) (2,18)};
+\end{axis}
+\end{tikzpicture}
+
+\vspace{-1mm}
+{\small
+\tikz[baseline=-0.6ex]\fill[corA] (0,0) circle (3pt);\ Mecânica\quad
+\tikz[baseline=-0.6ex]\fill[corB] (0,0) circle (3pt);\ Eletricidade e magnetismo\quad
+\tikz[baseline=-0.6ex]\fill[corC] (0,0) circle (3pt);\ Ondas\quad
+\tikz[baseline=-0.6ex]\fill[cinza!40] (0,0) circle (3pt);\ outras áreas}
+\end{center}
+
+\subsecao{Ano a ano}
+% mapa de calor: fundo mais forte = mais questões naquele ano
+\newcommand{\cel}[2]{\cellcolor{#1!\the\numexpr#2*11\relax}#2}
+\begin{center}\small
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{l*{5}{>{\centering\arraybackslash}p{1.35cm}}>{\centering\arraybackslash}p{1.5cm}}
+\toprule
+\textbf{Área} & \textbf{2021} & \textbf{2022} & \textbf{2023} & \textbf{2024} & \textbf{2025} & \textbf{Total}\\
+\midrule
+Mecânica & \cel{corA}{4} & \cel{corA}{7} & \cel{corA}{4} & \cel{corA}{4} & \cel{corA}{4} & \textbf{23}\\
+Eletricidade e magnetismo & \cel{corB}{5} & \cel{corB}{5} & \cel{corB}{2} & \cel{corB}{3} & \cel{corB}{5} & \textbf{20}\\
+Ondas & \cel{corC}{3} & \cel{corC}{1} & \cel{corC}{5} & \cel{corC}{3} & \cel{corC}{3} & \textbf{15}\\
+Calor (termologia) & \cel{cinza}{4} & \cel{cinza}{1} & \cel{cinza}{4} & \cel{cinza}{4} & \cel{cinza}{2} & \textbf{15}\\
+Óptica & \cel{cinza}{0} & \cel{cinza}{1} & \cel{cinza}{0} & \cel{cinza}{1} & \cel{cinza}{1} & \textbf{3}\\
+Física moderna & \cel{cinza}{0} & \cel{cinza}{1} & \cel{cinza}{1} & \cel{cinza}{1} & \cel{cinza}{0} & \textbf{3}\\
+\midrule
+\textbf{Física na prova} & \textbf{16} & \textbf{16} & \textbf{16} & \textbf{16} & \textbf{15} & \textbf{79}\\
+\bottomrule
+\end{tabular}
+\end{center}
+\nota{Ondas e calor empatam em 15 questões. Ondas ficou com o 3º lugar porque também aparece como segundo assunto em questões de outras áreas
+(18 aparições no total, contra 16 de calor).}
+
+% ---------------------------------------------------------------- EQUAÇÕES E CONCEITOS
+\clearpage
+\titulo{Equações que resolvem}{As equações que resolvem as questões}
+Para cada questão das três áreas campeãs, anotamos quais equações e ideias aparecem na resolução que leva ao gabarito.
+A barra mostra em quantas questões cada uma aparece (uma questão pode usar mais de uma).
+
+\begin{tabelaeq}{corA}{\faCarSide\ \ Mecânica · 23 questões}
+\linhaeq{\textbf{Desenhar e somar as forças} (peso, normal, atrito, tração)}{todas as questões de leis de Newton começam aqui}{7}
+\linhaeq{$v = \dfrac{\Delta s}{\Delta t}$}{viagens, tempos de travessia, parte horizontal dos lançamentos}{6}
+\linhaeq{$F_R = m \cdot a$\ \ {\footnotesize($F_R = 0$ com $v$ constante)}}{caminhão freando, polias, balanço}{5}
+\linhaeq{$E_c = \dfrac{m v^2}{2}$,\ \ $E_p = m g h$,\ \ $P = \dfrac{E}{\Delta t}$}{potência de motor, painel solar, batida de carro}{5}
+\linhaeq{\textbf{Separar o movimento em dois eixos}}{lançamentos, nadador na correnteza, avião com vento}{4}
+\linhaeq{\textbf{Atrito:} $F_{\text{at}} = \mu \cdot N$}{caixa na rampa, carga no caminhão, muleta}{4}
+\linhaeq{$h = \dfrac{g\,t^2}{2}$,\ \ $v = v_0 - g\,t$}{queda e lançamento vertical ($g = 10$~m/s$^2$)}{3}
+\linhaeq{$Q = m \cdot v$,\ \ $F \cdot \Delta t = \Delta Q$}{colisões e proteção em batidas}{2}
+\linhaeq{$d = \dfrac{m}{V}$,\ \ $p = \dfrac{F}{A}$}{densidade e pressão: o que flutua, carga sobre a laje}{2}
+\end{tabelaeq}
+
+\begin{tabelaeq}{corB}{\faBolt\ \ Eletricidade e magnetismo · 20 questões}
+\linhaeq{\textbf{Ler o circuito:} série, paralelo e caminho fechado}{em série a tensão se divide; em paralelo a tensão é a mesma}{10}
+\linhaeq{$U = R \cdot i$}{achar corrente, tensão ou resistência em qualquer trecho}{8}
+\linhaeq{$P = U \cdot i$,\ \ $P = U^2/R$,\ \ $P = R \cdot i^2$}{aparelhos, disjuntor, brilho de lâmpada, aquecimento}{8}
+\linhaeq{\textbf{Pilhas em série somam} (invertida subtrai)}{lanterna, baterias, placas solares}{4}
+\linhaeq{$R = \rho\,\dfrac{L}{A}$}{comparar fios: comprido e fino resiste mais}{2}
+\linhaeq{$E = P \cdot \Delta t$}{energia em kWh, tempo de recarga, água do chuveiro}{2}
+\linhaeq{\textbf{Indução:} campo magnético variando cria corrente}{fogão de indução (2023 e 2025)}{2}
+\linhaeq{\textbf{Corrente e campo magnético}}{bússola perto do fio, regra da mão direita}{2}
+\linhaeq{$F = q \cdot E$ e linhas de campo elétrico}{tubo de TV antigo, blindagem}{2}
+\end{tabelaeq}
+
+\begin{tabelaeq}{corC}{\faWaveSquare\ \ Ondas · 15 questões}
+\linhaeq{\textbf{Reconhecer o fenômeno}}{reflexão, difração, interferência, ressonância, Doppler, absorção}{7}
+\linhaeq{$v = \lambda \cdot f$\ \ {\footnotesize(luz: $c = \lambda \cdot f$)}}{relacionar frequência e comprimento de onda}{5}
+\linhaeq{\textbf{Altura = frequência; intensidade = amplitude}}{grave e agudo, forte e fraco}{4}
+\linhaeq{\textbf{Ordem do espectro} (do rádio aos raios gama)}{cores, laser, raios X}{4}
+\linhaeq{\textbf{Frequência é da fonte, velocidade é do meio}}{som em barras, na água e no ar}{3}
+\linhaeq{$I = \dfrac{P}{A}$ e decibel}{sinal que enfraquece com a distância, ruído}{3}
+\linhaeq{$v = \dfrac{\Delta s}{\Delta t}$ para o som {\footnotesize(eco: ida e volta)}}{sonar, prospecção, atraso do som}{2}
+\linhaeq{$f = \dfrac{1}{T}$}{ler o período num gráfico}{1}
+\end{tabelaeq}
+
+\corcap{tinta}
+\nota{As seis equações do kit mínimo ($v = \Delta s/\Delta t$, $F_R = m \cdot a$, $F_{\text{at}} = \mu \cdot N$, $U = R \cdot i$, $P = U \cdot i$ e $v = \lambda \cdot f$)
+aparecem na resolução de 33 das 58 questões das três áreas. As outras 25 se resolvem com conceito, leitura de gráfico ou outra equação das tabelas.}
+
+\subsecao{Conta ou conceito? Depende da área}
+\begin{center}
+\begin{tikzpicture}[x=0.49cm,y=1cm]
+  % barras empilhadas: cálculo | conceitual | gráfico ou tabela, com rótulo dentro de cada trecho
+  \foreach \y/\nome/\a/\b/\c/\cor in {2/Mecânica/11/9/3/corA, 1/Eletricidade e magnetismo/11/9/0/corB, 0/Ondas/3/7/5/corC}{
+    \node[anchor=east,font=\small] at (-0.3,\y) {\nome};
+    \fill[\cor] (0,\y-0.3) rectangle (\a,\y+0.3);
+    \node[font=\small\bfseries,white] at (\a/2,\y) {\a};
+    \fill[\cor!55] (\a+0.08,\y-0.3) rectangle (\a+\b,\y+0.3);
+    \node[font=\small\bfseries,text=tinta] at (\a+\b/2,\y) {\b};
+    \ifnum\c>0
+      \fill[\cor!22] (\a+\b+0.08,\y-0.3) rectangle (\a+\b+\c,\y+0.3);
+      \node[font=\small\bfseries,text=tinta] at (\a+\b+\c/2,\y) {\c};
+    \fi
+  }
+  \node[anchor=south,font=\footnotesize\bfseries] at (5.5,2.35) {cálculo};
+  \node[anchor=south,font=\footnotesize\bfseries] at (15.5,2.35) {conceito (sem conta)};
+  \node[anchor=south west,font=\footnotesize\bfseries] at (20.3,2.35) {gráfico ou tabela};
+\end{tikzpicture}
+\end{center}
+\nota{Em cada barra, o tom escuro é cálculo, o médio é conceito e o claro é leitura de gráfico ou tabela.
+Em mecânica e eletricidade, metade das questões pede conta. Em ondas, 12 das 15 são de conceito ou de leitura de gráfico.}
+
+\vspace{3mm}
+{\footnotesize\color{cinza}
+\textbf{Fontes e método.} Provas e gabaritos oficiais do 2º dia do ENEM, 1ª aplicação, caderno 7 (azul), edições de 2021 a 2025,
+publicados pelo INEP em \url{https://download.inep.gov.br/enem/provas_e_gabaritos}. As 45 questões de Ciências da Natureza de cada prova
+(números 91 a 135) foram lidas uma a uma. Entraram na contagem as 79 cuja resposta depende principalmente de conteúdo de Física,
+classificadas pelo conceito que decide a alternativa correta. Dez delas fazem fronteira com outras disciplinas (oito com Química ou Biologia,
+duas com Geografia e Astronomia) e duas foram anuladas pelo INEP (2024, questão 129, e 2025, questão 132). Todas estão na contagem.
+Outra classificação razoável pode mudar algum número em uma ou duas unidades, sem alterar os dois primeiros lugares (o 3º está em empate com calor).
+As questões reais aparecem resumidas com outras palavras, com ano e número para consulta na prova original. As seis questões de treino são inéditas.\par}

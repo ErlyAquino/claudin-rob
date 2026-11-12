@@ -1,0 +1,98 @@
+% ---------------------------------------------------------------- COMO USAR + RAIO-X (versão curta, para o aluno)
+\titulo{Como usar}{Como usar este material}
+
+Você tem pouco tempo e pouca base? Este material foi feito para isso. Ele \textbf{não} tenta ensinar a Física toda.
+Mostra só o que mais aparece na prova e como reconhecer cada tipo de questão.
+
+\begin{tcolorbox}[base,colback=cinzaclaro,colframe=cinzaclaro]
+\newcommand{\passocomo}[4]{\begin{minipage}[t]{0.31\linewidth}\centering
+  \parbox[c][9mm][c]{\linewidth}{\centering\Huge\color{#1}#2}\par \textbf{#3}\par {\small #4}\end{minipage}}
+\passocomo{corA}{\faEye}{1. Olhe a figura}{Cada ideia tem um desenho e uma comparação com algo que você já conhece.}\hfill
+\passocomo{corB}{\faGraduationCap}{2. Veja como caiu}{Questões reais do ENEM, resumidas, com a conta passo a passo.}\hfill
+\passocomo{corC}{\faPencil*}{3. Treine}{No fim há 6 questões no estilo da prova, com gabarito comentado.}
+\end{tcolorbox}
+
+\vspace{1mm}
+{\fontsize{24}{27}\selectfont\bfseries O raio‑X da Física no ENEM}\par\vspace{1mm}
+Lemos as cinco últimas provas de Ciências da Natureza (2021 a 2025): \textbf{79 questões são de Física}.
+Veja de onde elas vêm.
+
+\vspace{2mm}
+\begin{minipage}[t]{0.235\linewidth}\numerao{79}{questões de Física em 5 provas (cerca de 16 por ano)}\end{minipage}\hfill
+\begin{minipage}[t]{0.235\linewidth}\numerao{73\%}{vêm de só 3 áreas: mecânica, eletricidade e ondas}\end{minipage}\hfill
+\begin{minipage}[t]{0.235\linewidth}\numerao{48\%}{são conceituais: dá para acertar sem fazer conta}\end{minipage}\hfill
+\begin{minipage}[t]{0.235\linewidth}\numerao{9 em 10}{são de nível fácil ou médio}\end{minipage}
+
+\vspace{3mm}
+\subsecao{Quantas questões por área (2021 a 2025)}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  xbar, width=0.78\linewidth, height=5.6cm, bar width=13pt,
+  xmin=0, xmax=27, ymin=0.4, ymax=6.6,
+  axis x line=none, axis y line*=left, axis line style={cinza!60}, tick style={draw=none},
+  ytick={1,2,3,4,5,6}, y dir=reverse,
+  yticklabels={Mecânica,Eletricidade e magnetismo,Ondas,Calor (termologia),Óptica,Física moderna},
+  yticklabel style={font=\small,color=tinta,align=right},
+  nodes near coords, nodes near coords style={font=\small\bfseries,color=tinta,anchor=west},
+  point meta=explicit symbolic, clip=false]
+  \addplot[fill=corA,draw=none,bar shift=0pt] coordinates {(23,1) [23 (29\%)]};
+  \addplot[fill=corB,draw=none,bar shift=0pt] coordinates {(20,2) [20 (25\%)]};
+  \addplot[fill=corC,draw=none,bar shift=0pt] coordinates {(15,3) [15 (19\%)]};
+  \addplot[fill=cinza!40,draw=none,bar shift=0pt] coordinates {(15,4) [15 (19\%)] (3,5) [3 (4\%)] (3,6) [3 (4\%)]};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\vspace{-3mm}
+\nota{Em cor, as três áreas deste material. Ondas e calor empatam em 15 questões, por isso há um resumo‑bônus de calor na página do
+resumo de bolso. A análise completa (assunto por assunto, ano a ano e equação por equação) está no fim, a partir da página~\pageref{pg:analise}.}
+
+\begin{macete}[O que isso muda no seu estudo]
+\begin{itemize}
+  \item O assunto campeão é \textbf{circuitos elétricos}. Cai todo ano, de 1 a 3 questões. Comece por ele.
+  \item \textbf{Movimento e forças} somam 14 questões. É a base da mecânica.
+  \item \textbf{Ondas e som} quase sempre caem como questão de conceito ou de leitura de gráfico. São pontos fáceis de garantir.
+  \item O ENEM gosta de \textbf{situações do dia a dia}: chuveiro, pedágio, ambulância, extensão elétrica. Leia a história com calma, porque os dados estão nela.
+\end{itemize}
+\end{macete}
+
+% ---------------------------------------------------------------- KIT MÍNIMO + SÍMBOLOS + MAPA
+\clearpage
+\titulo{Kit mínimo}{O kit mínimo: 6 equações}
+
+Estas seis equações aparecem na resolução de \textbf{33 das 58 questões} das três áreas campeãs. Se for decorar só seis, decore estas.
+
+\newcommand{\cartaokit}[4]{\begin{formula}[colframe=#1,colbacktitle=#1]{#2}{\Large #3}\par\smallskip{\small #4}\end{formula}}
+\begin{tcbraster}[fileira=3]
+\cartaokit{corA}{Movimento}{$v = \dfrac{\Delta s}{\Delta t}$}{velocidade = distância $\div$ tempo}
+\cartaokit{corA}{Força}{$F_R = m \cdot a$}{força resultante = massa $\times$ aceleração}
+\cartaokit{corA}{Atrito}{$F_{\text{at}} = \mu \cdot N$}{atrito = coeficiente de atrito $\times$ força normal}
+\cartaokit{corB}{Lei de Ohm}{$U = R \cdot i$}{tensão = resistência $\times$ corrente}
+\cartaokit{corB}{Potência elétrica}{$P = U \cdot i$}{potência = tensão $\times$ corrente}
+\cartaokit{corC}{Ondas}{$v = \lambda \cdot f$}{velocidade = comprimento de onda $\times$ frequência}
+\end{tcbraster}
+
+\corcap{tinta}
+\begin{quadro}{\faBookOpen\ \ Como ler os símbolos}
+\small\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}>{\bfseries}p{2.2cm}>{\raggedright\arraybackslash}p{13.6cm}@{}}
+$\Delta$ (delta) & variação: o valor final menos o inicial. $\Delta s$ é a distância percorrida; $\Delta t$ é o tempo gasto.\\
+$v_0$ & a velocidade no começo.\\
+$F_R$ e $F_{\text{at}}$ & força resultante (o saldo de todas as forças) e força de atrito.\\
+$\mu$ (``mi'') & coeficiente de atrito: um número que diz quanto o piso segura. Piso liso, $\mu$ pequeno.\\
+$\lambda$ (``lambda'') & comprimento de onda: a distância entre duas cristas.\\
+$\rho$ (``rô'') & resistividade: depende do material do fio.\\
+k e m & k (quilo) é vezes 1\,000; m (mili) é dividido por 1\,000. Exemplos: 5,5~kW = 5\,500~W; 20~mA = 0,020~A.\\
+\end{tabular}
+\end{quadro}
+
+\subsecao{Onde está cada coisa}
+\newcommand{\mapa}[5]{\begin{tcolorbox}[base,colback=#1,colframe=#1,halign=flush left,left=3mm,right=3mm,top=2.5mm,bottom=2.5mm]
+  {\color{white}{\Large #2}\par\smallskip\textbf{#3}\par\smallskip{\small #4}\par\smallskip{\small\bfseries página~\pageref{#5}}}\end{tcolorbox}}
+\begin{tcbraster}[fileira=5,raster column skip=2mm]
+\mapa{corA}{\faCarSide}{Mecânica}{movimento, forças e energia}{pg:mec}
+\mapa{corB}{\faBolt}{Eletricidade}{circuitos, potência e conta de luz}{pg:ele}
+\mapa{corC}{\faWaveSquare}{Ondas}{som, luz e fenômenos}{pg:ond}
+\mapa{tinta}{\faPencil*}{Treino}{6 questões com gabarito}{pg:treino}
+\mapa{tinta}{\faStickyNote[regular]}{Resumo de bolso}{para a véspera da prova}{pg:bolso}
+\end{tcbraster}
