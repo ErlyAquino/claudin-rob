@@ -1,0 +1,50 @@
+% ---------------------------------------------------------------- CAPA
+% Identidade visual do cartaz "Aulão de Véspera" (GRE Metro Sul / Governo de Pernambuco / ETE Epitácio Pessoa).
+% Fundo e logos: ../capa (gerados por capa/gerar_capa.py).
+\definecolor{capaAzul}{HTML}{0B6FC6}
+\definecolor{capaCiano}{HTML}{0A9CCB}
+\definecolor{capaAmarelo}{HTML}{DBEE26}
+\definecolor{capaCartao}{HTML}{DCE8F3}
+\newcommand{\pc}[2]{($(current page.north west)+(#1,-#2)$)}
+\begin{titlepage}
+\thispagestyle{empty}
+\pdfbookmark[1]{Capa}{capa}
+\begin{tikzpicture}[remember picture,overlay]
+  \node[inner sep=0pt] at (current page.center) {\includegraphics[width=\paperwidth,height=\paperheight]{../capa/fundo-a4.png}};
+  % título
+  \node[white,font=\fontsize{92}{92}\selectfont\bfseries,inner sep=0pt] at \pc{10.5}{4.75} {AULÃO};
+  \node[white,font=\fontsize{25}{28}\selectfont\bfseries,inner sep=0pt] at \pc{10.5}{6.95} {de Véspera};
+  % cartão do material + logo do ENEM
+  \fill[capaCartao,rounded corners=7mm] \pc{3.7}{8.0} rectangle \pc{17.3}{11.5};
+  \node[anchor=west,text width=7.6cm,align=left,inner sep=0pt] at \pc{4.5}{9.75} {%
+    {\color{capaAzul}\fontsize{29}{31}\selectfont\bfseries FÍSICA\\ NO ENEM}\\[2.5mm]
+    {\color{capaCiano}\fontsize{13}{15}\selectfont\bfseries REVISÃO RÁPIDA · CIÊNCIAS DA NATUREZA}};
+  \node[inner sep=0pt] at \pc{14.25}{9.75} {\includegraphics[width=4.5cm]{../capa/logo-enem.png}};
+  % chamada e assuntos
+  \node[white,font=\fontsize{14}{18}\selectfont,text width=14cm,align=center,inner sep=0pt] at \pc{10.5}{12.55}
+    {Os 3 assuntos que mais caem, explicados com exemplos do dia a dia};
+  \foreach \x/\nome/\ic in {5.75/Mecânica/\faCarSide, 10.5/Eletricidade/\faBolt, 15.25/Ondas/\faWaveSquare}{
+    \node[fill=capaAmarelo,text=capaAzul!70!black,rounded corners=4.5mm,minimum width=4.3cm,minimum height=0.95cm,font=\bfseries\large,inner sep=0pt]
+      at \pc{\x}{13.95} {\ic\ \ \nome};}
+  % data
+  \fill[capaCartao,rounded corners=7mm] \pc{5.2}{15.65} rectangle \pc{15.8}{19.15};
+  \node[fill=capaAmarelo,text=capaAzul!70!black,rounded corners=2.5mm,minimum width=1.25cm,minimum height=1.25cm,font=\LARGE,inner sep=0pt] at \pc{10.5}{15.55} {\faCalendar*};
+  \node[text width=10cm,align=center,inner sep=0pt] at \pc{10.5}{17.6} {%
+    {\color{capaCiano}\fontsize{14}{17}\selectfont Dia 12 de Novembro}\\[1.5mm]
+    {\color{capaCiano}\fontsize{27}{29}\selectfont\bfseries Quinta-feira}\\[2mm]
+    {\color{capaCiano}\fontsize{14}{17}\selectfont 7h30 · Auditório}};
+  % professor
+  \node[capaAmarelo,font=\fontsize{12}{14}\selectfont\bfseries,inner sep=0pt] at \pc{10.5}{20.15} {P\,R\,O\,F\,E\,S\,S\,O\,R};
+  \node[white,font=\fontsize{36}{38}\selectfont\bfseries,inner sep=0pt] at \pc{10.5}{21.25} {Erly Aquino};
+  % logos em destaque
+  \draw[white,line width=0.6pt,opacity=0.55] \pc{4.0}{22.45} -- \pc{17.0}{22.45};
+  \fill[white,rounded corners=6mm] \pc{3.3}{22.85} rectangle \pc{17.7}{26.3};
+  \node[inner sep=0pt] at \pc{5.6}{24.575} {\includegraphics[width=3.7cm]{../capa/logo-gre.png}};
+  \node[inner sep=0pt] at \pc{10.65}{24.575} {\includegraphics[width=5.6cm]{../capa/logo-see.png}};
+  \node[inner sep=0pt] at \pc{15.5}{24.575} {\includegraphics[width=3.5cm]{../capa/logo-ete.png}};
+  % rodapé
+  \node[anchor=west,white,font=\small,inner sep=0pt,text width=9cm,align=left] at \pc{2.3}{28.25}
+    {ENEM 2021–2025 · 79 questões analisadas\\ Resumos, questões comentadas e treino};
+\end{tikzpicture}
+\end{titlepage}
+\setcounter{page}{2}   % a capa é a página 1: a numeração impressa coincide com a do leitor de PDF

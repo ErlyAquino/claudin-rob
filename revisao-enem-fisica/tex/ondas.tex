@@ -1,0 +1,263 @@
+% ---------------------------------------------------------------- ASSUNTO 3: ONDAS
+\assunto{corC}{Ondas: som, luz e sinais}{15 questões em 5 anos, quase todas de conceito ou de leitura de gráfico. São pontos que dá para garantir sem conta difícil.}{Ondas}\label{pg:ond}
+
+\secao{Parte 1 · O que é uma onda}
+
+\begin{analogia}[A ``ola'' do estádio]
+Na ola, a onda dá a volta no estádio inteiro, mas \textbf{cada torcedor só levanta e senta no próprio lugar}.
+Onda é isso: uma perturbação que viaja e \textbf{transporta energia sem carregar matéria}.
+\end{analogia}
+
+\begin{center}
+\begin{tikzpicture}
+  \draw[cinza,-{Latex[length=2mm]}] (-0.3,0) -- (13.0,0) node[right,font=\small,text=cinza] {posição};
+  \draw[tema,line width=2pt,domain=0:12,samples=200,smooth] plot (\x,{1.2*sin(\x*90)});
+  % comprimento de onda (crista a crista)
+  \draw[cinza,dashed] (1,1.2) -- (1,1.75); \draw[cinza,dashed] (5,1.2) -- (5,1.75);
+  \draw[cota,tinta] (1,1.75) -- (5,1.75) node[midway,above,font=\small\bfseries,text=tinta] {comprimento de onda $\lambda$};
+  % amplitude
+  \draw[cota,alerta] (9,0) -- (9,1.2);
+  \node[anchor=south west,font=\small\bfseries,text=alerta] at (9.15,1.2) {amplitude $A$};
+  \fill[tinta] (1,1.2) circle (2pt);
+  \node[anchor=south east,font=\small] at (0.85,1.2) {crista};
+  \fill[tinta] (3,-1.2) circle (2pt) node[below=1mm,font=\small] {vale};
+\end{tikzpicture}
+\end{center}
+
+\begin{tcbraster}[fileira=2]
+\begin{quadro}{No tempo}
+\textbf{Período ($T$):} o tempo de \textbf{uma} oscilação completa, em segundos.\par\smallskip
+\textbf{Frequência ($f$):} quantas oscilações \textbf{por segundo}, em hertz (Hz).\par\smallskip
+{\centering\Large $f = \dfrac{1}{T}$\par}
+\end{quadro}
+\begin{quadro}{No espaço}
+\textbf{Amplitude ($A$):} o ``tamanho'' da onda. Mais amplitude, mais energia (som mais forte, luz mais intensa).\par\smallskip
+\textbf{Comprimento de onda ($\lambda$, ``lambda''):} a distância entre duas cristas vizinhas, em metros.
+\end{quadro}
+\end{tcbraster}
+
+\begin{enemreal}{2021, questão 131}
+\begin{minipage}[c]{0.50\linewidth}
+\textbf{A situação.} Um eletrocardiograma em papel quadriculado. Cada quadrado na horizontal vale 0,2~s. Entre dois picos seguidos há 5 quadrados.
+Quantos batimentos por minuto?
+\passo{1. Período:} $5 \times 0{,}2 = 1$~s entre uma batida e a seguinte.
+\passo{2. Frequência:} $f = 1 \div T = 1$ batida por segundo.
+\passo{3. Um minuto tem 60~s:} $1 \times 60 = 60$.
+\resp{60 batimentos por minuto}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.47\linewidth}\centering
+\begin{tikzpicture}[x=0.55cm,y=0.55cm]
+  \draw[alerta!25,line width=0.4pt,step=1] (0,0) grid (12,5);
+  \draw[alerta!45,line width=0.6pt] (0,0) rectangle (12,5);
+  % sinal: linha de base com dois picos separados por 5 quadrados
+  \draw[tinta,line width=1.1pt,line join=round] (0,1.5) -- (2.3,1.5) -- (2.6,1.9) -- (2.8,1.2) -- (3,4.5) -- (3.2,0.8) -- (3.4,1.5) -- (4.4,1.5) -- (4.9,2.0) -- (5.4,1.5)
+     -- (7.3,1.5) -- (7.6,1.9) -- (7.8,1.2) -- (8,4.5) -- (8.2,0.8) -- (8.4,1.5) -- (9.4,1.5) -- (9.9,2.0) -- (10.4,1.5) -- (12,1.5);
+  \draw[cota,tema] (3,4.8) -- (8,4.8);
+  \node[anchor=south,font=\small\bfseries,text=tinta] at (5.5,4.9) {5 quadrados $\times$ 0,2 s = 1 s};
+  \draw[cota] (0,-0.4) -- (1,-0.4); \node[anchor=west,font=\scriptsize] at (1.2,-0.4) {1 quadrado = 0,2 s};
+\end{tikzpicture}
+\end{minipage}
+\end{enemreal}
+
+\secao{Parte 2 · A equação das ondas}
+
+\begin{minipage}[c]{0.34\linewidth}
+\begin{formula}{Equação fundamental}
+{\Large $v = \lambda \cdot f$}\par\medskip
+{\small Para a luz no vácuo: $c = \lambda \cdot f$,\\ com $c = 300\,000$~km/s.}
+\end{formula}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.63\linewidth}
+\begin{analogia}[Andar é multiplicar passos]
+Sua velocidade ao caminhar é o \textbf{tamanho do passo} vezes o \textbf{número de passos por segundo}.
+Na onda, o passo é $\lambda$ e os passos por segundo são $f$.
+\end{analogia}
+\end{minipage}
+
+\begin{minipage}[c]{0.40\linewidth}\centering
+\begin{tikzpicture}
+  \fill[tema!10] (0,-0.9) rectangle (3.0,0.9); \fill[tema!28] (3.0,-0.9) rectangle (6.0,0.9);
+  \draw[tinta,dashed] (3.0,-0.9) -- (3.0,0.9);
+  \draw[tema!70!black,line width=1.5pt,domain=0:3,samples=80,smooth] plot (\x,{0.55*sin(\x*240)});
+  \draw[tema!70!black,line width=1.5pt,domain=3:6,samples=120,smooth] plot (\x,{0.55*sin((\x-3)*480)});
+  \node[font=\scriptsize\bfseries,anchor=south] at (1.5,0.9) {meio rápido: $\lambda$ maior};
+  \node[font=\scriptsize\bfseries,anchor=south] at (4.5,0.9) {meio lento: $\lambda$ menor};
+  \node[font=\scriptsize,anchor=north] at (3.0,-0.9) {a frequência é a mesma dos dois lados};
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.57\linewidth}
+\begin{macete}[A regra de ouro das ondas]
+\textbf{A frequência é da fonte. A velocidade é do meio.}\par\smallskip
+Quem decide a frequência é quem produz a onda (a corda, o alto‑falante, a antena). Quem decide a velocidade é o material por onde ela passa.
+Se a onda \textbf{troca de meio}, a frequência continua a mesma. Mudam a velocidade e o comprimento de onda.
+\end{macete}
+\end{minipage}
+
+\begin{enemreal}{2021, questão 92}
+\textbf{A situação.} Um sino dos ventos tem barras do mesmo material, uma curta e uma comprida. Compare a frequência e a
+velocidade do som das duas.
+\passo{Velocidade:} as barras são do mesmo material e o som das duas viaja pelo mesmo ar. Mesmo meio, velocidade \textbf{igual}.
+\passo{Frequência:} na barra curta ``cabe'' uma onda menor ($\lambda$ menor). Com $v$ igual, $f = v \div \lambda$ fica \textbf{maior}. O som é mais agudo.
+\resp{a barra curta tem frequência maior; as velocidades são iguais}
+\nota{No violão, apertar a corda numa casa encurta o trecho que vibra, e o som fica mais agudo.}
+\end{enemreal}
+
+\secao{Parte 3 · Som}
+
+O som é uma onda \textbf{mecânica}: precisa de um material para viajar (ar, água, parede). No vácuo não há som.
+No ar, anda a cerca de 340~m/s. Na água, a 1\,500~m/s. Nos sólidos, mais rápido ainda.
+
+\begin{center}
+\begin{tikzpicture}
+  \newcommand{\miniwave}[5]{% x, y, amplitude, ciclos, rótulo
+    \draw[cinza!50] (#1,#2) -- (#1+3.3,#2);
+    \draw[tema!80!black,line width=1.3pt,domain=0:3.3,samples=120,smooth] plot ({#1+\x},{#2+#3*sin(\x*#4*109.09)});
+    \node[font=\small,anchor=north,align=center] at (#1+1.65,#2-0.68) {#5};}
+  \node[font=\small,anchor=south] at (3.55,0.75) {\textbf{Altura}: depende da \textbf{frequência}};
+  \miniwave{0}{0}{0.4}{2}{\textbf{grave}\\frequência baixa}
+  \miniwave{3.8}{0}{0.4}{6}{\textbf{agudo}\\frequência alta}
+  \draw[cinza!40] (8.15,-1.15) -- (8.15,1.15);
+  \node[font=\small,anchor=south] at (12.75,0.75) {\textbf{Intensidade} (em decibel, dB): depende da \textbf{amplitude}};
+  \miniwave{9.2}{0}{0.15}{3}{\textbf{fraco}\\amplitude pequena}
+  \miniwave{13.0}{0}{0.55}{3}{\textbf{forte}\\amplitude grande}
+\end{tikzpicture}
+\end{center}
+{\small \textbf{Timbre} é a ``voz'' de cada fonte: a mesma nota soa diferente no violão e na flauta.}
+
+\begin{pegadinha}[``Som alto'' não é som forte]
+Na rua, ``som alto'' é volume grande. Na Física, \textbf{alto = agudo} e \textbf{baixo = grave}. Volume é \textbf{intensidade}.\par\smallskip
+ENEM 2023, questão 111: no telefone de lata, com o barbante mais comprido, o som chega mais fraco. Diminuiu a \textbf{amplitude}. A frequência ficou igual.
+\end{pegadinha}
+
+\begin{minipage}[c]{0.38\linewidth}\centering
+\begin{tikzpicture}[scale=0.85]
+  % barco e fundo do mar: eco / sonar
+  \fill[corA!18] (0,0) rectangle (6,2.3);
+  \fill[ouro!45] (0,0) rectangle (6,0.25);
+  \draw[tinta,line width=1pt,fill=white] (2.2,2.3) -- (3.8,2.3) -- (3.5,1.95) -- (2.5,1.95) -- cycle;
+  \draw[seta,tema] (2.8,1.9) -- (2.8,0.35) node[midway,left,font=\small\bfseries,text=tinta] {ida};
+  \draw[seta,alerta] (3.2,0.35) -- (3.2,1.9) node[midway,right,font=\small\bfseries,text=tinta] {volta};
+  \draw[cota] (5.3,0.25) -- (5.3,1.95) node[midway,right,font=\small,text=tinta] {$d$};
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.59\linewidth}
+\textbf{Eco e sonar.} O som vai, bate e volta. No tempo medido ele percorreu a distância \textbf{duas vezes}:\quad
+{\Large $d = \dfrac{v \cdot t}{2}$}\par\smallskip
+{\small É assim que o sonar mede a profundidade, o morcego se orienta no escuro e o ultrassom faz a imagem do bebê.}
+\end{minipage}
+
+\begin{enemreal}{2023, questão 135}
+\textbf{A situação.} Na busca por petróleo, um pulso de som é enviado ao subsolo. Há uma camada de líquido com 450~m de espessura.
+O eco do topo da camada volta em 0,5~s. O eco do fundo volta em 1,1~s. Qual a velocidade do som no líquido?
+\passo{1. Tempo só dentro do líquido (ida e volta):} $1{,}1 - 0{,}5 = 0{,}6$~s.
+\passo{2. Distância dentro do líquido (ida e volta):} $2 \times 450 = 900$~m.
+\passo{3. Velocidade:} $v = 900 \div 0{,}6 = 1\,500$~m/s.
+\resp{1\,500~m/s}
+\erro{esquecer que o som vai e volta, e usar 450~m em vez de 900~m.}
+\end{enemreal}
+
+\secao{Parte 4 · O que as ondas fazem (fenômenos)}
+
+Reconhecer o fenômeno decide 7 das 15 questões de ondas.
+{\small\textbf{Para lembrar:} reflexão volta; refração muda de meio; difração contorna; interferência soma ou cancela;
+ressonância faz crescer; Doppler muda o tom; absorção fica com a energia.}
+
+\newcommand{\fenomeno}[4]{\begin{cartao}
+  \begin{minipage}[c][19mm][c]{\linewidth}\centering #1\end{minipage}\par
+  \textbf{#2}\par {\small #3}\par\smallskip {\footnotesize\color{cinza}#4}\end{cartao}}
+\begin{tcbraster}[fileira=3]
+\fenomeno{\begin{tikzpicture}
+    \draw[tinta,line width=2.5pt] (2.2,-0.75) -- (2.2,0.75);
+    \draw[seta,tema!80!black] (0.2,0.7) -- (2.15,0);
+    \draw[seta,alerta] (2.15,0) -- (0.2,-0.7);
+    \draw[cinza,dashed] (1.2,0) -- (2.2,0);
+  \end{tikzpicture}}{Reflexão}{A onda bate e volta.}{Eco, espelho, sonar.}
+\fenomeno{\begin{tikzpicture}
+    \fill[corA!20] (0,-0.8) rectangle (3.2,0);
+    \draw[tinta,line width=0.8pt] (0,0) -- (3.2,0);
+    \draw[cinza,dashed] (1.6,-0.8) -- (1.6,0.8);
+    \draw[seta,tema!80!black] (0.4,0.8) -- (1.6,0);
+    \draw[seta,tema!80!black] (1.6,0) -- (2.1,-0.8);
+    \node[font=\tiny,anchor=east] at (3.15,0.2) {ar}; \node[font=\tiny,anchor=east] at (3.15,-0.2) {água};
+  \end{tikzpicture}}{Refração}{A onda muda de meio e muda de velocidade.}{O canudo que parece quebrado no copo d'água.}
+\fenomeno{\begin{tikzpicture}
+    \foreach \x in {0.2,0.55,0.9}{\draw[tema!80!black,line width=1.1pt] (\x,-0.75) -- (\x,0.75);}
+    \draw[tinta,line width=2.5pt] (1.3,-0.8) -- (1.3,-0.15); \draw[tinta,line width=2.5pt] (1.3,0.15) -- (1.3,0.8);
+    \foreach \r in {0.35,0.7,1.05}{\draw[tema!80!black,line width=1.1pt] (1.3,0) ++(-70:\r) arc (-70:70:\r);}
+  \end{tikzpicture}}{Difração}{A onda contorna obstáculos e passa por frestas.}{Você ouve quem está atrás do muro, mas não vê.}
+\fenomeno{\begin{tikzpicture}
+    \draw[tema!45,line width=0.9pt,domain=0:1.4,samples=40,smooth] plot (\x,{0.45+0.16*sin(\x*514)});
+    \draw[tema!45,line width=0.9pt,domain=0:1.4,samples=40,smooth] plot (\x,{-0.05+0.16*sin(\x*514)});
+    \draw[tema!80!black,line width=1.4pt,domain=0:1.4,samples=40,smooth] plot (\x,{-0.6+0.32*sin(\x*514)});
+    \node[font=\tiny\bfseries,anchor=north] at (0.7,-0.95) {somam};
+    \draw[tema!45,line width=0.9pt,domain=1.9:3.3,samples=40,smooth] plot (\x,{0.45+0.16*sin((\x-1.9)*514)});
+    \draw[tema!45,line width=0.9pt,domain=1.9:3.3,samples=40,smooth] plot (\x,{-0.05-0.16*sin((\x-1.9)*514)});
+    \draw[tema!80!black,line width=1.4pt] (1.9,-0.6) -- (3.3,-0.6);
+    \node[font=\tiny\bfseries,anchor=north] at (2.6,-0.95) {cancelam};
+  \end{tikzpicture}}{Interferência}{Duas ondas se encontram e se somam ou se cancelam.}{Fone com cancelamento de ruído. Para o efeito ser estável, as duas precisam ter a mesma frequência (2023, questão 128).}
+\fenomeno{\begin{tikzpicture}
+    \fill[cinza!50] (-0.6,0.75) rectangle (0.6,0.85);
+    \foreach \a/\op in {12/25,26/50,42/100}{
+      \draw[tema!\op!white,line width=1pt] (0,0.75) -- ({1.35*sin(\a)},{0.75-1.35*cos(\a)});
+      \fill[tema!\op!white] ({1.35*sin(\a)},{0.75-1.35*cos(\a)}) circle (0.11);
+      \draw[tema!\op!white,line width=1pt] (0,0.75) -- ({-1.35*sin(\a)},{0.75-1.35*cos(\a)});
+      \fill[tema!\op!white] ({-1.35*sin(\a)},{0.75-1.35*cos(\a)}) circle (0.11);}
+  \end{tikzpicture}}{Ressonância}{Empurrar no ritmo certo faz a oscilação crescer.}{Balanço do parquinho; a taça que quebra com a nota certa (2025, questão 114).}
+\fenomeno{\begin{tikzpicture}[scale=0.82]
+    \foreach \c/\r in {0.8/1.0,1.05/0.72,1.3/0.44}{\draw[tema!80!black,line width=0.9pt] (\c,0) circle (\r);}
+    \node[font=\small,text=alerta] at (1.42,0) {\faAmbulance};
+    \draw[seta,tinta] (2.0,0) -- (2.75,0);
+    \node[font=\scriptsize\bfseries,anchor=west] at (2.85,0) {agudo}; \node[font=\scriptsize\bfseries,anchor=east] at (-0.3,0) {grave};
+  \end{tikzpicture}}{Efeito Doppler}{Fonte se aproximando: você \textbf{percebe} frequência maior. Afastando: menor.}{A sirene parece aguda ao chegar e grave ao ir embora (2024, questão 99). A fonte emite sempre a mesma frequência.}
+\end{tcbraster}
+
+\secao{Parte 5 · Luz e a família das ondas eletromagnéticas}
+
+Luz, rádio, micro‑ondas e raios X são a mesma coisa: \textbf{ondas eletromagnéticas}. Não precisam de meio (atravessam o vácuo) e,
+no vácuo, todas andam a 300\,000~km/s. O que muda de uma para outra é a frequência.
+
+\begin{center}
+\begin{tikzpicture}
+  \def\L{2.42}
+  \foreach \i/\nome/\uso/\cor in {0/rádio/{FM e TV}/cinza!18, 1/micro‑ondas/{forno e Wi‑Fi}/cinza!28, 2/infravermelho/{controle\\remoto}/cinza!38,
+      4/ultravioleta/{luz do Sol,\\bronzeado}/cinza!38, 5/raios X/radiografia/cinza!28, 6/raios gama/radioterapia/cinza!18}{
+    \fill[\cor] (\i*\L,0) rectangle (\i*\L+\L,0.85);
+    \node[font=\small\bfseries,text=tinta] at (\i*\L+0.5*\L,0.425) {\nome};
+    \node[font=\footnotesize,text=cinza,anchor=north,align=center,text width=\L cm-2mm] at (\i*\L+0.5*\L,-0.08) {\uso};
+  }
+  % visível (arco-íris): do vermelho ao violeta
+  \shade[left color=red!85,right color=yellow!90] (3*\L,0) rectangle (3*\L+0.33*\L,0.85);
+  \shade[left color=yellow!90,right color=green!70!black] (3*\L+0.33*\L,0) rectangle (3*\L+0.55*\L,0.85);
+  \shade[left color=green!70!black,right color=blue!80] (3*\L+0.55*\L,0) rectangle (3*\L+0.8*\L,0.85);
+  \shade[left color=blue!80,right color=violet!90] (3*\L+0.8*\L,0) rectangle (4*\L,0.85);
+  \node[font=\small\bfseries,text=tinta,fill=white,fill opacity=0.85,text opacity=1,rounded corners=2pt,inner sep=2pt] at (3.5*\L,0.425) {visível};
+  \node[font=\footnotesize,text=cinza,anchor=north,align=center,text width=\L cm-2mm] at (3.5*\L,-0.08) {do vermelho\\ao violeta};
+  \foreach \i in {1,...,6}{\draw[white,line width=1.2pt] (\i*\L,0) -- (\i*\L,0.85);}
+  % onda cujo comprimento diminui da esquerda para a direita
+  \draw[tema!80!black,line width=1.1pt,domain=0:16.94,samples=900,smooth] plot (\x,{1.45+0.28*sin(30*\x+22*\x*\x)});
+  \draw[seta,tema] (0,2.05) -- (7*\L,2.05) node[midway,above,font=\small\bfseries,text=tinta] {frequência e energia AUMENTAM};
+  \draw[seta,alerta] (7*\L,-1.15) -- (0,-1.15) node[midway,below,font=\small\bfseries,text=tinta] {comprimento de onda AUMENTA};
+\end{tikzpicture}
+\end{center}
+
+{\small\textbf{Para decorar a ordem} (\textbf{R}ádio, \textbf{M}icro‑ondas, \textbf{I}nfravermelho, \textbf{V}isível, \textbf{U}ltravioleta, raios \textbf{X}, \textbf{G}ama):
+``\textbf{R}aul \textbf{M}andou \textbf{I}vo \textbf{V}er \textbf{U}ma \textbf{X}ícara \textbf{G}igante.''}
+
+\begin{enemreal}{2023, questão 112}
+\textbf{A situação.} Num CD ou DVD, os dados ficam em cavidades minúsculas lidas por laser. A difração impede ler cavidades menores
+que o comprimento de onda da luz. Que cor de laser guarda mais dados no mesmo disco?
+\passo{Raciocínio:} cavidade menor pede $\lambda$ menor. No visível, o menor comprimento de onda é o do \textbf{violeta}. O maior é o do vermelho.
+\resp{violeta}
+\end{enemreal}
+
+\begin{pegadinha}[As pegadinhas de ondas que o ENEM repete]
+\begin{itemize}
+  \item \textbf{Frequência não muda quando a onda troca de meio.} Mudam a velocidade e o comprimento de onda.
+  \item \textbf{No mesmo meio, frequência e comprimento de onda andam ao contrário.} Se um aumenta, o outro diminui (2025, questão 135).
+  \item \textbf{Eco é ida e volta.} Divida a distância total por 2 (ou dobre a espessura).
+  \item \textbf{Altura é frequência, intensidade é amplitude.} ``Som mais baixo'' na prova pode querer dizer mais grave.
+  \item \textbf{A cor que você vê é a que o objeto reflete,} não a que ele absorve (2021, questão 120).
+  \item \textbf{Gráfico} (5 das 15 questões): leia primeiro os eixos e quanto vale cada quadrado.
+  \item \textbf{Absorção:} o material fica com a energia da onda. Raios X passam pela pele e param em ossos e metais (2024, questão 106).
+\end{itemize}
+\end{pegadinha}

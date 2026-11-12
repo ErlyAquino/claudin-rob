@@ -1,0 +1,147 @@
+% Estilo do material "Física no ENEM: revisão rápida" (pdfLaTeX; MiKTeX ou TeX Live)
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\DeclareUnicodeCharacter{2011}{\mbox{-}}   % hífen não separável
+\usepackage[a4paper,top=14mm,bottom=17mm,left=17mm,right=17mm,headheight=14pt,footskip=9mm]{geometry}
+\usepackage[sfdefault,lining]{FiraSans}
+\usepackage[scaled=1.06]{newtxsf}    % matemática sem serifa, na altura do texto
+\usepackage[scaled=0.9]{FiraMono}     % evita fonte bitmap (Type 3) em \texttt e \url
+\usepackage{microtype}
+\ifdefined\pdfglyphtounicode\pdfglyphtounicode{Delta}{0394}\pdfglyphtounicode{Omega}{03A9}\pdfglyphtounicode{mu}{03BC}\fi   % busca por letras gregas no PDF
+\usepackage[table]{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning,decorations.pathmorphing,decorations.markings,patterns,shapes.geometric,shapes.misc,fit,backgrounds}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[RPvoltages]{circuitikz}
+\usepackage[most]{tcolorbox}
+\usepackage{fontawesome5}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{fancyhdr}
+\usepackage{needspace}
+\usepackage{amsmath}
+\usepackage[hidelinks,unicode,bookmarksopen=true,bookmarksnumbered=false]{hyperref}
+
+% ---------------------------------------------------------------- cores (trio validado para daltonismo: azul, laranja, verde-água)
+\definecolor{corA}{HTML}{2A78D6}      % assunto 1: mecânica
+\definecolor{corB}{HTML}{EB6834}      % assunto 2: eletricidade
+\definecolor{corC}{HTML}{1BAF7A}      % assunto 3: ondas
+\definecolor{tinta}{HTML}{16202A}     % texto
+\definecolor{cinza}{HTML}{4F5A64}     % texto secundário
+\definecolor{cinzaclaro}{HTML}{EEF1F4}
+\definecolor{alerta}{HTML}{C0392B}
+\definecolor{ouro}{HTML}{B7791F}
+\colorlet{tema}{corA}                 % cor do capítulo corrente
+\colorlet{rodape}{cinza}
+\newcommand{\corcap}[1]{\colorlet{tema}{#1}}
+\color{tinta}
+% matemática acompanha o negrito do texto (LaTeX 2020-10 ou mais novo)
+\AddToHook{bfseries}{\ifmmode\else\boldmath\fi}
+\AddToHook{mdseries}{\ifmmode\else\unboldmath\fi}
+
+% ---------------------------------------------------------------- página: texto alinhado à esquerda, sem hifenização (leitura mais fácil)
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.08}
+\hyphenpenalty=10000 \exhyphenpenalty=10000
+\raggedright
+\makeatletter\g@addto@macro\@parboxrestore{\raggedright}\makeatother   % minipages e \parbox também
+\raggedbottom
+\pagestyle{fancy}\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\nomecap}{}
+\fancyfoot[L]{\footnotesize\color{cinza}Física no ENEM · revisão rápida\ifx\nomecap\empty\else\quad\textcolor{rodape}{\rule[-0.2mm]{2.2mm}{2.2mm}}\ \textcolor{rodape}{\bfseries\nomecap}\fi}
+\fancyfoot[R]{\footnotesize\color{cinza}\thepage}
+\setlist{leftmargin=1.4em,itemsep=2pt,topsep=3pt,parsep=0pt}
+
+% ---------------------------------------------------------------- títulos
+\newcounter{assunto}
+% \assunto{cor}{Título}{frase curta}{nome curto para rodapé e marcador}
+\newcommand{\assunto}[4]{%
+  \clearpage\corcap{#1}\colorlet{rodape}{#1}\renewcommand{\nomecap}{#4}\refstepcounter{assunto}%
+  \pdfbookmark[1]{#4}{assunto\theassunto}%
+  \begin{tcolorbox}[enhanced,colback=tema,colframe=tema,arc=3mm,boxrule=0pt,left=6mm,right=6mm,top=5mm,bottom=5mm,halign=flush left]
+    {\color{white}\small\bfseries ASSUNTO \theassunto\ DE 3}\par\vspace{1mm}
+    {\color{white}\fontsize{24}{27}\selectfont\bfseries #2\par}\vspace{1.5mm}
+    {\color{white}\large #3\par}
+  \end{tcolorbox}\vspace{1mm}}
+% \titulo{nome do marcador}{Título grande}: abre página de seção geral (fora dos 3 assuntos)
+\newcounter{tituloger}
+\newcommand{\titulo}[2]{\corcap{tinta}\colorlet{rodape}{cinza}\renewcommand{\nomecap}{#1}\stepcounter{tituloger}%
+  \pdfbookmark[1]{#1}{titulo\thetituloger}{\fontsize{24}{27}\selectfont\bfseries #2\par}\nobreak\vspace{1mm}}
+\newcounter{marcsec}
+\newcommand{\secao}[1]{\par\Needspace{55mm}\vspace{3mm}\stepcounter{marcsec}\pdfbookmark[2]{#1}{sec\themarcsec}{\Large\bfseries\color{tema}#1\par}\nobreak\vspace{1mm}}
+\newcommand{\subsecao}[1]{\par\Needspace{62mm}\vspace{1.5mm}{\large\bfseries\color{tinta}#1\par}\nobreak}
+\newcommand{\destaque}[1]{{\bfseries\color{tema}#1}}
+
+% ---------------------------------------------------------------- caixas (inquebráveis: uma ideia nunca fica partida entre páginas)
+\tcbset{base/.style={enhanced,arc=2.5mm,boxrule=0.8pt,left=4mm,right=4mm,top=3mm,bottom=3mm,halign=flush left,
+  fonttitle=\bfseries,before skip=3.2mm,after skip=3.2mm},
+  fileira/.style={raster columns=#1,raster equal height,raster column skip=3mm,raster before skip=3.2mm,raster after skip=3.2mm,raster valign=top},
+  fileira/.default=3}
+% analogia do dia a dia
+\newtcolorbox{analogia}[1][Pense assim]{base,colback=tema!8,colframe=tema!55,title={\faLightbulb[regular]\ \ #1},coltitle=tinta,
+  attach boxed title to top left={xshift=4mm,yshift=-2.6mm},boxed title style={colback=tema!22,colframe=tema!55,arc=2mm,boxrule=0.8pt},top=5mm}
+% fórmula-chave (cartão)
+\newtcolorbox{formula}[2][]{base,colback=white,colframe=tema,boxrule=1.2pt,title={\strut #2},colbacktitle=tema,coltitle=white,
+  halign=flush center,left=3mm,right=3mm,#1}
+% cartão simples (definições, leis de Newton, fenômenos)
+\newtcolorbox{cartao}[1][]{base,colback=tema!8,colframe=tema!55,left=3mm,right=3mm,top=2.5mm,bottom=2.5mm,#1}
+% cartão com faixa de título
+\newtcolorbox{quadro}[2][]{base,colback=white,colframe=tema,title={\strut #2},colbacktitle=tema,coltitle=white,#1}
+% questão real do ENEM (resumida)
+\newtcolorbox{enemreal}[2][]{base,colback=cinzaclaro,colframe=tinta!70,title={\faGraduationCap\ \ Caiu no ENEM · #2},
+  colbacktitle=tinta!85,coltitle=white,#1}
+% exemplo do dia a dia
+\newtcolorbox{exemplo}[2][]{base,colback=tema!6,colframe=tema!55,title={\faHome\ \ #2},colbacktitle=tema!55,coltitle=tinta,#1}
+% pegadinha / erro comum
+\newtcolorbox{pegadinha}[1][Pegadinha]{base,colback=alerta!6,colframe=alerta!70,title={\faExclamationTriangle\ \ #1},
+  colbacktitle=alerta!80,coltitle=white}
+% macete para decorar
+\newtcolorbox{macete}[1][Para decorar]{base,colback=ouro!9,colframe=ouro!75,title={\faBrain\ \ #1},
+  colbacktitle=ouro!85,coltitle=white}
+% questão de treino
+\newcounter{treino}
+\newtcolorbox{treino}[1]{base,colback=white,colframe=tema,boxrule=1.1pt,
+  title={\refstepcounter{treino}Questão \thetreino\ \ ·\ \ #1},colbacktitle=tema,coltitle=white}
+% comentário do gabarito
+\newtcolorbox{comentario}[2]{base,colback=white,colframe=#1,boxrule=1pt,title={#2},colbacktitle=#1,coltitle=white,
+  before skip=2mm,after skip=2mm,top=1.2mm,bottom=1.2mm}
+% coluna do resumo de bolso
+\newtcolorbox{bolso}[2]{base,colback=white,colframe=#1,boxrule=1.1pt,title={#2},colbacktitle=#1,coltitle=white,
+  left=2.5mm,right=2.5mm,top=2mm,bottom=2mm,fontupper=\small}
+
+\newcommand{\passo}[1]{\par\smallskip\textbf{\color{tema}#1}\ }
+\newcommand{\resp}[1]{\par\smallskip{\bfseries\color{tema}\faCheckCircle\ Resposta: #1}}
+% onde o aluno erra (nota em destaque dentro das caixas de questão)
+\newcommand{\erro}[1]{\par\smallskip{\small\textcolor{alerta}{\faExclamationTriangle\ \textbf{Onde o aluno erra:}}\ #1}}
+\newcommand{\nota}[1]{\par\smallskip{\small\color{cinza}#1}}
+% alternativas A–E
+\newlist{alternativas}{enumerate}{1}
+\setlist[alternativas]{label=\protect\circulo{\Alph*},leftmargin=2.2em,itemsep=1.5pt,topsep=4pt}
+\newcommand{\circulo}[1]{\tikz[baseline=(c.base)]\node[circle,draw=tema,line width=0.7pt,inner sep=1.1pt,font=\footnotesize\bfseries,text=tema](c){#1};}
+\newcommand{\leg}[1]{{\footnotesize\color{cinza}#1}}
+\newcommand{\numerao}[2]{\centering{\fontsize{26}{28}\selectfont\bfseries\color{tema}\strut #1}\par{\small\color{cinza}#2}}
+% selo numerado (liga os pares nas figuras de analogia)
+\newcommand{\selo}[1]{\tikz[baseline=(s.base)]\node[circle,fill=tema,text=white,inner sep=1pt,font=\scriptsize\bfseries,minimum size=3.6mm](s){#1};}
+
+% ---------------------------------------------------------------- figuras: estilo único
+\tikzset{fio/.style={line width=0.8pt},
+  seta/.style={-{Latex[length=2.4mm]},line width=1.4pt},
+  cota/.style={{Latex[length=1.6mm]}-{Latex[length=1.6mm]},line width=0.6pt,cinza}}
+\ctikzset{bipoles/length=1.0cm,bipoles/thickness=1.5}
+
+% ---------------------------------------------------------------- tabelas da análise (equações e conceitos)
+\newcommand{\barra}[1]{\tikz[baseline=0.4ex]{\fill[tema,rounded corners=1pt] (0,0) rectangle (#1*0.36,0.26);\node[anchor=west,font=\small\bfseries,inner sep=2pt] at (#1*0.36,0.13) {#1};}}
+\newcommand{\linhaeq}[3]{\rule[-3.2mm]{0pt}{9mm}#1 & #2 & \barra{#3}\\}
+\newenvironment{tabelaeq}[2]{% #1 cor, #2 título
+  \corcap{#1}\begin{tcolorbox}[base,colback=white,colframe=tema,boxrule=1.1pt,title={#2},colbacktitle=tema,coltitle=white,left=2mm,right=2mm,top=1mm,bottom=0.5mm,before skip=3mm,after skip=2mm]
+  \small\renewcommand{\arraystretch}{1.0}\rowcolors{1}{tema!6}{white}
+  \begin{tabular}{@{\ }>{\raggedright\arraybackslash}m{5.3cm}>{\raggedright\arraybackslash}m{6.3cm}m{4.1cm}@{}}}
+  {\end{tabular}\end{tcolorbox}}

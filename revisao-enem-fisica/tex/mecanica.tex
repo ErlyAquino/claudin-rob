@@ -1,0 +1,368 @@
+% ---------------------------------------------------------------- ASSUNTO 1: MECÂNICA
+\assunto{corA}{Mecânica: movimento e forças}{A área que mais cai: 23 questões em 5 anos. Movimento e forças respondem por 14 delas.}{Mecânica}\label{pg:mec}
+
+\secao{Parte 1 · Movimento}
+
+\begin{analogia}[Pense no aplicativo de mapas]
+O aplicativo diz: \textit{``120~km, chegada em 2 horas''}. Ele acabou de calcular a sua \textbf{velocidade média}: 60~km/h.
+Quase toda questão de movimento com conta é uma variação disto: \textbf{distância, tempo e velocidade}. Tendo duas, você acha a terceira.
+\end{analogia}
+
+\begin{tcbraster}[fileira=3]
+\begin{formula}{Velocidade média}
+{\Large $v = \dfrac{\Delta s}{\Delta t}$}\par\medskip
+{\small distância percorrida dividida pelo tempo gasto}
+\end{formula}
+\begin{cartao}[halign=flush center]
+\begin{tikzpicture}[scale=0.8]
+  \draw[tema,line width=1.2pt,fill=white] (0,0) -- (3,0) -- (1.5,2.3) -- cycle;
+  \draw[tema,line width=1.2pt] (0.75,1.15) -- (2.25,1.15);
+  \draw[tema,line width=1.2pt] (1.5,0) -- (1.5,1.15);
+  \node[font=\Large\bfseries] at (1.5,1.6) {$\Delta s$};
+  \node[font=\Large\bfseries] at (0.85,0.5) {$v$};
+  \node[font=\Large\bfseries] at (2.15,0.5) {$\Delta t$};
+\end{tikzpicture}\par
+{\small \textbf{Tampe o que você quer achar.}\\ Tampou $v$: sobra $\Delta s \div \Delta t$.\\ Tampou $\Delta s$: sobra $v \times \Delta t$.}
+\end{cartao}
+\begin{cartao}
+\textbf{Unidades}\par\smallskip
+{\small km/h para m/s: \textbf{divida por 3,6}\\ (72~km/h = 20~m/s).\par\smallskip
+Horas para minutos: \textbf{vezes 60}\\ (4,8~h = 288~min).\par\smallskip
+Minutos para horas: \textbf{divida por~60}\\ (15~min = 0,25~h).}
+\end{cartao}
+\end{tcbraster}
+
+\begin{enemreal}{2023, questão 124}
+\textbf{A situação.} Trecho de 480~km com 10 pedágios. O carro anda a 100~km/h e perde 3~min em cada cabine. O caminhão anda a
+80~km/h e passa direto (cobrança automática). Quantos minutos o carro gasta a menos?
+\passo{1. Caminhão:} $\Delta t = 480 \div 80 = 6$~h $= 360$~min.
+\passo{2. Carro andando:} $\Delta t = 480 \div 100 = 4{,}8$~h $= 288$~min.
+\passo{3. Carro parado:} $10 \times 3 = 30$~min. Total do carro: $288 + 30 = 318$~min.
+\passo{4. Diferença:} $360 - 318 = 42$~min.
+\begin{center}
+\begin{tikzpicture}[x=0.027cm,y=1cm]
+  \node[anchor=east,font=\small] at (-6,0.75) {caminhão};
+  \fill[tinta!45] (0,0.55) rectangle (360,0.95); \node[font=\small\bfseries,white] at (180,0.75) {360 min};
+  \node[anchor=east,font=\small] at (-6,0.15) {carro};
+  \fill[tema] (0,-0.05) rectangle (288,0.35); \node[font=\small\bfseries,white] at (144,0.15) {288 min andando};
+  \fill[ouro] (288,-0.05) rectangle (318,0.35); \node[font=\scriptsize\bfseries,anchor=north] at (303,-0.08) {30 min parado};
+  \draw[cota] (318,0.15) -- (360,0.15); \node[font=\small\bfseries,anchor=west] at (362,0.15) {42 min a menos};
+\end{tikzpicture}
+\end{center}
+\resp{42 minutos}
+\erro{esquecer os 30~min de parada, ou achar que 4,8~h é ``4~h e 80~min''. Uma hora tem 60~min, então $0{,}8 \times 60 = 48$~min.}
+\end{enemreal}
+
+\subsecao{Quando a velocidade muda: aceleração e queda}
+
+\begin{minipage}[t]{0.58\linewidth}
+\textbf{Aceleração} é quanto a velocidade muda a cada segundo. Na queda, quem acelera é a gravidade:
+\destaque{$g \approx 10$~m/s$^2$}. Um objeto em queda ganha 10~m/s de velocidade a cada segundo.
+
+\smallskip
+\renewcommand{\arraystretch}{1.3}
+{\small\begin{tabular}{@{}p{5.3cm}l@{}}
+\toprule
+\textbf{O problema...} & \textbf{use}\\
+\midrule
+dá o tempo e pede a velocidade & $v = v_0 + a\,t$\\
+dá o tempo e pede a distância & $\Delta s = v_0\,t + \dfrac{a\,t^2}{2}$\\[2.5mm]
+não fala em tempo & $v^2 = v_0^2 + 2\,a\,\Delta s$\\
+\bottomrule
+\end{tabular}}
+
+\smallskip
+{\small $v_0$ é a velocidade no começo; $v$, a velocidade no fim; $a$, a aceleração; $t$, o tempo.\par
+Na queda, troque $a$ por 10. \textbf{Soltou do repouso?} Use direto $v = 10\,t$ e $h = 5\,t^2$.\par
+\textbf{Exemplo:} uma pedra solta cai durante 2~s. Velocidade: $10 \times 2 = 20$~m/s. Altura: $5 \times 2^2 = 20$~m.}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.38\linewidth}\centering
+\begin{tikzpicture}[baseline=(current bounding box.north),scale=1.25]
+  % bola lançada para cima: no topo v = 0, mas a = g
+  \draw[cinza!50,dashed] (0,0) -- (0,3.6);
+  \fill[cinza!30] (-1.2,-0.15) rectangle (1.2,0);
+  \fill[tema] (0,0.25) circle (0.2);
+  \draw[seta,tema] (0.35,0.25) -- (0.35,1.35) node[midway,right,font=\small,text=tinta] {$v$ grande};
+  \fill[tema!70] (0,2.0) circle (0.2);
+  \draw[seta,tema] (0.35,2.0) -- (0.35,2.55) node[midway,right,font=\small,text=tinta] {$v$ menor};
+  \fill[tema!40] (0,3.6) circle (0.2);
+  \node[right,font=\small\bfseries,text=tinta] at (0.3,3.6) {topo: $v = 0$};
+  \draw[seta,alerta] (-0.45,3.6) -- (-0.45,2.7) node[midway,left,font=\small,text=alerta,align=right] {$a = g$\\(o tempo\\todo)};
+  \draw[seta,alerta] (-0.45,1.2) -- (-0.45,0.3) node[midway,left,font=\small,text=alerta] {$a = g$};
+\end{tikzpicture}\par
+{\small Bola jogada para cima: a velocidade diminui até zerar no topo. A aceleração é sempre 10~m/s$^2$ para baixo.}
+\end{minipage}
+
+\begin{macete}
+\textbf{Deus Vê Tudo:} $d = v \cdot t$ (distância = velocidade $\times$ tempo).\quad
+\textbf{Vovô ateu:} $v = v_0 + a\,t$.\quad
+\textbf{Sorvetão:} $s = s_0 + v_0\,t + \dfrac{a\,t^2}{2}$ (aqui $s - s_0$ é o $\Delta s$, a distância percorrida).
+\end{macete}
+
+\begin{enemreal}{2023, questão 100}
+\textbf{A situação.} O professor joga uma esfera para cima. No ponto mais alto, como estão a velocidade e a aceleração?
+\passo{Raciocínio:} no topo a esfera para por um instante para inverter o movimento, então $v = 0$. Mas a gravidade não
+``desliga''. A aceleração continua valendo $g$, para baixo.
+\resp{velocidade nula e aceleração diferente de zero, para baixo}
+\end{enemreal}
+
+\subsecao{Lançamentos: dois movimentos ao mesmo tempo}
+
+\begin{minipage}[c]{0.50\linewidth}\centering
+\begin{tikzpicture}[scale=0.95]
+  % mesa
+  \fill[cinza!35] (-1.7,3.0) rectangle (0,3.15);
+  \fill[cinza!35] (-0.3,0) rectangle (-0.15,3.0);
+  \fill[cinza!25] (-1.7,-0.15) rectangle (5.6,0);
+  % bola solta (cai reto) e bola que rola (parábola): mesmas alturas nos mesmos instantes
+  \foreach \t/\y in {0/3.33,1/2.98,2/1.94,3/0.2}{
+    \draw[cinza!45,dashed] (0.3,\y) -- ({0.8+1.45*\t},\y);
+    \fill[alerta!80] (0.3,\y) circle (0.14);
+    \fill[tema] ({0.8+1.45*\t},\y) circle (0.14);
+    \draw[tema,line width=0.8pt] ({0.8+1.45*\t},-0.15) -- ({0.8+1.45*\t},-0.32);
+  }
+  \draw[tema,line width=1pt,domain=0:3,samples=40,smooth] plot ({0.8+1.45*\x},{3.33-0.348*\x*\x});
+  \node[anchor=north,font=\scriptsize,text=tema] at (2.975,-0.32) {avança o mesmo tanto a cada instante};
+  \node[anchor=west,font=\small\bfseries,text=tema] at (2.6,2.9) {bola que rola da mesa};
+  \node[anchor=east,font=\small\bfseries,text=alerta,align=right] at (-0.4,1.4) {bola\\solta};
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.47\linewidth}
+\begin{analogia}[A bola que rola da mesa]
+Uma bola rola da mesa e outra é solta da mesma altura, no mesmo instante. \textbf{As duas chegam juntas ao chão.}
+Andar para o lado não atrasa nem adianta a queda.
+\end{analogia}
+\vspace{-2mm}
+\begin{itemize}
+  \item \textbf{Para o lado (horizontal):} velocidade constante. Use $x = v \cdot t$.
+  \item \textbf{Para baixo (vertical):} queda livre. Use $h = 5\,t^2$.
+  \item O que liga as duas contas é o \textbf{tempo}.
+\end{itemize}
+\end{minipage}
+
+\begin{enemreal}{2022, questão 100 \hfill\normalfont nível difícil: se o tempo estiver curto, pule e volte depois}
+\textbf{A situação.} Mangueira na horizontal, a 1~m do chão. A água cai a 3~m de distância. Com a mesma velocidade de saída,
+até que altura o jato sobe se a mangueira for apontada verticalmente para cima? ($g = 10$~m/s$^2$)
+\passo{1. Queda (vertical):} $h = 5\,t^2$. A altura é 1~m, então $1 = 5\,t^2$ e $t^2 = 1 \div 5 = 0{,}2$. Não precisa tirar a raiz.
+\passo{2. Saída (horizontal):} $v_0 = x \div t$. Elevando os dois lados ao quadrado: $v_0^2 = x^2 \div t^2 = 9 \div 0{,}2 = 45$.
+\nota{(Dividir por 0,2 é o mesmo que multiplicar por 5.)}
+\passo{3. Subida (mangueira para cima):} a gravidade freia a água, então $a = -10$. No topo a velocidade é zero:
+$0 = v_0^2 - 2 \cdot 10 \cdot H$. Daí $20\,H = 45$ e $H = 45 \div 20 = 2{,}25$~m.
+\resp{2,25~m}
+\end{enemreal}
+
+\begin{minipage}[c]{0.40\linewidth}\centering
+\begin{tikzpicture}
+  \node[anchor=west,font=\small\bfseries] at (0,2.75) {A favor: soma};
+  \draw[seta,tema] (0,2.15) -- (3.0,2.15) node[midway,above,font=\footnotesize,text=tinta] {nadador 50};
+  \draw[seta,corC] (3.0,2.15) -- (4.8,2.15) node[midway,above,font=\footnotesize,text=tinta] {água 30};
+  \draw[seta,tinta] (0,1.7) -- (4.8,1.7) node[midway,below,font=\footnotesize\bfseries] {resultado: 80~m/min};
+  \node[anchor=west,font=\small\bfseries] at (0,0.65) {Contra: subtrai};
+  \draw[seta,tema] (0,0.05) -- (3.0,0.05) node[midway,above,font=\footnotesize,text=tinta] {nadador 50};
+  \draw[seta,corC] (3.0,-0.3) -- (1.2,-0.3) node[midway,below,font=\footnotesize,text=tinta] {água 30};
+  \draw[seta,tinta] (0,-0.3) -- (1.2,-0.3) node[midway,below,font=\footnotesize\bfseries] {20~m/min};
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.57\linewidth}
+\begin{macete}[Velocidade relativa: a escada rolante]
+Subir andando numa escada rolante que sobe: as velocidades \textbf{somam}. Tentar descer por ela: \textbf{subtraem}.
+Vale para o barco no rio e para o avião com vento.
+Caiu em 2024 (nadador na correnteza, questão 119) e em 2025 (avião com vento, questão 126).
+\end{macete}
+\end{minipage}
+
+% ================================================================ FORÇAS
+\secao{Parte 2 · Forças (leis de Newton)}
+
+\newcommand{\lei}[4]{\begin{cartao}[halign=flush center]
+  \parbox[c][10mm][c]{\linewidth}{\centering\Huge\color{tema}#1}\par \textbf{#2}\par\smallskip {\small #3}\par\smallskip {\footnotesize\color{cinza}#4}\end{cartao}}
+\begin{tcbraster}[fileira=3]
+\lei{\faBus}{1ª lei · Inércia}{O ônibus freia e você ``vai para a frente''. Ninguém empurrou. Seu corpo só \textbf{continuou como estava}.}
+  {Sem força resultante, o corpo fica parado ou segue em linha reta com velocidade constante.}
+\lei{\faShoppingCart}{2ª lei · Força e aceleração}{$F_R = m \cdot a$\par\smallskip Carrinho de mercado vazio dispara com um empurrão. Cheio, o mesmo empurrão quase não o move. \textbf{Mais massa, menos aceleração.}}
+  {$F_R$ em newton (N), $m$ em kg, $a$ em m/s$^2$.}
+\lei{\faExchange*}{3ª lei · Ação e reação}{Sentado numa cadeira de rodinhas, empurre a parede. \textbf{A parede empurra você de volta} e você vai para trás.}
+  {Mesma intensidade, sentidos opostos, em corpos diferentes (por isso não se cancelam).}
+\end{tcbraster}
+
+\subsecao{As quatro forças que aparecem em quase toda questão}
+
+\begin{minipage}[c]{0.42\linewidth}\centering
+\begin{tikzpicture}
+  \fill[cinza!25] (-2.6,-0.2) rectangle (3.1,0);
+  \draw[cinza!60,pattern=north east lines,pattern color=cinza!45] (-2.6,-0.45) rectangle (3.1,-0.2);
+  \draw[tinta,line width=1pt,fill=tema!15] (-0.9,0) rectangle (0.9,1.3);
+  \fill[tinta] (0,0.65) circle (1.6pt);
+  \draw[seta,alerta] (0,0.65) -- (0,-0.85) node[below,font=\small\bfseries,yshift=-4mm] {Peso $P$};
+  \draw[seta,corC!80!black] (0,1.3) -- (0,2.8) node[above,font=\small\bfseries] {Normal $N$};
+  % corda puxando para a direita
+  \draw[tinta!70,line width=1.6pt] (0.9,0.65) -- (1.5,0.65);
+  \draw[seta,tema] (1.5,0.65) -- (2.9,0.65) node[midway,above,font=\small\bfseries] {Tração $T$};
+  \node[font=\scriptsize,text=cinza,anchor=north] at (1.9,0.6) {(corda)};
+  \draw[seta,ouro] (-0.9,0.18) -- (-2.4,0.18) node[midway,above,font=\small\bfseries] {Atrito};
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.56\linewidth}\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}p{1.45cm}>{\raggedright\arraybackslash}p{7.5cm}@{}}
+\textbf{\color{alerta}Peso} & a Terra puxa para baixo: $P = m \cdot g$ (massa de 50~kg pesa 500~N).\\
+\textbf{\color{corC!80!black}Normal} & o chão empurra o objeto de volta, fazendo 90° com a superfície. Em piso horizontal, $N = P$.\\
+\textbf{\color{ouro}Atrito} & segura o deslizamento. Deslizando: $F_{\text{at}} = \mu \cdot N$, sem depender da velocidade nem da força do puxão.
+  Parado: o atrito só empata com a força que tenta mover, até o máximo $\mu \cdot N$.\\
+\textbf{\color{tema}Tração} & a força que uma corda ou um cabo faz ao puxar.\\
+\end{tabular}
+\end{minipage}
+
+\begin{macete}[A receita de 3 passos para qualquer questão de força]
+\begin{enumerate}[leftmargin=1.6em,itemsep=1pt,topsep=1pt]
+  \item \textbf{Desenhe} as forças no objeto (peso, normal, atrito, corda).
+  \item \textbf{Some} as que ajudam e \textbf{subtraia} as que atrapalham. O saldo é a resultante.
+  \item \textbf{Iguale} a $m \cdot a$.
+\end{enumerate}
+\textbf{Exemplo:} caixa de 10~kg, empurrão de 50~N, atrito de 20~N. Resultante: $50 - 20 = 30$~N. Aceleração: $30 \div 10 = 3$~m/s$^2$.\par
+\textbf{Velocidade constante ou objeto parado:} resultante zero. As forças empatam.
+\end{macete}
+
+\begin{enemreal}{2025, questão 108}
+\begin{minipage}[c]{0.60\linewidth}
+\textbf{A situação.} Um trabalhador arrasta uma caixa rampa acima. No começo puxa com muita força. Depois puxa menos e a caixa
+sobe devagar, sem parar. Qual gráfico mostra o atrito ao longo do tempo?
+\passo{Raciocínio:} a caixa está sempre deslizando, então $F_{\text{at}} = \mu \cdot N$. O piso é o mesmo ($\mu$ igual). A caixa e a
+rampa são as mesmas ($N$ igual). Nada mudou, então o atrito também não muda.
+\resp{uma reta horizontal (atrito constante)}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.37\linewidth}\centering
+\begin{tikzpicture}[scale=0.9]
+  \draw[tinta,line width=1pt,fill=cinza!20] (0,0) -- (3.2,0) -- (3.2,1.28) -- cycle;
+  \begin{scope}[rotate around={21.8:(1.6,0.64)}]
+    \draw[tinta,line width=1pt,fill=tema!20] (1.25,0.66) rectangle (1.95,1.16);
+    \draw[seta,tema] (1.95,0.91) -- (2.9,0.91);
+    \draw[seta,ouro] (1.25,0.74) -- (0.45,0.74);
+  \end{scope}
+  \node[font=\scriptsize\bfseries,text=tema] at (2.5,1.75) {puxão};
+  \node[font=\scriptsize\bfseries,text=ouro] at (0.35,0.75) {atrito};
+  % gráfico atrito x tempo
+  \begin{scope}[shift={(0.3,-2.3)}]
+    \draw[-{Latex[length=2mm]},cinza] (0,0) -- (2.9,0) node[below,font=\scriptsize,text=tinta,xshift=-3mm] {tempo};
+    \draw[-{Latex[length=2mm]},cinza] (0,0) -- (0,1.5) node[left,font=\scriptsize,text=tinta,yshift=-2mm] {atrito};
+    \draw[ouro,line width=1.6pt] (0,0.9) -- (2.6,0.9);
+  \end{scope}
+\end{tikzpicture}
+\end{minipage}
+\end{enemreal}
+
+\subsecao{Polias: dividir o peso}
+
+\begin{minipage}[c]{0.40\linewidth}\centering
+\begin{tikzpicture}
+  % polia fixa
+  \fill[cinza!40] (-0.9,3.6) rectangle (0.9,3.75);
+  \draw[tinta,line width=0.8pt] (0,3.6) -- (0,3.2);
+  \draw[tinta,line width=1pt,fill=tema!20] (0,2.9) circle (0.3);
+  \draw[tinta,line width=1pt] (-0.3,2.9) -- (-0.3,1.2);
+  \draw[tinta,line width=1pt,fill=tema!30] (-0.65,0.55) rectangle (0.05,1.2);
+  \node[font=\small\bfseries,text=tinta] at (-0.3,0.87) {$P$};
+  \draw[tinta,line width=1pt] (0.3,2.9) -- (0.3,1.9);
+  \draw[seta,alerta] (0.3,1.9) -- (0.3,1.1);
+  \node[anchor=west,font=\small\bfseries,text=alerta] at (0.4,1.5) {$F = P$};
+  \node[font=\small\bfseries] at (0,0.1) {polia fixa};
+  % polia móvel
+  \begin{scope}[shift={(3.4,0)}]
+    \fill[cinza!40] (-0.9,3.6) rectangle (0,3.75);
+    \draw[tinta,line width=1pt] (-0.3,3.6) -- (-0.3,1.9);
+    \node[anchor=east,font=\small\bfseries,text=tinta] at (-0.35,2.7) {$\dfrac{P}{2}$};
+    \draw[tinta,line width=1pt,fill=tema!20] (0,1.9) circle (0.3);
+    \draw[tinta,line width=1pt] (0.3,1.9) -- (0.3,2.7);
+    \draw[seta,alerta] (0.3,2.7) -- (0.3,3.5);
+    \node[anchor=west,font=\small\bfseries,text=alerta] at (0.4,3.1) {$F = \dfrac{P}{2}$};
+    \draw[tinta,line width=0.8pt] (0,1.6) -- (0,1.2);
+    \draw[tinta,line width=1pt,fill=tema!30] (-0.35,0.55) rectangle (0.35,1.2);
+    \node[font=\small\bfseries,text=tinta] at (0,0.87) {$P$};
+    \node[font=\small\bfseries] at (0,0.1) {polia móvel};
+  \end{scope}
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.57\linewidth}
+A polia \textbf{fixa} só muda a direção da força: você puxa para baixo e a carga sobe.
+
+A polia \textbf{móvel} sobe junto com a carga, que fica pendurada em \textbf{dois trechos de corda}. Cada trecho segura metade do peso.
+
+\smallskip
+{\small\textbf{Caiu em 2023 (questão 109):} dois aparelhos de academia, um só com polias fixas e outro com polia móvel.
+Para a mesma força do aluno, a carga do segundo pode ser o \textbf{dobro}.}
+\end{minipage}
+
+% ================================================================ ENERGIA
+\secao{Parte 3 · Energia e potência}
+
+\begin{minipage}[c]{0.45\linewidth}\centering
+\begin{tikzpicture}
+  % pista de skate (meia-lua)
+  \draw[cinza!70,line width=5pt,domain=-2.4:2.4,samples=60,smooth] plot (\x,{0.45*\x*\x});
+  \fill[tema] (-2.28,2.6) circle (0.22);
+  \fill[tema] (0,0.3) circle (0.22);
+  \draw[seta,tema] (0.32,0.3) -- (1.25,0.3);
+  % barras de energia: no alto (E_p cheia) e embaixo (E_c cheia)
+  \begin{scope}[shift={(-4.0,1.95)}]
+    \draw[tinta,line width=0.6pt,fill=tema] (0,0) rectangle (0.34,0.95);
+    \draw[tinta,line width=0.6pt] (0.5,0) rectangle (0.84,0.95);
+    \node[font=\footnotesize,anchor=north] at (0.17,0) {$E_p$}; \node[font=\footnotesize,anchor=north] at (0.67,0) {$E_c$};
+    \node[font=\footnotesize\bfseries,anchor=south] at (0.42,0.97) {no alto};
+  \end{scope}
+  \begin{scope}[shift={(-0.42,-1.55)}]
+    \draw[tinta,line width=0.6pt] (0,0) rectangle (0.34,0.95);
+    \draw[tinta,line width=0.6pt,fill=tema] (0.5,0) rectangle (0.84,0.95);
+    \node[font=\footnotesize,anchor=north] at (0.17,0) {$E_p$}; \node[font=\footnotesize,anchor=north] at (0.67,0) {$E_c$};
+    \node[font=\footnotesize\bfseries,anchor=west] at (0.95,0.47) {embaixo};
+  \end{scope}
+  \draw[cota] (2.75,0) -- (2.75,2.6) node[midway,right,font=\small,text=tinta] {$h$};
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.52\linewidth}
+\begin{analogia}[A pista de skate]
+No alto da pista o skatista tem energia \textbf{guardada} (potencial). Ao descer, ela vira energia \textbf{de movimento} (cinética).
+Sem atrito, a soma das duas não muda. O que sai de uma entra na outra.
+\end{analogia}
+\end{minipage}
+
+\begin{tcbraster}[fileira=3]
+\begin{formula}{Energia cinética (de movimento)}
+{\Large $E_c = \dfrac{m\,v^2}{2}$}\par\medskip
+{\small dobrou a velocidade, a energia fica 4 vezes maior}
+\end{formula}
+\begin{formula}{Energia potencial (guardada)}
+{\Large $E_p = m\,g\,h$}\par\medskip
+{\small quanto mais alto, mais energia guardada}
+\end{formula}
+\begin{formula}{Potência}
+{\Large $P = \dfrac{E}{\Delta t}$}\par\medskip
+{\small energia por segundo, em watt (W)}
+\end{formula}
+\end{tcbraster}
+
+{\small \textbf{Desceu uma altura $h$ sem atrito, partindo do repouso?} A energia guardada vira movimento: $m\,g\,h = \dfrac{m\,v^2}{2}$.
+O $m$ aparece dos dois lados e pode ser cortado: $v^2 = 2\,g\,h$.\par
+\textbf{Exemplo:} tobogã de 5~m de altura. $v^2 = 2 \times 10 \times 5 = 100$, então $v = 10$~m/s. Vale para criança ou adulto.\par
+\textbf{Potência no dia a dia:} subir a escada andando ou correndo gasta a mesma energia. Correndo, o tempo é menor, então a potência é maior.}
+
+\begin{enemreal}{2021, questão 107}
+\textbf{A situação.} O mesmo carro em duas versões. A gasolina: vai de 0 a 100~km/h em 13,4~s e chega a 165~km/h. A álcool:
+vai de 0 a 100~km/h em 12,9~s e chega a 163~km/h. Qual motor desenvolve maior potência na arrancada?
+\passo{Raciocínio:} a energia cinética que o carro ganha de 0 a 100~km/h é a mesma nas duas versões (mesma massa, mesma velocidade final).
+Potência é energia dividida pelo tempo. Quem entrega a mesma energia em \textbf{menos tempo} tem \textbf{mais potência}.
+\resp{o motor a álcool}
+\erro{escolher a gasolina porque a velocidade máxima dela é maior. Potência não é energia total. É a rapidez com que a energia é entregue.}
+\end{enemreal}
+
+\begin{pegadinha}[As pegadinhas de mecânica que o ENEM repete]
+\begin{itemize}
+  \item \textbf{Velocidade zero não é aceleração zero.} No topo da subida, $v = 0$ e $a = g$.
+  \item \textbf{Massa não é peso.} Massa é em kg. Peso é força, em newton: $P = m \cdot g$.
+  \item \textbf{No vácuo, tudo cai junto.} Se a folha aberta cai mais devagar que a mesma folha amassada (ou a rolha mais devagar que a pedra),
+    a culpa é da \textbf{resistência do ar} (2021, questão 100).
+  \item \textbf{Velocidade constante não precisa de força ``sobrando''.} A força só empata com o atrito.
+  \item \textbf{Misturar unidades:} minutos com horas, km/h com m/s, cm com m. Converta antes de fazer a conta.
+\end{itemize}
+\end{pegadinha}
+
+{\small\textbf{Também é mecânica, mas caiu só 1 ou 2 vezes:} pressão, gravitação, colisões e equilíbrio. Deixe para depois.}

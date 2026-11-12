@@ -1,0 +1,94 @@
+% ---------------------------------------------------------------- RESUMO DE BOLSO + BÔNUS DE CALOR
+\clearpage
+\titulo{Resumo de bolso}{Resumo de bolso}\label{pg:bolso}
+Releia esta página na véspera da prova.
+
+\begin{tcbraster}[fileira=3,raster column skip=2.5mm]
+\begin{bolso}{corA}{\faCarSide\ \ Mecânica}
+\textbf{Movimento}\par
+$v = \dfrac{\Delta s}{\Delta t}$\qquad {\footnotesize km/h $\div$ 3,6 = m/s}\par\smallskip
+Queda do repouso: $h = 5\,t^2$ e $v = 10\,t$\par
+Sem o tempo: $v^2 = v_0^2 + 2\,a\,\Delta s$\par\smallskip
+Lançamento: para o lado, velocidade constante; para baixo, queda. O tempo liga os dois.\par\medskip
+\textbf{Forças}\par
+$F_R = m \cdot a$\qquad $P = m \cdot g$\par
+$F_{\text{at}} = \mu \cdot N$\par\smallskip
+Velocidade constante: $F_R = 0$.\par
+Polia móvel: força pela metade.\par\medskip
+\textbf{Energia}\par
+$E_c = \dfrac{m\,v^2}{2}$\quad $E_p = m\,g\,h$\par\smallskip
+$P = \dfrac{E}{\Delta t}$\quad Descida sem atrito: $v^2 = 2\,g\,h$
+\par\medskip\centering
+\begin{tikzpicture}[scale=0.62]
+  \draw[corA,line width=1pt,fill=white] (0,0) -- (3,0) -- (1.5,2.3) -- cycle;
+  \draw[corA,line width=1pt] (0.75,1.15) -- (2.25,1.15); \draw[corA,line width=1pt] (1.5,0) -- (1.5,1.15);
+  \node[font=\bfseries] at (1.5,1.6) {$\Delta s$}; \node[font=\bfseries] at (0.85,0.5) {$v$}; \node[font=\bfseries] at (2.15,0.5) {$\Delta t$};
+\end{tikzpicture}
+\end{bolso}
+\begin{bolso}{corB}{\faBolt\ \ Eletricidade}
+\textbf{Lei de Ohm}\par
+$U = R \cdot i$\qquad $R = \rho\,\dfrac{L}{A}$\par\medskip
+\textbf{Série} (pisca‑pisca)\par
+mesma corrente; a tensão se divide; $R_{\text{total}} = R_1 + R_2$\par\smallskip
+\textbf{Paralelo} (tomadas)\par
+mesma tensão; a corrente se divide; a resistência total diminui\par\smallskip
+Pilhas em série somam. Invertida subtrai.\par\medskip
+\textbf{Potência e energia}\par
+$P = U \cdot i$\qquad $i = \dfrac{P}{U}$\par\smallskip
+$E = P \cdot \Delta t$\qquad {\footnotesize kWh = kW $\times$~h}\par\smallskip
+Na mesma extensão, as potências somam.\par
+Menos resistência na tomada, mais potência.
+\par\medskip\centering
+\begin{circuitikz}[scale=0.57,transform shape]
+  \draw[fio] (0,0) to[battery1] (0,1.6) -- (0.4,1.6) to[lamp] (1.7,1.6) to[lamp] (3.0,1.6) -- (3.3,1.6) -- (3.3,0) -- (0,0);
+  \node[font=\Large] at (1.65,-0.45) {série};
+  \draw[fio] (4.6,0) to[battery1] (4.6,1.6) -- (7.6,1.6) to[lamp] (7.6,0) -- (4.6,0);
+  \draw[fio] (6.1,1.6) to[lamp,*-*] (6.1,0);
+  \node[font=\Large] at (6.1,-0.45) {paralelo};
+\end{circuitikz}
+\end{bolso}
+\begin{bolso}{corC}{\faWaveSquare\ \ Ondas}
+\textbf{Equações}\par
+$v = \lambda \cdot f$\qquad $f = \dfrac{1}{T}$\par\smallskip
+Eco: $d = \dfrac{v \cdot t}{2}$\par\medskip
+\textbf{Regra de ouro}\par
+A frequência é da fonte. A velocidade é do meio.\par\medskip
+\textbf{Som}\par
+altura = frequência (grave ou agudo)\par
+intensidade = amplitude (volume)\par
+timbre = ``voz'' da fonte\par\medskip
+\textbf{Fenômenos}\par
+reflexão volta; refração muda de meio; difração contorna; interferência soma ou cancela; ressonância faz crescer; Doppler muda o tom\par\medskip
+\textbf{Luz}\par
+rádio, micro‑ondas, infravermelho, visível, ultravioleta, raios X, gama: a frequência aumenta e $\lambda$ diminui.
+\par\medskip\centering
+\begin{tikzpicture}
+  \draw[corC!80!black,line width=1.2pt,domain=0:4,samples=80,smooth] plot (\x,{0.35*sin(\x*180)});
+  \draw[cota] (0.5,0.5) -- (2.5,0.5) node[midway,above,font=\scriptsize,text=tinta] {$\lambda$};
+\end{tikzpicture}
+\end{bolso}
+\end{tcbraster}
+
+\begin{tcolorbox}[base,colback=cinzaclaro,colframe=cinza!60,title={\faFire\ \ Bônus · Calor, que empatou com ondas em 15 questões},colbacktitle=cinza!85,coltitle=white]
+\small
+\begin{minipage}[t]{0.47\linewidth}
+\textbf{Calor é energia indo do quente para o frio.}\par\smallskip
+\textbf{Esquentar ou esfriar} (sem mudar de estado):\par
+$Q = m \cdot c \cdot \Delta T$\par
+{\footnotesize calor = massa $\times$ calor específico $\times$ variação de temperatura. Macete: ``\textbf{Q}ue \textbf{m}a\textbf{c}e\textbf{t}e''.}\par\smallskip
+\textbf{Mudar de estado} (derreter, ferver), com a temperatura parada:\par
+$Q = m \cdot L$\par
+{\footnotesize calor = massa $\times$ calor latente. Macete: ``\textbf{Q}ue \textbf{m}o\textbf{l}e''.}\par\smallskip
+{\footnotesize\color{cinza}A água demora a esquentar porque seu calor específico é alto.}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.50\linewidth}
+\textbf{Três jeitos de o calor viajar}\par\smallskip
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}c@{\ \ }>{\raggedright\arraybackslash}p{7.4cm}@{}}
+{\Large\color{alerta}\faUtensilSpoon} & \textbf{Condução:} pelo contato. O cabo da colher esquenta na panela.\\
+{\Large\color{corA}\faRedo*} & \textbf{Convecção:} o fluido quente sobe e o frio desce. Ar‑condicionado no alto, aquecedor solar.\\
+{\Large\color{ouro}\faSun} & \textbf{Irradiação:} por ondas eletromagnéticas (infravermelho), sem precisar de meio. O calor do Sol e da lâmpada.\\
+\end{tabular}\par\smallskip
+{\footnotesize\color{cinza}Blusa e isopor não esquentam. São isolantes: dificultam a passagem do calor.}
+\end{minipage}
+\end{tcolorbox}

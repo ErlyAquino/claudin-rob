@@ -1,0 +1,84 @@
+% Questões do ENEM citadas em "Física no ENEM: revisão rápida", reproduzidas dos cadernos oficiais do INEP.
+% Gerar: (python-dados) uv run --with pymupdf python ../revisao-enem-fisica/questoes/recortar.py
+%        python montar.py ; pdflatex questoes-enem-citadas.tex (duas vezes)
+\documentclass[11pt]{article}
+\input{../tex/estilo}
+\hypersetup{pdftitle={Física no ENEM: questões citadas na revisão},pdfauthor={Professor Erly Aquino},pdflang={pt-BR},
+  pdfsubject={Questões do ENEM 2021 a 2025 (caderno azul) citadas na revisão, por assunto, com gabarito oficial}}
+\renewcommand{\nomecap}{}
+\fancyfoot[L]{\footnotesize\color{cinza}Física no ENEM · questões citadas na revisão\ifx\nomecap\empty\else\quad\textcolor{rodape}{\rule[-0.2mm]{2.2mm}{2.2mm}}\ \textcolor{rodape}{\bfseries\nomecap}\fi}
+\definecolor{capaAzul}{HTML}{0B6FC6}
+\definecolor{capaCiano}{HTML}{0A9CCB}
+\definecolor{capaAmarelo}{HTML}{DBEE26}
+\definecolor{capaCartao}{HTML}{DCE8F3}
+\newcommand{\pc}[2]{($(current page.north west)+(#1,-#2)$)}
+% cabeçalho de cada questão: \cabq{cor}{ano}{número}{assunto}
+\newcommand{\cabq}[4]{\par\vspace{3mm}\noindent
+  \begin{tcolorbox}[enhanced,colback=#1,colframe=#1,arc=2mm,boxrule=0pt,left=3mm,right=3mm,top=1.3mm,bottom=1.3mm,nobeforeafter]
+    {\color{white}\bfseries ENEM #2\quad·\quad caderno azul\quad·\quad questão #3\hfill\normalfont\small #4}
+  \end{tcolorbox}\par\nobreak\vspace{2mm}}
+% recorte do caderno oficial: \recorte{arquivo}{largura}
+\newcommand{\recorte}[2]{{\centering\fboxsep=2.5mm\fcolorbox{cinza!35}{white}{\includegraphics[width=#2]{recortes/#1}}\par}\nobreak\vspace{1.5mm}}
+% gabarito: \gabq{cor}{letra}{1 se foi resolvida na revisão}
+\newcommand{\gabq}[3]{\noindent\hfill
+  \ifnum#3=1 {\footnotesize\color{cinza}resolvida passo a passo na revisão\quad}\fi
+  \tcbox[enhanced,colback=#1!10,colframe=#1,arc=2mm,boxrule=0.6pt,left=2.5mm,right=2.5mm,top=0.8mm,bottom=0.8mm,nobeforeafter,tcbox raise base]
+    {\small Gabarito oficial: \textbf{#2}}\par\vspace{2mm}}
+\begin{document}
+% ---------------------------------------------------------------- capa (identidade do Aulão de Véspera)
+\begin{titlepage}
+\thispagestyle{empty}
+\pdfbookmark[1]{Capa}{capa}
+\begin{tikzpicture}[remember picture,overlay]
+  \node[inner sep=0pt] at (current page.center) {\includegraphics[width=\paperwidth,height=\paperheight]{../capa/fundo-a4.png}};
+  \node[white,font=\fontsize{92}{92}\selectfont\bfseries,inner sep=0pt] at \pc{10.5}{4.75} {AULÃO};
+  \node[white,font=\fontsize{25}{28}\selectfont\bfseries,inner sep=0pt] at \pc{10.5}{6.95} {de Véspera};
+  \fill[capaCartao,rounded corners=7mm] \pc{3.7}{8.0} rectangle \pc{17.3}{11.5};
+  \node[anchor=west,text width=7.6cm,align=left,inner sep=0pt] at \pc{4.5}{9.75} {%
+    {\color{capaAzul}\fontsize{27}{29}\selectfont\bfseries QUESTÕES\\ DO ENEM}\\[2.5mm]
+    {\color{capaCiano}\fontsize{13}{15}\selectfont\bfseries FÍSICA · CITADAS NA REVISÃO RÁPIDA}};
+  \node[inner sep=0pt] at \pc{14.25}{9.75} {\includegraphics[width=4.5cm]{../capa/logo-enem.png}};
+  \node[white,font=\fontsize{14}{18}\selectfont,text width=14cm,align=center,inner sep=0pt] at \pc{10.5}{12.55}
+    {As questões completas, como caíram na prova, separadas por assunto e com o gabarito oficial};
+  \foreach \x/\nome/\ic in {5.75/Mecânica/\faCarSide, 10.5/Eletricidade/\faBolt, 15.25/Ondas/\faWaveSquare}{
+    \node[fill=capaAmarelo,text=capaAzul!70!black,rounded corners=4.5mm,minimum width=4.3cm,minimum height=0.95cm,font=\bfseries\large,inner sep=0pt]
+      at \pc{\x}{13.95} {\ic\ \ \nome};}
+  \fill[capaCartao,rounded corners=7mm] \pc{5.2}{15.65} rectangle \pc{15.8}{19.15};
+  \node[fill=capaAmarelo,text=capaAzul!70!black,rounded corners=2.5mm,minimum width=1.25cm,minimum height=1.25cm,font=\LARGE,inner sep=0pt] at \pc{10.5}{15.55} {\faFile*};
+  \node[text width=10cm,align=center,inner sep=0pt] at \pc{10.5}{17.6} {%
+    {\color{capaCiano}\fontsize{14}{17}\selectfont ENEM 2021 a 2025}\\[1.5mm]
+    {\color{capaCiano}\fontsize{27}{29}\selectfont\bfseries Caderno azul}\\[2mm]
+    {\color{capaCiano}\fontsize{14}{17}\selectfont 2º dia · Ciências da Natureza}};
+  \node[capaAmarelo,font=\fontsize{12}{14}\selectfont\bfseries,inner sep=0pt] at \pc{10.5}{20.15} {P\,R\,O\,F\,E\,S\,S\,O\,R};
+  \node[white,font=\fontsize{36}{38}\selectfont\bfseries,inner sep=0pt] at \pc{10.5}{21.25} {Erly Aquino};
+  \draw[white,line width=0.6pt,opacity=0.55] \pc{4.0}{22.45} -- \pc{17.0}{22.45};
+  \fill[white,rounded corners=6mm] \pc{3.3}{22.85} rectangle \pc{17.7}{26.3};
+  \node[inner sep=0pt] at \pc{5.6}{24.575} {\includegraphics[width=3.7cm]{../capa/logo-gre.png}};
+  \node[inner sep=0pt] at \pc{10.65}{24.575} {\includegraphics[width=5.6cm]{../capa/logo-see.png}};
+  \node[inner sep=0pt] at \pc{15.5}{24.575} {\includegraphics[width=3.5cm]{../capa/logo-ete.png}};
+  \node[anchor=west,white,font=\small,inner sep=0pt,text width=9cm,align=left] at \pc{2.3}{28.25}
+    {Questões reproduzidas dos cadernos oficiais do INEP\\ Acompanha ``Física no ENEM: revisão rápida''};
+\end{tikzpicture}
+\end{titlepage}
+\setcounter{page}{2}
+% ---------------------------------------------------------------- apresentação
+\titulo{Como usar}{Como usar esta lista}
+Aqui estão, inteiras, as questões do ENEM que a revisão ``Física no ENEM: revisão rápida'' cita ou resolve.
+Elas foram recortadas dos cadernos oficiais, sem nenhuma alteração.
+
+\begin{quadro}{O que você precisa saber}
+\begin{itemize}
+  \item \textbf{Prova:} ENEM, 2º dia, Ciências da Natureza, anos de 2021 a 2025.
+  \item \textbf{Cor e numeração:} todas são do \textbf{caderno azul} (caderno 7). Nos cadernos de outras cores a questão é a mesma,
+        mas o número e a ordem das alternativas mudam.
+  \item \textbf{Gabarito:} o oficial do INEP, logo abaixo de cada questão e reunido na página~\pageref{pg:gab}. Tampe o gabarito e tente antes.
+  \item \textbf{Divisão:} mecânica, eletricidade e ondas, e dentro de cada área por assunto.
+  \item \textbf{``Resolvida passo a passo na revisão'':} a resolução comentada está no material de revisão.
+\end{itemize}
+\end{quadro}
+
+\nota{Fonte: provas e gabaritos do ENEM publicados pelo INEP (gov.br/inep, Provas e Gabaritos), sob licença Creative Commons
+Atribuição-SemDerivações 3.0. Os textos e as imagens de terceiros dentro das questões pertencem aos autores indicados em cada uma.}
+
+\input{lista}
+\end{document}

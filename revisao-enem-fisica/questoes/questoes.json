@@ -1,0 +1,482 @@
+[
+ {
+  "ano": 2021,
+  "numero": 92,
+  "area": "Ondulatória",
+  "assunto": "Acústica",
+  "gabarito": "D",
+  "resolvida": true,
+  "pedacos": [
+   [
+    "2021-92-1.pdf",
+    254.952787399292,
+    164.1881495884487
+   ],
+   [
+    "2021-92-2.pdf",
+    254.952787399292,
+    155.27420112781954
+   ]
+  ]
+ },
+ {
+  "ano": 2021,
+  "numero": 100,
+  "area": "Mecânica",
+  "assunto": "Leis de Newton e forças",
+  "gabarito": "B",
+  "resolvida": false,
+  "pedacos": [
+   [
+    "2021-100-1.pdf",
+    254.9528865814209,
+    133.7737559442935
+   ],
+   [
+    "2021-100-2.pdf",
+    254.9528865814209,
+    311.7535272854478
+   ]
+  ]
+ },
+ {
+  "ano": 2021,
+  "numero": 107,
+  "area": "Mecânica",
+  "assunto": "Energia, trabalho e potência",
+  "gabarito": "C",
+  "resolvida": true,
+  "pedacos": [
+   [
+    "2021-107-1.pdf",
+    512.905574798584,
+    266.9292209791101
+   ]
+  ]
+ },
+ {
+  "ano": 2021,
+  "numero": 120,
+  "area": "Ondulatória",
+  "assunto": "Ondas eletromagnéticas e radiações",
+  "gabarito": "A",
+  "resolvida": false,
+  "pedacos": [
+   [
+    "2021-120-1.pdf",
+    512.9057731628418,
+    386.0966045673077
+   ]
+  ]
+ },
+ {
+  "ano": 2021,
+  "numero": 128,
+  "area": "Eletricidade e magnetismo",
+  "assunto": "Potência e energia elétrica",
+  "gabarito": "D",
+  "resolvida": true,
+  "pedacos": [
+   [
+    "2021-128-1.pdf",
+    254.9528865814209,
+    294.25070622962295
+   ]
+  ]
+ },
+ {
+  "ano": 2021,
+  "numero": 131,
+  "area": "Ondulatória",
+  "assunto": "Ondas: propriedades e fenômenos",
+  "gabarito": "B",
+  "resolvida": true,
+  "pedacos": [
+   [
+    "2021-131-1.pdf",
+    254.9528865814209,
+    285.843970180543
+   ]
+  ]
+ },
+ {
+  "ano": 2022,
+  "numero": 96,
+  "area": "Eletricidade e magnetismo",
+  "assunto": "Circuitos elétricos e Lei de Ohm",
+  "gabarito": "A",
+  "resolvida": false,
+  "pedacos": [
+   [
+    "2022-96-1.pdf",
+    254.9528102874756,
+    679.9261245727539
+   ]
+  ]
+ },
+ {
+  "ano": 2022,
+  "numero": 100,
+  "area": "Mecânica",
+  "assunto": "Cinemática",
+  "gabarito": "B",
+  "resolvida": true,
+  "pedacos": [
+   [
+    "2022-100-1.pdf",
+    254.94294929504395,
+    346.7500203103336
+   ]
+  ]
+ },
+ {
+  "ano": 2022,
+  "numero": 119,
+  "area": "Eletricidade e magnetismo",
+  "assunto": "Circuitos elétricos e Lei de Ohm",
+  "gabarito": "A",
+  "resolvida": false,
+  "pedacos": [
+   [
+    "2022-119-1.pdf",
+    512.8860893249512,
+    153.74193572998047
+   ]
+  ]
+ },
+ {
+  "ano": 2022,
+  "numero": 128,
+  "area": "Eletricidade e magnetismo",
+  "assunto": "Circuitos elétricos e Lei de Ohm",
+  "gabarito": "A",
+  "resolvida": true,
+  "pedacos": [
+   [
+    "2022-128-1.pdf",
+    254.9528102874756,
+    282.5591125488281
+   ],
+   [
+    "2022-128-2.pdf",
+    254.9528102874756,
+    92.5382794730271
+   ]
+  ]
+ },
+ {
+  "ano": 2023,
+  "numero": 100,
+  "area": "Mecânica",
+  "assunto": "Cinemática",
+  "gabarito": "C",
+  "resolvida": true,
+  "pedacos": [
+   [
+    "2023-100-1.pdf",
+    254.95175170898438,
+    407.64287450609015
+   ]
+  ]
+ },
+ {
+  "ano": 2023,
+  "numero": 109,
+  "area": "Mecânica",
+  "assunto": "Leis de Newton e forças",
+  "gabarito": "D",
+  "resolvida": false,
+  "pedacos": [
+   [
+    "2023-109-1.pdf",
+    254.96258735656738,
+    513.4668770625674
+   ]
+  ]
+ },
+ {
+  "ano": 2023,
+  "numero": 111,
+  "area": "Ondulatória",
+  "assunto": "Acústica",
+  "gabarito": "C",
+  "resolvida": false,
+  "pedacos": [
+   [
+    "2023-111-1.pdf",
+    512.9056205749512,
+    269.2331420178066
+   ]
+  ]
+ },
+ {
+  "ano": 2023,
+  "numero": 112,
+  "area": "Ondulatória",
+  "assunto": "Ondas eletromagnéticas e radiações",
+  "gabarito": "A",
+  "resolvida": true,
+  "pedacos": [
+   [
+    "2023-112-1.pdf",
+    512.9056205749512,
+    190.40233972972015
+   ]
+  ]
+ },
+ {
+  "ano": 2023,
+  "numero": 114,
+  "area": "Mecânica",
+  "assunto": "Leis de Newton e forças",
+  "gabarito": "A",
+  "resolvida": false,
+  "pedacos": [
+   [
+    "2023-114-1.pdf",
+    254.95271110534668,
+    461.162145115779
+   ]
+  ]
+ },
+ {
+  "ano": 2023,
+  "numero": 120,
+  "area": "Eletricidade e magnetismo",
+  "assunto": "Circuitos elétricos e Lei de Ohm",
+  "gabarito": "C",
+  "resolvida": false,
+  "pedacos": [
+   [
+    "2023-120-1.pdf",
+    254.9528102874756,
+    668.0117622603432
+   ]
+  ]
+ },
+ {
+  "ano": 2023,
+  "numero": 124,
+  "area": "Mecânica",
+  "assunto": "Cinemática",
+  "gabarito": "B",
+  "resolvida": true,
+  "pedacos": [
+   [
+    "2023-124-1.pdf",
+    512.9056205749512,
+    193.7884690830473
+   ]
+  ]
+ },
+ {
+  "ano": 2023,
+  "numero": 128,
+  "area": "Ondulatória",
+  "assunto": "Ondas: propriedades e fenômenos",
+  "gabarito": "C",
+  "resolvida": false,
+  "pedacos": [
+   [
+    "2023-128-1.pdf",
+    254.9528102874756,
+    218.23937067072444
+   ]
+  ]
+ },
+ {
+  "ano": 2023,
+  "numero": 135,
+  "area": "Ondulatória",
+  "assunto": "Acústica",
+  "gabarito": "D",
+  "resolvida": true,
+  "pedacos": [
+   [
+    "2023-135-1.pdf",
+    254.9528102874756,
+    668.0117622603432
+   ]
+  ]
+ },
+ {
+  "ano": 2024,
+  "numero": 99,
+  "area": "Ondulatória",
+  "assunto": "Acústica",
+  "gabarito": "D",
+  "resolvida": false,
+  "pedacos": [
+   [
+    "2024-99-1.pdf",
+    255.28338623046875,
+    231.66400146484375
+   ]
+  ]
+ },
+ {
+  "ano": 2024,
+  "numero": 106,
+  "area": "Ondulatória",
+  "assunto": "Ondas eletromagnéticas e radiações",
+  "gabarito": "D",
+  "resolvida": false,
+  "pedacos": [
+   [
+    "2024-106-1.pdf",
+    255.28338623046875,
+    434.643192584698
+   ]
+  ]
+ },
+ {
+  "ano": 2024,
+  "numero": 119,
+  "area": "Mecânica",
+  "assunto": "Cinemática",
+  "gabarito": "B",
+  "resolvida": false,
+  "pedacos": [
+   [
+    "2024-119-1.pdf",
+    255.28338623046875,
+    426.9887005479223
+   ]
+  ]
+ },
+ {
+  "ano": 2024,
+  "numero": 129,
+  "area": "Termologia",
+  "assunto": "Calorimetria e mudanças de fase",
+  "gabarito": "Anulado",
+  "resolvida": false,
+  "pedacos": [
+   [
+    "2024-129-1.pdf",
+    255.28348541259766,
+    216.60540771484375
+   ]
+  ]
+ },
+ {
+  "ano": 2024,
+  "numero": 131,
+  "area": "Eletricidade e magnetismo",
+  "assunto": "Circuitos elétricos e Lei de Ohm",
+  "gabarito": "B",
+  "resolvida": false,
+  "pedacos": [
+   [
+    "2024-131-1.pdf",
+    255.28338623046875,
+    677.0804415420747
+   ]
+  ]
+ },
+ {
+  "ano": 2025,
+  "numero": 94,
+  "area": "Eletricidade e magnetismo",
+  "assunto": "Potência e energia elétrica",
+  "gabarito": "D",
+  "resolvida": true,
+  "pedacos": [
+   [
+    "2025-94-1.pdf",
+    260.2440948486328,
+    482.1048428022305
+   ]
+  ]
+ },
+ {
+  "ano": 2025,
+  "numero": 108,
+  "area": "Mecânica",
+  "assunto": "Leis de Newton e forças",
+  "gabarito": "C",
+  "resolvida": true,
+  "pedacos": [
+   [
+    "2025-108-1.pdf",
+    260.2440948486328,
+    669.2143241322744
+   ]
+  ]
+ },
+ {
+  "ano": 2025,
+  "numero": 114,
+  "area": "Ondulatória",
+  "assunto": "Ondas: propriedades e fenômenos",
+  "gabarito": "B",
+  "resolvida": false,
+  "pedacos": [
+   [
+    "2025-114-1.pdf",
+    260.2440948486328,
+    297.2131577449966
+   ]
+  ]
+ },
+ {
+  "ano": 2025,
+  "numero": 126,
+  "area": "Mecânica",
+  "assunto": "Cinemática",
+  "gabarito": "D",
+  "resolvida": false,
+  "pedacos": [
+   [
+    "2025-126-1.pdf",
+    260.2440872192383,
+    477.49797186399405
+   ]
+  ]
+ },
+ {
+  "ano": 2025,
+  "numero": 130,
+  "area": "Eletricidade e magnetismo",
+  "assunto": "Circuitos elétricos e Lei de Ohm",
+  "gabarito": "E",
+  "resolvida": true,
+  "pedacos": [
+   [
+    "2025-130-1.pdf",
+    260.2440872192383,
+    657.2320521155069
+   ]
+  ]
+ },
+ {
+  "ano": 2025,
+  "numero": 132,
+  "area": "Ondulatória",
+  "assunto": "Acústica",
+  "gabarito": "Anulado",
+  "resolvida": false,
+  "pedacos": [
+   [
+    "2025-132-1.pdf",
+    260.2440872192383,
+    310.59670534559115
+   ]
+  ]
+ },
+ {
+  "ano": 2025,
+  "numero": 135,
+  "area": "Ondulatória",
+  "assunto": "Ondas eletromagnéticas e radiações",
+  "gabarito": "A",
+  "resolvida": false,
+  "pedacos": [
+   [
+    "2025-135-1.pdf",
+    260.2440872192383,
+    669.8090057373047
+   ]
+  ]
+ }
+]
