@@ -10,6 +10,7 @@ const sharp = require("sharp");
 const Fa = require("react-icons/fa");
 
 const FIG = (n) => path.join(__dirname, "..", "figuras", n + ".png");
+const CAPA = (n) => path.join(__dirname, "..", "..", "capa", n + ".png");
 const SAIDA = path.join(__dirname, "..", "saida", "Fisica-no-ENEM-apresentacao.pptx");
 const DADOS = require(path.join(__dirname, "..", "..", "analise", "fisica_todas.json"));
 
@@ -233,37 +234,40 @@ function rt(str, base = {}) {
   }
 
   // ================================================================ CAPA
+  // identidade visual do cartaz "Aulão de Véspera": fundo e logos em ../../capa (capa/gerar_capa.py)
   slide("capa", "inicio", "Física no ENEM", (s) => {
-    s.background = { color: TINTA };
-    s.addShape(pres.ShapeType.roundRect, { x: 8.1, y: 0.55, w: 4.7, h: 0.48, fill: { color: C }, line: { color: C, width: 0 }, rectRadius: 0.2 });
-    T(s, "ENEM 2021–2025 · 79 questões analisadas", 8.1, 0.55, 4.7, 0.48, { fontSize: 14, bold: true, color: BR, align: "center", valign: "middle" });
-    T(s, "REVISÃO RÁPIDA · ENSINO MÉDIO", 0.9, 1.25, 7, 0.4, { fontSize: 16, bold: true, color: C, charSpacing: 2 });
-    T(s, "Física\nno ENEM", 0.9, 1.7, 7.5, 2.7, { fontSize: 76, bold: true, color: BR, valign: "middle", paraSpaceAfter: 0 });
-    T(s, "Os 3 assuntos que mais caem, explicados com exemplos do dia a dia", 0.9, 4.45, 6.6, 0.9, { fontSize: 21, color: BR });
-    // ilustração: lançamento (mecânica), circuito com lâmpada (eletricidade), onda (ondas)
-    const ox = 8.0, oy = 4.25;
-    s.addShape(pres.ShapeType.line, { x: ox, y: oy, w: 4.8, h: 0, line: { color: "4A5560", width: 1.5 } });
-    for (let i = 0; i <= 16; i++) { const t = i / 16, x = ox + 0.1 + t * 2.0, y = oy - (4 * t * (1 - t)) * 1.55; s.addShape(pres.ShapeType.ellipse, { x: x - 0.045, y: y - 0.045, w: 0.09, h: 0.09, fill: { color: A }, line: { color: A, width: 0 } }); }
-    s.addShape(pres.ShapeType.ellipse, { x: ox + 2.0, y: oy - 0.11, w: 0.22, h: 0.22, fill: { color: A }, line: { color: A, width: 0 } });
-    s.addShape(pres.ShapeType.rect, { x: ox + 2.75, y: oy - 2.0, w: 1.9, h: 1.55, fill: { color: TINTA }, line: { color: B, width: 3 } });
-    s.addShape(pres.ShapeType.ellipse, { x: ox + 4.3, y: oy - 1.58, w: 0.7, h: 0.7, fill: { color: "E3B341" }, line: { color: TINTA, width: 3 } });
-    s.addShape(pres.ShapeType.rect, { x: ox + 2.55, y: oy - 1.45, w: 0.4, h: 0.4, fill: { color: TINTA }, line: { color: TINTA, width: 0 } });
-    s.addShape(pres.ShapeType.line, { x: ox + 2.5, y: oy - 1.36, w: 0.5, h: 0, line: { color: B, width: 3 } });
-    s.addShape(pres.ShapeType.line, { x: ox + 2.63, y: oy - 1.14, w: 0.24, h: 0, line: { color: B, width: 5 } });
-    const pts = []; for (let i = 0; i <= 60; i++) pts.push({ x: (i / 60) * 4.8, y: 0.28 - 0.28 * Math.sin((i / 60) * Math.PI * 5) });
-    s.addShape(pres.ShapeType.custGeom, { x: ox, y: oy + 0.3, w: 4.8, h: 0.56, line: { color: C, width: 3 }, points: pts.map((p, i) => (i === 0 ? { x: p.x, y: p.y, moveTo: true } : { x: p.x, y: p.y })) });
-    // três assuntos clicáveis
-    [["Mecânica", "movimento, forças e energia", A, "mec", "carro"], ["Eletricidade", "circuitos e conta de luz", B, "ele", "raio"], ["Ondas", "som, luz e fenômenos", C, "ond", "onda"]].forEach(([n, d, cor, alvo, ic], i) => {
-      const x = 0.9 + i * 4.0;
-      s.addShape(pres.ShapeType.roundRect, { x, y: 5.6, w: 3.75, h: 1.0, fill: { color: cor }, line: { color: cor, width: 0 }, rectRadius: 0.12 });
-      s.addImage({ data: IC[ic], x: x + 0.25, y: 5.88, w: 0.44, h: 0.44 });
-      T(s, n, x + 0.9, 5.68, 2.7, 0.45, { fontSize: 19, bold: true, color: BR, valign: "middle" });
-      T(s, d, x + 0.9, 6.1, 2.8, 0.38, { fontSize: 13, color: BR, valign: "middle" });
-      clique(s, x, 5.6, 3.75, 1.0, alvo, "Ir para " + n);
+    const AZ = "0B6FC6", CI = "0A9CCB", AM = "DBEE26", CART = "DCE8F3", AZE = "0A4A8F";
+    s.background = { path: CAPA("fundo-slide") };
+    const logo = (nome, x, y, w, h) => { const m = dimensoes(CAPA(nome)); let iw = w, ih = w * m.h / m.w; if (ih > h) { ih = h; iw = h * m.w / m.h; } s.addImage({ path: CAPA(nome), x: x + (w - iw) / 2, y: y + (h - ih) / 2, w: iw, h: ih }); };
+    // esquerda: título, cartão do material com a logo do ENEM, chamada e assuntos clicáveis
+    T(s, "AULÃO", 1.2, 0.72, 6.3, 1.45, { fontSize: 96, bold: true, color: BR, valign: "middle", fontFace: "Arial" });
+    T(s, "de Véspera", 1.25, 2.12, 6.3, 0.5, { fontSize: 27, bold: true, color: BR, valign: "middle" });
+    s.addShape(pres.ShapeType.roundRect, { x: 1.2, y: 2.82, w: 6.3, h: 1.4, fill: { color: CART }, line: { color: CART, width: 0 }, rectRadius: 0.25 });
+    T(s, "FÍSICA NO ENEM", 1.5, 2.95, 3.7, 0.62, { fontSize: 27, bold: true, color: AZ, valign: "middle" });
+    T(s, "REVISÃO RÁPIDA · CIÊNCIAS DA NATUREZA", 1.5, 3.55, 3.7, 0.5, { fontSize: 11.5, bold: true, color: CI, valign: "middle" });
+    logo("logo-enem", 5.15, 2.92, 2.2, 1.2);
+    T(s, "Os 3 assuntos que mais caem, explicados com exemplos do dia a dia", 1.2, 4.3, 6.3, 0.4, { fontSize: 13.5, color: BR, valign: "middle" });
+    [["Mecânica", "mec", "carro"], ["Eletricidade", "ele", "raio"], ["Ondas", "ond", "onda"]].forEach(([n, alvo, ic], i) => {
+      const x = 1.2 + i * 2.15, w = 2.0;
+      s.addShape(pres.ShapeType.roundRect, { x, y: 4.78, w, h: 0.46, fill: { color: AM }, line: { color: AM, width: 0 }, rectRadius: 0.23 });
+      s.addImage({ data: IC[ic + "_t"], x: x + 0.22, y: 4.9, w: 0.22, h: 0.22 });
+      T(s, n, x + 0.5, 4.78, w - 0.6, 0.46, { fontSize: 13.5, bold: true, color: AZE, valign: "middle" });
+      clique(s, x, 4.78, w, 0.46, alvo, "Ir para " + n);
     });
-    T(s, "Espaço Cria", 0.9, 6.9, 3, 0.3, { fontSize: 12, bold: true, color: "B9C2CB" });
-    T(s, "Clique em um assunto ou avance para começar", 6.3, 6.9, 6.5, 0.3, { fontSize: 12, color: "B9C2CB", align: "right" });
-  }, { notas: "Apresentação interativa: os cartões, os botões e a barra de baixo são clicáveis no modo de apresentação (F5)." });
+    // direita: data e professor
+    s.addShape(pres.ShapeType.roundRect, { x: 8.1, y: 1.05, w: 4.0, h: 1.7, fill: { color: CART }, line: { color: CART, width: 0 }, rectRadius: 0.25 });
+    T(s, "Dia 12 de Novembro", 8.1, 1.15, 4.0, 0.38, { fontSize: 14.5, color: CI, align: "center", valign: "middle" });
+    T(s, "Quinta-feira", 8.1, 1.5, 4.0, 0.7, { fontSize: 31, bold: true, color: CI, align: "center", valign: "middle" });
+    T(s, "7h30 · Auditório", 8.1, 2.2, 4.0, 0.4, { fontSize: 14.5, color: CI, align: "center", valign: "middle" });
+    T(s, "PROFESSOR", 8.1, 3.1, 4.0, 0.35, { fontSize: 13, bold: true, color: AM, align: "center", valign: "middle", charSpacing: 5 });
+    T(s, "Erly Aquino", 7.7, 3.42, 4.8, 0.95, { fontSize: 44, bold: true, color: BR, align: "center", valign: "middle" });
+    T(s, "ENEM 2021–2025 · 79 questões analisadas", 8.1, 4.42, 4.0, 0.35, { fontSize: 12, color: BR, align: "center", valign: "middle" });
+    T(s, "Espaço Cria", 8.1, 4.78, 4.0, 0.4, { fontSize: 13, bold: true, color: BR, align: "center", valign: "middle" });
+    // logos em destaque
+    s.addShape(pres.ShapeType.line, { x: 1.2, y: 5.42, w: 10.9, h: 0, line: { color: BR, width: 0.75, transparency: 45 } });
+    logo("logo-gre", 1.5, 5.52, 3.0, 1.25); logo("logo-pe", 5.15, 5.52, 3.0, 1.25); logo("logo-ete", 8.8, 5.52, 3.0, 1.25);
+    T(s, "Clique em um assunto ou avance para começar", 1.2, 7.08, 6, 0.3, { fontSize: 11, color: BR });
+  }, { notas: "Capa na identidade visual do Aulão de Véspera (GRE Metro Sul, Governo de Pernambuco, ETE Epitácio Pessoa). Apresentação interativa: os cartões, os botões e a barra de baixo são clicáveis no modo de apresentação (F5)." });
 
   // ================================================================ MENU
   slide("menu", "inicio", "Por onde você quer começar?", (s) => {

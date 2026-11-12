@@ -13,3 +13,9 @@ tex/revisao-enem-fisica.pdf
 apresentacao/saida/
 # skills de terceiros baixadas do GitHub só para consulta (licenças próprias; não redistribuir)
 skills_github/
+# lista de questões: auxiliares, recortes (regeneráveis com questoes/recortar.py) e cópia do PDF
+questoes/*.aux
+questoes/*.log
+questoes/*.out
+questoes/recortes/
+questoes/questoes-enem-citadas.pdf

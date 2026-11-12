@@ -5,6 +5,8 @@ Material de revisão para alunos do ensino médio com pouca base, feito a partir
 
 **PDF final:** `Fisica-no-ENEM-revisao-rapida.pdf` (23 páginas).
 
+**Questões completas:** `Fisica-no-ENEM-questoes-citadas.pdf` (33 páginas): as 31 questões do ENEM citadas na revisão, como estão no caderno azul, por assunto e com o gabarito oficial.
+
 **Apresentação interativa:** `Fisica-no-ENEM-apresentacao.odp` (LibreOffice Impress; cópia em `.pptx`), 93 slides
 com todo o conteúdo do PDF. No modo de apresentação (F5) são clicáveis: o menu, a barra de navegação de baixo,
 os cartões das aberturas, os botões "Ver a resolução" das 12 questões reais e as alternativas das 6 questões de
@@ -34,6 +36,8 @@ entrou como bônus no resumo de bolso.
 | `provas/` | Provas e gabaritos oficiais do INEP (`ANO_PV_impresso_D2_CD7.pdf`, `ANO_GB_impresso_D2_CD7.pdf`) |
 | `analise/` | Taxonomia usada (`INSTRUCOES_CLASSIFICADOR.md`), gabaritos e a classificação de cada questão (`fisica_ANO.json`, `fisica_todas.json`) |
 | `tex/` | Fontes LaTeX: `revisao-enem-fisica.tex` (principal), `estilo.tex` (preâmbulo e caixas) e um arquivo por capítulo |
+| `questoes/` | Lista com as questões citadas na revisão, recortadas dos cadernos oficiais: `recortar.py` (PyMuPDF) gera os recortes e `questoes.json`, `montar.py` gera `lista.tex`, e `questoes-enem-citadas.tex` compila o PDF (pdflatex 2×) |
+| `capa/` | Capa na identidade do cartaz "Aulão de Véspera": `gerar_capa.py` (rodar com `uv run python` a partir de `python-dados/`) gera o fundo (A4 e slide) e as logos com transparência a partir de `referencia-aulao.webp` e de `imagens/logos/ete.png` |
 | `skills_github/` | Skills baixadas do GitHub usadas como referência (fora do git: licenças de terceiros) |
 
 ## Como gerar o PDF
