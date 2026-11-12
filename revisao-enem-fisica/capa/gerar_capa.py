@@ -1,11 +1,16 @@
 """Gera os elementos da capa na identidade visual do cartaz "Aulão de Véspera" (referencia-aulao.webp):
-fundo-a4.png e fundo-slide.png (fundo azul, faixas amarelas, painel central, estrelas) e as logos com
-transparência (logo-gre.png, logo-pe.png, logo-ete.png, logo-enem.png).
+fundo-a4.png e fundo-slide.png (fundo azul, faixas amarelas, painel central, estrelas) e as quatro logos.
 
 Uso (a partir de python-dados/):  uv run python ../revisao-enem-fisica/capa/gerar_capa.py
-As logos GRE Metro Sul, Governo de Pernambuco e ENEM são recortadas do cartaz (baixa resolução); a da ETE
-vem de imagens/logos/ete.png, convertida para a versão branca usada no cartaz. Para trocar por arquivos
-oficiais, basta substituir os PNG gerados (fundo transparente).
+
+Origem das logos (arquivos em baixadas/ e em imagens/logos/):
+- logo-ete.png   imagens/logos/ete.png (arquivo da escola, em alta resolução)
+- logo-see.png   portal.educacao.pe.gov.br/marcas (logo oficial da Secretaria de Educação, versão colorida horizontal)
+- logo-enem.png  Wikimedia Commons, "Logotipo do Enem.svg" (marca atual do exame)
+- logo-gre.png   recorte de uma publicação do perfil oficial da GRE Metro Sul no Instagram (não há arquivo
+                 oficial para baixar; é a maior versão pública encontrada). Se tiver o arquivo original,
+                 substitua logo-gre.png.
+As logos são coloridas e vão sobre cartão branco na capa.
 """
 import os
 import numpy as np
@@ -13,43 +18,29 @@ from PIL import Image, ImageDraw, ImageFilter
 from scipy.interpolate import splev, splprep
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
-REF = Image.open(os.path.join(AQUI, "referencia-aulao.webp")).convert("RGB")
+BAIX = os.path.join(AQUI, "baixadas")
 AZUL1, AZUL2, CLARO = (3, 96, 200), (3, 122, 206), (24, 150, 218)
 AMARELO, PAINEL = (219, 238, 38), (8, 168, 208)
 
 
 # ---------------------------------------------------------------- logos
-def recorte(caixa, escala=8, lim=(22, 80), nome=None, branco=True):
-    """Recorta a logo do cartaz e troca o fundo por transparência (distância de cor até o fundo)."""
-    im = REF.crop(caixa)
-    a = np.asarray(im).astype(float)
-    borda = np.concatenate([a[0], a[-1], a[:, 0], a[:, -1]])
-    fundo = np.median(borda, axis=0)
-    g = im.resize((im.width * escala, im.height * escala), Image.LANCZOS)
-    p = np.asarray(g).astype(float)
-    dist = np.sqrt(((p - fundo) ** 2).sum(axis=2))
-    alfa = np.clip((dist - lim[0]) / (lim[1] - lim[0]), 0, 1)
-    cor = np.clip((p - (1 - alfa[..., None]) * fundo) / np.maximum(alfa[..., None], 0.05), 0, 255)   # desfaz a mistura com o fundo
-    if branco:   # o que é quase branco vira branco puro (sem franja azulada)
-        quase = cor.min(axis=2) > 150
-        cor[quase] = 255
-    out = np.dstack([cor, alfa * 255]).astype(np.uint8)
-    img = Image.fromarray(out, "RGBA").filter(ImageFilter.UnsharpMask(radius=3, percent=120, threshold=2))
-    img.save(os.path.join(AQUI, nome))
-    return img
+def justa(img):
+    """Recorta a margem transparente."""
+    img = img.convert("RGBA")
+    return img.crop(img.getbbox())
 
 
-def logo_ete():
-    """Versão branca da logo da ETE (como no cartaz) a partir do arquivo em alta resolução."""
-    src = Image.open(os.path.join(AQUI, "..", "..", "imagens", "logos", "ete.png")).convert("RGBA")
-    a = np.asarray(src).astype(float)
-    rgb, alfa = a[..., :3], a[..., 3] / 255
-    brancura = np.clip((rgb.min(axis=2) - 170) / 70, 0, 1)        # letras "ETE" (brancas) ficam vazadas
-    novo = alfa * (1 - brancura)
-    out = np.dstack([np.full(rgb.shape, 255.0), novo * 255]).astype(np.uint8)
-    img = Image.fromarray(out, "RGBA")
-    img = img.crop(img.getbbox())
-    img.save(os.path.join(AQUI, "logo-ete.png"))
+def logos():
+    justa(Image.open(os.path.join(AQUI, "..", "..", "imagens", "logos", "ete.png"))).save(os.path.join(AQUI, "logo-ete.png"))
+    justa(Image.open(os.path.join(BAIX, "logo-SEE-periodo-eleitoral_color_horizontal.png"))).save(os.path.join(AQUI, "logo-see.png"))
+    justa(Image.open(os.path.join(BAIX, "enem.png"))).save(os.path.join(AQUI, "logo-enem.png"))
+    # GRE Metro Sul: logo colorida sobre o cartão branco da publicação; amplia 4x e limpa o fundo para branco puro
+    g = Image.open(os.path.join(BAIX, "gre-post-instagram.webp")).convert("RGB").crop((378, 1606, 638, 1748))
+    g = g.resize((g.width * 4, g.height * 4), Image.LANCZOS).filter(ImageFilter.UnsharpMask(radius=4, percent=90, threshold=2))
+    a = np.asarray(g).astype(float)
+    quase_branco = a.min(axis=2) > 238
+    a[quase_branco] = 255
+    Image.fromarray(a.astype(np.uint8), "RGB").save(os.path.join(AQUI, "logo-gre.png"))
 
 
 # ---------------------------------------------------------------- fundo
@@ -81,7 +72,8 @@ def fundo(nome, W, H, faixas, larg, painel, estrelas, raio):
     for fx, fy, fr in [(0.25, 0.2, 0.35), (0.8, 0.45, 0.3), (0.35, 0.85, 0.32)]:
         r = fr * max(w, h) * 0.6
         dl.ellipse([fx * w - r, fy * h - r, fx * w + r, fy * h + r], fill=CLARO + (150,))
-    im.paste(luz.filter(ImageFilter.GaussianBlur(max(w, h) * 0.08)), (0, 0), luz.filter(ImageFilter.GaussianBlur(max(w, h) * 0.08)))
+    luz = luz.filter(ImageFilter.GaussianBlur(max(w, h) * 0.08))
+    im.paste(luz, (0, 0), luz)
     d = ImageDraw.Draw(im)
     # faixas amarelas
     r = larg * w / 2
@@ -101,10 +93,7 @@ def fundo(nome, W, H, faixas, larg, painel, estrelas, raio):
 
 
 if __name__ == "__main__":
-    recorte((119, 590, 219, 648), nome="logo-gre.png")
-    recorte((240, 592, 344, 648), nome="logo-pe.png")
-    recorte((303, 288, 419, 347), nome="logo-enem.png", lim=(18, 60), branco=False)
-    logo_ete()
+    logos()
     fundo("fundo-a4.png", 1654, 2339,
           faixas=[[(-0.08, 0.33), (0.07, 0.25), (0.03, 0.12), (0.17, 0.045), (0.33, 0.075), (0.47, -0.04)],
                   [(1.08, 0.70), (0.93, 0.76), (0.98, 0.865), (0.86, 0.935), (0.69, 0.955), (0.58, 1.05)]],

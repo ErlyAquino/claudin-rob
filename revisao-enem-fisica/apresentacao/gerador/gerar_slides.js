@@ -54,7 +54,7 @@ function rt(str, base = {}) {
   const pres = new pptxgen();
   pres.layout = "LAYOUT_WIDE";
   pres.theme = { headFontFace: FONTE, bodyFontFace: FONTE };
-  pres.author = "Espaço Cria"; pres.title = "Física no ENEM: revisão rápida"; pres.lang = "pt-BR";
+  pres.author = "Professor Erly Aquino"; pres.title = "Física no ENEM: revisão rápida"; pres.lang = "pt-BR";
 
   // ---- ícones e imagem transparente (área clicável)
   async function icone(nome, cor, px = 256) {
@@ -245,7 +245,7 @@ function rt(str, base = {}) {
     s.addShape(pres.ShapeType.roundRect, { x: 1.2, y: 2.82, w: 6.3, h: 1.4, fill: { color: CART }, line: { color: CART, width: 0 }, rectRadius: 0.25 });
     T(s, "FÍSICA NO ENEM", 1.5, 2.95, 3.7, 0.62, { fontSize: 27, bold: true, color: AZ, valign: "middle" });
     T(s, "REVISÃO RÁPIDA · CIÊNCIAS DA NATUREZA", 1.5, 3.55, 3.7, 0.5, { fontSize: 11.5, bold: true, color: CI, valign: "middle" });
-    logo("logo-enem", 5.15, 2.92, 2.2, 1.2);
+    logo("logo-enem", 5.35, 3.02, 1.9, 1.0);
     T(s, "Os 3 assuntos que mais caem, explicados com exemplos do dia a dia", 1.2, 4.3, 6.3, 0.4, { fontSize: 13.5, color: BR, valign: "middle" });
     [["Mecânica", "mec", "carro"], ["Eletricidade", "ele", "raio"], ["Ondas", "ond", "onda"]].forEach(([n, alvo, ic], i) => {
       const x = 1.2 + i * 2.15, w = 2.0;
@@ -262,10 +262,9 @@ function rt(str, base = {}) {
     T(s, "PROFESSOR", 8.1, 3.1, 4.0, 0.35, { fontSize: 13, bold: true, color: AM, align: "center", valign: "middle", charSpacing: 5 });
     T(s, "Erly Aquino", 7.7, 3.42, 4.8, 0.95, { fontSize: 44, bold: true, color: BR, align: "center", valign: "middle" });
     T(s, "ENEM 2021–2025 · 79 questões analisadas", 8.1, 4.42, 4.0, 0.35, { fontSize: 12, color: BR, align: "center", valign: "middle" });
-    T(s, "Espaço Cria", 8.1, 4.78, 4.0, 0.4, { fontSize: 13, bold: true, color: BR, align: "center", valign: "middle" });
     // logos em destaque
-    s.addShape(pres.ShapeType.line, { x: 1.2, y: 5.42, w: 10.9, h: 0, line: { color: BR, width: 0.75, transparency: 45 } });
-    logo("logo-gre", 1.5, 5.52, 3.0, 1.25); logo("logo-pe", 5.15, 5.52, 3.0, 1.25); logo("logo-ete", 8.8, 5.52, 3.0, 1.25);
+    s.addShape(pres.ShapeType.roundRect, { x: 1.2, y: 5.5, w: 10.9, h: 1.32, fill: { color: BR }, line: { color: BR, width: 0 }, rectRadius: 0.22 });
+    logo("logo-gre", 1.75, 5.62, 2.6, 1.08); logo("logo-see", 4.95, 5.6, 3.5, 1.12); logo("logo-ete", 9.05, 5.62, 2.6, 1.08);
     T(s, "Clique em um assunto ou avance para começar", 1.2, 7.08, 6, 0.3, { fontSize: 11, color: BR });
   }, { notas: "Capa na identidade visual do Aulão de Véspera (GRE Metro Sul, Governo de Pernambuco, ETE Epitácio Pessoa). Apresentação interativa: os cartões, os botões e a barra de baixo são clicáveis no modo de apresentação (F5)." });
 

@@ -19,3 +19,6 @@ questoes/*.log
 questoes/*.out
 questoes/recortes/
 questoes/questoes-enem-citadas.pdf
+questoes/saida-questoes.*
+# publicação do Instagram da GRE usada só para recortar a logo (a imagem inteira mostra pessoas; não vai para o git)
+capa/baixadas/gre-post-instagram.webp
