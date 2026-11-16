@@ -1,0 +1,33 @@
+QUESTÃO 167
+
+No Brasil, datas são registradas no formato DD/MM, em
+seguintes, o mês do ano. Em alguns países, esses registros se «
+e depois o dia do mês. Por exemplo, a data 9 de maio é registra
+mesma data é registrada no formato 05/09.
+
+Um aplicativo gerará aleatoriamente uma data (dia e mês
+
+Qual é a probabilidade de que a data gerada tenha o mesmo r
+
+12
+O 365
+
+30
+kd 365
+
+uma escola, cuja planta baixa está apresentada sobre uma malha
+
+ESCALA 1:80
+
+tou que o projeto fosse modificado, reduzindo em 25% a área real
+a figura.
+
+ório, em metro quadrado, será
+
+| que os primeiros dois dígitos codificam o dia do mês, e os dois
+dão no formato MM/DD, no qual se indica primeiro o mês do ano
+ada, no Brasil, no formato 09/05, enquanto em alguns países, essa
+) de um ano não bissexto.
+
+registro nos dois formatos considerados?
+

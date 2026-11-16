@@ -1,0 +1,85 @@
+\questao{94}{corA}{Mecânica}{Quantidade de movimento e energia cinética}{Com conta}
+\begin{enunciado}
+\input{enun/q094}
+\end{enunciado}
+
+\quer{dos 20\un{MeV} de energia liberados na fusão, quanto fica com o nêutron. (MeV, megaelétron-volt, é só uma unidade de energia, como o joule. Não é preciso converter.)}
+
+\begin{ideia}
+A questão fala de fusão nuclear, mas a conta é de \textbf{Mecânica}. A frase que resolve tudo é:
+``o momento linear total das partículas reagentes é nulo''.
+
+\textbf{Momento linear} é outro nome da \textbf{quantidade de movimento}: massa vezes velocidade ($Q = m \cdot v$).
+Ele se conserva: se era zero antes da reação, continua zero depois. Para a soma dar zero, as duas partículas que saem
+precisam ir \textbf{em sentidos opostos, com a mesma quantidade de movimento}.
+
+\textbf{Pense em dois patinadores parados que se empurram:} um adulto pesado e uma criança leve. Os dois recebem o
+mesmo empurrão, mas a criança sai muito mais rápida. E quem sai mais rápido leva a maior parte da energia.
+Aqui, a partícula $\alpha$ é o adulto e o nêutron é a criança.
+
+\begin{center}
+\begin{tikzpicture}[font=\small]
+  \node[circle,fill=corA!30,draw=corA,minimum size=11mm,inner sep=0pt] (a) at (-2.0,0) {$\alpha$};
+  \node[circle,fill=corB!30,draw=corB,minimum size=5.5mm,inner sep=0pt] (n) at (2.0,0) {$n$};
+  \draw[seta,corA] (a.west) -- ++(-1.0,0) node[pos=1,left]{devagar};
+  \draw[seta,corB] (n.east) -- ++(4.0,0) node[midway,above]{4 vezes mais rápido};
+  \node[below=1mm of a,align=center,cinza] (ma) {massa 4\\(2 prótons + 2 nêutrons)};
+  \node[anchor=north,cinza] at (n |- ma.north) {massa 1};
+\end{tikzpicture}
+\end{center}
+\end{ideia}
+
+\passoapasso
+\npasso{Compare as massas.}
+O enunciado manda considerar a massa do próton igual à do nêutron. Vamos chamar essa massa de \textbf{1 unidade}.
+\begin{itemize}
+  \item Nêutron: massa 1.
+  \item Partícula $\alpha$: 2 prótons + 2 nêutrons = 4 partículas. Massa 4.
+\end{itemize}
+
+\npasso{Use a conservação da quantidade de movimento para comparar as velocidades.}
+As duas quantidades de movimento são iguais (em sentidos opostos): massa $\times$ velocidade da $\alpha$ = massa $\times$ velocidade do nêutron.
+\begin{conta}
+$4 \times v_\alpha = 1 \times v_n$
+\end{conta}
+Para os dois lados ficarem iguais, a velocidade do nêutron tem de ser 4 vezes a da $\alpha$.
+O nêutron é 4 vezes mais leve, então sai \textbf{4 vezes mais rápido}.
+
+\npasso{Compare as energias cinéticas.}
+Energia cinética é a energia do movimento: $E_c = \dfrac{m \cdot v^2}{2}$ (massa vezes a velocidade ao quadrado, dividido por 2).
+Para a conta ficar fácil, faça de conta que a velocidade da $\alpha$ vale 1. Então a do nêutron vale 4:
+\begin{conta}
+$E_\alpha = \dfrac{4 \times 1^2}{2} = \dfrac{4 \times 1}{2} = 2
+\qquad\qquad
+E_n = \dfrac{1 \times 4^2}{2} = \dfrac{1 \times 16}{2} = 8$
+\end{conta}
+Atenção ao quadrado: $4^2 = 4 \times 4 = 16$ (não é $4 \times 2$).
+Comparando: 8 é \textbf{4 vezes} 2. A energia do nêutron é 4 vezes a da partícula $\alpha$.
+(Com qualquer outra velocidade, a comparação daria o mesmo.)
+
+\npasso{Reparta os 20\un{MeV}.}
+A $\alpha$ fica com 1 parte e o nêutron com 4 partes. No total são $1 + 4 = 5$ partes iguais.
+\begin{conta}
+Cada parte: $20 \div 5 = 4\un{MeV}$
+\qquad\qquad
+Nêutron: $4 \times 4 = 16\un{MeV}$
+\qquad\qquad
+$\alpha$: $1 \times 4 = 4\un{MeV}$
+\end{conta}
+\confere{$16 + 4 = 20\un{MeV}$. Bateu com a energia total.}
+
+\resposta{E}{O nêutron, por ser 4 vezes mais leve, fica com 4 das 5 partes da energia: 16\un{MeV}.}
+
+\begin{outras}
+\alt{A} 4,0\un{MeV} é a energia da partícula $\alpha$, não a do nêutron.\par
+\alt{B} 10\un{MeV} seria dividir a energia meio a meio. Isso só valeria se as massas fossem iguais.\par
+\altl{C} e \alt{D} Não saem de nenhuma divisão correta: a energia tem de ser repartida em 5 partes, 1 para a $\alpha$ e 4 para o nêutron.
+\end{outras}
+
+\begin{pegadinha}[Onde muita gente erra]
+\begin{itemize}
+  \item \textbf{Dividir a energia meio a meio} (10\un{MeV}). As massas são diferentes, então a divisão não é igual.
+  \item \textbf{Achar que a partícula mais pesada leva mais energia.} É o contrário: a mais leve sai muito mais rápida, e a
+        velocidade entra \emph{ao quadrado} na energia. Massas 4 e 1, energias 1 e 4.
+\end{itemize}
+\end{pegadinha}

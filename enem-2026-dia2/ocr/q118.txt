@@ -1,0 +1,16 @@
+A figura ilustra uma forma de medir a densidade relativa
+de dois líquidos, A e B, imiscíveis, colocando-os em um tubo
+em forma de U. Atingido o equilíbrio hidrostático, medem-se
+as alturas, ha; € ha; das colunas dos líquidos, a partir de
+sua superfície até o nível da linha de separação entre eles.
+Considere que um volume adicional de líquido A é colocado na
+coluna esquerda do tubo, conforme a figura. Após o equilíbrio ser
+restabelecido, medem-se as novas alturas, h,, e hs, da mesma
+maneira, comparando-as com as alturas anteriores.
+
+A comparação entre as novas alturas e as anteriores revela que
+O ha =hye ha =hor-
+O hy> has € hop = hoy.
+O hy> ha e ho, > hor
+O ho <hy e ho > hor
+O hy=haeho> ha

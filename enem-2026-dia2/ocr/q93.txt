@@ -1,0 +1,31 @@
+QUESTÃO 93 ————
+Resíduos sólidos urbanos
+
+Segundo a Associação Brasileira de Resíduos e Meio
+Ambiente, em 2022, foram geradas cerca de 211 mil
+toneladas de resíduos sólidos urbanos (RSU) por dia no país.
+Aproximadamente 93% desses resíduos são coletados, o que
+equivale a 196 mil toneladas de RSU por dia. Desse montante,
+os resíduos secos recicláveis representam 34%, e os resíduos
+orgânicos são a maioria e representam 45% do total coletado.
+A situação parece sob controle, se desconsiderarmos que
+40% dos RSU coletados são dispostos irregularmente em
+lixões ou a céu aberto, enquanto 60% é encaminhado para
+aterros sanitários.
+
+Nos aterros sanitários, parte dos RSU podem ser utilizados
+na produção de biogás para alimentar usinas termelétricas.
+Cerca de 20 kg de resíduos orgânicos produzem 1 metro cúbico
+de biogás, o qual pode gerar 1,2 kWh de energia elétrica.
+
+Disponível em: www.abrema.org.br. Acesso em: 9 abr. 2026 (adaptado).
+
+Se todos os resíduos orgânicos coletados fossem utilizados para
+geração de biogás, aproximadamente quanta energia elétrica,
+em quilowatt-hora, poderia ser gerada por dia?
+
+0 1,2x10'kwh
+O 7,1x 10º kwh
+O 5,3 x 10º kwh
+O 32x 10º kwh
+Q21x10ºkwh

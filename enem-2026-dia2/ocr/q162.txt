@@ -1,0 +1,47 @@
+sa
+Je
+
+as
+js
+pr
+
+QUESTÃO 162
+
+A Carga Tributária Bruta (CTB) é um índice utilizado por
+agências de pesquisas econômicas para orientar possíveis
+investidores. O gráfico ilustra os valores percentuais da
+CTB de um país em função do tempo t, em ano, sendo que
+t=0 corresponde a 2021, t = 1 a 2022, t = 2 a 2023, e assim
+sucessivamente.
+
+32,5 +
+
+32,0
+
+31,5
+
+31,0
+
+30,5 1
+
+CTB (%)
+
+30,0
+
+29,5
+
+0 1 2 3 4 5
+t(ano)
+
+Com base nesses dados, uma agência fez uma extrapolação
+para estimar o valor percentual da CTB para 2026, considerando
+que esse Índice varia segundo uma função quadrática.
+
+O valor percentual da CTB estimado para 2026, obtido por essa
+agência, foi
+
+025,5.
+O 275.
+O 30,0.
+O 33,5.
+O 35,0.

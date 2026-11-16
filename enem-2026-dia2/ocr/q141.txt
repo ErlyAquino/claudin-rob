@@ -1,0 +1,26 @@
+QUESTÃO 141
+
+Um usuário de telefonia móvel quer contratar um serviço de
+dados 5G e foi informado de que a taxa média de transferência
+de dados ofertada nesse serviço é 436 Mb/s. Como ele não
+conhecia essa unidade de medida, pesquisou e verificou que
+ela relaciona duas grandezas.
+
+Qual razão entre as grandezas fornece a taxa média de
+transferência de dados?
+
+volume de dados
+tempo
+
+(A)
+
+distância
+volume de dados
+
+tempo
+volume de dados
+velocidade
+distância
+distância
+tempo
+

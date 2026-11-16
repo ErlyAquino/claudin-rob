@@ -1,0 +1,37 @@
+QUESTÃO 113
+
+O comprimento da parte oscilante da corda de um violão
+determina a nota musical emitida, No braço do violão, são colocadas
+peças metálicas espaçadas chamadas trastes. Quando as cordas
+são pressionadas entre os trastes, os comprimentos de suas
+partes oscilantes são reduzidos, gerando ondas de diferentes
+frequências. Algumas notas com os valores aproximados de
+suas frequências são apresentadas no quadro. A figura ilustra
+um violão com cordas de comprimento total vibrante (L,)
+igual a 60 cm. Considere o modo de vibração fundamental (n = 1)
+e que as frequências de vibração são inversamente proporcionais
+ao comprimento da parte oscilante da corda. Sabe-se que a
+primeira corda oscila com frequência de 660 Hz (a nota mi)
+quando não pressionada (corda livre).
+
+L=45cm
+
+Trastes
+
+Cavalete
+ou ponte
+
+OLIVEIRA, Leonardo M.; VEIT, Eliane A.; SCHNEIDER, Claúdio.
+Oitavas e notas. Disponível em: www.if.ufrgs.br.
+Acesso em: 6 nov. 2023 (adaptado).
+
+Ao pressionar a primeira corda, de forma que a sua parte
+oscilante tenha 45 centímetros, e fazê-la vibrar, qual é a nota
+emitida pela corda?
+
+O Dó.
+Omi
+O sol.
+o lá.
+e si.
+

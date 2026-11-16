@@ -1,0 +1,202 @@
+% Estilo de "ENEM 2026 · Física resolvida passo a passo" (pdfLaTeX; MiKTeX ou TeX Live)
+% Base: revisao-enem-fisica/tex/estilo.tex (mesmas fontes, cores e caixas), com os blocos de resolução no fim.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\DeclareUnicodeCharacter{2011}{\mbox{-}}   % hífen não separável
+\DeclareUnicodeCharacter{00D7}{\ensuremath{\times}}
+\DeclareUnicodeCharacter{00F7}{\ensuremath{\div}}
+\DeclareUnicodeCharacter{2212}{\ensuremath{-}}
+\DeclareUnicodeCharacter{2192}{\ensuremath{\rightarrow}}
+\DeclareUnicodeCharacter{2248}{\ensuremath{\approx}}
+\DeclareUnicodeCharacter{03C0}{\ensuremath{\pi}}
+\DeclareUnicodeCharacter{03B1}{\ensuremath{\alpha}}
+\DeclareUnicodeCharacter{03A9}{\ensuremath{\Omega}}
+\usepackage[a4paper,top=14mm,bottom=17mm,left=17mm,right=17mm,headheight=14pt,footskip=9mm]{geometry}
+\usepackage[sfdefault,lining]{FiraSans}
+\usepackage[scaled=1.06]{newtxsf}    % matemática sem serifa, na altura do texto
+\usepackage[scaled=0.9]{FiraMono}     % evita fonte bitmap (Type 3) em \texttt e \url
+\usepackage{microtype}
+\ifdefined\pdfglyphtounicode\pdfglyphtounicode{Delta}{0394}\pdfglyphtounicode{Omega}{03A9}\pdfglyphtounicode{mu}{03BC}\fi   % busca por letras gregas no PDF
+\usepackage[table]{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning,decorations.pathmorphing,decorations.markings,patterns,shapes.geometric,shapes.misc,fit,backgrounds}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[RPvoltages]{circuitikz}
+\usepackage[most]{tcolorbox}
+\usepackage{fontawesome5}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{fancyhdr}
+\usepackage{needspace}
+\usepackage{amsmath}
+\usepackage[hidelinks,unicode,bookmarksopen=true,bookmarksnumbered=false]{hyperref}
+
+% ---------------------------------------------------------------- cores (trio validado para daltonismo: azul, laranja, verde-água)
+\definecolor{corA}{HTML}{2A78D6}      % assunto 1: mecânica
+\definecolor{corB}{HTML}{EB6834}      % assunto 2: eletricidade
+\definecolor{corC}{HTML}{1BAF7A}      % assunto 3: ondas
+\definecolor{corD}{HTML}{8A4FBF}      % energia e calor
+\definecolor{tinta}{HTML}{16202A}     % texto
+\definecolor{cinza}{HTML}{4F5A64}     % texto secundário
+\definecolor{cinzaclaro}{HTML}{EEF1F4}
+\definecolor{alerta}{HTML}{C0392B}
+\definecolor{ouro}{HTML}{B7791F}
+\colorlet{tema}{corA}                 % cor do capítulo corrente
+\colorlet{rodape}{cinza}
+\newcommand{\corcap}[1]{\colorlet{tema}{#1}}
+\color{tinta}
+% matemática acompanha o negrito do texto (LaTeX 2020-10 ou mais novo)
+\AddToHook{bfseries}{\ifmmode\else\boldmath\fi}
+\AddToHook{mdseries}{\ifmmode\else\unboldmath\fi}
+
+% ---------------------------------------------------------------- página: texto alinhado à esquerda, sem hifenização (leitura mais fácil)
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.08}
+\hyphenpenalty=10000 \exhyphenpenalty=10000
+\raggedright
+\makeatletter\g@addto@macro\@parboxrestore{\raggedright}\makeatother   % minipages e \parbox também
+\raggedbottom
+% sem linha sozinha no pé ou no topo da página; listas e tabelas centralizadas não se separam da frase que as anuncia
+\clubpenalty=10000 \widowpenalty=10000 \displaywidowpenalty=10000
+\makeatletter\@beginparpenalty=10000 \@itempenalty=150\makeatother
+\pagestyle{fancy}\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\nomecap}{}
+\fancyfoot[L]{\footnotesize\color{cinza}ENEM 2026 · Física resolvida passo a passo\ifx\nomecap\empty\else\quad\textcolor{rodape}{\rule[-0.2mm]{2.2mm}{2.2mm}}\ \textcolor{rodape}{\bfseries\nomecap}\fi}
+\fancyfoot[R]{\footnotesize\color{cinza}\thepage}
+\setlist{leftmargin=1.4em,itemsep=2pt,topsep=3pt,parsep=0pt}
+
+% ---------------------------------------------------------------- caixas (inquebráveis: uma ideia nunca fica partida entre páginas)
+\tcbset{base/.style={enhanced,arc=2.5mm,boxrule=0.8pt,left=4mm,right=4mm,top=3mm,bottom=3mm,halign=flush left,
+  fonttitle=\bfseries,before skip=3.2mm,after skip=3.2mm},
+  gruda/.style={before={\par\nobreak\vskip\glueexpr#1-\parskip\relax\nointerlineskip\lineskip0pt\noindent}},
+  fileira/.style={raster columns=#1,raster equal height,raster column skip=3mm,raster before skip=3.2mm,raster after skip=3.2mm,raster valign=top},
+  fileira/.default=3}
+% analogia do dia a dia
+\newtcolorbox{analogia}[1][Pense assim]{base,colback=tema!8,colframe=tema!55,title={\faLightbulb[regular]\ \ #1},coltitle=tinta,
+  attach boxed title to top left={xshift=4mm,yshift=-2.6mm},boxed title style={colback=tema!22,colframe=tema!55,arc=2mm,boxrule=0.8pt},top=5mm}
+% fórmula-chave (cartão)
+\newtcolorbox{formula}[2][]{base,colback=white,colframe=tema,boxrule=1.2pt,title={\strut #2},colbacktitle=tema,coltitle=white,
+  halign=flush center,left=3mm,right=3mm,#1}
+% cartão simples (definições, leis de Newton, fenômenos)
+\newtcolorbox{cartao}[1][]{base,colback=tema!8,colframe=tema!55,left=3mm,right=3mm,top=2.5mm,bottom=2.5mm,#1}
+% cartão com faixa de título
+\newtcolorbox{quadro}[2][]{base,colback=white,colframe=tema,title={\strut #2},colbacktitle=tema,coltitle=white,#1}
+% questão real do ENEM (resumida)
+\newtcolorbox{enemreal}[2][]{base,colback=cinzaclaro,colframe=tinta!70,title={\faGraduationCap\ \ Caiu no ENEM · #2},
+  colbacktitle=tinta!85,coltitle=white,#1}
+% exemplo do dia a dia
+\newtcolorbox{exemplo}[2][]{base,colback=tema!6,colframe=tema!55,title={\faHome\ \ #2},colbacktitle=tema!55,coltitle=tinta,#1}
+% pegadinha / erro comum
+\newtcolorbox{pegadinha}[1][Pegadinha]{base,colback=alerta!6,colframe=alerta!70,title={\faExclamationTriangle\ \ #1},
+  colbacktitle=alerta!80,coltitle=white}
+% macete para decorar
+\newtcolorbox{macete}[1][Para decorar]{base,colback=ouro!9,colframe=ouro!75,title={\faBrain\ \ #1},
+  colbacktitle=ouro!85,coltitle=white}
+% questão de treino
+\newcounter{treino}
+\newtcolorbox{treino}[1]{base,colback=white,colframe=tema,boxrule=1.1pt,
+  title={\refstepcounter{treino}Questão \thetreino\ \ ·\ \ #1},colbacktitle=tema,coltitle=white}
+% comentário do gabarito
+\newtcolorbox{comentario}[2]{base,colback=white,colframe=#1,boxrule=1pt,title={#2},colbacktitle=#1,coltitle=white,
+  before skip=2mm,after skip=2mm,top=1.2mm,bottom=1.2mm}
+% coluna do resumo de bolso
+\newtcolorbox{bolso}[2]{base,colback=white,colframe=#1,boxrule=1.1pt,title={#2},colbacktitle=#1,coltitle=white,
+  left=2.5mm,right=2.5mm,top=2mm,bottom=2mm,fontupper=\small}
+
+\newcommand{\passo}[1]{\par\smallskip\textbf{\color{tema}#1}\ }
+\newcommand{\resp}[1]{\par\smallskip{\bfseries\color{tema}\faCheckCircle\ Resposta: #1}}
+% onde o aluno erra (nota em destaque dentro das caixas de questão)
+\newcommand{\erro}[1]{\par\smallskip{\small\textcolor{alerta}{\faExclamationTriangle\ \textbf{Onde o aluno erra:}}\ #1}}
+\newcommand{\nota}[1]{\par\smallskip{\small\color{cinza}#1}}
+% alternativas A–E
+\newlist{alternativas}{enumerate}{1}
+\setlist[alternativas]{label=\protect\circulo{\Alph*},leftmargin=2.2em,itemsep=1.5pt,topsep=4pt}
+\newcommand{\circulo}[1]{\tikz[baseline=(c.base)]\node[circle,draw=tema,line width=0.7pt,inner sep=1.1pt,font=\footnotesize\bfseries,text=tema](c){#1};}
+\newcommand{\leg}[1]{{\footnotesize\color{cinza}#1}}
+\newcommand{\numerao}[2]{\centering{\fontsize{26}{28}\selectfont\bfseries\color{tema}\strut #1}\par{\small\color{cinza}#2}}
+% selo numerado (liga os pares nas figuras de analogia)
+\newcommand{\selo}[1]{\tikz[baseline=(s.base)]\node[circle,fill=tema,text=white,inner sep=1pt,font=\scriptsize\bfseries,minimum size=3.6mm](s){#1};}
+
+% ---------------------------------------------------------------- figuras: estilo único
+\tikzset{fio/.style={line width=0.8pt},
+  seta/.style={-{Latex[length=2.4mm]},line width=1.4pt},
+  cota/.style={{Latex[length=1.6mm]}-{Latex[length=1.6mm]},line width=0.6pt,cinza}}
+\ctikzset{bipoles/length=1.0cm,bipoles/thickness=1.5}
+
+
+% ================================================================ BLOCOS DA RESOLUÇÃO (ENEM 2026)
+\graphicspath{{../../imagens/}}
+\newcommand{\un}[1]{\,\text{#1}}                 % unidade dentro de fórmula: 12\un{V}
+\newcommand{\titulo}[2]{\corcap{tinta}\colorlet{rodape}{cinza}\renewcommand{\nomecap}{#1}%
+  \pdfbookmark[1]{#1}{tit#1}{\fontsize{22}{25}\selectfont\bfseries #2\par}\nobreak\vspace{1mm}}
+\newcommand{\subsecao}[1]{\par\Needspace{40mm}\vspace{2mm}{\large\bfseries\color{tinta}#1\par}\nobreak}
+\newcommand{\destaque}[1]{{\bfseries\color{tema}#1}}
+
+% \questao{número}{cor}{Área}{Assunto}{tipo}: abre a página da questão
+\newcommand{\questao}[5]{%
+  \clearpage\corcap{#2}\colorlet{rodape}{#2}\renewcommand{\nomecap}{Questão #1}\setcounter{npasso}{0}%
+  \pdfbookmark[1]{Questão #1 · #4}{q#1}%
+  \begin{tcolorbox}[enhanced,colback=tema,colframe=tema,arc=3mm,boxrule=0pt,left=5mm,right=5mm,top=3mm,bottom=3mm,halign=flush left,after skip=2.5mm]
+    {\color{white}\small\bfseries\MakeUppercase{#3}\ \ ·\ \ #5\par}\vspace{0.3mm}
+    {\color{white}\fontsize{20}{23}\selectfont\bfseries Questão #1\ \ {\fontsize{14}{17}\selectfont\mdseries #4}\par}
+  \end{tcolorbox}}
+
+% enunciado original (pode quebrar de página)
+\newtcolorbox{enunciado}{base,breakable,colback=cinzaclaro,colframe=tinta!55,boxrule=0.6pt,
+  title={\faFile*[regular]\ \ Enunciado original · ENEM 2026 · 2º dia · Caderno 5 Amarelo},colbacktitle=tinta!80,coltitle=white,
+  fontupper=\small,left=3.5mm,right=3.5mm,top=2mm,bottom=2mm}
+\newcommand{\fonte}[1]{\par{\raggedleft\scriptsize\color{cinza}#1\par}}
+% figura do enunciado: \figq[largura máxima]{arquivo}
+\newcommand{\figq}[2][0.55\linewidth]{\par\begin{center}\includegraphics[width=#1,height=5.6cm,keepaspectratio]{#2}\end{center}\par}
+% figura do enunciado à esquerda e quadro à direita: \begin{figlado}{fração da linha}{arquivo} ...quadro... \end{figlado}
+\newenvironment{figlado}[2]{\par\vspace{1.5mm}\noindent\begin{minipage}[c]{#1\linewidth}\centering\includegraphics[width=\linewidth]{#2}\end{minipage}\hfill
+  \begin{minipage}[c]{\dimexpr0.975\linewidth-#1\linewidth\relax}\centering\setlength{\tabcolsep}{4.5pt}}{\end{minipage}\par\vspace{1mm}}
+% alternativa em forma de figura
+\newcommand{\altfig}[2]{\begin{minipage}[c]{0.185\linewidth}\centering\circulo{#1}\par\vspace{0.5mm}\includegraphics[width=\linewidth]{#2}\end{minipage}}
+
+% alternativas curtas, lado a lado: \begin{altlinha}\alth[fração da linha]{A}{texto}...\end{altlinha}
+\newenvironment{altlinha}{\par\addvspace{4pt}\noindent\hspace*{0.45em}\ignorespaces}{\par\addvspace{2pt}}
+\newcommand{\alth}[3][0.195]{\makebox[#1\linewidth][l]{\circulo{#2}\hspace{0.5em}#3}\ignorespaces}
+
+% o que a questão quer
+\newcommand{\quer}[1]{\par\vspace{1mm}{\bfseries\color{tema}\faSearch\ \ O que a questão quer saber:}\ #1\par}
+% ideia principal (conceito + comparação do dia a dia)
+\newtcolorbox{ideia}[1][A ideia principal]{base,breakable,lines before break=4,pad at break=2.5mm,colback=tema!8,colframe=tema!55,title={\faLightbulb[regular]\ \ #1},coltitle=tinta,
+  attach boxed title to top left={xshift=4mm,yshift=-2.6mm},boxed title style={colback=tema!22,colframe=tema!55,arc=2mm,boxrule=0.8pt},top=5mm,
+  before upper={\setlength{\parskip}{3pt plus 1pt}}}
+% coluna de texto (minipage com o espaçamento de parágrafos do corpo): texto ao lado de um diagrama
+\newenvironment{coluna}[2][c]{\begin{minipage}[#1]{#2}\setlength{\parskip}{4pt plus 1pt minus 1pt}}{\end{minipage}}
+% passo a passo
+\newcounter{npasso}
+\newcommand{\passoapasso}{\par\Needspace{36mm}\vspace{2mm}{\large\bfseries\color{tema}\faShoePrints\ \ Passo a passo\par}\nobreak}
+% o primeiro passo nunca se separa do título "Passo a passo"; os demais pedem 22 mm livres na página
+\newcommand{\npasso}[1]{\par\ifnum\value{npasso}=0 \nobreak\else\Needspace{22mm}\fi\vspace{1.5mm}\stepcounter{npasso}%
+  \selo{\thenpasso}\ \ \textbf{#1}\par\nobreak\vspace{0.3mm}}
+% conta armada (centralizada, em destaque)
+\newtcolorbox{conta}{base,colback=white,colframe=tema!45,boxrule=0.6pt,left=3mm,right=3mm,top=1.6mm,bottom=1.6mm,
+  gruda=1.8mm,after skip=2.2mm,halign=flush center}
+% conferência rápida
+\newcommand{\confere}[1]{\par{\small\color{cinza}\faCheck\ \ \textbf{Conferindo:} #1}\par}
+% resposta final
+\newcommand{\resposta}[2]{\par\Needspace{16mm}\vspace{1mm}%
+  \begin{tcolorbox}[base,colback=tema,colframe=tema,boxrule=0pt,top=2mm,bottom=2mm,before skip=2.5mm,after skip=2.5mm]
+  {\color{white}\bfseries\large\faCheckCircle\ \ Resposta: alternativa #1\par}\vspace{0.3mm}{\color{white}#2\par}\end{tcolorbox}}
+% por que as outras estão erradas
+\newtcolorbox{outras}{base,colback=white,colframe=cinza!60,title={\faTimesCircle[regular]\ \ Por que as outras alternativas não servem},
+  colbacktitle=cinza!75,coltitle=white,fontupper=\small,top=1.5mm,bottom=1.5mm}
+\newcommand{\alt}[1]{\textbf{\color{tinta}#1)}\ }
+\newcommand{\altl}[1]{\textbf{\color{tinta}#1)}}   % em listas: \altl{A}, \altl{B} e \alt{C}
+% para guardar
+\newtcolorbox{guardar}[1][Para guardar]{base,colback=ouro!9,colframe=ouro!75,title={\faBrain\ \ #1},
+  colbacktitle=ouro!85,coltitle=white,top=1.5mm,bottom=1.5mm}
+% cartão com número grande (análise)
+\newtcolorbox{numero}{base,colback=white,colframe=cinza!35,boxrule=0.7pt,left=1mm,right=1mm,top=2.5mm,bottom=2.5mm,halign=flush center}
+\newcommand{\bolinha}[1]{\tikz[baseline=-0.6ex]\fill[#1] (0,0) circle (3pt);}

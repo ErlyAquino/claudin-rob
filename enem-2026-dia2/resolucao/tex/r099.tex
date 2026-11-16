@@ -1,0 +1,95 @@
+\questao{99}{corB}{Eletricidade}{Circuitos elétricos: série e paralelo}{Só de conceito}
+\begin{enunciado}
+\input{enun/q099}
+\end{enunciado}
+
+\quer{em qual situação os dois amperímetros marcam a mesma corrente, e essa corrente não é zero.}
+
+\begin{ideia}
+Corrente elétrica é como \textbf{água correndo em canos}:
+\begin{itemize}
+  \item \textbf{Em série} (um depois do outro, sem desvio): toda a corrente que passa por um passa pelo outro.
+        Se um ponto do caminho é interrompido, a corrente deixa de passar no caminho inteiro.
+  \item \textbf{Em paralelo} (o fio se divide em dois ramos): a corrente se reparte entre os ramos. Se um ramo é interrompido,
+        toda a corrente que ainda circula passa pelo outro ramo. (O valor dessa corrente pode mudar, porque o circuito mudou.)
+\end{itemize}
+Lâmpada \textbf{queimada} é fio interrompido: por ela não passa corrente.
+
+O \textbf{amperímetro} é o aparelho que mede a corrente \textbf{só no fio em que ele está}. Na figura, os amperímetros são os
+dois círculos cinza com a letra A (não confunda com a lâmpada A). Vamos chamar de \textbf{amperímetro 1} o que mede $i_1$ e de
+\textbf{amperímetro 2} o que mede $i_2$.
+\end{ideia}
+
+\passoapasso
+\npasso{Siga o fio e descubra como as lâmpadas estão ligadas.}
+% texto à esquerda, circuito redesenhado à direita
+\noindent\begin{coluna}{0.52\linewidth}
+Comece no polo positivo (+) das baterias e vá seguindo o fio com o dedo:
+\begin{itemize}
+  \item o fio chega a um ponto e \textbf{se divide em dois ramos}: um passa pelo amperímetro 1 e pela lâmpada A; o outro passa pela lâmpada B;
+  \item os dois ramos \textbf{se juntam de novo} no fio de cima;
+  \item daí em diante há um caminho só: lâmpada C, lâmpada D, amperímetro 2 e polo negativo ($-$).
+\end{itemize}
+Resumindo: \textbf{A e B estão em paralelo} entre si, e esse conjunto está \textbf{em série com C e com D}.
+\end{coluna}\hfill
+\begin{minipage}[c]{0.46\linewidth}\centering
+\begin{tikzpicture}[font=\small,x=0.88cm,
+  lamp/.style={circle,draw=tinta,fill=yellow!40,minimum size=7mm,inner sep=0pt,font=\small\bfseries},
+  amp/.style={rounded rectangle,draw=corB,fill=corB!15,minimum height=6.5mm,inner xsep=1.6mm,inner ysep=0pt,font=\scriptsize\bfseries}]
+  \node[draw=tinta,fill=cinzaclaro,minimum width=16mm,minimum height=7mm] (bat) at (4.4,-1.85) {baterias};
+  \node[amp] (a1) at (2.3,0.7) {amp.\,1};
+  \node[lamp] (A) at (3.6,0.7) {A};
+  \node[lamp] (B) at (2.95,-0.7) {B};
+  \node[lamp] (C) at (5.2,0) {C};
+  \node[lamp] (D) at (6.15,0) {D};
+  \node[amp] (a2) at (8.0,0) {amp.\,2};
+  \coordinate (P) at (0.9,0); \coordinate (Q) at (4.5,0);
+  \draw[fio] (bat.west) -- (0.15,-1.85) -- (0.15,0) -- (P);
+  \draw[fio] (P) |- (a1) -- (A) -| (Q);
+  \draw[fio] (P) |- (B) -| (Q);
+  \draw[fio] (Q) -- (C) -- (D) -- (a2) -- (9.0,0) -- (9.0,-1.85) -- (bat.east);
+  \fill (P) circle (1.6pt); \fill (Q) circle (1.6pt);
+  % polos das baterias: + do lado em que o fio segue para a divisão dos ramos; - do lado do amperímetro 2
+  \node[above,font=\small\bfseries,inner sep=1.5pt] at ([xshift=-2.6mm]bat.west) {+};
+  \node[above,font=\small\bfseries,inner sep=1.5pt] at ([xshift=2.6mm]bat.east) {$-$};
+  \draw[seta,corB] (1.0,1.0) -- ++(0.6,0) node[pos=0,left,inner sep=1.5pt]{$i_1$};
+  \draw[seta,corB] (6.64,0.32) -- ++(0.58,0) node[midway,above,inner sep=1.5pt]{$i_2$};
+  \node[cinza] at (3.2,1.62) {só a corrente da lâmpada A};
+  \node[cinza] at (7.4,-0.72) {corrente total};
+\end{tikzpicture}
+
+{\footnotesize\color{cinza}O mesmo circuito da figura, ``desembaraçado''.}
+\end{minipage}
+
+\npasso{Entenda o que cada amperímetro mede.}
+\begin{itemize}
+  \item \textbf{Amperímetro 1} ($i_1$): está no ramo da lâmpada A. Mede só a corrente que passa por A.
+  \item \textbf{Amperímetro 2} ($i_2$): está no caminho único, depois de D. Mede a corrente \textbf{total} do circuito.
+\end{itemize}
+
+\npasso{Teste cada alternativa.}
+{\small\renewcommand{\arraystretch}{1.25}
+\begin{center}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{2.7cm}>{\raggedright\arraybackslash}p{10.9cm}>{\centering\arraybackslash}p{3.1cm}@{}}
+\toprule
+\textbf{Situação} & \textbf{O que acontece} & \textbf{Iguais e não nulas?}\\
+\midrule
+\alt{A} Todas ligadas & A corrente total se divide em duas partes iguais, porque A e B são lâmpadas iguais (o enunciado diz que todas brilham igualmente). Por A passa só metade: $i_1$ é metade de $i_2$. & Não (diferentes)\\
+\alt{B} A queimada & Não passa corrente pelo ramo de A: $i_1 = 0$. & Não ($i_1$ é nula)\\
+\alt{C} B queimada & O ramo de B fica interrompido. Toda a corrente do circuito é obrigada a passar por A: $i_1 = i_2$. E o circuito continua fechado, então há corrente. (Ela fica um pouco menor que antes, mas é a mesma nos dois amperímetros.) & \textbf{Sim}\\
+\alt{D} C queimada & C está em série com tudo. O caminho único é interrompido: não passa corrente em lugar nenhum. $i_1 = i_2 = 0$. & Não (são nulas)\\
+\alt{E} D queimada & Mesmo caso de C: o caminho único é interrompido. $i_1 = i_2 = 0$. & Não (são nulas)\\
+\bottomrule
+\end{tabular}
+\end{center}}
+
+\resposta{C}{Com a lâmpada B queimada, toda a corrente do circuito passa pela lâmpada A. Os dois amperímetros marcam o mesmo valor, diferente de zero.}
+
+\begin{pegadinha}[Onde muita gente erra]
+\begin{itemize}
+  \item \textbf{Parar em ``iguais''.} Em D e E as correntes também ficam iguais, mas iguais a \textbf{zero}. O enunciado pede
+        ``iguais e \textbf{não nulas}''. Leia a pergunta até o fim.
+  \item \textbf{Achar que, com B queimada, A também apaga.} Isso só aconteceria se as duas estivessem em série. Elas estão em
+        paralelo: a corrente ainda tem o ramo de A para passar.
+\end{itemize}
+\end{pegadinha}

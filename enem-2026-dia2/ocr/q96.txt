@@ -1,0 +1,26 @@
+QUESTÃO 96
+
+Uma instalação de radar, usada para rastrear aviões, emite
+ondas eletromagnéticas com velocidade estimada de 300 mil
+quilômetros por segundo. Um avião que saiu da rota foi localizado
+em um raio de 75 quilômetros do aeroporto onde fica o radar.
+O operador usou o tempo dispendido para enviar e receber
+a resposta com a finalidade de estimar a localização do avião.
+
+= mea pa
+
+Écz Ondas emitidas
+
+Ondas refletidas
+
+Disponível em: www.pasternack.com.
+Acesso em: 1 abr. 2026 (adaptado).
+
+O tempo, em segundo, medido foi de
+
+OQ 20x10's.
+O 4,0x10ºs.
+05,0x101s.
+0 1,5x10?s.
+0 5,0x10"s.
+

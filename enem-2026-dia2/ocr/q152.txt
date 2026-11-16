@@ -1,0 +1,50 @@
+QUESTÃO 152. +. —
+
+Uma empresa que produz sinalizadores realiza um teste de
+segurança de seus produtos. Esse teste consiste em registra
+em um plano cartesiano, com os eixos graduados em metro
+a trajetória parabólica do projétil lançado pelo sinalizador
+e calcular os valores de dois parâmetros, D, (distância entre «
+ponto de lançamento e o ponto de altura máxima, em metro
+e D, (distância entre o ponto de lançamento e o ponto de
+explosão, em metro), conforme representado na figura.
+
+y Ponto de
+altura máxima
+
+/
+
++— Ponto de
+explosão
+
+Ponto de
+lançamento
+
+a
+
+(o)
+
+x
+
+k
+
+O nível de segurança do sinalizador é classificado de 1 (níve
+mínimo) a 5 (nível máximo), segundo os valores apurados par:
+D, e D,, conforme os critérios apresentados na tabela.
+
+23<D,<25
+
+23<D,<25 23<D,<25
+Em um teste de segurança, a trajetória do projétil lançadc
+
+por um sinalizador foi modelada pela função y = — 0,240 + 4,8)
+e apurou-se que k = 15.
+
+De acordo com essa classificação, o nível de segurança desse
+sinalizador foi
+
+01.
+02.
+os.
+04.
+es.

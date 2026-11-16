@@ -1,0 +1,19 @@
+QUESTÃO 157
+No momento do Big Bang, o Universo passou por um
+crescimento enorme que durou menos de um trilionésimo de
+segundo. Para se ter uma ideia desse tempo, um trilionésimo
+é um número que pode ser representado por uma fração em
+que o numerador é 1 e o denominador é um número inteiro
+iniciado por 1 seguido apenas de zeros.
+Disponível em: http://super.abril.com.br.
+Acesso em: 16 out. 2015.
+
+Representando um trilionésimo por uma fração, quantos zeros
+após o 1 do denominador existem nessa fração?
+
+09
+
+011
+012
+01
+015

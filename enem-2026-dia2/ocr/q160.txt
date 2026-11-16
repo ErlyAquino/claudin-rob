@@ -1,0 +1,25 @@
+QUESTÃO 160
+
+Um agricultor possui um terreno plano formado po
+4 canteiros, 3 em formato retangular, semelhantes entre si
+e 1 em formato triangular, delimitado pelos 3 primeiros
+conforme figura.
+
+Canteiro Il
+
+<— 8m——
+Os maiores lados dos canteiros | e Il medem 10m e 81m
+respectivamente, e a área do canteiro | mede 80 m?.
+
+Qual é a diferença entre as medidas das áreas, em metr:
+quadrado, dos canteiros Il e III?
+
+O 16,00
+
+O 17,92
+
+O 20,00
+
+O 22,40
+
+O 28,00

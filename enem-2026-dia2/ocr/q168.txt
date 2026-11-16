@@ -1,0 +1,18 @@
+QUESTÃO 168
+
+Umjogo envolve blocos retangulares congruentes empilhados.
+A figura representa a configuração do empilhamento em uma
+etapa do jogo, de forma que uma das faces de cada bloco está
+paralela ao plano a, que é perpendicular ao plano f3 da base.
+Faces verticais de mesma cor estão em um mesmo plano.
+
+memrem
+
+a
+
+Afigura que representa a projeção ortogonal desse empilhamento
+
+sobre o plano a é
+|
+x
+

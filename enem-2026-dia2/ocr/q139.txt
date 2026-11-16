@@ -1,0 +1,21 @@
+QUESTÃO 139
+
+Uma cafeteria vende cápsulas de café nas intensidades
+tradicional, suave, forte e extraforte. Ela comercializa essas
+cápsulas em kits com 12 unidades, contendo:
+
+e pelo menos duas cápsulas de café na intensidade
+tradicional e pelo menos uma cápsula de cada uma das
+demais intensidades;
+
+e quantidades iguais de cápsulas de café nas intensidades
+suave e forte.
+
+Quantos kits diferentes podem ser formados?
+
+020
+02
+O 36
+O 286
+0455
+

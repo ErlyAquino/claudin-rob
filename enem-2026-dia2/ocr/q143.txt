@@ -1,0 +1,21 @@
+QUESTÃO 143
+
+Um jardim, cuja vista superior é o quadrado ABCD, será
+reformado para dar lugar a um novo jardim cuja vista superior
+seja a de um círculo. O jardim circular deverá conter a região
+do jardim original e ter a menor área possível.
+
+Para viabilizar o projeto, foi feita a representação no plano
+cartesiano do jardim original, em que os eixos foram orientados
+nas direções sul-norte e oeste-leste e graduados em metro.
+Os pontos que correspondem aos vértices Ce D do jardim original
+estão com suas coordenadas explicitadas, conforme figura.
+
+0 x
+Qual é a equação da circunferência que delimitará a região do
+novo jardim?
+0x+y-10=0
+Ox+y-8x-8y+22=0
+Ox+y-16x-127+90=0
+Ox+y-12x-107+56=0
+Ox+y+8x+8/+32-V10=0

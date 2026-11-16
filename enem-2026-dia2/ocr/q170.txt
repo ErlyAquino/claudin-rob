@@ -1,0 +1,54 @@
+QUESTÃO 170
+
+A matemática britânica Hannah Fry explica o falso paradoxo de pessoas com a mesma nota média de atratividade em sites
+de relacionamento terem diferentes graus de popularidade. Segundo Fry, a popularidade de um usuário desse tipo de site não
+está relacionada apenas à sua nota média de atratividade, mas também à dispersão das notas. Quanto maior o desvio padrão
+de suas notas, maior é a sua popularidade. Essas notas podem ser:
+
+«sete RECUSA .sete Ta A «» Se te acharem « Se te acharem
+muito desi desinteressa interessante muito interessante
+
+Disponível em: www.ted.com. Acesso em: 16 maio 2015 (adaptado).
+
+Os gráficos a seguir apresentam as frequências relativas (variando de O a 1) de notas de atratividade dadas a 5 usuários de
+um site de relacionamento.
+
+Usuário 1 Usuário 2 Usuário 3
+
+o
+N
+
+0,5 |-mim---:----
+
+s Ss Re]
+y ' V
+E $ 5
+5 5 : 5
+É É É
+
+à 0
+' 0
+Nota ota
+Usuário 4 Usuário 5
+
+0,4 [=== -. oito mag domo
+
+0,3 |-=-siosootodo |uniodono
+
+Frequência
+Frequência
+
+0,2)---+ emo ERR im =
+
+0,11-
+
+-1-05 0 0,5
+Nota
+
+Segundo o critério apresentado por Hannah Fry, o usuário com maior popularidade é o
+
+01.
+02.
+03.
+[DER
+es.

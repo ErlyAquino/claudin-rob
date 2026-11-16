@@ -1,0 +1,81 @@
+\questao{118}{corA}{Mecânica}{Hidrostática: pressão em líquidos (tubo em U)}{Só de conceito}
+\begin{enunciado}
+\input{enun/q118}
+\end{enunciado}
+
+\quer{depois de colocar mais líquido A no tubo, as alturas $h_A$ e $h_B$ ficam maiores, menores ou iguais às de antes.
+(\emph{Imiscíveis} são líquidos que não se misturam, como água e óleo. \emph{Equilíbrio hidrostático} quer dizer só que os líquidos pararam de se mexer.)}
+
+\begin{ideia}
+A pressão dentro de um líquido parado depende da \textbf{altura de líquido que está em cima} daquele ponto e da
+\textbf{densidade} do líquido (o quanto ele é ``pesado'' para o mesmo volume; o óleo, por exemplo, é menos denso que a água): quanto mais alto e mais ``pesado'' o líquido de cima, maior a pressão. E vale uma regra de ouro:
+\begin{center}\textbf{no mesmo líquido, pontos na mesma altura têm a mesma pressão.}\end{center}
+Repare na linha horizontal da figura (a linha de separação). Abaixo dela só existe líquido A, que passa de um lado para o outro
+por baixo. Então, \textbf{na altura dessa linha, a pressão é igual nos dois lados}.
+
+\textbf{Pense em uma balança de dois pratos, equilibrada na linha de separação.} Em cima do lado esquerdo está uma coluna
+de A, de altura $h_A$. Em cima do lado direito está uma coluna de B, de altura $h_B$. Para a balança ficar equilibrada,
+as duas colunas têm de ``pesar'' igual:
+\[ d_A \cdot h_A = d_B \cdot h_B \]
+($d_A$ e $d_B$ são as densidades dos líquidos. Elas não mudam quando se põe mais líquido. A pressão do ar não entra na
+conta: o tubo é aberto dos dois lados, então o ar aperta as duas superfícies do mesmo jeito.)
+\end{ideia}
+
+\passoapasso
+\npasso{Pergunte: a coluna de B mudou?}
+Ninguém colocou nem tirou líquido B. A quantidade de B é a mesma, e o tubo tem a mesma largura em toda a altura, como mostra a figura.
+Então a coluna de B continua com \textbf{a mesma altura}:
+\begin{conta}
+$h_{B2} = h_{B1}$
+\end{conta}
+
+\npasso{Use o equilíbrio para achar a nova altura de A.}
+O ``peso'' da coluna de B não mudou. Para equilibrar, a coluna de A acima da linha de separação tem de continuar ``pesando'' o mesmo.
+Como a densidade de A também não mudou, a altura tem de ser a mesma:
+\begin{conta}
+coluna de B igual à de antes \quad$\Rightarrow$\quad coluna de A igual à de antes \quad$\Rightarrow$\quad $h_{A2} = h_{A1}$
+\end{conta}
+
+\npasso{Então para onde foi o líquido A que entrou?}
+Ele se espalhou pela parte de baixo e \textbf{levantou tudo junto}: a linha de separação subiu, e a coluna de B subiu inteira,
+como um bloco. Como as alturas são medidas \textbf{a partir da linha de separação}, e ela também subiu, as medidas não mudam.
+
+\begin{center}
+\newcommand{\tuboU}[2]{% #1 = altura da linha de separação, #2 = legenda
+  \begin{scope}
+    \pgfmathsetmacro{\s}{#1}
+    \fill[corA!55] (0,0.0) rectangle (3.0,0.7);                      % fundo
+    \fill[corA!55] (0,0.7) rectangle (0.7,\s+1.2);                   % coluna esquerda (A)
+    \fill[corA!55] (2.3,0.7) rectangle (3.0,\s);                     % A sob B
+    \fill[yellow!70!orange] (2.3,\s) rectangle (3.0,\s+1.8);         % B
+    \draw[fio] (0,4.7) -- (0,0) -- (3.0,0) -- (3.0,4.7);
+    \draw[fio] (0.7,4.7) -- (0.7,0.7) -- (2.3,0.7) -- (2.3,4.7);
+    \draw[dashed,line width=0.7pt] (-0.5,\s) -- (3.5,\s);
+    \draw[cota] (-0.3,\s) -- (-0.3,\s+1.2) node[midway,left]{$h_A$};
+    \draw[cota] (3.3,\s) -- (3.3,\s+1.8) node[midway,right]{$h_B$};
+    \node[white,font=\bfseries] at (0.35,1.2) {A};
+    \node[font=\bfseries] at (2.65,\s+0.9) {B};
+    \node[below,font=\small\bfseries] at (1.5,-0.1) {#2};
+  \end{scope}}
+\begin{tikzpicture}[font=\small,scale=0.8]
+  \tuboU{1.5}{Antes}
+  \begin{scope}[shift={(6.6,0)}]
+  \tuboU{2.3}{Depois de pôr mais A}
+  \end{scope}
+  \draw[seta,cinza] (4.3,2.4) -- (5.5,2.4);
+\end{tikzpicture}
+
+{\footnotesize\color{cinza}A linha de separação (tracejada) sobe. As alturas medidas a partir dela continuam iguais.}
+\end{center}
+
+\resposta{A}{As duas alturas ficam iguais às de antes: $h_{A2} = h_{A1}$ e $h_{B2} = h_{B1}$.}
+
+\begin{outras}
+\alt{B} Parece certa porque ``entrou mais A''. Mas $h_A$ não é a altura total de A no tubo: é só o pedaço acima da linha de separação, e a linha também sobe.\par
+\altl{C}, \altl{D} e \alt{E} dizem que $h_B$ aumenta. Isso é impossível: não entrou líquido B.
+\end{outras}
+
+\begin{pegadinha}[Onde muita gente erra]
+Marcar B pensando: ``coloquei mais A, então a altura de A aumenta''. O nível de A realmente sobe em relação à mesa.
+Mas a questão mede as alturas \textbf{a partir da linha de separação}. Leia sempre \emph{de onde até onde} a medida é feita.
+\end{pegadinha}
