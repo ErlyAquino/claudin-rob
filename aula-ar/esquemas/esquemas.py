@@ -143,6 +143,13 @@ def e4b(): return e_mq_esp("MQ-135", "04b_mq135_esp32")
 def e5():  sk, u, bb = base_uno(); mhz19b(sk, u, bb, 8, "D10 PWM/SS", "D11 PWM/MOSI", True); return sk.save(SAIDA, "05_mhz19c_uno")
 def e5b(): sk, e, bb = base_esp32(alim="VIN"); mhz19b(sk, e, bb, 10, "RX2", "TX2", False); return sk.save(SAIDA, "05b_mhz19c_esp32")
 
+def e5c():
+    """MH-Z19C + DHT11 juntos (sketch 05c): X = VIN (5 V) para o MH-Z19C; o DHT11 pega o 3V3 direto da placa."""
+    sk, e, bb = base_esp32(alim="VIN")
+    c, prox = colunas(DHT11, 4);        dht(sk, e, bb, DHT11, "DHT11 (módulo 3 pinos)", "D4", col=c, cor_vcc=LARANJA_3V3, vcc_da_placa="3V3")
+    c, prox = colunas(MHZ, prox + 4);   mhz19b(sk, e, bb, c, "RX2", "TX2", False)
+    return sk.save(SAIDA, "05c_mhz19c_dht11_esp32")
+
 # ---------- 6: monitor completo ----------
 def e6():
     sk, u, bb = base_uno(cheia=True)
@@ -164,7 +171,7 @@ def e6b():
     rgb(sk, e, ["D25", "D26", "D27"], bb, prox + 1)
     return sk.save(SAIDA, "06b_monitor_ar_esp32")
 
-TODOS = (e1, e1b, e2, e2b, e3, e3b, e3c, e4, e4b, e5, e5b, e6, e6b)
+TODOS = (e1, e1b, e2, e2b, e3, e3b, e3c, e4, e4b, e5, e5b, e5c, e6, e6b)
 if __name__ == "__main__":
     os.makedirs(SAIDA, exist_ok=True)
     for f in os.listdir(SAIDA): os.remove(os.path.join(SAIDA, f))
