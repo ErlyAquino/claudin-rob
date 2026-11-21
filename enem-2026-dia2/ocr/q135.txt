@@ -1,0 +1,32 @@
+QUESTÃO 135
+
+Um dos problemas ambientais relacionados à queima
+de combustíveis para obtenção de energia reside na produção de
+gases tóxicos, como CO, NO, e SO,, e materiais particulados,
+como fuligem. O quadro apresenta valores de entalpia de reação
+da combustão de cinco fontes energéticas.
+
+| Etanol | C,H60+30,—2C0,+3H,0 | -1368
+
+Metano CH,+20,— C0,+2H,0
+
+3
+CH,O + z 0, > C0,+2H,0 -726
+pe CH; + : 0,>2C0,+H,0 -1301
+Carvão
+
+ATKINS, Peter; JONES, Loretta. Princípios de química: questionando a vida
+moderna e o meio ambiente. Porto Alegre: Bookman, 2006 (adaptado).
+
+Qual é o combustível mais eficiente em relação à quantidade de
+energia gerada por quantidade de matéria, em mol, de carbono?
+
+O Etanol.
+
+O Metano.
+
+O Metanol.
+
+O aAcetileno (etino).
+O carvão (antracito).
+

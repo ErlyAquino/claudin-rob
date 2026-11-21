@@ -1,0 +1,18 @@
+QUESTÃO 175
+
+Uma câmera P, com ângulo de visão de 90º, leva 30 segundos para se deslocar do ponto M ao ponto N, no sentido horário
+e em velocidade angular constante, sobre um trilho em formato de um quarto de circunferência, com 2 m de raio e centro no
+ponto O. Ao iniciar o movimento, ela é ligada e inicia a captura da imagem do segmento OT, que é parte da semirreta s, que tem
+origem no ponto O e é perpendicular ao segmento OM, conforme os esquemas.
+
+0 segundo 10 segundos 15 segundos
+M
+
+M=P
+
+[o) N
+A câmera é desligada no instante em que chega ao ponto N.
+
+O gráfico que descreve a relação entre o comprimento c, em metro, do segmento OT, e o tempo t, em segundo, durante o período
+em que a câmera fica ligada é
+

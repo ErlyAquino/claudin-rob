@@ -1,0 +1,71 @@
+\questao{128}{corC}{Ondas e óptica}{Espalhamento da luz na neblina}{Só de conceito}
+\begin{enunciado}
+\input{enun/q128}
+\end{enunciado}
+
+\quer{por que o motorista enxerga pior a pista quando há neblina.}
+
+\begin{ideia}
+Para você enxergar a pista à noite, a luz do farol precisa fazer um caminho: sair do farol, chegar até a pista (ou a um
+obstáculo), bater e \textbf{voltar para os seus olhos}.
+
+A neblina é formada por \textbf{gotículas de água muito pequenas, suspensas no ar}. Quando a luz do farol encontra essas
+gotículas, cada uma desvia um pouco de luz \textbf{para todos os lados}. É isso que a alternativa chama de
+\textbf{dispersão} (ou espalhamento) da luz.
+
+Duas coisas ruins acontecem ao mesmo tempo:
+\begin{itemize}
+  \item \textbf{menos luz chega à pista}, porque boa parte se perde pelo caminho, desviada para os lados;
+  \item \textbf{parte da luz volta para o motorista}, formando aquela ``parede branca'' na frente do carro.
+\end{itemize}
+
+\textbf{Você já viu isso:} o feixe de uma lanterna ou do projetor do cinema fica visível quando há fumaça ou poeira no ar.
+Só dá para ver o feixe de lado porque as partículas espalham a luz na direção dos seus olhos.
+
+\begin{center}
+\begin{tikzpicture}[font=\small]
+  \node[draw=tinta,fill=cinzaclaro,rounded corners=1mm,minimum width=13mm,minimum height=7mm] (f) at (0,0) {farol};
+  \draw[seta,corB] (f.east) -- (3.0,0);
+  \foreach \x/\y in {3.2/0, 4.2/0.38, 4.9/-0.32, 5.6/0.2}{\fill[corA!50] (\x,\y) circle (2.4pt);}
+  \foreach \a in {40,100,160,220,290,340}{\draw[corB!80,line width=0.6pt,-{Latex[length=1.4mm]}] ($(3.2,0)+(\a:0.16)$) -- ($(3.2,0)+(\a:0.8)$);}
+  \draw[corB!45,line width=0.9pt,-{Latex[length=1.6mm]},dashed] (6.15,0) -- (8.6,0);
+  \node[draw=tinta,fill=cinzaclaro,rounded corners=1mm,minimum width=13mm,minimum height=7mm] at (9.5,0) {pista};
+  \node[cinza,anchor=north] at (4.4,-0.95) {gotículas de água: espalham a luz para todos os lados};
+  \node[cinza,anchor=south] at (7.4,0.12) {chega pouca luz};
+\end{tikzpicture}
+\end{center}
+\end{ideia}
+
+\passoapasso
+\npasso{Descubra o que muda entre a noite seca e a noite com neblina.}
+O farol é o mesmo. O motorista é o mesmo. A única diferença está \textbf{no ar}: com neblina, há gotículas de água entre o
+carro e a pista.
+
+\npasso{Pense no que as gotículas fazem com a luz.}
+Elas não apagam a luz nem mudam o farol. Elas \textbf{desviam} a luz do caminho reto, espalhando-a em todas as direções.
+
+\npasso{Escolha a alternativa que descreve isso.}
+É a alternativa A: dispersão da luz pelas gotículas de água suspensas no ar.
+
+\resposta{A}{As gotículas da neblina espalham a luz do farol em todas as direções. Chega menos luz à pista e parte dela volta para os olhos do motorista.}
+
+\begin{outras}
+\alt{B} Polarizar a luz é ``filtrar'' a direção em que ela vibra (como fazem alguns óculos de sol). Não é isso que a neblina faz, e isso não explicaria a parede branca.\par
+\alt{C} O problema não está no vidro do farol, e sim no ar entre o carro e a pista.\par
+\alt{D} ``Solubilizar'' é dissolver uma substância em outra. As gotículas continuam lá, como gotículas: nada se dissolveu.\par
+\alt{E} A lâmpada do farol emite a mesma potência com ou sem neblina. O que muda é o caminho da luz depois que ela sai.
+\end{outras}
+
+\begin{pegadinha}[Onde muita gente erra]
+\begin{itemize}
+  \item \textbf{Marcar C porque neblina ``lembra'' condensação.} A alternativa fala de gotículas \emph{na superfície do farol}.
+        O problema está no ar, entre o carro e a pista.
+  \item \textbf{Descartar A por achar que dispersão é só o arco-íris.} Em Óptica, ``dispersão'' também é o nome da separação da
+        luz branca em cores. Nesta questão, a palavra foi usada no sentido de \textbf{espalhamento}.
+\end{itemize}
+\end{pegadinha}
+
+\begin{guardar}[Para guardar (e usar na estrada)]
+Na neblina, o \textbf{farol alto piora} a visão: ele joga mais luz nas gotículas à altura dos olhos, e mais luz volta para o
+motorista. Por isso se usa farol baixo ou farol de neblina, que iluminam perto do chão.
+\end{guardar}

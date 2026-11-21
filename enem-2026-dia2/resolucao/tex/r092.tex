@@ -1,0 +1,71 @@
+\questao{92}{corD}{Energia e calor}{Potência térmica e conversão de unidades}{Com conta}
+\begin{enunciado}
+\input{enun/q092}
+\end{enunciado}
+
+\quer{qual deve ser a capacidade do ar-condicionado, em Btu/h, para tirar todo o calor produzido dentro do escritório.}
+
+\begin{ideia}
+\textbf{Potência} é a quantidade de energia por segundo. O joule (J) é a unidade de energia, e 1 watt (W) é 1 joule por segundo.
+Uma lâmpada de 100\un{W} joga 100 joules de calor na sala a cada segundo.
+Uma pessoa também aquece a sala: nosso corpo libera calor o tempo todo.
+
+Para a temperatura \textbf{não subir nem descer}, o ar-condicionado precisa tirar calor \textbf{no mesmo ritmo} em que o calor é produzido.
+O enunciado diz que as paredes são \textbf{isolantes}: não entra nem sai calor por elas. Então, todo o calor que o aparelho
+precisa tirar é o que é produzido lá dentro.
+
+\textbf{Pense em uma pia com a torneira aberta.} Para o nível da água ficar parado, o ralo precisa escoar exatamente o que a
+torneira despeja. As lâmpadas, os computadores, as geladeiras e as pessoas são as ``torneiras de calor''. O ar-condicionado é o ``ralo''.
+\end{ideia}
+
+\passoapasso
+\npasso{Calcule o calor produzido por cada grupo.}
+Multiplique a quantidade pela potência de cada um:
+\begin{conta}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{lcl}
+Lâmpadas: & $10 \times 100 =$ & $1\,000\un{W}$\\
+Computadores: & $20 \times 150 =$ & $3\,000\un{W}$\\
+Geladeiras: & $2 \times 500 =$ & $1\,000\un{W}$\\
+Pessoas: & $20 \times 200 =$ & $4\,000\un{W}$
+\end{tabular}
+\end{conta}
+
+\npasso{Some tudo.}
+\begin{conta}
+$1\,000 + 3\,000 + 1\,000 + 4\,000 = 9\,000\un{W}$
+\end{conta}
+O escritório produz 9\,000\un{W} de calor. O aparelho precisa retirar esses 9\,000\un{W}.
+
+\npasso{Troque a unidade: de watt para Btu/h.}
+O enunciado informa que 1\un{Btu/h} vale 0,3\un{W}. Queremos saber \textbf{quantos ``pedaços'' de 0,3\un{W} cabem em 9\,000\un{W}}.
+Isso é uma divisão:
+\begin{conta}
+$9\,000 \div 0{,}3$
+\end{conta}
+Dividir por número com vírgula atrapalha. Truque: multiplique os dois números por 10 (assim 0,3 vira 3 e a vírgula some). O resultado da divisão não muda:
+\begin{conta}
+$9\,000 \div 0{,}3 \;=\; 90\,000 \div 3 \;=\; 30\,000\un{Btu/h}$
+\end{conta}
+\confere{$30\,000 \times 0{,}3 = 9\,000\un{W}$. Bateu.}
+
+\npasso{Entenda o ``mais econômico possível''.}
+O aparelho mais econômico é o \textbf{menor} que ainda dá conta do serviço. Um aparelho de 24\,000\un{Btu/h} retira só
+$24\,000 \times 0{,}3 = 7\,200\un{W}$. É menos que 9\,000\un{W}, e a sala esquentaria. Então o aparelho certo é o de 30\,000\un{Btu/h}.
+(Para fazer $24\,000 \times 0{,}3$: $24\,000 \times 3 = 72\,000$; como 0,3 tem uma casa depois da vírgula, 72\,000 vira 7\,200.)
+
+\resposta{E}{O escritório produz 9\,000\un{W} de calor, que equivalem a 30\,000\un{Btu/h}.}
+
+\begin{outras}
+\altl{A}, \altl{B}, \altl{C} e \alt{D} Todos esses aparelhos retiram menos de 9\,000\un{W}. O maior deles (24\,000\un{Btu/h}) retira
+7\,200\un{W}. Sobraria calor na sala e a temperatura subiria.
+\end{outras}
+
+\begin{pegadinha}[Onde muita gente erra]
+\begin{itemize}
+  \item \textbf{Esquecer as pessoas.} Elas são a maior fonte de calor do quadro (4\,000\un{W}).
+  \item \textbf{Esquecer de multiplicar pela quantidade.} São 10 lâmpadas, não uma.
+  \item \textbf{Multiplicar por 0,3 em vez de dividir.} Dica para não errar: 1\un{Btu/h} é ``menor'' que 1\un{W}. Então o número em
+        Btu/h tem de ser \textbf{maior} que o número em watts.
+\end{itemize}
+\end{pegadinha}

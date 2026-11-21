@@ -1,0 +1,101 @@
+\questao{121}{corC}{Ondas e óptica}{Intensidade da luz: potência dividida pela área}{Com conta}
+\begin{enunciado}
+\input{enun/q121}
+\end{enunciado}
+
+\quer{quanta energia da lâmpada uma folha absorve em cada segundo.}
+
+\begin{ideia}
+A lâmpada solta 6\un{W}, isto é, 6 joules de luz por segundo, \textbf{para todos os lados} (é o que o enunciado chama de fonte puntiforme). Essa luz vai se espalhando.
+A 1 metro da lâmpada, os 6\un{W} estão distribuídos sobre uma \textbf{esfera imaginária} de 1 metro de raio, com a lâmpada no centro.
+
+\textbf{Pense em passar manteiga no pão.} A mesma colher de manteiga, em um pão pequeno, deixa uma camada grossa.
+Em um pão enorme, a camada fica fininha. A luz é a manteiga; a esfera é o pão.
+
+\textbf{Intensidade} é quanto de potência chega a cada metro quadrado:
+\[ I = \frac{\text{potência}}{\text{área da esfera}} = \frac{P}{4 \cdot \pi \cdot r^2} \]
+% último parágrafo à esquerda, desenho à direita (a caixa inteira cabe na primeira página)
+\begin{coluna}{0.36\linewidth}
+A folha é pequena: ela só recebe a luz que cai \textbf{em cima da área dela}. E, dessa luz, absorve só uma parte
+(a porcentagem que o gráfico mostra).
+\end{coluna}\hfill
+\begin{minipage}[c]{0.62\linewidth}\centering
+\begin{tikzpicture}[font=\small]
+  \pgfmathsetmacro{\raio}{1.4}
+  \draw[dashed,cinza,line width=0.7pt] (0,0) circle (\raio);
+  \foreach \a in {0,30,...,330}{\draw[corB!70,line width=0.5pt,-{Latex[length=1.3mm]}] (\a:0.26) -- (\a:1.05);}
+  \fill[yellow!60,draw=tinta] (0,0) circle (0.16);
+  \fill[corC] (\raio,0) ellipse (0.07 and 0.26);
+  % cota do raio: da lâmpada (centro) até a folha, com linhas de chamada
+  \draw[cinza,line width=0.4pt] (0,-\raio-0.1) -- (0,-\raio-0.44) (\raio,-0.38) -- (\raio,-\raio-0.44);
+  \draw[cota] (0,-\raio-0.34) -- (\raio,-\raio-0.34) node[midway,below,inner sep=2pt]{$r = 1\un{m}$};
+  \node[right,align=left,inner sep=2pt] at (\raio+0.22,0.05) {folha: recebe só a luz\\que cai em $4\un{cm}^2$};
+  \node[left,align=right,cinza,inner sep=2pt] (esf) at (-\raio-0.4,1.0) {esfera imaginária\\área $= 4\pi r^2$};
+  \node[left,inner sep=2pt] (lam) at (-\raio-0.4,-0.72) {lâmpada: 6\un{W}};
+  \draw[cinza,line width=0.4pt] (esf.east) -- (146:\raio);
+  \draw[cinza,line width=0.4pt] (lam.east) -- (197:0.2);
+\end{tikzpicture}
+\end{minipage}
+\end{ideia}
+
+\passoapasso
+\textbf{O plano:} primeiro descobrimos quanta luz chega a cada metro quadrado (passos 1 e 2); depois, quanta cai na folha
+(passos 3 e 4); por fim, quanto a folha absorve (passos 5 e 6).
+\npasso{Calcule a área da esfera de raio 1\un{m}.}
+Use $\pi = 3$, como o enunciado manda. Lembre que $r^2 = 1 \times 1 = 1$:
+\begin{conta}
+área $= 4 \cdot \pi \cdot r^2 = 4 \times 3 \times 1 = 12\un{m}^2$
+\end{conta}
+
+\npasso{Calcule a intensidade da luz a 1\un{m} da lâmpada.}
+\begin{conta}
+$I = \dfrac{6}{12} = 0{,}5\un{W}$ em cada metro quadrado
+\end{conta}
+(6 é metade de 12, e metade é 0,5.)
+
+\npasso{Passe a área da folha para metros quadrados.}
+A intensidade está em W por \textbf{m²}, e a folha está em \textbf{cm²}. Cuidado: 1\un{m} = 100\un{cm}, mas em área a conta é ao quadrado:
+\begin{conta}
+$1\un{m}^2 = 100\un{cm} \times 100\un{cm} = 10\,000\un{cm}^2$
+\end{conta}
+Então, para passar de cm² para m², \textbf{divida por 10\,000} (ande a vírgula 4 casas para a esquerda):
+\begin{conta}
+$4\un{cm}^2 = \dfrac{4}{10\,000} = 0{,}0004\un{m}^2 = 4 \times 10^{-4}\un{m}^2$
+\end{conta}
+
+\npasso{Calcule a potência de luz que chega à folha.}
+Vamos considerar a folha de frente para a lâmpada, recebendo a luz em cheio. Se em 1\un{m²} chega 0,5\un{W}, na folha chega
+esse valor vezes a área dela:
+\begin{conta}
+$0{,}5 \times 0{,}0004 = 0{,}0002\un{W} = 2 \times 10^{-4}\un{W}$
+\end{conta}
+(Multiplicar por 0,5 é tirar a metade: metade de 0,0004 é 0,0002.)
+
+\npasso{Leia no gráfico quanto a folha absorve.}
+A lâmpada é vermelha, com comprimento de onda de 650\un{nm}. (O nanômetro, nm, é só a unidade do eixo de baixo do gráfico: não é preciso converter.) No gráfico, em 650\un{nm} (no meio entre 600 e 700) está o topo
+do segundo pico: \textbf{60\%}.
+
+\Needspace{110mm}% diagramação: último passo + resposta + caixas finais ficam juntos na 3ª página (evita página final quase vazia)
+\npasso{Calcule 60\% do que chega.}
+60\% quer dizer 60 em cada 100: $60 \div 100 = 0{,}6$. Então:
+\begin{conta}
+$0{,}6 \times 2 \times 10^{-4} = 1{,}2 \times 10^{-4}\un{W}$
+\end{conta}
+($6 \times 2 = 12$; como 0,6 tem uma casa depois da vírgula, 12 vira 1,2. A potência de 10 só acompanha.)
+Como 1\un{W} é 1 joule por segundo, a folha absorve $1{,}2 \times 10^{-4}\un{J}$ a cada segundo.
+
+\resposta{E}{Chegam $2 \times 10^{-4}\un{J}$ por segundo à folha, e ela absorve 60\% disso: $1{,}2 \times 10^{-4}\un{J}$.}
+
+\begin{outras}
+\alt{C} $2{,}0 \times 10^{-4}$ é a energia que \emph{chega} à folha. Falta aplicar os 60\% de absorção.\par
+\alt{D} $1{,}8 \times 10^{-4}$ aparece para quem lê no gráfico o pico mais alto (perto de 88\%), que fica em 480\un{nm}. Esse não é o comprimento de onda da lâmpada.\par
+\altl{A} e \alt{B} são maiores que a energia que chega à folha. A folha não pode absorver mais do que recebe.
+\end{outras}
+
+\begin{pegadinha}[Onde muita gente erra]
+\begin{itemize}
+  \item \textbf{Converter cm² para m² dividindo por 100.} Em área, divide-se por 10\,000.
+  \item \textbf{Ler o gráfico no lugar errado.} Antes de ler, localize o 650 no eixo de baixo e só então suba até a curva.
+  \item \textbf{Parar antes do fim.} A pergunta é sobre a energia \emph{absorvida}, não a que chega.
+\end{itemize}
+\end{pegadinha}

@@ -1,0 +1,76 @@
+\questao{113}{corC}{Ondas e óptica}{Som em cordas: frequência e comprimento}{Com conta}
+\begin{enunciado}
+\input{enun/q113}
+\end{enunciado}
+
+\quer{qual nota a corda emite quando a parte que vibra é encurtada de 60\un{cm} para 45\un{cm}.}
+
+\begin{ideia}
+\textbf{Frequência} é o número de vibrações por segundo, medida em hertz (Hz). Frequência alta dá som agudo (fino);
+frequência baixa dá som grave (grosso).
+
+O enunciado entrega a regra: a frequência é \textbf{inversamente proporcional} ao comprimento da parte que vibra.
+Ou seja: \textbf{corda mais curta, som mais agudo}.
+
+\textbf{Faça o teste com uma régua.} Segure uma ponta da régua na beira da mesa e faça a outra ponta vibrar. Quanto menor o
+pedaço para fora da mesa, mais rápido ele vibra e mais agudo é o som. É isso que o violonista faz ao apertar a corda.
+(A régua serve só para sentir a ideia. A conta exata vale para a corda, como o enunciado garante.)
+
+Quando duas medidas são inversamente proporcionais, \textbf{multiplicar uma pela outra dá sempre o mesmo resultado}:
+\[ f \times L = \text{constante} \qquad\Rightarrow\qquad f_1 \times L_1 = f_2 \times L_2 \]
+
+\begin{center}
+\begin{tikzpicture}[font=\small]
+  \draw[line width=1.4pt,corC] (0,1.1) -- (9,1.1);
+  \fill (0,1.1) circle (2pt) (9,1.1) circle (2pt);
+  \draw[cota] (0,0.75) -- (9,0.75) node[midway,below]{corda solta: 60\un{cm}\ \ $\rightarrow$\ \ 660\un{Hz}};
+  \draw[line width=1.4pt,corB] (0,-0.5) -- (6.75,-0.5);
+  \draw[line width=0.6pt,cinza,dashed] (6.75,-0.5) -- (9,-0.5);
+  \fill (0,-0.5) circle (2pt) (6.75,-0.5) circle (2pt);
+  \node[above,cinza,font=\scriptsize] at (6.75,-0.45) {dedo};
+  \draw[cota] (0,-0.85) -- (6.75,-0.85) node[midway,below]{corda apertada: 45\un{cm}\ \ $\rightarrow$\ \ ?};
+\end{tikzpicture}
+\end{center}
+\end{ideia}
+
+\passoapasso
+\npasso{Organize os dados.}
+\begin{itemize}
+  \item Corda solta: $L_1 = 60\un{cm}$ e $f_1 = 660\un{Hz}$ (nota mi).
+  \item Corda apertada: $L_2 = 45\un{cm}$ e $f_2 =\ ?$
+\end{itemize}
+(Não se assuste com ``modo de vibração fundamental ($n = 1$)'' nem com ``sistema temperado'': esses termos não entram na conta.)
+
+\npasso{Monte a igualdade: frequência $\times$ comprimento, antes e depois.}
+\begin{conta}
+$f_1 \times L_1 = f_2 \times L_2 \qquad\Rightarrow\qquad 660 \times 60 = f_2 \times 45$
+\end{conta}
+
+\npasso{Resolva.}
+Queremos $f_2$ sozinho. Ele está multiplicado por 45; para desfazer, divida os dois lados por 45:
+\begin{conta}
+$f_2 = \dfrac{660 \times 60}{45}$
+\end{conta}
+Não multiplique ainda: simplifique primeiro. $\dfrac{60}{45} = \dfrac{4}{3}$ (dividindo os dois por 15: $60 \div 15 = 4$ e $45 \div 15 = 3$). Então:
+\begin{conta}
+$f_2 = 660 \times \dfrac{4}{3} = \dfrac{660}{3} \times 4 = 220 \times 4 = 880\un{Hz}$
+\end{conta}
+(Para fazer $660 \div 3$: $600 \div 3 = 200$ e $60 \div 3 = 20$. Somando: 220.)
+\confere{a corda ficou mais curta, então a frequência tinha de \textbf{aumentar}. E aumentou: de 660 para 880\un{Hz}.}
+
+\npasso{Procure 880\un{Hz} no quadro.}
+Na linha da 5ª oitava, a coluna com 880 é a do \textbf{Lá}.
+
+\resposta{D}{Com 45\un{cm}, a corda vibra a 880\un{Hz}, que é a nota Lá.}
+
+\begin{outras}
+\alt{B} Mi (660\un{Hz}) é a nota da corda solta. Ao encurtar a corda, a nota muda.\par
+\alt{E} Si (495\un{Hz}) é o resultado de quem faz a proporção ao contrário (veja ``Onde muita gente erra'').\par
+\altl{A} e \alt{C} As frequências de Dó e Sol não saem de nenhuma conta com esses dados.
+\end{outras}
+
+\begin{pegadinha}[Onde muita gente erra]
+Fazer \textbf{regra de três direta}: $660 \times \dfrac{45}{60} = 495\un{Hz}$, que é um Si do quadro, e marcar E.
+O erro está em esquecer a palavra \emph{inversamente}. Use o bom senso para conferir: corda \textbf{menor} tem de dar
+frequência \textbf{maior}. Se a sua resposta deu menor que 660\un{Hz}, a proporção foi montada ao contrário.
+\end{pegadinha}

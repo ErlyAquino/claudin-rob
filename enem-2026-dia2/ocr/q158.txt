@@ -1,0 +1,29 @@
+Cinco candidatos, C,, C;, C;, C, e Cs, foram selecionados para
+ocupar vagas para estagiários em uma empresa. Cada um deles
+foi entrevistado pelos diretores D,, D,, D;, D, e Ds, dos cinco
+departamentos em que serão alocados. Nas entrevistas,
+os diretores atribuíram notas de O a 5 a cada entrevistado.
+As notas nessas entrevistas estão dispostas em linhas e colunas,
+conforme a imagem, na qual a nota posicionada na linha i e na
+coluna representa a nota recebida pelo candidato C, atribuída
+pelo diretor D,. Por exemplo, a nota 4 circulada, que está na
+segunda linha e na quarta coluna, corresponde à nota atribuída
+ao candidato C, pelo diretor D,.
+
+Notas atribuídas
+pelo diretor D,
+
+Notas recebidas
+pelo candidato C,
+
+Ao final das entrevistas, o diretor D, escolherá como
+estagiário o candidato a quem atribuiu a maior nota; em seguida,
+o diretor D, escolherá como estagiário, dentre os restantes,
+aquele a quem atribuiu a maior nota; e assim sucessivamente.
+
+O candidato a ser escolhido pelo diretor D, é o
+0Oc.
+0c.
+OC.
+Oc,.
+[E Yo

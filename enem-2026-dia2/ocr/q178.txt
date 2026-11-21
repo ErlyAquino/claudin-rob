@@ -1,0 +1,22 @@
+QUESTÃO 178
+
+Uma motocicleta tem duas rodas de tamanhos diferentes:
+a dianteira, com diâmetro externo medindo 0,8 me, atraseira,
+cujo diâmetro externo mede 0,6 m. Essa motocicleta foi
+conduzida por um percurso retilíneo de 3 600 m.
+
+Utilize 3 como aproximação para x.
+
+Quantos giros completos a roda traseira deu a mais que a
+dianteira quando a motocicleta concluiu esse percurso?
+
+OQ 500
+
+O 1000
+
+O 1500
+
+02917
+
+05833
+

@@ -1,0 +1,20 @@
+O quadro lista o resultado da simulação feita por uma
+engenheira para dimensionar as fontes de calor no interior
+de um escritório onde trabalham 20 pessoas. Todos os
+equipamentos e as pessoas dissipam calor de acordo com
+os valores no quadro. Para manter constante a temperatura
+do escritório, ela precisa de um aparelho de ar-condicionado
+o mais econômico possível. Considere as paredes isolantes
+e o fator de conversão 1 Btu/h = 0,3 W.
+
+Qual é a capacidade de refrigeração, em British thermal unit
+por hora, do aparelho selecionado?
+
+O 7000 Btu/h
+
+O 10000 Btu/h
+O 12000 Btu/h
+O 24000 Btu/h
+€ 30000 Btu/h
+
+Do [a

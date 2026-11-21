@@ -1,0 +1,21 @@
+QUESTÃO 99
+
+Em uma maquete de uma sala, foram instaladas duas
+lâmpadas (A e B) nas paredes e duas lâmpadas (C e D) no teto,
+conforme a figura. Essas lâmpadas são alimentadas por duas
+baterias idênticas em série. Todas as lâmpadas são incandescentes
+e brilham igualmente quando conectadas individualmente a uma
+das baterias. Considere ideais todos os elementos do circuito.
+Os amperímetros indicam a corrente elétrica que passa no fio
+no qual estão inseridos.
+
+à
+
+As correntes medidas nos amperímetros serão iguais e não
+nulas quando a(s)
+
+O lâmpadas A, B, Ce D estiverem ligadas.
+O lâmpada A estiver queimada.
+O lâmpada B estiver queimada.
+O lâmpada C estiver queimada.
+O lâmpada D estiver queimada.

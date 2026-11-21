@@ -1,0 +1,36 @@
+QUESTÃO 176
+
+A Figura 1 mostra a vista superior de um mobiliário de
+cozinha, que não pode ser desmembrado, montado na cas:
+de um engenheiro.
+
+1 1
++—————————————+
+35m
+Figura 1: Vista superior do mobiliário
+
+Ele mudará para um apartamento, cujo esboço de plant:
+baixa está dado na Figura 2, onde pretende instalar o mobiliáric
+na nova cozinha.
+
+6,5m 2m
+1
+
+Cozinha
+
+im 4m
+Figura 2: Planta baixa para reforma
+Como a cozinha do apartamento é muito pequena, decidit
+ampliá-la, avançando-a sobre as áreas da sala e do quarto
+de modo a manter os formatos retangulares tanto da cozinh:
+quanto do quarto, apenas o necessário para caber o mobiliáric
+da Figura 1 na nova cozinha.
+
+Após essa reforma, as medidas das áreas, em metro quadrado
+da sala e do quarto, serão
+
+0 9,75 e 37,50.
+O 9,75 e 16,00.
+O 19,00 e 10,75.
+O 19,75 e 10,00.
+62,00e3,75.

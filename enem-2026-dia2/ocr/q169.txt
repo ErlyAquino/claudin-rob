@@ -1,0 +1,58 @@
+QUESTÃO 169. ————
+
+Um teste, composto por 5 questões de múltipla escolha,
+com 5 alternativas de resposta por questão, valendo 1 ponto
+cada questão, foi aplicado a candidatos de um concurso.
+Esses candidatos foram classificados em 6 grupos, de acordo
+com suas notas nesse teste.
+
+* NO: candidatos com nota 0.
+
+e N1: candidatos com nota 1.
+
+* N2: candidatos com nota 2.
+
+* N3: candidatos com nota 3.
+
+e N4: candidatos com nota 4,
+
+e N5: candidatos com nota 5.
+
+Todos os candidatos marcaram uma única alternativa de
+resposta em cada questão.
+
+No Gráfico 1, estão descritas as porcentagens com que
+cada grupo marcou cada alternativa de resposta na questão 1,
+ficando ausentes as informações dos percentuais dos grupos
+N4e N5, que marcaram a alternativa D.
+
+Gráfico 1 — Porcentagens de escolhas de
+alternativas na questão 1, por grupo
+
+35%
+30%
+25%
+20%
+15%
+10%
+
+5%
+
+0%
+NO N1 N2 N3 N4 NS
+
+A Bo Co OD O —smE
+
+No Gráfico 2, está apresentada a distribuição dos candidatos
+por grupo.
+Gráfico 2 — Distribuição dos candidatos por grupo
+
+ENO BN1 BENZ UN3 BN4 NS
+
+Qual é o percentual de candidatos que acertou a questão 1?
+
+O 10%
+O 12%
+O 16%
+O 25%
+O 28%

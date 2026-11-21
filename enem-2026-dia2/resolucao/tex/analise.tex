@@ -1,0 +1,153 @@
+% ---------------------------------------------------------------- ABERTURA + ANÁLISE DA PROVA
+\thispagestyle{fancy}
+\pdfbookmark[1]{Como usar este material}{inicio}% (o marcador "Raio-X da prova" vem de \titulo, logo abaixo)
+\renewcommand{\nomecap}{Raio-X da prova}
+\begin{tcolorbox}[enhanced,colback=tinta,colframe=tinta,arc=3mm,boxrule=0pt,left=6mm,right=6mm,top=5mm,bottom=5mm,halign=flush left]
+  {\color{white}\small\bfseries ENEM 2026\ \ ·\ \ 2º DIA\ \ ·\ \ CADERNO 5 AMARELO\ \ ·\ \ CIÊNCIAS DA NATUREZA\par}\vspace{1.5mm}
+  {\color{white}\fontsize{27}{30}\selectfont\bfseries Física resolvida passo a passo\par}\vspace{1.5mm}
+  {\color{white}\large As 15 questões de Física da prova, explicadas devagar, com todas as contas mostradas passo a passo\par}
+\end{tcolorbox}
+
+\subsecao{Como usar este material}
+Cada questão ocupa duas ou três páginas e segue sempre a mesma ordem:
+\begin{enumerate}[label=\protect\selo{\arabic*},leftmargin=2em,itemsep=1.5pt]
+  \item o \textbf{enunciado original} da prova, com a figura;
+  \item \textbf{o que a questão quer saber}, dito em uma frase;
+  \item \textbf{a ideia principal}: o conceito de Física explicado com uma comparação do dia a dia;
+  \item o \textbf{passo a passo}, com cada conta feita devagar, sem pular etapas;
+  \item a \textbf{resposta}, por que as outras alternativas não servem e \textbf{onde muita gente erra}.
+\end{enumerate}
+Dica: antes de ler a resolução, tente fazer a questão sozinho. Se travar, leia só ``a ideia principal'' e tente de novo.
+
+\titulo{Raio-X da prova}{Raio-X: quanto de Física caiu e quais assuntos}
+
+A prova de Ciências da Natureza tem \textbf{45 questões} (da 91 à 135), divididas entre Física, Química e Biologia.
+Lemos as 45 e separamos as que precisam de um conceito de Física para serem resolvidas.
+
+\begin{tcbraster}[fileira=4]
+  \begin{numero}\numerao{15}{questões de Física\\(das 45 da prova)}\end{numero}
+  \begin{numero}\numerao{33\%}{da prova de Ciências da\\Natureza (1 em cada 3)}\end{numero}
+  \begin{numero}\numerao{8 e 7}{8 questões com conta,\\7 só de conceito}\end{numero}
+  \begin{numero}\numerao{12}{das 15 têm figura,\\gráfico ou quadro (80\%)}\end{numero}
+\end{tcbraster}
+
+\subsecao{Assuntos que caíram, por área}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  xbar, width=0.66\linewidth, height=6cm, bar width=16pt,
+  xmin=0, xmax=5.6, ymin=0.4, ymax=4.6,
+  axis x line=none, axis y line*=left, axis line style={cinza!60}, tick style={draw=none},
+  ytick={1,2,3,4}, y dir=reverse,
+  yticklabels={\textbf{Eletricidade},\textbf{Ondas e óptica},\textbf{Energia e calor},\textbf{Mecânica}},
+  yticklabel style={font=\normalsize,color=tinta},
+  clip=false]
+  \addplot[fill=corB,draw=none,bar shift=0pt] coordinates {(4,1)};
+  \addplot[fill=corC,draw=none,bar shift=0pt] coordinates {(4,2)};
+  \addplot[fill=corD,draw=none,bar shift=0pt] coordinates {(4,3)};
+  \addplot[fill=corA,draw=none,bar shift=0pt] coordinates {(3,4)};
+  \node[anchor=west,font=\small] at (axis cs:4.05,1) {\textbf{4 questões · 26,7\%}};
+  \node[anchor=west,font=\small] at (axis cs:4.05,2) {\textbf{4 questões · 26,7\%}};
+  \node[anchor=west,font=\small] at (axis cs:4.05,3) {\textbf{4 questões · 26,7\%}};
+  \node[anchor=west,font=\small] at (axis cs:3.05,4) {\textbf{3 questões · 20,0\%}};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\nota{Como se calcula a porcentagem: divida o número de questões da área pelo total (15) e multiplique por 100.
+Exemplo: $4 \div 15 \approx 0{,}267$ e $0{,}267 \times 100 = 26{,}7$. Ou seja, 26,7\% (um pouco mais de 1 em cada 4 questões). As quatro áreas juntas somam 100\% (somando os valores arredondados
+aparece 100,1\%; essa pequena diferença vem do arredondamento).}
+
+\subsecao{Assunto por assunto}
+{\small\renewcommand{\arraystretch}{1.3}
+\begin{center}
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{10.2cm}>{\centering\arraybackslash}p{1.6cm}>{\centering\arraybackslash}p{1.6cm}@{}}
+\toprule
+\textbf{Área} & \textbf{Assunto (questão)} & \textbf{Quantas} & \textbf{\% das 15}\\
+\midrule
+\bolinha{corB}\ \textbf{Eletricidade} & Circuitos elétricos: série, paralelo e divisão da tensão (95 e 99) & 2 & 13,3\%\\
+ & Força elétrica: lei de Coulomb (91) & 1 & 6,7\%\\
+ & Energia elétrica consumida: $E = P \cdot \Delta t$ (133) & 1 & 6,7\%\\
+\midrule
+\bolinha{corC}\ \textbf{Ondas e óptica} & Velocidade das ondas eletromagnéticas: eco do radar (96) & 1 & 6,7\%\\
+ & Som em cordas: frequência e comprimento (113) & 1 & 6,7\%\\
+ & Intensidade da luz: potência dividida pela área (121) & 1 & 6,7\%\\
+ & Espalhamento da luz na neblina (128) & 1 & 6,7\%\\
+\midrule
+\bolinha{corD}\ \textbf{Energia e calor} & Potência térmica e conversão de unidades (92) & 1 & 6,7\%\\
+ & Mudanças de estado físico: diagrama de fases (104) & 1 & 6,7\%\\
+ & Fontes de energia: renováveis e não renováveis (111) & 1 & 6,7\%\\
+ & Energia por distância: de kWh para joule (114) & 1 & 6,7\%\\
+\midrule
+\bolinha{corA}\ \textbf{Mecânica} & Quantidade de movimento e energia cinética (94) & 1 & 6,7\%\\
+ & Hidrostática: pressão em líquidos, tubo em U (118) & 1 & 6,7\%\\
+ & Hidrodinâmica: vazão e velocidade da água (130) & 1 & 6,7\%\\
+\midrule
+ & \textbf{Total} & \textbf{15} & \textbf{100\%}\\
+\bottomrule
+\end{tabular}
+\end{center}}
+
+\subsecao{O que esses números mostram}
+\begin{itemize}[itemsep=3pt]
+  \item \textbf{A prova foi bem distribuída.} Eletricidade, ondas e óptica, e energia e calor empataram com 4 questões cada uma.
+        Nenhuma área sozinha passa de 27\% das questões de Física.
+  \item \textbf{O assunto ``circuitos elétricos'' foi o único que apareceu duas vezes} (questões 95 e 99).
+  \item \textbf{Energia e potência atravessam a prova inteira.} Somando as questões em que é preciso calcular ou comparar
+        energia ou potência (92, 94, 114, 121 e 133), são 5 de 15, isto é, 33\% das questões de Física.
+  \item \textbf{O mundo do átomo serviu de cenário em 3 questões} (20\%): o modelo de Rutherford (91), a fusão nuclear (94) e a
+        fissão nuclear nas usinas (111). Mas atenção: em nenhuma delas é preciso saber Física Moderna a fundo.
+        A 91 se resolve com a lei de Coulomb e a 94 com quantidade de movimento.
+  \item \textbf{Não caiu nenhuma questão clássica de movimento} (velocidade média de carros, queda livre, leis de Newton com blocos).
+        A Mecânica apareceu por meio dos líquidos (118 e 130) e de uma colisão entre partículas (94).
+        A conta de velocidade (distância $\div$ tempo) apareceu, mas dentro de Ondas (96).
+  \item \textbf{Ler figura, gráfico e quadro vale tanto quanto saber fórmula.} Em 12 das 15 questões (80\%) há uma figura,
+        um gráfico ou um quadro. Em várias, o dado que resolve a questão só aparece ali (92, 95, 99, 104, 113, 114, 121 e 133).
+\end{itemize}
+
+\clearpage % diagramação: equilibra as três páginas da análise (as três tabelas pequenas e o quadro final ficam juntos na 3ª)
+\subsecao{Que tipo de questão caiu}
+{\small\renewcommand{\arraystretch}{1.25}
+\begin{center}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{5.2cm}>{\raggedright\arraybackslash}p{7.4cm}>{\centering\arraybackslash}p{1.8cm}>{\centering\arraybackslash}p{1.6cm}@{}}
+\toprule
+\textbf{Tipo} & \textbf{Questões} & \textbf{Quantas} & \textbf{\% das 15}\\
+\midrule
+\faCalculator\ \ Com conta & 92, 94, 95, 96, 113, 114, 121 e 133 & 8 & 53,3\%\\
+\faLightbulb[regular]\ \ Só de conceito (sem conta) & 91, 99, 104, 111, 118, 128 e 130 & 7 & 46,7\%\\
+\bottomrule
+\end{tabular}
+\end{center}}
+
+\subsecao{A matemática que foi preciso usar}
+Boa notícia: as contas da prova são de matemática básica. Veja o que apareceu.
+
+{\small\renewcommand{\arraystretch}{1.25}
+\begin{center}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{8.3cm}>{\raggedright\arraybackslash}p{5.8cm}>{\centering\arraybackslash}p{2.4cm}@{}}
+\toprule
+\textbf{Ferramenta de matemática} & \textbf{Onde apareceu} & \textbf{Quantas}\\
+\midrule
+Multiplicar e dividir números ``redondos'' & 92, 94, 95, 96, 113, 114, 121 e 133 & 8\\
+Trocar de unidade (W e Btu/h, kWh e J, cm² e m²) & 92, 114 e 121 & 3\\
+Proporção (direta e inversa) & 94 e 113 & 2\\
+Porcentagem & 121 e 133 & 2\\
+Potências de 10 (notação científica) & 96 e 121 & 2\\
+Ler gráfico ou quadro para tirar um dado & 92, 104, 113, 114, 121 e 133 & 6\\
+\bottomrule
+\end{tabular}
+\end{center}}
+
+\begin{guardar}[O que estudar primeiro, olhando para esta prova]
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Circuitos elétricos:} saber ``ler'' o caminho da corrente e usar a lei de Ohm: tensão = resistência $\times$ corrente ($U = R \cdot i$).
+  \item \textbf{Potência e energia:} energia = potência $\times$ tempo ($E = P \cdot \Delta t$) e as unidades (W, kWh, J).
+  \item \textbf{Ondas:} velocidade = distância $\div$ tempo, a ida e a volta do eco, e a relação entre a frequência do som e o comprimento da corda.
+  \item \textbf{Leitura de gráficos e quadros} e \textbf{troca de unidades}: aparecem na maioria das questões com conta (5 das 8).
+\end{itemize}
+\end{guardar}
+
+\nota{\textbf{Como as questões foram escolhidas.} Entraram as questões em que o conceito central é de Física. Duas ficam na
+fronteira com outras disciplinas e foram mantidas: a 104 (diagrama de fases, também estudado em Química) e a 111 (fontes de
+energia, também estudadas em Geografia e Biologia). A 93 (energia do biogás) ficou de fora porque se resolve só com proporção.
+\textbf{Sobre o gabarito:} as respostas deste material saem das resoluções feitas aqui; confira com o gabarito oficial do Inep
+quando ele for divulgado.}

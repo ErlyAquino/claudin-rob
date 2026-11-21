@@ -1,0 +1,72 @@
+\questao{130}{corA}{Mecânica}{Hidrodinâmica: vazão e velocidade da água}{Só de conceito}
+\begin{enunciado}
+\input{enun/q130}
+\end{enunciado}
+
+\quer{o que aumenta na água quando o jardineiro tampa parte da saída da mangueira com o dedo, fazendo o jato ir mais longe.}
+
+\begin{ideia}
+\textbf{Vazão} é a quantidade de água que passa por segundo (por exemplo, litros por segundo). Quem manda na vazão é a torneira.
+O jardineiro não mexeu na torneira: então, a cada segundo, continua chegando praticamente a mesma quantidade de água à ponta da mangueira.
+
+Essa água toda precisa sair. Se a saída ficou \textbf{mais apertada}, a única maneira de passar a mesma quantidade por segundo
+é passar \textbf{mais depressa}.
+
+\textbf{Pense em um rio.} No trecho largo, a água corre devagar. Onde o rio estreita, a mesma quantidade de água por segundo
+tem de passar por um espaço menor, e a correnteza fica mais forte. (Com gente é diferente: numa porta estreita, as pessoas se
+apertam e formam fila. A água não se aperta. Só resta a ela passar mais rápido.)
+
+Em fórmula:
+\[ \text{vazão} = \text{área da saída} \times \text{velocidade da água} \]
+Se a vazão não muda e a área diminui, a velocidade tem de aumentar.
+
+\begin{center}
+\begin{tikzpicture}[font=\small]
+  % mangueira aberta
+  \fill[corA!25] (0,0.9) rectangle (4,1.5);
+  \draw[fio] (0,0.9) -- (4,0.9) (0,1.5) -- (4,1.5);
+  \draw[seta,corA] (4.1,1.2) -- ++(1.1,0);
+  \node[right] at (5.3,1.2) {saída larga: água sai \textbf{devagar}};
+  % mangueira com o dedo
+  \fill[corA!25] (0,-0.6) rectangle (4,0);
+  \draw[fio] (0,-0.6) -- (4,-0.6) (0,0) -- (4,0);
+  \fill[cinza] (3.85,-0.25) rectangle (4.05,0.05);
+  \node[above,cinza,font=\scriptsize] at (3.95,0.05) {dedo};
+  \draw[seta,corB] (4.1,-0.42) -- ++(2.6,0);
+  \node[right] at (6.8,-0.42) {saída estreita: água sai \textbf{rápido}};
+\end{tikzpicture}
+\end{center}
+\end{ideia}
+
+\passoapasso
+\npasso{Veja o que o dedo muda de verdade.}
+O dedo \textbf{diminui a área} por onde a água sai. Ele não cria água nova nem muda a água que já existe.
+
+\npasso{Veja o que acontece com a velocidade.}
+Um exemplo com números inventados, só para enxergar a ideia. Suponha que a vazão seja sempre de 6 unidades:
+\begin{conta}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{lccc}
+ & \textbf{área} & \textbf{velocidade} & \textbf{vazão (área $\times$ velocidade)}\\ \hline
+Saída aberta: & 2 & 3 & $2 \times 3 = 6$\\
+Com o dedo: & 1 & 6 & $1 \times 6 = 6$
+\end{tabular}
+\end{conta}
+A área caiu pela metade e a velocidade dobrou. A vazão ficou a mesma.
+
+\npasso{Ligue a velocidade ao alcance.}
+A água que sai mais rápido vai mais longe antes de cair no chão. É como jogar uma bola: quanto mais forte você arremessa
+(maior a velocidade de saída), mais longe ela cai.
+
+\resposta{A}{Com a saída mais estreita, a água sai com velocidade maior, e por isso o jato alcança uma distância maior.}
+
+\begin{outras}
+\alt{B} A densidade é uma característica da água (cerca de 1\un{kg} por litro). Apertar a mangueira não muda isso.\par
+\altl{C} e \alt{D} O volume e a massa de água lançados por segundo não aumentam: a torneira é a mesma.\par
+\alt{E} A vazão não aumenta. Na prática, tampar a saída até dificulta um pouco a passagem da água. O que aumenta é a velocidade.
+\end{outras}
+
+\begin{pegadinha}[Onde muita gente erra]
+Confundir \textbf{jato mais forte} com \textbf{mais água}. O jato vai mais longe porque a água está mais \emph{rápida},
+não porque está saindo \emph{mais} água. Vazão (quanto sai por segundo) e velocidade (com que rapidez sai) são coisas diferentes.
+\end{pegadinha}

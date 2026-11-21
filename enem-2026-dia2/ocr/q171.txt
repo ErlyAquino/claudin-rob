@@ -1,0 +1,34 @@
+QUESTÃO 171
+
+O tampo de uma mesa tem o formato da região de cor
+amarela na figura. Essa região é obtida pela intersecção de
+três círculos com centros nos pontos A, Be C, respectivamente,
+e raios de medidas iguais a 1,20 m.
+
+Para cobrir essa mesa, pretende-se comprar uma toalha,
+com a menor área possível, que cubra o tampo e o exceda em
+pelo menos 20 cm ao longo de todo o seu contorno.
+
+Em uma loja há cinco modelos de toalhas:
+
+1. círculo com diâmetro de medida 1,60 m;
+
+Il. círculo com diâmetro de medida 1,76 m;
+
+Ill. quadrado com lados de medida 1,60 m;
+
+IV. quadrado com lados de medida 1,76 m;
+
+V. triângulo equilátero com lados de medida 1,60 m.
+
+Utilize 1,7 como aproximação para 3.
+
+O modelo a ser comprado é o
+
+[ARA
+
+or.
+on.
+[DAVA
+ev.
+

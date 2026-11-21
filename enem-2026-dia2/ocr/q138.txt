@@ -1,0 +1,28 @@
+QUESTÃO 138 —— eee
+A imagem representa o cupom fiscal fornecido por um
+supermercado a um cliente após a realização de sua compra.
+Supermercado Exposto & Cia. Ltda.
+Av. dos Impostos, 520 — Cidade Rica
+CNPJ: 10.000.000/0000-00
+
+Cupom fiscal
+Leite 1L od
+2x 3,00 6,00 (5%imposto)
+Margarina 250 g
+1x 5,00 5,00 (20% imposto)
+Refrigerante 2 L
+2x 8,00 16,00 (25% imposto)
+E aa
+
+Para cada produto, o valor relativo ao imposto é calculado
+aplicando-se o percentual indicado no cupom sobre o preço
+por ele cobrado.
+
+Qual é o valor total, em real, correspondente aos impostos
+pagos nessa compra?
+
+02,70
+03,15
+O 4,50
+O 5,30
+€ 5,40

@@ -1,0 +1,25 @@
+Uma equipe de estudantes de engenharia decidiu construir
+um modelo experimental de um foguete. Esse modelo tem
+internamente um compartimento na forma de cilindro circular
+reto, que deve ser protegido externamente com uma manta,
+formando um novo cilindro circular reto com mesma altura,
+como indicado na figura.
+
+Espessura
+da manta
+
+Essa equipe tem duas opções de material para a manta,
+cujas espessuras e preços estão apresentados no quadro.
+
+Utilize 3 como aproximação para x.
+
+A equipe terá menor custo na compra da manta cilíndrica se
+optar pelo material
+
+Q | apenas por apresentar a menor espessura.
+
+O 1, pois apresenta um custo inferior ao do material Il em R$ 6,60.
+Q Il, apenas por apresentar o menor preço por centímetro cúbico.
+O Ii, pois apresenta um custo inferior ao do material lem R$ 2,00.
+O |, pois apresenta um custo inferior ao do material |em R$ 5,40.
+

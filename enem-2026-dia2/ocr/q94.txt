@@ -1,0 +1,37 @@
+QUESTÃO 94
+
+Em um reator de fusão nuclear, é necessário produzir plasma
+a um milhão de graus centígrados para desencadear reações
+de fusão nuclear controladas. O plasma é formado por um gás
+ionizado que contém inicialmente deutério D* e trítio T* (isótopos
+do hidrogênio, com um e dois nêutrons, respectivamente).
+Nesse plasma, a energia térmica é suficientemente alta para
+desencadear uma reação de fusão nuclear na qual o núcleo do
+deutério, partícula D*, e o núcleo de trítio, partícula T*, colidem
+para formar uma partícula a e um nêutron n. A representação
+dessa reação de fusão é
+
+D'+T'>»a+n
+A partícula a é formada por dois prótons e dois nêutrons.
+A energia liberada pela fusão é dividida na forma de energia
+cinética entre a partícula a. e o nêutron n. Considere as massas
+do próton e do nêutron iguais, que o momento linear total das
+partículas reagentes é nulo e também que a energia cinética
+dos produtos é de 20 MevV.
+
+Disponível em: www.scientificamerican.com.
+Acesso em: 11 nov. 2019 (adaptado).
+
+Nessa reação de fusão, a energia cinética do nêutron,
+em megaelétron-volt, é
+
+O 4,0Mev.
+
+O 10Mev.
+
+O13Mev.
+
+O15Mev.
+
+O 16 Mev.
+

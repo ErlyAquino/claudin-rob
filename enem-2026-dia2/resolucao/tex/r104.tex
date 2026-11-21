@@ -1,0 +1,81 @@
+\questao{104}{corD}{Energia e calor}{Mudanças de estado físico: diagrama de fases}{Só de conceito}
+\begin{enunciado}
+\input{enun/q104}
+\end{enunciado}
+
+\quer{qual mudança de estado acontece com a água quando ela é aquecida de A até B, sem mudar a pressão.}
+
+\begin{ideia}
+% texto à esquerda, diagrama à direita (a caixa fica mais baixa e a questão cabe em duas páginas)
+\begin{coluna}{0.615\linewidth}
+O diagrama de fases é um \textbf{mapa}. Cada ponto do mapa é uma combinação de temperatura (eixo de baixo) e pressão (eixo do lado).
+O mapa tem três ``países'': \textbf{sólido}, \textbf{líquido} e \textbf{gasoso}. As curvas vermelhas são as \textbf{fronteiras}.
+
+Atravessar uma fronteira é \textbf{mudar de estado}. Para responder, basta descobrir \textbf{de qual país a água sai e em qual
+país ela entra}.
+
+Como saber qual região é qual?
+\begin{itemize}
+  \item \textbf{Frio} (lado esquerdo): sólido (gelo).
+  \item \textbf{Quente e com pressão baixa} (lado direito, embaixo): gasoso (vapor).
+  \item \textbf{No meio, com pressão alta} (entre as duas curvas de cima): líquido.
+\end{itemize}
+\end{coluna}\hfill
+\begin{minipage}[c]{0.37\linewidth}\centering
+\begin{tikzpicture}[font=\small]
+  \draw[-{Latex[length=2mm]},fio] (0,0) -- (5.6,0) node[below left,inner xsep=0pt]{temperatura};
+  \draw[-{Latex[length=2mm]},fio] (0,0) -- (0,4.6) node[above right,inner xsep=0pt]{pressão};
+  \coordinate (T) at (2.1,1.7);
+  \draw[alerta,line width=1.2pt] (0.45,0.35) .. controls (1.2,0.55) and (1.8,1.1) .. (T);
+  \draw[alerta,line width=1.2pt] (T) .. controls (1.95,2.6) and (1.9,3.4) .. (1.85,4.2);
+  \draw[alerta,line width=1.2pt] (T) .. controls (3.2,2.1) and (4.3,3.0) .. (4.9,4.1);
+  \node[corA,font=\bfseries] at (0.95,2.9) {SÓLIDO};
+  \node[corC,font=\bfseries] at (3.0,3.6) {LÍQUIDO};
+  \node[corB,font=\bfseries] at (4.6,2.2) {GASOSO};
+  \fill (T) circle (1.6pt);
+  % rótulo do ponto triplo: entre a curva líquido-gasoso e o trajeto tracejado, longe de "GASOSO" e de B
+  \draw[cinza,line width=0.5pt] (T) -- (2.72,1.45);
+  \node[cinza,anchor=west,font=\scriptsize,inner sep=1pt] at (2.74,1.42) {ponto triplo};
+  \fill (0.75,0.95) circle (1.8pt) node[left]{\textbf{A}};
+  \fill (3.6,0.95) circle (1.8pt) node[right]{\textbf{B}};
+  \draw[dashed,line width=0.9pt,-{Latex[length=2mm]}] (0.75,0.95) -- (3.5,0.95);
+\end{tikzpicture}
+
+\vspace{0.5mm}{\footnotesize\color{cinza}O diagrama da questão, com o nome de cada região.\par}
+\end{minipage}
+\end{ideia}
+
+\passoapasso
+\npasso{Localize o ponto A.}
+O ponto A está bem à esquerda (temperatura baixa), do lado esquerdo da curva vermelha. Essa é a região do \textbf{sólido}. Em A, a água é gelo.
+
+\npasso{Localize o ponto B.}
+O ponto B está à direita (temperatura mais alta) e embaixo (pressão baixa). Essa é a região do \textbf{gasoso}. Em B, a água é vapor.
+
+\npasso{Veja qual fronteira o caminho atravessa.}
+O caminho tracejado é horizontal: a pressão não muda, só a temperatura aumenta. Ele passa \textbf{abaixo} do ponto em que as
+três curvas se encontram (o ponto triplo). Por isso, cruza só \textbf{uma} fronteira: a que separa o sólido do gasoso.
+O caminho \textbf{não entra na região do líquido}.
+
+\npasso{Dê o nome da mudança.}
+Passar direto do sólido para o gasoso, sem virar líquido, chama-se \textbf{sublimação}.
+
+\resposta{C}{A água sai da região do sólido e entra direto na região do gasoso: é uma sublimação.}
+
+\begin{outras}
+\alt{A} Fusão é sólido virando líquido. O caminho precisaria cruzar a curva quase vertical, que fica \emph{acima} do ponto triplo.\par
+\alt{B} Ebulição é líquido virando gasoso. O ponto A não está na região do líquido.\par
+\altl{D} e \alt{E} Com a pressão constante, como nesta questão, solidificação e condensação acontecem quando a substância \emph{esfria}. De A para B a temperatura aumenta.
+\end{outras}
+
+\begin{pegadinha}[Onde muita gente erra]
+Responder pela experiência do dia a dia, sem olhar o diagrama: ``gelo esquentando derrete'' (marca A) ou ``água esquentando
+ferve'' (marca B). Isso vale na pressão normal, a da sua cozinha. Na pressão baixa do trajeto de A até B, o gelo não derrete:
+vira vapor direto. Quem manda é o \textbf{mapa}: veja em que região o caminho começa e em que região termina.
+\end{pegadinha}
+
+\begin{guardar}[Para guardar: sublimação no dia a dia]
+O \textbf{gelo-seco} (gás carbônico sólido) ``some'' sem deixar poça. A \textbf{naftalina} no guarda-roupa diminui de tamanho
+sem molhar nada. Os dois passam direto do estado sólido para o gasoso. Com a água isso também acontece: o gelo esquecido no
+congelador vai encolhendo, porque no ar frio e seco quase não há vapor de água.
+\end{guardar}

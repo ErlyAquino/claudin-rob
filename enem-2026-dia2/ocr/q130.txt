@@ -1,0 +1,22 @@
+QUESTÃO 130. ———
+
+Um jardineiro está irrigando as plantas de um jardim com
+uma mangueira. Ele estica completamente a mangueira para se
+aproximar de algumas flores mais afastadas, sem, no entanto,
+alcançá-las. Daí, ocorre-lhe que obstruir a extremidade da
+mangueira com o polegar faz com que o jato de água atinja
+uma distância maior, comparativamente com a situação sem
+essa ação, permitindo-lhe molhar aquelas flores mais afastadas.
+
+Essa alteração no alcance do jato de água deve-se ao aumento
+do(a)
+
+O velocidade da água lançada.
+
+O densidade da água lançada.
+
+O volume da água lançada.
+
+O massa da água lançada.
+
+Q vazão da água lançada.

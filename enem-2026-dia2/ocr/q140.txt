@@ -1,0 +1,47 @@
+QUESTÃO 140
+
+O conceito de grupo sanguíneo se baseia na presença
+ou ausência de um ou dois antígenos (A e B) na membrana
+dos glóbulos vermelhos. Com relação a esses dois antígenos,
+há quatro grupos sanguíneos.
+
+* A: apenas o antígeno A está presente;
+
+* B: apenas o antígeno B está presente;
+
+* AB: ambos os antígenos estão presentes;
+
+* O: nenhum dos antígenos está presente.
+
+Além dos antígenos A e B, há outro antígeno envolvido,
+chamado fator Rh, indicado com o sinal “+” quando está
+presente, ou com o sinal “-” quando está ausente. Dessa forma,
+o grupo sanguíneo de uma pessoa é descrito usando-se letras e
+osinal indicador do fator Rh, por exemplo: O*, A*, AB”. Há dois
+grupos sanguíneos que se destacam: AB*, denominado “receptor
+universal”, que em uma transfusão de sangue a pessoa pode
+receber sangue de qualquer tipo; e O”, denominado “doador
+universal”, cujo sangue pode ser recebido por qualquer pessoa.
+
+Disponível em: http://saude.hsw.uol.com.br.
+Acesso em: 2 mar. 2012 (adaptado).
+
+Em uma cidade, foi realizado um levantamento dos grupos
+sanguíneos de todos os moradores, constatando-se que 25% da
+população apresenta apenas o antígeno tipo A; 25%, apenas o
+tipo Be 30%, o tipo AB. Além disso, em cada grupo sanguíneo,
+a ocorrência do fator Rh* é de 60%.
+
+A probabilidade de uma pessoa dessa cidade, escolhida ao acaso,
+ser receptora universal ou doadora universal é
+
+Oo.
+
+O 0,26.
+
+O 0,06.
+
+O 0,036.
+
+O 0,144.
+

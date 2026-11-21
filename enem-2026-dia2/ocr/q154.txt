@@ -1,0 +1,27 @@
+QUESTÃO 154
+
+Marcos possui recursos em uma aplicação que rende 1%
+ao mês a juros compostos. Quando o saldo dessa aplicação
+alcançar R$ 90 000,00, ele comprará um carro, cujas duas opções
+de pagamento são:
+
+e R$ 89 000,00, à vista, no ato da compra;
+
+e 3 parcelas mensais iguais, no valor de R$ 30 000,00 cada,
+
+sendo a primeira paga no ato da compra.
+
+O pagamento por esse carro será feito utilizando somente
+recursos provenientes dessa aplicação, que serão resgatados nos
+momentos apropriados e nas quantias necessárias. Ele escolherá
+a opção de pagamento na qual, 2 meses após a compra do carro,
+o saldo de sua aplicação seja o maior.
+
+Ao final desses 2 meses, o saldo, em real, da aplicação de
+Marcos será
+
+OQ 1000,00.
+O 1010,00.
+O 1020,10.
+O 1509,00.
+Q1824,09.

@@ -1,0 +1,30 @@
+QUESTÃO 104
+
+A água é uma substância essencial à vida e pode ser
+encontrada na natureza em três estados físicos: sólido, líquido
+e gasoso. As propriedades físico-químicas que definem cada
+um desses estados estão representadas no diagrama de fases,
+em que as curvas em vermelho representam o estado de
+equilíbrio entre duas fases. Por meio dele, é possível determinar
+qual é o estado físico de uma substância em um dado valor de
+pressão (p) e de temperatura (T).
+
+ATKINS, Peter; JONES, Loretta. Princípios de química:
+
+questionando a vida moderna e o meio ambiente.
+
+Porto Alegre: Bookman, 2006 (adaptado).
+
+Qual é a mudança de estado físico que ocorre com a água quando,
+
+à pressão constante, a temperatura varia de A para B ao longo
+do trajeto tracejado?
+
+O Fusão, a água muda do estado sólido para o líquido.
+
+O Ebulição, a água muda do estado líquido para o gasoso.
+
+O Sublimação, a água muda do estado sólido para o gasoso.
+O Solidificação, a água muda do estado líquido para o sólido.
+O Condensação, a água muda do estado gasoso para o líquido.
+
