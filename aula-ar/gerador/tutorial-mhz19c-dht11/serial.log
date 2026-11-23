@@ -1,0 +1,733 @@
+    0.0 ets Jul 29 2019 12:21:46
+    0.0 
+    0.0 rst:0x1 (POWERON_RESET),boot:0x17 (SPI_FAST_FLASH_BOOT)
+    0.0 configsip: 0, SPIWP:0xee
+    0.0 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+    0.0 mode:DIO, clock div:1
+    0.0 load:0x3fff0030,len:4876
+    0.0 ho 0 tail 12 room 4
+    0.0 load:0x40078000,len:16532
+    0.0 load:0x40080400,len:3500
+    0.0 entry 0x400805b4
+    0.7 # 05c diagnostico MH-Z19C. Comandos: i z a d 2 5 s r x f
+    0.7 # cmd 0xA0 -> 9 bytes: FF A0 31 30 30 45 31 36 23  (ok)
+    0.7 #   versao do firmware: 100E
+    0.7 # cmd 0x9B -> 9 bytes: FF 9B 00 00 13 88 00 03 C7  (ok)
+    0.7 #   faixa: 5000 ppm
+    0.7 # cmd 0x7D -> 9 bytes: FF 7D 01 00 00 00 00 01 81  (ok)
+    0.7 #   ABC: LIGADA (byte 7 = 1)
+    5.7 # intervalo: 2000 ms
+    5.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+    5.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+    5.9 #   DHT11 falha na leitura (1 vezes) - confira DATA no GPIO 4 e + no 3V3
+    7.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+    7.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+    7.9 #   DHT11 falha na leitura (2 vezes) - confira DATA no GPIO 4 e + no 3V3
+    9.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+    9.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+    9.9 #   DHT11 falha na leitura (3 vezes) - confira DATA no GPIO 4 e + no 3V3
+   11.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   11.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   11.9 #   DHT11 falha na leitura (4 vezes) - confira DATA no GPIO 4 e + no 3V3
+   13.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   13.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   13.9 #   DHT11 falha na leitura (5 vezes) - confira DATA no GPIO 4 e + no 3V3
+   15.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   15.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   15.9 #   DHT11 falha na leitura (6 vezes) - confira DATA no GPIO 4 e + no 3V3
+   17.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   17.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   17.9 #   DHT11 falha na leitura (7 vezes) - confira DATA no GPIO 4 e + no 3V3
+   19.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   19.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   19.9 #   DHT11 falha na leitura (8 vezes) - confira DATA no GPIO 4 e + no 3V3
+   21.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   21.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   21.9 #   DHT11 falha na leitura (9 vezes) - confira DATA no GPIO 4 e + no 3V3
+   23.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   23.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   23.8 #   DHT11 falha na leitura (10 vezes) - confira DATA no GPIO 4 e + no 3V3
+   25.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   25.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   25.9 #   DHT11 falha na leitura (11 vezes) - confira DATA no GPIO 4 e + no 3V3
+   27.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   27.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   27.9 #   DHT11 falha na leitura (12 vezes) - confira DATA no GPIO 4 e + no 3V3
+   29.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   29.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   29.9 #   DHT11 falha na leitura (13 vezes) - confira DATA no GPIO 4 e + no 3V3
+   31.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   31.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   31.9 #   DHT11 falha na leitura (14 vezes) - confira DATA no GPIO 4 e + no 3V3
+   33.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   33.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   33.9 #   DHT11 falha na leitura (15 vezes) - confira DATA no GPIO 4 e + no 3V3
+   35.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   35.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   35.9 #   DHT11 falha na leitura (16 vezes) - confira DATA no GPIO 4 e + no 3V3
+   37.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   37.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   37.9 #   DHT11 falha na leitura (17 vezes) - confira DATA no GPIO 4 e + no 3V3
+   39.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   39.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   39.9 #   DHT11 falha na leitura (18 vezes) - confira DATA no GPIO 4 e + no 3V3
+   41.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   41.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   41.9 #   DHT11 falha na leitura (19 vezes) - confira DATA no GPIO 4 e + no 3V3
+   43.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   43.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   43.9 #   DHT11 falha na leitura (20 vezes) - confira DATA no GPIO 4 e + no 3V3
+   45.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   45.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   45.9 #   DHT11 falha na leitura (21 vezes) - confira DATA no GPIO 4 e + no 3V3
+   47.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   47.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   47.8 #   DHT11 falha na leitura (22 vezes) - confira DATA no GPIO 4 e + no 3V3
+   49.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   49.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   49.9 #   DHT11 falha na leitura (23 vezes) - confira DATA no GPIO 4 e + no 3V3
+   51.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   51.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   51.9 #   DHT11 falha na leitura (24 vezes) - confira DATA no GPIO 4 e + no 3V3
+   53.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   53.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   53.9 #   DHT11 falha na leitura (25 vezes) - confira DATA no GPIO 4 e + no 3V3
+   55.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   55.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   55.9 #   DHT11 falha na leitura (26 vezes) - confira DATA no GPIO 4 e + no 3V3
+   57.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   57.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   57.9 #   DHT11 falha na leitura (27 vezes) - confira DATA no GPIO 4 e + no 3V3
+   59.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   59.8 #   CO2 400 ppm  temp 23 C  status 0x00  (aquecendo)
+   59.9 #   DHT11 falha na leitura (28 vezes) - confira DATA no GPIO 4 e + no 3V3
+   61.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   61.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   61.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":1}
+   61.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":2}
+   61.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":3}
+   61.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":4}
+   61.9 #   DHT11 falha na leitura (29 vezes) - confira DATA no GPIO 4 e + no 3V3
+   63.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   63.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   63.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":5}
+   63.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":6}
+   63.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":7}
+   63.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":8}
+   63.8 #   DHT11 falha na leitura (30 vezes) - confira DATA no GPIO 4 e + no 3V3
+   65.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   65.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   65.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":9}
+   65.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":10}
+   65.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":11}
+   65.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":12}
+   65.9 #   DHT11 falha na leitura (31 vezes) - confira DATA no GPIO 4 e + no 3V3
+   67.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   67.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   67.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":13}
+   67.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":14}
+   67.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":15}
+   67.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":16}
+   67.9 #   DHT11 falha na leitura (32 vezes) - confira DATA no GPIO 4 e + no 3V3
+   69.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   69.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   69.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":17}
+   69.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":18}
+   69.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":19}
+   69.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":20}
+   69.8 #   DHT11 falha na leitura (33 vezes) - confira DATA no GPIO 4 e + no 3V3
+   71.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   71.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   71.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":21}
+   71.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":22}
+   71.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":23}
+   71.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":24}
+   71.9 #   DHT11 falha na leitura (34 vezes) - confira DATA no GPIO 4 e + no 3V3
+   73.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   73.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   73.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":25}
+   73.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":26}
+   73.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":27}
+   73.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":28}
+   73.9 #   DHT11 falha na leitura (35 vezes) - confira DATA no GPIO 4 e + no 3V3
+   75.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   75.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   75.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":29}
+   75.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":30}
+   75.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":31}
+   75.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":32}
+   75.9 #   DHT11 falha na leitura (36 vezes) - confira DATA no GPIO 4 e + no 3V3
+   77.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   77.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   77.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":33}
+   77.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":34}
+   77.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":35}
+   77.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":36}
+   77.8 #   DHT11 falha na leitura (37 vezes) - confira DATA no GPIO 4 e + no 3V3
+   79.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   79.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   79.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":37}
+   79.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":38}
+   79.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":39}
+   79.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":40}
+   79.9 #   DHT11 falha na leitura (38 vezes) - confira DATA no GPIO 4 e + no 3V3
+   81.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   81.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   81.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":41}
+   81.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":42}
+   81.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":43}
+   81.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":44}
+   81.8 #   DHT11 falha na leitura (39 vezes) - confira DATA no GPIO 4 e + no 3V3
+   83.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   83.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   83.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":45}
+   83.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":46}
+   83.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":47}
+   83.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":48}
+   83.9 #   DHT11 falha na leitura (40 vezes) - confira DATA no GPIO 4 e + no 3V3
+   85.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   85.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   85.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":49}
+   85.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":50}
+   85.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":51}
+   85.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":52}
+   85.9 #   DHT11 falha na leitura (41 vezes) - confira DATA no GPIO 4 e + no 3V3
+   87.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   87.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   87.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":53}
+   87.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":54}
+   87.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":55}
+   87.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":56}
+   87.9 #   DHT11 falha na leitura (42 vezes) - confira DATA no GPIO 4 e + no 3V3
+   89.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   89.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   89.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":57}
+   89.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":58}
+   89.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":59}
+   89.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":60}
+   89.9 #   DHT11 falha na leitura (43 vezes) - confira DATA no GPIO 4 e + no 3V3
+   91.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   91.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   91.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":61}
+   91.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":62}
+   91.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":63}
+   91.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":64}
+   91.9 #   DHT11 falha na leitura (44 vezes) - confira DATA no GPIO 4 e + no 3V3
+   93.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   93.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   93.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":65}
+   93.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":66}
+   93.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":67}
+   93.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":68}
+   93.8 #   DHT11 falha na leitura (45 vezes) - confira DATA no GPIO 4 e + no 3V3
+   95.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   95.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   95.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":69}
+   95.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":70}
+   95.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":71}
+   95.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":72}
+   95.9 #   DHT11 falha na leitura (46 vezes) - confira DATA no GPIO 4 e + no 3V3
+   97.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   97.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   97.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":73}
+   97.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":74}
+   97.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":75}
+   97.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":76}
+   97.8 #   DHT11 falha na leitura (47 vezes) - confira DATA no GPIO 4 e + no 3V3
+   99.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+   99.8 #   CO2 400 ppm  temp 23 C  status 0x00
+   99.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":77}
+   99.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":78}
+   99.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":79}
+   99.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":80}
+   99.9 #   DHT11 falha na leitura (48 vezes) - confira DATA no GPIO 4 e + no 3V3
+  101.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  101.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  101.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":81}
+  101.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":82}
+  101.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":83}
+  101.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":84}
+  101.9 #   DHT11 falha na leitura (49 vezes) - confira DATA no GPIO 4 e + no 3V3
+  103.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  103.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  103.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":85}
+  103.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":86}
+  103.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":87}
+  103.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":88}
+  103.9 #   DHT11 falha na leitura (50 vezes) - confira DATA no GPIO 4 e + no 3V3
+  105.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  105.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  105.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":89}
+  105.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":90}
+  105.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":91}
+  105.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":92}
+  105.8 #   DHT11 falha na leitura (51 vezes) - confira DATA no GPIO 4 e + no 3V3
+  107.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  107.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  107.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":93}
+  107.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":94}
+  107.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":95}
+  107.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":96}
+  107.9 #   DHT11 falha na leitura (52 vezes) - confira DATA no GPIO 4 e + no 3V3
+  109.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  109.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  109.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":97}
+  109.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":98}
+  109.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":99}
+  109.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":100}
+  109.9 #   DHT11 falha na leitura (53 vezes) - confira DATA no GPIO 4 e + no 3V3
+  111.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  111.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  111.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":101}
+  111.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":102}
+  111.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":103}
+  111.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":104}
+  111.8 #   DHT11 falha na leitura (54 vezes) - confira DATA no GPIO 4 e + no 3V3
+  113.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  113.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  113.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":105}
+  113.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":106}
+  113.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":107}
+  113.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":108}
+  113.9 #   DHT11 falha na leitura (55 vezes) - confira DATA no GPIO 4 e + no 3V3
+  115.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  115.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  115.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":109}
+  115.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":110}
+  115.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":111}
+  115.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":112}
+  115.8 #   DHT11 falha na leitura (56 vezes) - confira DATA no GPIO 4 e + no 3V3
+  117.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  117.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  117.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":113}
+  117.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":114}
+  117.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":115}
+  117.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":116}
+  117.9 #   DHT11 falha na leitura (57 vezes) - confira DATA no GPIO 4 e + no 3V3
+  119.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  119.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  119.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":117}
+  119.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":118}
+  119.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":119}
+  119.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":120}
+  119.8 #   DHT11 falha na leitura (58 vezes) - confira DATA no GPIO 4 e + no 3V3
+  121.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  121.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  121.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":121}
+  121.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":122}
+  121.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":123}
+  121.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":124}
+  121.9 #   DHT11 falha na leitura (59 vezes) - confira DATA no GPIO 4 e + no 3V3
+  123.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  123.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  123.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":125}
+  123.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":126}
+  123.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":127}
+  123.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":128}
+  123.9 #   DHT11 falha na leitura (60 vezes) - confira DATA no GPIO 4 e + no 3V3
+  125.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  125.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  125.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":129}
+  125.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":130}
+  125.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":131}
+  125.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":132}
+  125.8 #   DHT11 falha na leitura (61 vezes) - confira DATA no GPIO 4 e + no 3V3
+  127.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  127.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  127.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":133}
+  127.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":134}
+  127.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":135}
+  127.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":136}
+  127.9 #   DHT11 falha na leitura (62 vezes) - confira DATA no GPIO 4 e + no 3V3
+  129.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  129.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  129.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":137}
+  129.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":138}
+  129.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":139}
+  129.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":140}
+  129.9 #   DHT11 falha na leitura (63 vezes) - confira DATA no GPIO 4 e + no 3V3
+  131.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  131.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  131.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":141}
+  131.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":142}
+  131.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":143}
+  131.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":144}
+  131.9 #   DHT11 falha na leitura (64 vezes) - confira DATA no GPIO 4 e + no 3V3
+  133.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  133.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  133.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":145}
+  133.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":146}
+  133.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":147}
+  133.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":148}
+  133.9 #   DHT11 falha na leitura (65 vezes) - confira DATA no GPIO 4 e + no 3V3
+  135.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  135.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  135.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":149}
+  135.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":150}
+  135.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":151}
+  135.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":152}
+  135.8 #   DHT11 falha na leitura (66 vezes) - confira DATA no GPIO 4 e + no 3V3
+  137.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  137.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  137.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":153}
+  137.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":154}
+  137.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":155}
+  137.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":156}
+  137.9 #   DHT11 falha na leitura (67 vezes) - confira DATA no GPIO 4 e + no 3V3
+  139.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  139.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  139.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":157}
+  139.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":158}
+  139.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":159}
+  139.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":160}
+  139.8 #   DHT11 falha na leitura (68 vezes) - confira DATA no GPIO 4 e + no 3V3
+  141.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  141.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  141.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":161}
+  141.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":162}
+  141.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":163}
+  141.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":164}
+  141.9 #   DHT11 falha na leitura (69 vezes) - confira DATA no GPIO 4 e + no 3V3
+  143.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  143.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  143.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":165}
+  143.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":166}
+  143.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":167}
+  143.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":168}
+  143.8 #   DHT11 falha na leitura (70 vezes) - confira DATA no GPIO 4 e + no 3V3
+  145.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  145.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  145.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":169}
+  145.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":170}
+  145.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":171}
+  145.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":172}
+  145.9 #   DHT11 falha na leitura (71 vezes) - confira DATA no GPIO 4 e + no 3V3
+  147.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  147.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  147.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":173}
+  147.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":174}
+  147.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":175}
+  147.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":176}
+  147.8 #   DHT11 falha na leitura (72 vezes) - confira DATA no GPIO 4 e + no 3V3
+  149.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  149.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  149.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":177}
+  149.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":178}
+  149.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":179}
+  149.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":180}
+  149.9 #   DHT11 falha na leitura (73 vezes) - confira DATA no GPIO 4 e + no 3V3
+  151.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  151.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  151.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":181}
+  151.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":182}
+  151.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":183}
+  151.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":184}
+  151.8 #   DHT11 falha na leitura (74 vezes) - confira DATA no GPIO 4 e + no 3V3
+  153.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  153.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  153.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":185}
+  153.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":186}
+  153.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":187}
+  153.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":188}
+  153.9 #   DHT11 falha na leitura (75 vezes) - confira DATA no GPIO 4 e + no 3V3
+  155.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  155.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  155.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":189}
+  155.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":190}
+  155.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":191}
+  155.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":192}
+  155.8 #   DHT11 falha na leitura (76 vezes) - confira DATA no GPIO 4 e + no 3V3
+  157.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  157.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  157.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":193}
+  157.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":194}
+  157.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":195}
+  157.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":196}
+  157.9 #   DHT11 falha na leitura (77 vezes) - confira DATA no GPIO 4 e + no 3V3
+  159.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  159.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  159.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":197}
+  159.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":198}
+  159.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":199}
+  159.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":200}
+  159.8 #   DHT11 falha na leitura (78 vezes) - confira DATA no GPIO 4 e + no 3V3
+  161.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  161.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  161.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":201}
+  161.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":202}
+  161.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":203}
+  161.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":204}
+  161.9 #   DHT11 falha na leitura (79 vezes) - confira DATA no GPIO 4 e + no 3V3
+  163.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  163.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  163.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":205}
+  163.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":206}
+  163.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":207}
+  163.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":208}
+  163.8 #   DHT11 falha na leitura (80 vezes) - confira DATA no GPIO 4 e + no 3V3
+  165.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  165.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  165.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":209}
+  165.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":210}
+  165.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":211}
+  165.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":212}
+  165.9 #   DHT11 falha na leitura (81 vezes) - confira DATA no GPIO 4 e + no 3V3
+  167.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  167.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  167.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":213}
+  167.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":214}
+  167.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":215}
+  167.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":216}
+  167.9 #   DHT11 falha na leitura (82 vezes) - confira DATA no GPIO 4 e + no 3V3
+  169.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  169.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  169.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":217}
+  169.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":218}
+  169.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":219}
+  169.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":220}
+  169.8 #   DHT11 falha na leitura (83 vezes) - confira DATA no GPIO 4 e + no 3V3
+  171.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  171.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  171.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":221}
+  171.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":222}
+  171.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":223}
+  171.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":224}
+  171.9 #   DHT11 falha na leitura (84 vezes) - confira DATA no GPIO 4 e + no 3V3
+  173.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  173.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  173.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":225}
+  173.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":226}
+  173.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":227}
+  173.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":228}
+  173.9 #   DHT11 falha na leitura (85 vezes) - confira DATA no GPIO 4 e + no 3V3
+  175.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  175.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  175.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":229}
+  175.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":230}
+  175.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":231}
+  175.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":232}
+  175.8 #   DHT11 falha na leitura (86 vezes) - confira DATA no GPIO 4 e + no 3V3
+  177.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  177.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  177.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":233}
+  177.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":234}
+  177.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":235}
+  177.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":236}
+  177.9 #   DHT11 falha na leitura (87 vezes) - confira DATA no GPIO 4 e + no 3V3
+  179.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  179.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  179.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":237}
+  179.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":238}
+  179.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":239}
+  179.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":240}
+  179.9 #   DHT11 falha na leitura (88 vezes) - confira DATA no GPIO 4 e + no 3V3
+  181.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  181.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  181.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":241}
+  181.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":242}
+  181.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":243}
+  181.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":244}
+  181.8 #   DHT11 falha na leitura (89 vezes) - confira DATA no GPIO 4 e + no 3V3
+  183.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  183.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  183.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":245}
+  183.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":246}
+  183.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":247}
+  183.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":248}
+  183.9 #   DHT11 falha na leitura (90 vezes) - confira DATA no GPIO 4 e + no 3V3
+  185.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  185.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  185.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":249}
+  185.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":250}
+  185.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":251}
+  185.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":252}
+  185.8 #   DHT11 falha na leitura (91 vezes) - confira DATA no GPIO 4 e + no 3V3
+  187.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  187.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  187.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":253}
+  187.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":254}
+  187.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":255}
+  187.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":256}
+  187.9 #   DHT11 falha na leitura (92 vezes) - confira DATA no GPIO 4 e + no 3V3
+  189.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  189.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  189.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":257}
+  189.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":258}
+  189.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":259}
+  189.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":260}
+  189.9 #   DHT11 falha na leitura (93 vezes) - confira DATA no GPIO 4 e + no 3V3
+  191.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  191.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  191.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":261}
+  191.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":262}
+  191.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":263}
+  191.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":264}
+  191.8 #   DHT11 falha na leitura (94 vezes) - confira DATA no GPIO 4 e + no 3V3
+  193.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  193.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  193.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":265}
+  193.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":266}
+  193.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":267}
+  193.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":268}
+  193.9 #   DHT11 falha na leitura (95 vezes) - confira DATA no GPIO 4 e + no 3V3
+  195.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  195.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  195.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":269}
+  195.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":270}
+  195.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":271}
+  195.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":272}
+  195.8 #   DHT11 falha na leitura (96 vezes) - confira DATA no GPIO 4 e + no 3V3
+  197.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  197.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  197.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":273}
+  197.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":274}
+  197.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":275}
+  197.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":276}
+  197.9 #   DHT11 falha na leitura (97 vezes) - confira DATA no GPIO 4 e + no 3V3
+  199.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  199.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  199.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":277}
+  199.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":278}
+  199.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":279}
+  199.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":280}
+  199.8 #   DHT11 falha na leitura (98 vezes) - confira DATA no GPIO 4 e + no 3V3
+  201.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  201.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  201.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":281}
+  201.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":282}
+  201.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":283}
+  201.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":284}
+  201.9 #   DHT11 falha na leitura (99 vezes) - confira DATA no GPIO 4 e + no 3V3
+  203.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  203.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  203.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":285}
+  203.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":286}
+  203.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":287}
+  203.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":288}
+  203.8 #   DHT11 falha na leitura (100 vezes) - confira DATA no GPIO 4 e + no 3V3
+  205.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  205.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  205.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":289}
+  205.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":290}
+  205.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":291}
+  205.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":292}
+  205.9 #   DHT11 falha na leitura (101 vezes) - confira DATA no GPIO 4 e + no 3V3
+  207.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  207.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  207.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":293}
+  207.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":294}
+  207.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":295}
+  207.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":296}
+  207.9 #   DHT11 falha na leitura (102 vezes) - confira DATA no GPIO 4 e + no 3V3
+  209.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  209.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  209.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":297}
+  209.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":298}
+  209.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":299}
+  209.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":300}
+  209.9 #   DHT11 falha na leitura (103 vezes) - confira DATA no GPIO 4 e + no 3V3
+  211.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  211.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  211.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":301}
+  211.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":302}
+  211.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":303}
+  211.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":304}
+  211.8 #   DHT11 falha na leitura (104 vezes) - confira DATA no GPIO 4 e + no 3V3
+  213.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  213.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  213.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":305}
+  213.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":306}
+  213.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":307}
+  213.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":308}
+  213.9 #   DHT11 falha na leitura (105 vezes) - confira DATA no GPIO 4 e + no 3V3
+  215.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  215.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  215.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":309}
+  215.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":310}
+  215.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":311}
+  215.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":312}
+  215.8 #   DHT11 falha na leitura (106 vezes) - confira DATA no GPIO 4 e + no 3V3
+  217.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  217.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  217.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":313}
+  217.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":314}
+  217.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":315}
+  217.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":316}
+  217.9 #   DHT11 falha na leitura (107 vezes) - confira DATA no GPIO 4 e + no 3V3
+  219.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  219.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  219.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":317}
+  219.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":318}
+  219.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":319}
+  219.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":320}
+  219.8 #   DHT11 falha na leitura (108 vezes) - confira DATA no GPIO 4 e + no 3V3
+  221.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  221.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  221.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":321}
+  221.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":322}
+  221.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":323}
+  221.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":324}
+  221.9 #   DHT11 falha na leitura (109 vezes) - confira DATA no GPIO 4 e + no 3V3
+  223.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  223.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  223.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":325}
+  223.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":326}
+  223.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":327}
+  223.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":328}
+  223.8 #   DHT11 falha na leitura (110 vezes) - confira DATA no GPIO 4 e + no 3V3
+  225.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 3F 00 00 00 AA  (ok)
+  225.8 #   CO2 400 ppm  temp 23 C  status 0x00
+  225.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":329}
+  225.8 {"no":"no19","grandeza":"temperatura","valor":23,"unidade":"C","seq":330}
+  225.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":331}
+  225.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":332}
+  225.9 #   DHT11 falha na leitura (111 vezes) - confira DATA no GPIO 4 e + no 3V3
+  227.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 40 00 00 00 A9  (ok)
+  227.8 #   CO2 400 ppm  temp 24 C  status 0x00
+  227.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":333}
+  227.8 {"no":"no19","grandeza":"temperatura","valor":24,"unidade":"C","seq":334}
+  227.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":335}
+  227.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":336}
+  227.9 #   DHT11 falha na leitura (112 vezes) - confira DATA no GPIO 4 e + no 3V3
+  229.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 40 00 00 00 A9  (ok)
+  229.8 #   CO2 400 ppm  temp 24 C  status 0x00
+  229.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":337}
+  229.8 {"no":"no19","grandeza":"temperatura","valor":24,"unidade":"C","seq":338}
+  229.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":339}
+  229.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":340}
+  229.8 #   DHT11 falha na leitura (113 vezes) - confira DATA no GPIO 4 e + no 3V3
+  231.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 40 00 00 00 A9  (ok)
+  231.8 #   CO2 400 ppm  temp 24 C  status 0x00
+  231.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":341}
+  231.8 {"no":"no19","grandeza":"temperatura","valor":24,"unidade":"C","seq":342}
+  231.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":343}
+  231.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":344}
+  231.9 #   DHT11 falha na leitura (114 vezes) - confira DATA no GPIO 4 e + no 3V3
+  233.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 40 00 00 00 A9  (ok)
+  233.8 #   CO2 400 ppm  temp 24 C  status 0x00
+  233.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":345}
+  233.8 {"no":"no19","grandeza":"temperatura","valor":24,"unidade":"C","seq":346}
+  233.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":347}
+  233.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":348}
+  233.9 #   DHT11 falha na leitura (115 vezes) - confira DATA no GPIO 4 e + no 3V3
+  235.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 40 00 00 00 A9  (ok)
+  235.8 #   CO2 400 ppm  temp 24 C  status 0x00
+  235.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":349}
+  235.8 {"no":"no19","grandeza":"temperatura","valor":24,"unidade":"C","seq":350}
+  235.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":351}
+  235.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":352}
+  235.9 #   DHT11 falha na leitura (116 vezes) - confira DATA no GPIO 4 e + no 3V3
+  237.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 40 00 00 00 A9  (ok)
+  237.8 #   CO2 400 ppm  temp 24 C  status 0x00
+  237.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":353}
+  237.8 {"no":"no19","grandeza":"temperatura","valor":24,"unidade":"C","seq":354}
+  237.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":355}
+  237.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":356}
+  237.9 #   DHT11 falha na leitura (117 vezes) - confira DATA no GPIO 4 e + no 3V3
+  239.8 # cmd 0x86 -> 9 bytes: FF 86 01 90 40 00 00 00 A9  (ok)
+  239.8 #   CO2 400 ppm  temp 24 C  status 0x00
+  239.8 {"no":"no19","grandeza":"co2","valor":400,"unidade":"ppm","seq":357}
+  239.8 {"no":"no19","grandeza":"temperatura","valor":24,"unidade":"C","seq":358}
+  239.8 {"no":"no19","grandeza":"reinicios","valor":0,"unidade":"vezes","seq":359}
+  239.8 {"no":"no19","grandeza":"falhas","valor":0,"unidade":"vezes","seq":360}
+  239.8 #   DHT11 falha na leitura (118 vezes) - confira DATA no GPIO 4 e + no 3V3

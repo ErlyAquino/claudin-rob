@@ -129,6 +129,7 @@ const corpo = [
   H1("8. Solução de problemas (professor)"),
   TAB(["Sintoma", "Diagnóstico", "Ação"], [
     ["pH: inclinação positiva", "tampões trocados (c4 feito no pH 10)", "refazer; conferir rótulos"],
+    ["pH no ESP32: pH perto de 0 em qualquer líquido (tensão ~2,5 V em pH 7) ou valor absurdo e parado", "fio de dados saindo da coluna do Po (antes do 1 kΩ) em vez do nó do divisor; falta o 2 kΩ/GND; fio no VN ou no D35 em vez do D34", "medir 2,5 V no Po e 1,67 V no nó (BNC em curto); o fio do D34 sai **entre** os dois resistores; D34 = 4º pino a partir do EN"],
     ["pH: leituras diferentes no Uno e no ESP32 com a mesma sonda", "ADC do ESP32 não linear; divisor com resistores de 5 %", "normal; o ADS1115 mostra a diferença; usar resistores de 1 %"],
     ["YF‑S201: K muito fora de 7,5 (ex.: 15)", "contagem de duas bordas (`CHANGE` em vez de `RISING`) ou ruído", "usar `RISING`; `INPUT_PULLUP`; cabo curto"],
     ["YF‑S201 no ESP32: conta sem água", "divisor sem o 2 kΩ (pino flutuando)", "conferir o 2 kΩ ao GND"],

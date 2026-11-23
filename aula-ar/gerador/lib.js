@@ -176,9 +176,9 @@ function DOC({ titulo, rodape, corpo }) {
       paragraphStyles: [
         // "Normal" explicito: o LibreOffice nao exporta o docDefaults para o ODT; sem isto o ODT perde a entrelinha de 1,15
         { id: "Normal", name: "Normal", quickFormat: true, run: { font: "Calibri", size: 22 }, paragraph: { spacing: { line: 276, lineRule: LineRuleType.AUTO } } },
-        { id: "Heading1", name: "Heading 1", basedOn: "Normal", next: "Normal", quickFormat: true, run: { size: 34, bold: true, color: COR.primaria, font: "Calibri" }, paragraph: { outlineLevel: 0, spacing: { before: 360, after: 160 } } },
-        { id: "Heading2", name: "Heading 2", basedOn: "Normal", next: "Normal", quickFormat: true, run: { size: 27, bold: true, color: COR.acento, font: "Calibri" }, paragraph: { outlineLevel: 1, spacing: { before: 280, after: 120 } } },
-        { id: "Heading3", name: "Heading 3", basedOn: "Normal", next: "Normal", quickFormat: true, run: { size: 23, bold: true, color: COR.primaria, font: "Calibri" }, paragraph: { outlineLevel: 2, spacing: { before: 200, after: 80 } } },
+        { id: "Heading1", name: "Heading 1", basedOn: "Normal", next: "Normal", quickFormat: true, run: { size: 34, bold: true, color: COR.primaria, font: "Calibri" }, paragraph: { outlineLevel: 0, keepNext: true, keepLines: true, spacing: { before: 360, after: 160 } } },
+        { id: "Heading2", name: "Heading 2", basedOn: "Normal", next: "Normal", quickFormat: true, run: { size: 27, bold: true, color: COR.acento, font: "Calibri" }, paragraph: { outlineLevel: 1, keepNext: true, keepLines: true, spacing: { before: 280, after: 120 } } },
+        { id: "Heading3", name: "Heading 3", basedOn: "Normal", next: "Normal", quickFormat: true, run: { size: 23, bold: true, color: COR.primaria, font: "Calibri" }, paragraph: { outlineLevel: 2, keepNext: true, keepLines: true, spacing: { before: 200, after: 80 } } },
       ],
     },
     numbering: {

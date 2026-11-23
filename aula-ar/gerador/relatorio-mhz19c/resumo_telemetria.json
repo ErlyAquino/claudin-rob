@@ -1,0 +1,13 @@
+{
+ "co2": 125,
+ "temperatura": 125,
+ "reinicios": 159,
+ "falhas_max": 42,
+ "co2_valores": [
+  500,
+  5000
+ ],
+ "reinicios_max": 2,
+ "inicio": "2026-11-09 09:57:03.080000",
+ "fim": "2026-11-09 10:34:13.211000"
+}
