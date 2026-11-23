@@ -1,0 +1,49 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#fff}svg text{font-family:Calibri,Carlito,"Segoe UI",Arial,sans-serif}</style></head><body>
+<svg width="1000" height="470" viewBox="0 0 1000 470" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F4E79"/></marker>
+<marker id="o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C55A11"/></marker>
+<marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2E7D32"/></marker></defs>
+<text x="500" y="30" text-anchor="middle" font-size="22" font-weight="bold" fill="#1F4E79">Etapa 3B — o nó entra na rede da telemetria e publica no servidor</text>
+<rect x="20" y="70" width="230" height="170" rx="12" fill="#E3F2FD" stroke="#1F4E79" stroke-width="2"/>
+<text x="135" y="102" text-anchor="middle" font-size="19" font-weight="bold">Nó ESP32 + MH-Z19C</text>
+<text x="135" y="128" text-anchor="middle" font-size="14">sketch m3b_co2_telemetria</text>
+<text x="135" y="152" text-anchor="middle" font-size="14">modo estação (cliente Wi-Fi)</text>
+<text x="135" y="176" text-anchor="middle" font-size="14">IP por DHCP, ex.: 192.168.0.25</text>
+<text x="135" y="204" text-anchor="middle" font-size="15" font-weight="bold" fill="#C55A11">cria/teste/no7/co2</text>
+<text x="135" y="226" text-anchor="middle" font-size="13" fill="#555">a cada 10 s, valor em ppm</text>
+<rect x="380" y="70" width="240" height="170" rx="12" fill="#FFF4E5" stroke="#C55A11" stroke-width="2"/>
+<text x="500" y="102" text-anchor="middle" font-size="19" font-weight="bold">Ponto de acesso dedicado</text>
+<text x="500" y="128" text-anchor="middle" font-size="14">rede Wi-Fi da telemetria (SSID)</text>
+<text x="500" y="152" text-anchor="middle" font-size="14">roteador: 192.168.0.1</text>
+<text x="500" y="176" text-anchor="middle" font-size="14">DHCP entrega os IPs dos nós</text>
+<text x="500" y="200" text-anchor="middle" font-size="14">reserva de DHCP: o servidor</text>
+<text x="500" y="222" text-anchor="middle" font-size="14">fica sempre em 192.168.0.10</text>
+<path d="M262,118 q14,18 0,36 M274,108 q24,28 0,56" fill="none" stroke="#1F4E79" stroke-width="3"/>
+<line x1="292" y1="136" x2="372" y2="136" stroke="#1F4E79" stroke-width="2.5" stroke-dasharray="8 6" marker-end="url(#s)" marker-start="url(#s)"/>
+<text x="332" y="125" text-anchor="middle" font-size="13">Wi-Fi</text>
+<rect x="720" y="60" width="260" height="250" rx="12" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+<text x="850" y="92" text-anchor="middle" font-size="19" font-weight="bold">Servidor da escola</text>
+<text x="850" y="116" text-anchor="middle" font-size="16" font-weight="bold" fill="#C55A11">IP fixo 192.168.0.10</text>
+<g font-size="14">
+<rect x="736" y="130" width="228" height="34" rx="6" fill="#fff" stroke="#9c9"/><text x="746" y="152">Mosquitto (MQTT)</text><text x="954" y="152" text-anchor="end" font-weight="bold">1883</text>
+<rect x="736" y="170" width="228" height="34" rx="6" fill="#fff" stroke="#9c9"/><text x="746" y="192">chrony (hora, NTP)</text><text x="954" y="192" text-anchor="end" font-weight="bold">123</text>
+<rect x="736" y="210" width="228" height="34" rx="6" fill="#fff" stroke="#9c9"/><text x="746" y="232">InfluxDB (banco)</text><text x="954" y="232" text-anchor="end" font-weight="bold">8086</text>
+<rect x="736" y="250" width="228" height="34" rx="6" fill="#fff" stroke="#9c9"/><text x="746" y="272">painel (Node.js)</text><text x="954" y="272" text-anchor="end" font-weight="bold">3000</text>
+</g>
+<line x1="620" y1="150" x2="720" y2="150" stroke="#555" stroke-width="5"/>
+<text x="670" y="138" text-anchor="middle" font-size="13">cabo de rede</text>
+<path d="M150,240 C170,300 600,300 730,150" fill="none" stroke="#C55A11" stroke-width="2.5" marker-end="url(#o)"/>
+<circle cx="300" cy="283" r="11" fill="#C55A11"/><text x="300" y="288" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">1</text>
+<path d="M730,190 C620,345 150,345 100,244" fill="none" stroke="#1F4E79" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#s)"/>
+<circle cx="300" cy="318" r="11" fill="#1F4E79"/><text x="300" y="323" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">0</text>
+<rect x="390" y="372" width="240" height="84" rx="12" fill="#fff" stroke="#333" stroke-width="2"/>
+<text x="510" y="400" text-anchor="middle" font-size="16" font-weight="bold">Celular ou computador</text>
+<text x="510" y="421" text-anchor="middle" font-size="14">ligado na mesma rede Wi-Fi</text>
+<text x="510" y="443" text-anchor="middle" font-size="15" font-weight="bold" fill="#C55A11">http://192.168.0.10:3000</text>
+<path d="M630,414 C770,414 850,390 850,316" fill="none" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#g)" marker-start="url(#g)"/>
+<circle cx="700" cy="410" r="11" fill="#2E7D32"/><text x="700" y="415" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">2</text>
+<text x="20" y="382" font-size="14" fill="#1F4E79"><tspan font-weight="bold">0</tspan> acerta o relógio pelo servidor (NTP)</text>
+<text x="20" y="402" font-size="14" fill="#C55A11"><tspan font-weight="bold">1</tspan> publica por MQTT (usuário e senha do projeto)</text>
+<text x="20" y="422" font-size="14" fill="#2E7D32"><tspan font-weight="bold">2</tspan> painel ao vivo no navegador</text>
+<text x="20" y="452" font-size="13" fill="#555">IPs de exemplo: use os da sua rede (Parte 1, seção 6.1).</text>
+</svg></body></html>

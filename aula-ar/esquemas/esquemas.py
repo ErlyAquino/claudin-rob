@@ -172,6 +172,121 @@ def e6b():
     return sk.save(SAIDA, "06b_monitor_ar_esp32")
 
 TODOS = (e1, e1b, e2, e2b, e3, e3b, e3c, e4, e4b, e5, e5b, e5c, e6, e6b)
+
+# ---------- Guia de montagem do monitor de ar (pasta saida-monitor/) ----------
+# Mesmo padrao do no da telemetria (firmware/no-ar): divisor 100 k / 200 k e 100 nF no pino.
+SAIDA_MONITOR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "saida-monitor")
+CAP = "100milCeramicCapacitorModuleID"
+
+# Nos esquemas do guia, o + (vermelho) vai na fileira W, colada a linha vermelha da trilha de baixo,
+# e o - (preto) na fileira X, colada a linha azul. (Os esquemas das aulas usam X = + por historico.)
+MAIS, MENOS = "W", "X"
+
+def base_esp32_guia():
+    sk = Sketch()
+    esp = sk.add(Part(ESP32, "ESP32 DevKit V1", 0, 40))
+    bb = sk.add(Part(FULL, "Protoboard 830", 160, 30))
+    sk.wire(esp, "VIN", bb, f"pin3{MAIS}", VERMELHO)
+    sk.wire(esp, "connector1", bb, f"pin3{MENOS}", PRETO)
+    return sk, esp, bb
+
+def divisor_alto(sk, bb, col_sinal, placa, gpio):
+    """sinal 5 V (col_sinal, F) -> E;  100 k (D) -> no;  200 k (C) -> GND;  100 nF (A) entre no-1 e no;  no-1 -> GND;  no (B) -> GPIO."""
+    no = col_sinal + 4
+    sk.wire(bb, f"pin{col_sinal}F", bb, f"pin{col_sinal}E", AMARELO)
+    resistor(sk, bb, "100k", "100 kΩ", col_sinal, "D")
+    resistor(sk, bb, "200k", "200 kΩ", no, "C")
+    sk.wire(bb, f"pin{no+4}A", bb, f"pin{rz(no+4)}{MENOS}", PRETO)
+    cap = sk.add(Part(CAP, "100 nF", 0, 0, props={"capacitance": "100nF"}))
+    sk.mount(cap, "connector0", bb, f"pin{no-1}A", others=[("connector1", f"pin{no}A")])   # a peca abre para a direita
+    sk.wire(bb, f"pin{no-1}B", bb, f"pin{rz(no-1)}{MENOS}", PRETO)
+    sk.wire(bb, f"pin{no}B", placa, gpio, AMARELO)
+
+def mq_guia(nome, gpio, arq):
+    """Um MQ sozinho (VIN = 5 V na fileira +), com o divisor 100 k / 200 k e 100 nF, nas colunas 10 a 21."""
+    sk, e, bb = base_esp32_guia()
+    montar(sk, bb, MQ, nome, 10, 4)
+    sk.wire(bb, "pin10F", bb, f"pin{rz(10)}{MAIS}", VERMELHO)
+    sk.wire(bb, "pin11F", bb, f"pin{rz(11)}{MENOS}", PRETO)
+    divisor_alto(sk, bb, 13, e, gpio)
+    return sk.save(SAIDA_MONITOR, arq)
+
+def m1(): return mq_guia("MQ-135", "D35", "m1_mq135_esp32")   # Parte 1: GPIO 35, como no firmware/no-ar
+def m2(): return mq_guia("MQ-2", "D34", "m2_mq2_esp32")       # Parte 2: GPIO 34, como no firmware/no-ar
+
+def m3():
+    """Parte 3: MH-Z19C (9 pinos HD SR Tx Rx Vo PWM AOT GND Vin, colunas 10 a 18). Vin na trilha + (5 V do VIN),
+    Tx do sensor -> RX2 (GPIO 16), Rx do sensor -> TX2 (GPIO 17), como no firmware/no-ar. UART de 3,3 V: sem divisor."""
+    sk, e, bb = base_esp32_guia()
+    c = 10
+    montar(sk, bb, MHZ, "MH-Z19C", c, 9)
+    sk.wire(bb, f"pin{c+8}F", bb, f"pin{rz(c+8)}{MAIS}", VERMELHO)    # Vin
+    sk.wire(bb, f"pin{c+7}F", bb, f"pin{rz(c+7)}{MENOS}", PRETO)      # GND
+    sk.wire(bb, f"pin{c+2}G", e, "RX2", VERDE)                        # Tx do sensor
+    sk.wire(bb, f"pin{c+3}H", e, "TX2", AZUL)                         # Rx do sensor
+    return sk.save(SAIDA_MONITOR, "m3_mhz19c_esp32")
+
+def m4():
+    """Parte 4: DHT22 / AM2302 de 3 fios (vermelho VCC, amarelo dado, preto GND), colunas 10 a 12.
+    VCC direto do pino 3V3 (a trilha + fica livre: nas outras partes ela e de 5 V), dado -> D4 (GPIO 4)."""
+    sk = Sketch()
+    e = sk.add(Part(ESP32, "ESP32 DevKit V1", 0, 40))
+    bb = sk.add(Part(FULL, "Protoboard 830", 160, 30))
+    sk.wire(e, "connector1", bb, f"pin3{MENOS}", PRETO)               # GND -> trilha -
+    c = 10
+    montar(sk, bb, DHT22, "DHT22 (AM2302)", c, 3)
+    sk.wire(e, "3V3", bb, f"pin{c}G", LARANJA_3V3)                    # vermelho (VCC) <- 3V3
+    sk.wire(bb, f"pin{c+1}H", e, "D4", AMARELO)                       # amarelo (dado) -> GPIO 4
+    sk.wire(bb, f"pin{c+2}F", bb, f"pin{rz(c+2)}{MENOS}", PRETO)      # preto (GND)
+    return sk.save(SAIDA_MONITOR, "m4_dht22_esp32")
+
+FONTE = "d8f570d723ea4d14f9b61b34575a9699"      # "Power plug" (core): connector0 GND, connector1 VCC, connector2 GND
+ELETROLITICO = "MediumElectrolyticCapacitorModuleID"   # conectores "-" e "+"
+
+def m5():
+    """Parte 5: no completo. Fonte de 5 V / 2 A nas trilhas + e -; VIN e GND do ESP32 nas trilhas;
+    DHT22 no 3V3 direto e GPIO 4; MQ-2 no GPIO 34 e MQ-135 no GPIO 35 (divisor 100 k / 200 k + 100 nF cada);
+    MH-Z19C em RX2/TX2; 470 uF entre as trilhas. Imprime as colunas usadas (para a tabela do guia)."""
+    sk, e, bb = base_esp32_guia()                                     # VIN -> +, GND -> -
+    col = {}
+    c, prox = colunas(DHT22, 2); col["DHT22"] = c
+    montar(sk, bb, DHT22, "DHT22 (AM2302)", c, 3)
+    sk.wire(e, "3V3", bb, f"pin{c}G", LARANJA_3V3)
+    sk.wire(bb, f"pin{c+1}H", e, "D4", AMARELO)
+    sk.wire(bb, f"pin{c+2}F", bb, f"pin{rz(c+2)}{MENOS}", PRETO)
+    for nome, gpio in (("MQ-2", "D34"), ("MQ-135", "D35")):
+        c, prox = colunas(MQ, max(prox, col.get("MQ-2", 0) + 9)); col[nome] = c
+        montar(sk, bb, MQ, nome, c, 4)
+        sk.wire(bb, f"pin{c}F", bb, f"pin{rz(c)}{MAIS}", VERMELHO)
+        sk.wire(bb, f"pin{c+1}F", bb, f"pin{rz(c+1)}{MENOS}", PRETO)
+        divisor_alto(sk, bb, c + 3, e, gpio)
+    c, prox = colunas(MHZ, max(prox, col["MQ-135"] + 13)); col["MH-Z19C"] = c
+    montar(sk, bb, MHZ, "MH-Z19C", c, 9)
+    sk.wire(bb, f"pin{c+8}F", bb, f"pin{rz(c+8)}{MAIS}", VERMELHO)
+    sk.wire(bb, f"pin{c+7}F", bb, f"pin{rz(c+7)}{MENOS}", PRETO)
+    sk.wire(bb, f"pin{c+2}G", e, "RX2", VERDE)
+    sk.wire(bb, f"pin{c+3}H", e, "TX2", AZUL)
+    k = 59; col["470uF"] = k                                          # eletrolitico: - em k, + em k+1
+    cap = sk.add(Part(ELETROLITICO, "470 µF", 0, 0, props={"capacitance": "470µF", "voltage": "16V"}))
+    sk.mount(cap, "-", bb, f"pin{k}J", others=[("+", f"pin{k+1}J")])
+    sk.wire(bb, f"pin{k}F", bb, f"pin{rz(k)}{MENOS}", PRETO)
+    sk.wire(bb, f"pin{k+1}F", bb, f"pin{rz(k+1)}{MAIS}", VERMELHO)
+    fonte = sk.add(Part(FONTE, "Fonte 5 V / 2 A", bb.x + bb.w + 30, bb.y + bb.h - 110))
+    sk.wire(fonte, "connector1", bb, f"pin61{MAIS}", VERMELHO)
+    sk.wire(fonte, "connector0", bb, f"pin61{MENOS}", PRETO)
+    print("colunas do m5:", col)
+    return sk.save(SAIDA_MONITOR, "m5_monitor_ar_esp32")
+
+MONITOR = (m1, m2, m3, m4, m5)
+
+if __name__ == "__main__" and "--monitor" in sys.argv:
+    os.makedirs(SAIDA_MONITOR, exist_ok=True)
+    for f in os.listdir(SAIDA_MONITOR): os.remove(os.path.join(SAIDA_MONITOR, f))
+    for fn in MONITOR: print("gerado", fn())
+    if "--sem-export" not in sys.argv:
+        for p in export(SAIDA_MONITOR): print("png", p, os.path.getsize(p) // 1024, "KB")
+    sys.exit(0)
+
 if __name__ == "__main__":
     os.makedirs(SAIDA, exist_ok=True)
     for f in os.listdir(SAIDA): os.remove(os.path.join(SAIDA, f))

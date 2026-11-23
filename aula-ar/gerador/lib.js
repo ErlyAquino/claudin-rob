@@ -31,7 +31,7 @@ let titulos = [];            // [nivel, texto] para o sumario manual
 let quebraPendente = false;  // QUEBRA() marca; o proximo H1 recebe pageBreakBefore
 const H1 = (t) => { titulos.push([1, t]); const q = quebraPendente; quebraPendente = false;
   return new Paragraph({ heading: HeadingLevel.HEADING_1, pageBreakBefore: q, children: [new TextRun(t)], spacing: { before: 360, after: 160 } }); };
-const H2 = (t) => { titulos.push([2, t]); return new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun(t)], spacing: { before: 280, after: 120 } }); };
+const H2 = (t, { quebra = false } = {}) => { titulos.push([2, t]); return new Paragraph({ heading: HeadingLevel.HEADING_2, pageBreakBefore: quebra, children: [new TextRun(t)], spacing: { before: 280, after: 120 } }); };   // quebra: comeca em pagina nova
 const H3 = (t) => new Paragraph({ heading: HeadingLevel.HEADING_3, children: [new TextRun(t)], spacing: { before: 200, after: 80 } });
 const P = (t, opts = {}) => new Paragraph({ children: runs(t), spacing: { after: 120 }, ...opts });
 const UL = (itens) => itens.map((t) => new Paragraph({ children: runs(t), numbering: { reference: "bullets", level: 0 }, spacing: { after: 60 } }));
@@ -55,7 +55,7 @@ function TAB(cabecalho, linhas, larguras) {
   return new Table({
     width: { size: CONTENT_W, type: WidthType.DXA }, columnWidths: ws,
     rows: [new TableRow({ tableHeader: true, children: cabecalho.map((t, i) => cel(t, i, true)) }),
-      ...linhas.map((l) => new TableRow({ children: l.map((t, i) => cel(t, i, false)) }))],
+      ...linhas.map((l) => new TableRow({ cantSplit: true, children: l.map((t, i) => cel(t, i, false)) }))],
   });
 }
 
@@ -74,16 +74,16 @@ function NOTA(titulo, texto, cor = COR.fundoNota) {
 }
 
 // --- bloco de codigo (le arquivo .ino ou string) ---
-function CODIGO(fonte, { arquivo = true, titulo } = {}) {
+function CODIGO(fonte, { arquivo = true, titulo, tamanho = 16 } = {}) {   // tamanho em meios-pontos
   const texto = arquivo ? fs.readFileSync(fonte, "utf8") : fonte;
   const linhas = texto.replace(/\r/g, "").split("\n");
   const borda = { style: BorderStyle.SINGLE, size: 4, color: COR.borda };
   const children = [];
   if (titulo) children.push(new Paragraph({ children: [new TextRun({ text: titulo, bold: true, font: "Liberation Mono", size: 17, color: COR.primaria })], spacing: { after: 60 } }));
-  linhas.forEach((l) => children.push(new Paragraph({ children: [new TextRun({ text: l.replace(/\t/g, "    ") || " ", font: "Liberation Mono", size: 16 })], spacing: { after: 0, line: 240, lineRule: LineRuleType.AUTO } })));
+  linhas.forEach((l) => children.push(new Paragraph({ children: [new TextRun({ text: l.replace(/\t/g, "    ") || " ", font: "Liberation Mono", size: tamanho })], spacing: { after: 0, line: 240, lineRule: LineRuleType.AUTO } })));
   return new Table({
     width: { size: CONTENT_W, type: WidthType.DXA }, columnWidths: [CONTENT_W],
-    rows: [new TableRow({ cantSplit: false, children: [new TableCell({
+    rows: [new TableRow({ cantSplit: linhas.length <= 30, children: [new TableCell({   // blocos curtos nao se partem entre paginas
       width: { size: CONTENT_W, type: WidthType.DXA }, shading: { type: ShadingType.CLEAR, fill: COR.fundoCod },
       borders: { top: borda, bottom: borda, left: borda, right: borda }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children,
     })] })],

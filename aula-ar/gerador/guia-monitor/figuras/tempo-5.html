@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#fff}svg text{font-family:Calibri,Carlito,"Segoe UI",Arial,sans-serif}</style></head><body>
+<svg width="1000" height="400" viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg">
+<text x="500" y="30" text-anchor="middle" font-size="24" font-weight="bold" fill="#1F4E79">Tempo gasto pelo ESP32 com os quatro sensores (estimativa)</text>
+<!-- barra de 10 s -->
+<text x="30" y="70" font-size="19" font-weight="bold">Uma rodada a cada 10 s (10 000 ms)</text>
+<rect x="30" y="82" width="940" height="46" rx="4" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.5"/>
+<rect x="30" y="82" width="7" height="46" fill="#C55A11"/>
+<text x="48" y="112" font-size="18" fill="#C55A11" font-weight="bold">≈ 80 ms de trabalho</text>
+<text x="610" y="112" text-anchor="middle" font-size="18" fill="#2E7D32">mais de 99 % do tempo livre para o Wi-Fi e o broker</text>
+<!-- zoom -->
+<path d="M30,128 L30,170 M37,128 L970,170" stroke="#C55A11" stroke-width="1" stroke-dasharray="4 3" fill="none"/>
+<text x="30" y="196" font-size="19" font-weight="bold">Os ≈ 80 ms, ampliados</text>
+<g font-size="17">
+<rect x="30" y="208" width="410" height="56" fill="#E3F2FD" stroke="#1F4E79"/><text x="235" y="232" text-anchor="middle" font-weight="bold">MH-Z19C (serial)</text><text x="235" y="254" text-anchor="middle">≈ 35 ms</text>
+<rect x="440" y="208" width="80" height="56" fill="#FFF4E5" stroke="#C55A11"/><text x="480" y="232" text-anchor="middle" font-weight="bold">MQ ×2</text><text x="480" y="254" text-anchor="middle">≈ 4 ms</text>
+<rect x="520" y="208" width="90" height="56" fill="#FDECEA" stroke="#B71C1C"/><text x="565" y="232" text-anchor="middle" font-weight="bold">DHT22</text><text x="565" y="254" text-anchor="middle">≈ 6 ms</text>
+<rect x="610" y="208" width="360" height="56" fill="#E8F5E9" stroke="#2E7D32"/><text x="790" y="232" text-anchor="middle" font-weight="bold">5 publicações + Monitor Serial</text><text x="790" y="254" text-anchor="middle">≈ 35 ms</text>
+</g>
+<text x="30" y="304" font-size="18">Pior caso de uma rodada (MH-Z19C sem resposta e rede fora do ar): menos de 1 s.</text>
+<text x="30" y="334" font-size="18">Limite: 5 s sem chamar no.manter(). Margem: mais de 5 vezes.</text>
+<text x="30" y="376" font-size="17" fill="#333">Valores estimados. O valor real é medido pelo sketch: item "Ciclo" (Etapa 5A) e grandeza ciclo (Etapa 5B).</text>
+</svg></body></html>

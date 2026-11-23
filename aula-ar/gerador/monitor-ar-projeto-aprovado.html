@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Monitor de Qualidade do Ar — projeto aprovado</title>
+<style>
+  @page { size: A4; margin: 18mm 17mm 18mm 17mm; }
+  * { box-sizing: border-box; }
+  body { font-family: Calibri, Carlito, "Segoe UI", Arial, sans-serif; font-size: 10.5pt; line-height: 1.38; color: #1d2430; margin: 0; }
+  .logos { display: flex; align-items: center; justify-content: center; gap: 26px; margin-bottom: 10px; }
+  .logos img { height: 40px; }
+  header.capa { border-bottom: 3px solid #1f6f5c; padding-bottom: 10px; margin-bottom: 14px; text-align: center; }
+  h1 { font-size: 19pt; margin: 6px 0 2px; color: #14493d; }
+  .sub { font-size: 10pt; color: #4a5566; }
+  h2 { font-size: 13pt; color: #14493d; border-bottom: 1px solid #c9d8d3; padding-bottom: 2px; margin: 18px 0 7px; page-break-after: avoid; }
+  h3 { font-size: 11pt; margin: 12px 0 4px; color: #1f6f5c; page-break-after: avoid; }
+  p { margin: 4px 0 7px; text-align: justify; }
+  ul, ol { margin: 3px 0 8px 0; padding-left: 20px; }
+  li { margin: 2px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 10px; font-size: 9.3pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th { background: #1f6f5c; color: #fff; text-align: left; padding: 4px 6px; font-weight: 600; }
+  td { border-bottom: 1px solid #dbe3e0; padding: 3.5px 6px; vertical-align: top; }
+  tr:nth-child(even) td { background: #f4f8f7; }
+  td.n, th.n { text-align: right; white-space: nowrap; }
+  tr.total td { font-weight: 700; background: #e3efeb; border-top: 2px solid #1f6f5c; }
+  code { font-family: "Liberation Mono", Consolas, monospace; font-size: 8.8pt; background: #eef2f1; padding: 0 3px; border-radius: 2px; }
+  .caixa { border-left: 4px solid #1f6f5c; background: #f1f7f5; padding: 7px 10px; margin: 8px 0 10px; }
+  .alerta { border-left: 4px solid #b5651d; background: #fbf4ec; padding: 7px 10px; margin: 8px 0 10px; }
+  .cit { font-style: italic; color: #36404f; }
+  .fontes { table-layout: fixed; }
+  .fontes th:nth-child(1) { width: 22%; } .fontes th:nth-child(2) { width: 43%; } .fontes th:nth-child(3) { width: 35%; }
+  .fontes code { word-break: break-all; }
+  .pequeno { font-size: 8.8pt; color: #4a5566; }
+  footer { margin-top: 16px; border-top: 1px solid #c9d8d3; padding-top: 5px; font-size: 8.5pt; color: #4a5566; }
+  .quebra { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<header class="capa">
+  <div class="logos">
+    <img src="../../imagens/logos/logo espaco cria.png" alt="Espaço CRIA">
+    <img src="../../imagens/logos/ete.png" alt="ETE Epitácio Pessoa">
+    <img src="../../imagens/logos/nct.png" alt="NCT">
+    <img src="../../imagens/logos/FACEPE.png" alt="FACEPE">
+  </div>
+  <h1>Monitor de Qualidade do Ar</h1>
+  <div class="sub">Projeto-teste 1 da Rede de Telemetria do Espaço CRIA — o que o projeto aprovado determina e os equipamentos previstos</div>
+  <div class="sub">Edital nº 19/2026-FACEPE (Espaços CRIA) · Termo de Outorga ARC-0645-26-87569 · ETE Epitácio Pessoa, Cabo de Santo Agostinho/PE</div>
+  <div class="sub">Coordenador: Erly José da Costa Aquino · Documento de conferência, 22/11/2026</div>
+</header>
+
+<h2>1. Fontes consultadas</h2>
+<table class="fontes">
+  <tr><th>Documento</th><th>Onde está</th><th>Papel</th></tr>
+  <tr><td>Proposta final v6 (aprovada)</td><td><code>mythos-fomento/docs/proposta/rede_telemetria_iot_cria_2026_final-v6.pdf</code></td><td>Objetivo específico 3, seção 3.4, riscos (3.9), cronograma, entregável 3 e orçamento (Anexo III)</td></tr>
+  <tr><td>Plano de trabalho</td><td><code>mythos-fomento/docs/edital/plano_trabalho_rede_telemetria_cria_2026.pdf</code></td><td>Repete o objetivo 3 e a descrição do projeto-teste 1</td></tr>
+  <tr><td>Lista de itens do orçamento</td><td><code>mythos-fomento/docs/compras/lista_itens_orcamento_arc_0645.xlsx</code></td><td>Quantidades e valores unitários (espelho do AgilFAP)</td></tr>
+  <tr><td>Guia do projeto</td><td><code>mythos-fomento/docs/oficinas/guia_do_projeto_rede_telemetria.md</code></td><td>Explicação didática do monitor, cuidados elétricos e responsáveis</td></tr>
+  <tr><td>Firmware do nó de ar</td><td><code>telemetria-cria/firmware/no-ar/no-ar.ino</code></td><td>Implementação de referência do nó <code>cria/ar/no1</code></td></tr>
+  <tr><td>Catálogo de tópicos</td><td><code>telemetria-cria/mqtt/catalogo-topicos.md</code> (seção 4.1)</td><td>Tópicos, unidades e definição de R0</td></tr>
+  <tr><td>Aula de qualidade do ar</td><td><code>claudin-rob/aula-ar/codigo/06b_monitor_ar_esp32_telemetria</code></td><td>Versão didática do monitor completo, publicando na plataforma</td></tr>
+</table>
+
+<h2>2. O que o projeto aprovado determina</h2>
+<p><b>Objetivo específico 3.</b> <span class="cit">Reconstruir o monitor de qualidade do ar em ESP32 com os sensores MQ-2, MQ-135 e MH-Z19 e integrá-lo à plataforma.</span></p>
+<p>O monitor já existia na escola em Arduino Uno, com display local e sem registro das leituras. O projeto o reconstrói sobre a biblioteca-padrão da plataforma (<code>CriaTelemetria</code>), em um <b>único nó ESP32</b>. As medições passam a ir pela rede até o servidor da escola, e o monitor deixa de depender de gravação local avulsa. É o teste de partida da plataforma: poucos sensores, ambiente seco e leitura rápida. O caso difícil fica com a bancada hidropônica.</p>
+
+<h3>2.1 Os três sensores e o que cada um entrega</h3>
+<table>
+  <tr><th>Sensor</th><th>Princípio</th><th>Mede</th><th>Saída</th></tr>
+  <tr><td><b>MQ-2</b></td><td>Óxido metálico aquecido</td><td>Gases inflamáveis (GLP, metano, hidrogênio) e fumaça</td><td>Leitura relativa (tendência), não ppm</td></tr>
+  <tr><td><b>MQ-135</b></td><td>Óxido metálico aquecido</td><td>Mistura de gases associados à qualidade do ar (amônia, álcool, benzeno, fumaça, CO₂)</td><td>Leitura relativa (tendência), não ppm</td></tr>
+  <tr><td><b>MH-Z19</b> (orçado como MH-Z19B)</td><td>Infravermelho não dispersivo (NDIR)</td><td>Dióxido de carbono (CO₂)</td><td>Concentração em ppm, com calibração automática de linha de base</td></tr>
+</table>
+
+<div class="caixa"><b>Limitação declarada no projeto (seção 3.9).</b> Os sensores MQ precisam de pré-aquecimento: alguns minutos no uso diário e de 24 a 48 h para estabilizar depois de muito tempo guardados. Eles respondem pela razão entre a resistência medida e a resistência de referência em ar limpo. Por isso o monitor informa <b>tendências e níveis relativos</b>, e não concentração absoluta calibrada com gás-padrão. O único valor absoluto é o CO₂ do MH-Z19, em ppm. Essa diferença precisa constar na documentação.</div>
+
+<h3>2.2 Cronograma e entregável</h3>
+<ul>
+  <li><b>Mês 1:</b> compra do material, com os sensores do monitor desembolsados no Mês 2.</li>
+  <li><b>Mês 2:</b> <span class="cit">montagem dos nós do monitor de ar</span>. Entregável verificável: <b>nó de ar publicando</b> por MQTT, com o painel mostrando uma série ao vivo.</li>
+  <li><b>Mês 4:</b> integração completa dos dois projetos ao painel.</li>
+  <li><b>Entregável 3:</b> <span class="cit">Monitor de qualidade do ar reconstruído em ESP32 e integrado.</span></li>
+  <li><b>Indicador I9:</b> 11 grandezas com série temporal registrada, 3 delas no monitor de ar (MQ-2, MQ-135 e CO₂).</li>
+  <li><b>Responsáveis (guia do projeto):</b> Frente 1 (firmware e nós), com orientação do coordenador. O abrigo impresso em 3D fica com Richardson.</li>
+</ul>
+
+<h2>3. Equipamentos previstos no projeto</h2>
+<h3>3.1 Itens exclusivos do monitor de ar (orçamento, Anexo III)</h3>
+<table>
+  <tr><th>Nº</th><th>Item</th><th class="n">Qtd</th><th class="n">Unit. (R$)</th><th class="n">Total (R$)</th><th>Rubrica</th><th>Mês</th><th>Função no projeto</th></tr>
+  <tr><td>5</td><td>Sensor de gás MQ-2 (inflamáveis/fumaça)</td><td class="n">2 un</td><td class="n">22,00</td><td class="n">44,00</td><td>Custeio</td><td>2</td><td>Mede gases inflamáveis e fumaça</td></tr>
+  <tr><td>6</td><td>Sensor de gás MQ-135 (qualidade do ar)</td><td class="n">2 un</td><td class="n">25,00</td><td class="n">50,00</td><td>Custeio</td><td>2</td><td>Mede a qualidade geral do ar</td></tr>
+  <tr><td>7</td><td>Sensor de CO₂ MH-Z19B</td><td class="n">1 un</td><td class="n">160,00</td><td class="n">160,00</td><td>Custeio</td><td>2</td><td>Mede CO₂ por infravermelho, em ppm</td></tr>
+  <tr class="total"><td></td><td>Subtotal exclusivo do monitor</td><td></td><td></td><td class="n">254,00</td><td colspan="3"></td></tr>
+</table>
+<p class="pequeno">Há duas unidades de cada MQ: uma vai para o nó e a outra fica de reserva ou para as oficinas (Oficina 7 — Qualidade do ar e gases).</p>
+
+<h3>3.2 Itens compartilhados com a horta e a plataforma que o monitor usa</h3>
+<table>
+  <tr><th>Nº</th><th>Item</th><th class="n">Qtd total</th><th class="n">Total (R$)</th><th>Rubrica</th><th>Uso no monitor de ar</th></tr>
+  <tr><td>1</td><td>ESP32 DevKit (Wi-Fi/Bluetooth)</td><td class="n">6 un</td><td class="n">330,00</td><td>Custeio</td><td>1 placa é o nó <code>cria/ar/no1</code> (as outras ficam com a horta e a reserva)</td></tr>
+  <tr><td>4</td><td>Cabo USB para gravação/alimentação</td><td class="n">8 un</td><td class="n">96,00</td><td>Custeio</td><td>Gravação do firmware</td></tr>
+  <tr><td>24</td><td>Conversor de nível lógico 3,3/5 V (4 canais)</td><td class="n">4 un</td><td class="n">40,00</td><td>Custeio</td><td>Compatibilizar periféricos de 5 V com o ESP32</td></tr>
+  <tr><td>25</td><td>Regulador step-down LM2596</td><td class="n">3 un</td><td class="n">36,00</td><td>Custeio</td><td>Regular a alimentação do nó, quando ele for ligado a 12 V</td></tr>
+  <tr><td>28</td><td>Fonte chaveada 5 V (nós/servidor)</td><td class="n">1 un</td><td class="n">30,00</td><td>Custeio</td><td>Alimentação do nó: os aquecedores dos MQ e o MH-Z19 passam de 0,6 A</td></tr>
+  <tr><td>21</td><td>Sensores e componentes sortidos para reposição</td><td class="n">1 un</td><td class="n">150,00</td><td>Custeio</td><td>Reposição de sensores danificados</td></tr>
+  <tr><td>60</td><td>Filamento PLA 1 kg</td><td class="n">3 un</td><td class="n">360,00</td><td>Custeio</td><td>Abrigo impresso em 3D do nó e dos sensores</td></tr>
+  <tr><td>62–65</td><td>Protoboard 830 pontos, jumpers, resistores e capacitores</td><td class="n">kits</td><td class="n">180,00</td><td>Custeio</td><td>Prototipagem; divisor de tensão das saídas dos MQ</td></tr>
+  <tr><td>68, 69, 74</td><td>Borneiras, fios e cabos, estanho e fluxo</td><td class="n">lotes</td><td class="n">130,00</td><td>Custeio</td><td>Montagem definitiva do nó</td></tr>
+  <tr><td>78</td><td>Ponto de acesso / roteador Wi-Fi dedicado</td><td class="n">1 un</td><td class="n">250,00</td><td>Capital</td><td>Rede isolada pela qual o nó publica</td></tr>
+  <tr><td>79</td><td>Nobreak 600 VA</td><td class="n">1 un</td><td class="n">400,00</td><td>Capital</td><td>Protege o servidor que recebe e guarda as leituras</td></tr>
+  <tr><td>82</td><td>Ferro de solda + sugador</td><td class="n">1 un</td><td class="n">90,00</td><td>Capital</td><td>Montagem e reparo</td></tr>
+</table>
+<p class="pequeno">O computador que hospeda o servidor (Mosquitto, InfluxDB e painel web), a impressora 3D e a bancada de eletrônica são contrapartida da escola e não entram no orçamento.</p>
+
+<h3>3.3 Fora do orçamento do monitor, mas usado na implementação</h3>
+<ul>
+  <li><b>DHT22 (temperatura e umidade):</b> está orçado para a horta (item 15, 2 un). O firmware do nó de ar o inclui como <b>opcional</b> porque os MQ variam com a temperatura e a umidade, e essas duas leituras ajudam a interpretá-los.</li>
+  <li><b>DHT11 e LED RGB:</b> aparecem só na versão didática da aula-ar (06b). O DHT11 serve de comparação com o DHT22 no Monitor Serial e não é publicado.</li>
+</ul>
+
+<h2>4. Como deve ficar o monitor</h2>
+<h3>4.1 Arquitetura</h3>
+<p>Sensores → ESP32 com a biblioteca <code>CriaTelemetria</code> → Wi-Fi do ponto de acesso dedicado → broker Mosquitto (usuário e senha do projeto <code>ar</code>) → servidor Node.js (Fastify + Socket.IO) → InfluxDB → painel web em tempo real, com exportação CSV. O nó publica a cada 10 s. Se a rede cair, ele guarda as leituras e as reenvia quando a conexão volta. Tudo roda na rede local da escola, sem serviço pago.</p>
+
+<h3>4.2 Ligações (ESP32 DevKit V1, 30 pinos — <code>firmware/no-ar</code>)</h3>
+<table>
+  <tr><th>Sensor</th><th>Alimentação</th><th>Sinal</th><th>Observação</th></tr>
+  <tr><td>MQ-2</td><td>5 V (VIN)</td><td>AO → divisor → GPIO 34</td><td>ADC1; média de 16 amostras</td></tr>
+  <tr><td>MQ-135</td><td>5 V (VIN)</td><td>AO → divisor → GPIO 35</td><td>ADC1; média de 16 amostras</td></tr>
+  <tr><td>MH-Z19B</td><td>5 V (VIN)</td><td>TX → GPIO 16 (RX2); RX → GPIO 17 (TX2)</td><td>UART a 9600 bps, comando 0x86 com checksum</td></tr>
+  <tr><td>DHT22 (opcional)</td><td>3,3 V</td><td>Dado → GPIO 4, com 10 kΩ para o 3,3 V</td><td>Temperatura e umidade</td></tr>
+</table>
+<ul>
+  <li><b>GPIO 21 e 22 ficam livres</b> para o barramento I2C, como manda o projeto.</li>
+  <li><b>Só o ADC1</b> (GPIO 32–39) é usado: o ADC2 não funciona com o Wi-Fi ligado.</li>
+  <li><b>Divisor de tensão obrigatório</b> na saída dos MQ: eles são alimentados em 5 V e o ESP32 não tolera mais que 3,3 V. O firmware de referência usa 100 kΩ (saída → pino) e 200 kΩ (pino → GND), com 100 nF do pino ao GND. O pino recebe 2/3 da tensão.</li>
+  <li><b>Alimentação:</b> fonte de 5 V com pelo menos 2 A, com GND comum a todos. Os aquecedores dos MQ (cerca de 150 mA cada), os picos do MH-Z19B e o Wi-Fi passam de 0,6 A, mais do que uma porta USB fornece.</li>
+  <li><b>Resistor de carga (RL) dos módulos MQ:</b> muitos vêm com 1 kΩ. Se o pino ficar abaixo de 0,3 V em ar limpo, troque o RL por 10 kΩ ou 20 kΩ.</li>
+</ul>
+
+<h3>4.3 Tópicos publicados (catálogo, seção 4.1)</h3>
+<table>
+  <tr><th>Tópico</th><th>Sensor</th><th>Unidade</th><th>Quando publica</th></tr>
+  <tr><td><code>cria/ar/no1/mq2</code></td><td>MQ-2</td><td>Rs/R0</td><td>Depois de 10 min de aquecimento e com o R0 medido</td></tr>
+  <tr><td><code>cria/ar/no1/mq135</code></td><td>MQ-135</td><td>Rs/R0</td><td>Idem</td></tr>
+  <tr><td><code>cria/ar/no1/co2</code></td><td>MH-Z19B</td><td>ppm</td><td>Depois de 3 min de aquecimento, se o valor estiver dentro da faixa (2000 ou 5000 ppm)</td></tr>
+  <tr><td><code>cria/ar/no1/temperatura</code></td><td>DHT22</td><td>°C</td><td>Opcional, a cada 10 s</td></tr>
+  <tr><td><code>cria/ar/no1/umidade</code></td><td>DHT22</td><td>%</td><td>Opcional, a cada 10 s</td></tr>
+</table>
+<p>Cada mensagem é um JSON com <code>valor</code>, <code>unidade</code>, <code>seq</code>, <code>boot</code> e <code>t</code>. Os campos <code>seq</code> e <code>boot</code> permitem medir a perda de pacotes, e o <code>t</code> permite medir a latência.</p>
+
+<h3>4.4 Calibração e operação</h3>
+<ul>
+  <li><b>R0 dos MQ:</b> é a resistência medida pelo próprio nó em ar limpo, depois da estabilização, com média de cerca de 10 min em local arejado. Não é o R0 da folha de dados. Por isso as curvas de ppm da folha de dados (e bibliotecas como a MQUnifiedsensor) não se aplicam. Enquanto o R0 valer 0, o MQ não é publicado. Cada calibração é registrada em <code>calibracao/</code> com data, local e valores.</li>
+  <li><b>Interpretação:</b> em ar limpo, Rs/R0 fica perto de 1. Quanto mais gás, menor a razão.</li>
+  <li><b>MH-Z19:</b> a calibração automática de linha de base (ABC) supõe que o sensor veja ar externo (cerca de 400 ppm) de tempos em tempos. Em sala sempre fechada, o valor deriva. É preciso levá-lo ao ar livre periodicamente ou zerá-lo à mão. A decisão de manter o ABC ligado ou não fica registrada em <code>calibracao/</code>.</li>
+  <li><b>Segurança nos ensaios:</b> a fonte de gás para testar o MQ-135 é álcool, em ambiente ventilado, longe de calor e de solda. A superfície dos MQ aquece: não tocar.</li>
+</ul>
+
+<h3>4.5 Critérios de aceitação que se aplicam ao nó de ar</h3>
+<table>
+  <tr><th>Critério</th><th>Exigência</th></tr>
+  <tr><td>Perda de pacotes</td><td>Menos de 1% em 24 h de operação contínua</td></tr>
+  <tr><td>Latência</td><td>Menos de 2 s entre a leitura no nó e o painel, publicando a cada 10 s</td></tr>
+  <tr><td>Disponibilidade do servidor</td><td>Pelo menos 95% do período de teste, com nobreak</td></tr>
+  <tr><td>Estabilidade (guia, Frente 1)</td><td>O nó atravessa 24 h publicando, sem reiniciar e sem falha na série</td></tr>
+</table>
+<p class="pequeno">Os critérios de exatidão (pH ±0,2 e condutividade ±5%) se referem à horta e não ao monitor de ar.</p>
+
+<h2>5. Divergências encontradas entre os documentos</h2>
+<div class="alerta">
+<ol>
+  <li><b>Modelo do sensor de CO₂.</b> O texto da proposta e do plano de trabalho diz MH-Z19, o orçamento diz MH-Z19B e a aula-ar usa o <b>MH-Z19C</b>. Os três têm o mesmo protocolo serial e a mesma pinagem, e o firmware serve para todos. Vale registrar em <code>decisoes/</code> qual modelo foi comprado de fato, para a prestação de contas.</li>
+  <li><b>"Sensor de CO" em vez de "CO₂".</b> No PDF da proposta v6 (orçamento e quadro de riscos) e no plano de trabalho, o índice ₂ sumiu e ficou "Sensor de CO" / "o CO vem do MH-Z19". A planilha da lista de itens já está correta (CO₂). O MH-Z19 não mede monóxido de carbono.</li>
+  <li><b>Divisor de tensão dos MQ.</b> O firmware de referência (<code>telemetria-cria/firmware/no-ar</code>) usa 100 kΩ/200 kΩ com 100 nF. A versão didática (<code>aula-ar/06b</code>) usa 1 kΩ/2 kΩ. As duas reduzem o sinal para 2/3, mas o divisor de 3 kΩ fica em paralelo com o RL do módulo e muda a leitura. Os valores de R0 medidos em uma montagem não valem na outra. Convém padronizar o nó fixo <code>no1</code> em 100 k/200 k.</li>
+  <li><b>DHT22 no nó de ar.</b> Não faz parte do monitor aprovado (só os três sensores de gás). Entra como grandeza complementar opcional. As 3 grandezas do indicador I9 continuam sendo MQ-2, MQ-135 e CO₂.</li>
+  <li><b>Abrigo 3D.</b> Está previsto (filamento e responsável definidos), mas a pasta <code>telemetria-cria/modelos-3d/</code> ainda está vazia.</li>
+</ol>
+</div>
+
+<footer>Documento de conferência gerado a partir dos repositórios <code>mythos-fomento</code> (proposta aprovada, plano de trabalho e orçamento) e <code>telemetria-cria</code> (firmware e catálogo de tópicos), em 22/11/2026. Valores do orçamento conforme a versão final v6, espelho do AgilFAP.</footer>
+
+</body>
+</html>

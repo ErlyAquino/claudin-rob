@@ -1,0 +1,34 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#fff}svg text{font-family:Calibri,Carlito,"Segoe UI",Arial,sans-serif}</style></head><body>
+<svg width="1000" height="370" viewBox="0 0 1000 370" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F4E79"/></marker></defs>
+<text x="500" y="30" text-anchor="middle" font-size="22" font-weight="bold" fill="#1F4E79">Etapa 3A — o ESP32 cria a própria rede Wi-Fi (modo ponto de acesso)</text>
+<rect x="30" y="110" width="170" height="150" rx="12" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+<text x="115" y="145" text-anchor="middle" font-size="20" font-weight="bold">MH-Z19C</text>
+<text x="115" y="172" text-anchor="middle" font-size="15">lâmpada IR em 5 V</text>
+<text x="115" y="194" text-anchor="middle" font-size="15">saída serial (UART)</text>
+
+<line x1="200" y1="185" x2="330" y2="185" stroke="#C55A11" stroke-width="4"/>
+<text x="265" y="172" text-anchor="middle" font-size="14">Tx/Rx → GPIO 16/17</text>
+<text x="265" y="208" text-anchor="middle" font-size="13" fill="#555">serial (UART) 9600 bps</text><text x="265" y="226" text-anchor="middle" font-size="13" fill="#555">3,3 V, sem divisor</text>
+<rect x="330" y="90" width="250" height="190" rx="12" fill="#E3F2FD" stroke="#1F4E79" stroke-width="2"/>
+<text x="455" y="125" text-anchor="middle" font-size="20" font-weight="bold">ESP32 DevKit V1</text>
+<text x="455" y="152" text-anchor="middle" font-size="15">sketch m3a_co2_celular</text>
+<text x="455" y="180" text-anchor="middle" font-size="15">rede: <tspan font-weight="bold">Ar-CO2</tspan></text>
+<text x="455" y="202" text-anchor="middle" font-size="15">senha: 12345678</text>
+<text x="455" y="230" text-anchor="middle" font-size="17" font-weight="bold" fill="#C55A11">IP 192.168.4.1</text>
+<text x="455" y="256" text-anchor="middle" font-size="14" fill="#555">servidor web na porta 80</text>
+<path d="M600,160 q20,25 0,50 M615,148 q32,37 0,74 M630,136 q44,49 0,98" fill="none" stroke="#1F4E79" stroke-width="3"/>
+<line x1="660" y1="185" x2="762" y2="185" stroke="#1F4E79" stroke-width="2.5" stroke-dasharray="8 6" marker-start="url(#s)" marker-end="url(#s)"/>
+<text x="711" y="172" text-anchor="middle" font-size="14">Wi-Fi</text>
+<text x="711" y="210" text-anchor="middle" font-size="13" fill="#555">páginas / e /dados</text>
+<rect x="770" y="60" width="140" height="240" rx="22" fill="#fff" stroke="#333" stroke-width="3"/>
+<rect x="784" y="90" width="112" height="170" rx="6" fill="#111"/>
+<text x="840" y="125" text-anchor="middle" font-size="13" fill="#eee">MH-Z19C</text>
+<text x="840" y="160" text-anchor="middle" font-size="22" font-weight="bold" fill="#eee">612 ppm</text>
+<text x="840" y="182" text-anchor="middle" font-size="12" fill="#9c9">ar bom</text>
+<polyline points="792,240 808,230 824,236 840,222 856,228 872,216 888,220" fill="none" stroke="#4caf50" stroke-width="2"/>
+<circle cx="840" cy="280" r="9" fill="none" stroke="#333" stroke-width="2"/>
+<text x="840" y="325" text-anchor="middle" font-size="15">celular (recebe 192.168.4.2)</text>
+<text x="840" y="345" text-anchor="middle" font-size="16" font-weight="bold" fill="#C55A11">http://192.168.4.1</text>
+<text x="400" y="330" text-anchor="middle" font-size="15" fill="#555">Sem roteador, sem internet e sem servidor: só o ESP32 e o celular.</text>
+</svg></body></html>
