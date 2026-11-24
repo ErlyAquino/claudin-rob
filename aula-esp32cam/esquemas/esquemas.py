@@ -58,7 +58,43 @@ def e3_gestos():
         sk.wire(bb, f"pin{c+4}{chr(ord(linha)-1)}", cam, pino, cor)
     return sk.save(SAIDA, "03_gestos_rgb")
 
+FONTE = "d8f570d723ea4d14f9b61b34575a9699"      # "Power plug" (core): connector0 GND, connector1 VCC
+ELETROLITICO = "MediumElectrolyticCapacitorModuleID"   # conectores "-" e "+"
+SAIDA_MONITORAMENTO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "saida-monitoramento")
+
+def e4_monitoramento():
+    """Camera de monitoramento: ESP32-CAM + PIR + LED de status, alimentada por fonte de 5 V / 2 A
+    nas trilhas, com capacitor de 470 uF.  python esquemas.py --monitoramento"""
+    sk = Sketch()
+    cam = sk.add(Part(CAM, "ESP32-CAM", 0, 40))
+    bb = sk.add(Part(HALF, "Protoboard", 200, 30))
+    sk.wire(cam, C["5V"], bb, "pin3X", VERMELHO); sk.wire(cam, C["GND"], bb, "pin3W", PRETO)
+    pir = sk.add(Part(PIR, "PIR HC-SR501", 0, 0))
+    sk.mount(pir, "connector1", bb, "pin10J", others=[("connector2", "pin11J"), ("connector3", "pin12J")])   # VDD SIG GND
+    sk.wire(bb, "pin10F", bb, "pin10X", VERMELHO)
+    sk.wire(bb, "pin12F", bb, "pin12W", PRETO)
+    sk.wire(bb, "pin11G", cam, C["IO13"], AMARELO)
+    led = sk.add(Part(LED, "LED status", 0, 0, props={"color": "Green (570nm)"}))
+    sk.mount(led, "cathode", bb, "pin17F", others=[("anode", "pin18F")])
+    sk.wire(bb, "pin17J", bb, "pin17W", PRETO)
+    r = sk.add(Part(RES, "220 Ω", 0, 0, props={"resistance": "220"}))
+    sk.mount(r, "connector0", bb, "pin18J", others=[("connector1", "pin22J")])
+    sk.wire(bb, "pin22I", cam, C["IO12"], VERDE)
+    cap = sk.add(Part(ELETROLITICO, "470 µF", 0, 0, props={"capacitance": "470µF", "voltage": "16V"}))
+    sk.mount(cap, "-", bb, "pin27J", others=[("+", "pin28J")])
+    sk.wire(bb, "pin27F", bb, "pin27W", PRETO)
+    sk.wire(bb, "pin28F", bb, "pin28X", VERMELHO)
+    fonte = sk.add(Part(FONTE, "Fonte 5 V / 2 A", bb.x + bb.w + 30, bb.y + bb.h - 110))
+    sk.wire(fonte, "connector1", bb, "pin30X", VERMELHO)
+    sk.wire(fonte, "connector0", bb, "pin30W", PRETO)
+    return sk.save(SAIDA_MONITORAMENTO, "04_camera_monitoramento")
+
 if __name__ == "__main__":
+    if "--monitoramento" in sys.argv:
+        print("gerado", e4_monitoramento())
+        if "--sem-export" not in sys.argv:
+            for p in export(SAIDA_MONITORAMENTO): print("png", p, os.path.getsize(p) // 1024, "KB")
+        sys.exit(0)
     os.makedirs(SAIDA, exist_ok=True)
     for f in os.listdir(SAIDA):
         if f.endswith((".fzz", ".png", ".svg")) and not f.startswith("opencv"): os.remove(os.path.join(SAIDA, f))
