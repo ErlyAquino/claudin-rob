@@ -9,6 +9,9 @@ const AQUI = __dirname;
 const LOGOS = path.join(AQUI, "..", "..", "..", "imagens", "logos");
 const ESQ = path.join(AQUI, "..", "..", "esquemas", "saida");
 const SKETCH = path.join(AQUI, "..", "..", "codigo", "05c_mhz19c_diagnostico_usb", "05c_mhz19c_diagnostico_usb.ino");
+const SKETCH_WIFI = path.join(AQUI, "..", "..", "codigo", "05d_mhz19c_dht11_wifi_telemetria", "05d_mhz19c_dht11_wifi_telemetria.ino");
+const ARQ_WIFI = path.join(AQUI, "wifi.json");                      // resultado do teste pelo Wi-Fi (opcional)
+const WIFI = fs.existsSync(ARQ_WIFI) ? JSON.parse(fs.readFileSync(ARQ_WIFI, "utf8")) : null;
 const SAIDA = path.join(AQUI, "..", "..", "saida", "Tutorial-MH-Z19C-DHT11-Ligacao-e-Teste.docx");
 const VERDE = "E8F5E9", AZUL = "E3F2FD", VERMELHO = "FDECEA";
 const v = (x, c = 1) => Number(x).toFixed(c).replace(".", ",");
@@ -40,9 +43,9 @@ const corpo = [
   ...CAPA({
     logosDir: LOGOS, tipo: "Tutorial",
     titulo: "MH‑Z19C + DHT11 no ESP32: ligação e teste",
-    subtitulo: "Esquemas de montagem na protoboard (Fritzing) para o sensor de CO₂ MH‑Z19C e o módulo DHT11 de 3 pinos, como gravar o sketch de teste 05c e como ler o resultado no Monitor Serial",
+    subtitulo: "Esquemas de montagem na protoboard (Fritzing) para o sensor de CO₂ MH‑Z19C e o módulo DHT11 de 3 pinos, como gravar o sketch de teste 05c, como ler o resultado no Monitor Serial e como enviar as leituras pelo Wi‑Fi ao servidor da telemetria‑cria",
     info: [
-      "**Placa:** ESP32 DevKit V1 (30 pinos)  •  **Sketch:** `aula-ar/codigo/05c_mhz19c_diagnostico_usb`",
+      "**Placa:** ESP32 DevKit V1 (30 pinos)  •  **Sketches:** `05c_mhz19c_diagnostico_usb` (USB) e `05d_mhz19c_dht11_wifi_telemetria` (Wi‑Fi)",
       `**Teste na bancada:** ${INFO.data}, ${INFO.hora}, ${INFO.duracao} pela USB (${INFO.porta})`,
       "Espaço CRIA — ETE Epitácio Pessoa — novembro de 2026",
     ],
@@ -51,7 +54,7 @@ const corpo = [
 
   // ---------------------------------------------------------------
   H1("1. O que você vai montar"),
-  P("Dois sensores ligados ao mesmo ESP32, lidos por um único programa de teste (o sketch **05c**):"),
+  P("Dois sensores ligados ao mesmo ESP32, lidos por um único programa de teste (o sketch **05c**). Com a montagem aprovada, a seção 7 mostra como mandar as leituras **pelo Wi‑Fi**, sem cabo, para o servidor da telemetria‑cria (sketch **05d**)."),
   UL([
     "**MH‑Z19C:** mede o **CO₂** do ar (400 a 5000 ppm) por infravermelho. Conversa com o ESP32 pela **serial** (UART, 9600 baud). Precisa de **5 V**.",
     "**DHT11 (módulo de 3 pinos):** mede **umidade relativa** (20 a 90 %) e **temperatura** (0 a 50 °C). Usa **um fio de dados**. Funciona em **3,3 V**.",
@@ -213,9 +216,103 @@ const corpo = [
 
   // ---------------------------------------------------------------
   ...QUEBRA(),
-  H1("7. Código do teste (sketch 05c)"),
+  H1("7. Sem cabo: pelo Wi‑Fi até o servidor da telemetria‑cria"),
+  P("Até aqui a placa falava com o computador pelo **cabo USB**. Com o sketch **05d**, o ESP32 entra no **Wi‑Fi** e manda as leituras direto para o **servidor da telemetria‑cria** (projeto `telemetria-cria`, o mesmo do painel da escola). O cabo USB passa a levar **só energia**: a placa pode ficar num carregador de celular ou num power bank, em qualquer ponto da sala que o Wi‑Fi alcance."),
+  H2("7.1 O caminho da leitura"),
+  TAB(["Etapa", "Quem faz", "Onde"], [
+    ["1. Lê o CO₂ e o DHT11 a cada 10 s", "ESP32 (sketch 05d)", "na bancada"],
+    ["2. Publica por MQTT, pelo Wi‑Fi, em `cria/teste/no19/...`", "biblioteca **CriaTelemetria**", "porta 1883 do servidor"],
+    ["3. Recebe e confere usuário e senha do projeto", "broker **Mosquitto**", "no PC servidor"],
+    ["4. Confere a leitura com o catálogo e grava", "servidor Node + **InfluxDB**", "no PC servidor"],
+    ["5. Mostra ao vivo e guarda o histórico", "**painel** web", "`http://IP_DO_SERVIDOR:3000`"],
+  ], [0.44, 0.3, 0.26]),
+  ESPACO(),
+  P("A biblioteca cuida do Wi‑Fi, da conexão com o broker, de **acertar o relógio** pelo servidor e de **guardar na memória da placa** as leituras feitas sem rede, para reenviar quando a rede voltar. A montagem é **a mesma da seção 2.3**: nenhum fio muda."),
+  TAB(["", "Pela USB (05c + gateway)", "Pelo Wi‑Fi (05d)"], [
+    ["Cabo até o computador", "obrigatório", "não precisa (só energia)"],
+    ["Programa no computador", "`gateway.py` aberto", "nenhum além do servidor"],
+    ["Onde a placa pode ficar", "ao lado do computador", "onde o Wi‑Fi alcançar"],
+    ["Sem rede", "o gateway segura a fila", "a placa guarda e reenvia"],
+    ["Comandos de calibração (`z`, `a`, `d`…)", "sim, pelo Monitor Serial", "não: use o 05c para calibrar"],
+  ], [0.34, 0.33, 0.33]),
+
+  H2("7.2 O que precisa estar pronto"),
+  UL([
+    "**Servidor ligado:** Mosquitto e InfluxDB rodando e o painel no ar (`cd telemetria-cria/servidor && npm start`). O teste: abrir `http://IP_DO_SERVIDOR:3000` no navegador.",
+    "**Rede Wi‑Fi de 2,4 GHz.** O ESP32 **não enxerga redes de 5 GHz**. A rede do ESP32 precisa alcançar o IP do servidor: o mais simples é o servidor e a placa no **mesmo roteador**.",
+    "**IP do servidor nessa rede.** No Linux: `hostname -I` ou `ip -4 addr`. No Windows: `ipconfig`.",
+    "**Senha do projeto `teste`** no broker (está no `.env` do servidor, em `SIMULADOR_SENHA`; peça a quem cuida do servidor).",
+    "**Bibliotecas:** `CriaTelemetria` (pasta `telemetria-cria/firmware/biblioteca-cria`, copiada ou ligada em `~/Arduino/libraries/CriaTelemetria`), **PubSubClient** e **DHT sensor library**.",
+    "**Gateway USB fechado.** Ele usa o mesmo nó (`no19`): os dois juntos duplicam as leituras.",
+  ]),
+  NOTA("5 GHz foi o primeiro tropeço deste teste", "O computador do servidor estava numa rede que só transmite em **5 GHz**, invisível para o ESP32. A solução foi pôr **o servidor e a placa no mesmo roteador**, um que transmite nas duas bandas com o mesmo nome (o ESP32 usa a de 2,4 GHz). Se o Monitor Serial ficar em `[cria] aguardando o Wi-Fi ...` sem fim, confira a banda da rede antes da senha.", AZUL),
+
+  H2("7.3 Preencher o credenciais.h"),
+  P("Na pasta `aula-ar/codigo/05d_mhz19c_dht11_wifi_telemetria`, copie `credenciais.exemplo.h` para **`credenciais.h`** e preencha. Esse arquivo fica **fora do git**: senha nunca vai para o GitHub."),
+  CODIGO([
+    "#define WIFI_SSID    \"NOME_DA_REDE_2G4\"",
+    "#define WIFI_SENHA   \"senha-do-wifi\"",
+    "#define MQTT_HOST    \"IP_DO_SERVIDOR\"     // ex.: \"192.168.0.10\"",
+    "#define MQTT_PORTA   1883",
+    "#define MQTT_USUARIO \"teste\"              // igual ao PROJETO do sketch",
+    "#define MQTT_SENHA   \"senha-do-projeto-teste\"",
+  ].join("\n"), { arquivo: false, titulo: "credenciais.h" }),
+  ESPACO(),
+  P("O IP do servidor pode **mudar** quando o roteador o sorteia de novo (DHCP). Para uso permanente, reserve um IP fixo para o servidor no roteador."),
+
+  H2("7.4 Gravar e soltar o cabo"),
+  CODIGO([
+    "cd claudin-rob/aula-ar",
+    "arduino-cli lib install PubSubClient \"DHT sensor library\"",
+    "arduino-cli compile --fqbn esp32:esp32:esp32doit-devkit-v1 codigo/05d_mhz19c_dht11_wifi_telemetria",
+    "arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32doit-devkit-v1 codigo/05d_mhz19c_dht11_wifi_telemetria",
+  ].join("\n"), { arquivo: false, titulo: "Terminal" }),
+  ESPACO(),
+  OL([
+    "Grave com o cabo USB no computador (é a única hora em que o cabo de dados é necessário).",
+    "Abra o Monitor Serial (115200) e espere as linhas da tabela abaixo.",
+    "Tire o cabo do computador e ligue a placa num **carregador USB de 5 V** ou power bank. Ela reconecta sozinha em alguns segundos.",
+    "Abra o painel (`http://IP_DO_SERVIDOR:3000`), projeto **teste**, nó **no19**.",
+  ]),
+  TAB(["No Monitor Serial", "Significado"], [
+    ["`[cria] Wi-Fi conectado, IP 192.168.0.52`", "Entrou na rede"],
+    ["`[cria] relógio acertado: 2026-11-18 ... UTC`", "Pegou a hora do servidor; só depois disso começa a medir"],
+    ["`[cria] conectado ao broker; status online em cria/teste/no19/status`", "Usuário e senha aceitos"],
+    ["`[05d] MH-Z19C aquecendo: 587 ppm (ainda nao publicado)`", "Primeiro minuto: o CO₂ ainda não é enviado"],
+    ["`[cria] cria/teste/no19/co2 {\"valor\":603,...}`", "Leitura publicada"],
+  ], [0.6, 0.4]),
+  ESPACO(),
+  P("Para ver as mensagens chegando no servidor, sem o painel:"),
+  CODIGO("mosquitto_sub -h IP_DO_SERVIDOR -u teste -P SENHA_DO_TESTE -t \"cria/teste/no19/#\" -v", { arquivo: false, titulo: "Terminal (em qualquer computador da rede)" }),
+
+  H2("7.5 Se o Wi‑Fi der errado"),
+  TAB(["Sintoma no Monitor Serial", "Causa provável", "O que fazer"], [
+    ["`aguardando o Wi-Fi ...` sem fim", "Rede de 5 GHz, nome ou senha errados, sinal fraco", "Use rede de 2,4 GHz; confira maiúsculas e espaços do nome; aproxime a placa"],
+    ["Wi‑Fi conecta, mas o relógio não acerta", "O servidor não responde hora (NTP, porta 123/UDP) ou o IP está errado", "Confira `MQTT_HOST`; no servidor, veja o chrony e o firewall"],
+    ["Wi‑Fi e relógio certos, broker não conecta", "IP errado, porta 1883 bloqueada no firewall ou senha do projeto errada", "Teste com `mosquitto_sub` de outro computador da rede"],
+    ["`ERRO: MQTT_USUARIO é ...`", "Usuário diferente do projeto do sketch", "`MQTT_USUARIO` tem de ser `teste`"],
+    ["`a conexão cai logo depois de abrir`", "Outro nó (ou o gateway USB) com o mesmo nome", "Feche o gateway ou troque o `NO` no sketch"],
+    ["Tudo conecta, mas o painel não mostra", "Painel aberto em outro projeto, ou servidor Node parado", "Escolha o projeto `teste`; confira `http://IP:3000/saude`"],
+    ["Placa em redes diferentes do servidor", "Roteadores separados não se enxergam", "Ponha servidor e placa no mesmo roteador"],
+  ], [0.32, 0.32, 0.36]),
+  ...(WIFI ? [
+    H2(`7.6 Resultado do teste pelo Wi‑Fi (${WIFI.data})`),
+    P(WIFI.resumo),
+    TAB(["Grandeza", "Leituras gravadas", "Faixa"], WIFI.tabela, [0.34, 0.26, 0.4]),
+    ESPACO(),
+    ...WIFI.comentarios.map((c) => NOTA(c.titulo, c.texto, c.cor === "vermelho" ? VERMELHO : c.cor === "verde" ? VERDE : AZUL)).flatMap((n) => [n, ESPACO()]),
+    ...(WIFI.serial ? [CODIGO(WIFI.serial.join("\n"), { arquivo: false, titulo: "Monitor Serial do 05d (captura feita ainda com o cabo no computador)" })] : []),
+  ] : []),
+
+  // ---------------------------------------------------------------
+  ...QUEBRA(),
+  H1("8. Códigos"),
+  H2("8.1 Teste pela USB (sketch 05c)"),
   P("Arquivo `aula-ar/codigo/05c_mhz19c_diagnostico_usb/05c_mhz19c_diagnostico_usb.ino`."),
   CODIGO(SKETCH, { titulo: "05c_mhz19c_diagnostico_usb.ino" }),
+  H2("8.2 Envio pelo Wi‑Fi (sketch 05d)"),
+  P("Arquivo `aula-ar/codigo/05d_mhz19c_dht11_wifi_telemetria/05d_mhz19c_dht11_wifi_telemetria.ino`."),
+  CODIGO(SKETCH_WIFI, { titulo: "05d_mhz19c_dht11_wifi_telemetria.ino" }),
 ];
 
 module.exports = DOC({ titulo: "MH‑Z19C + DHT11 no ESP32: ligação e teste", rodape: "Tutorial — MH‑Z19C + DHT11 no ESP32: ligação e teste — Espaço CRIA", corpo });

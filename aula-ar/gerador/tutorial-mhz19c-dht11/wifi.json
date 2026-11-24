@@ -1,0 +1,40 @@
+{
+  "data": "18/11/2026",
+  "resumo": "O sketch 05d foi gravado às 15:09. Às **15:14:04** o cabo USB saiu do computador (a porta serial sumiu do sistema) e a placa passou a receber **só energia**. Ela religou, entrou no Wi‑Fi e voltou a publicar em cerca de 30 s. A tabela mostra o que o servidor **gravou no banco** das 15:14:36 às 15:20:46, sem cabo de dados: uma leitura a cada 10 s, **sem nenhum intervalo perdido**.",
+  "tabela": [
+    ["CO₂ (`co2`)", "33", "500 a 1647 ppm; estabilizou em 550–560 ppm"],
+    ["Temperatura interna do MH‑Z19C (`temperatura`)", "33", "22 a 23 °C"],
+    ["Umidade (`umidade`)", "38", "39 a 40 %"],
+    ["Temperatura do ar (`temperatura-ar`)", "38", "26,0 a 26,9 °C"],
+    ["Sensação térmica (`sensacao-termica`)", "38", "25,7 a 26,8 °C"]
+  ],
+  "comentarios": [
+    { "cor": "verde", "titulo": "Funcionou sem cabo de dados",
+      "texto": [
+        "Placa no IP 192.168.0.52, servidor no 192.168.0.246, os dois no mesmo roteador. O nó `cria/teste/no19` ficou **online** no painel e as cinco grandezas chegaram a cada 10 s.",
+        "O CO₂ tem 5 leituras a menos que o DHT11 porque o MH‑Z19C só é publicado depois de **1 minuto de aquecimento**. A primeira leitura depois disso foi **500 ppm**, o valor de partida do sensor."
+      ] },
+    { "cor": "azul", "titulo": "O pico de CO₂ no meio do teste",
+      "texto": [
+        "Às 15:16 o CO₂ saltou de ~600 para **1647 ppm** e desceu aos poucos, voltando a ~560 ppm em 3 minutos. É a curva típica de **respiração perto do sensor** (subida rápida, queda lenta), e coincidiu com o manuseio da placa. A causa não foi medida de outro jeito, mas a curva serve de prova de que o sensor responde ao CO₂."
+      ] },
+    { "cor": "azul", "titulo": "Dois tropeços na configuração, para não repetir",
+      "texto": [
+        "**Rede de 5 GHz:** o servidor estava numa rede invisível para o ESP32; servidor e placa foram para o mesmo roteador, e o `MQTT_HOST` passou a ser o IP novo do servidor.",
+        "**`MQTT_USUARIO` errado:** com um usuário diferente de `teste`, a placa nem tentou conectar e avisou no Monitor Serial: `ERRO: MQTT_USUARIO é \"...\", mas o projeto é \"teste\"`. O usuário do broker é sempre o **nome do projeto**."
+      ] }
+  ],
+  "serial": [
+    "[cria] nó cria/teste/no19, biblioteca CriaTelemetria 0.2.0",
+    "[cria] aguardando o Wi-Fi \"NOME_DA_REDE\"...",
+    "[cria] Wi-Fi conectado, IP 192.168.0.52",
+    "[cria] conectado ao broker; status online em cria/teste/no19/status",
+    "[05d] MH-Z19C aquecendo: 587 ppm (ainda nao publicado)",
+    "[cria] cria/teste/no19/umidade {\"valor\":40,\"unidade\":\"%\",\"seq\":1,\"boot\":2,\"t\":1795025241924}",
+    "[cria] cria/teste/no19/temperatura-ar {\"valor\":27.6,\"unidade\":\"C\",\"seq\":2,\"boot\":2,\"t\":1795025241926}",
+    "[cria] relógio acertado: 2026-11-18 18:07:21 UTC",
+    "...",
+    "[cria] cria/teste/no19/co2 {\"valor\":603,\"unidade\":\"ppm\",\"seq\":19,\"boot\":2,\"t\":1795025301898}",
+    "[cria] cria/teste/no19/temperatura {\"valor\":23,\"unidade\":\"C\",\"seq\":20,\"boot\":2,\"t\":1795025301900}"
+  ]
+}

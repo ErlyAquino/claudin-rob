@@ -1,20 +1,20 @@
 {
   "data": "18/11/2026",
-  "hora": "14:08–14:12",
+  "hora": "14:32–14:36",
   "duracao": "4 minutos",
   "porta": "/dev/ttyUSB0",
   "linhas_inicio": 14,
-  "linhas_fim": 7,
+  "linhas_fim": 10,
   "comentarios": [
-    { "cor": "vermelho", "titulo": "DHT11: nenhuma leitura neste teste",
+    { "cor": "verde", "titulo": "Os dois sensores passaram no teste",
       "texto": [
-        "O DHT11 falhou em **todas** as tentativas, desde a primeira. O programa é o mesmo que leu o sensor em 09/11/2026, então a causa está na **montagem**: fio DATA fora do GPIO 4, + fora do 3V3, − fora do GND, ou mau contato na protoboard (em 09/11 um fio se soltou ao montar este mesmo sensor).",
-        "Para conferir: o LED do módulo está aceso? Se sim, a alimentação chega e o defeito é o fio amarelo (DATA → D4). Refaça a ligação pela figura da seção 2.3 e rode o teste de novo."
+        "**DHT11:** leu em todas as tentativas. A umidade ficou em 41 % e a temperatura oscilou alguns décimos de grau, dentro do esperado para o sensor (±2 °C, ±5 % de UR).",
+        "**MH‑Z19C:** respondeu a todos os pedidos, sem reinícios, e o CO₂ **variou** de leitura para leitura, em valores de sala ventilada. O sensor está medindo."
       ] },
-    { "cor": "azul", "titulo": "MH‑Z19C: comunicação certa, valor parado em 400 ppm",
+    { "cor": "azul", "titulo": "O que aconteceu na primeira tentativa (14:08)",
       "texto": [
-        "O sensor respondeu a todos os pedidos, com checksum certo e sem reinícios: **Tx, Rx e GND estão certos e o sensor está alimentado**. A serial não mostra se o Vin está no VIN (5 V) ou no 3V3: confira esse fio com os olhos.",
-        "Mas o CO₂ ficou em **400 ppm em todas as 118 leituras**, sem variar uma única vez (a temperatura interna foi de 23 a 24 °C). 400 ppm é o **piso** do sensor, e ar de sala costuma dar mais que isso. Este teste **não prova** que o sensor está medindo. Falta o teste do sopro: soprar perto do sensor e ver o valor subir. Se não subir, a referência de zero está alta e é preciso fazer o zero (`z`) ao ar livre."
+        "No primeiro teste do dia, o **DHT11 falhou nas 118 tentativas** e o **MH‑Z19C ficou parado em 400 ppm** (o piso do sensor). O programa era o mesmo. Depois de **refazer a ligação do DHT11**, os dois sensores passaram a ler normalmente.",
+        "Moral: leitura travada ou falha constante, com o programa certo, é quase sempre **fio**. Confira a montagem pela figura da seção 2.3 antes de mexer no código."
       ] }
   ]
 }

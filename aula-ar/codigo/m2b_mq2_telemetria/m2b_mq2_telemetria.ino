@@ -38,7 +38,7 @@ const int PINO_AO = 34;              // o mesmo do firmware/no-ar
 const float VC = 5.0;                // tensao no VIN, medida com o multimetro
 const float RL_KOHM = 1.0;           // o mesmo da Etapa 2A
 const float DIV_SUP_KOHM = 100.0, DIV_INF_KOHM = 200.0;
-const float R0_KOHM = 0.0;           // <<< o R0 da Etapa 2A (kOhm)
+const float R0_KOHM = 18.2;          // PROVISORIO (24/11/2026, bancada, AO 0,26 V): refazer pela Etapa 2A
 const uint32_t PREAQUECIMENTO_MS = 10UL * 60 * 1000;
 const uint32_t INTERVALO_MS = 10000; // padrao do catalogo: uma leitura a cada 10 s
 const uint32_t MENOR_MV = 150, MAIOR_MV = 2450;

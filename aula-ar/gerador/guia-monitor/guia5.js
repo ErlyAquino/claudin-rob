@@ -166,6 +166,7 @@ const corpo = [
     ["1", "Protoboard de 830 furos", ""],
     ["1", "**Fonte chaveada de 5 V e 2 A**, com plugue P4 (cilíndrico, de 5,5 × 2,1 mm)", "Item do orçamento do projeto"],
     ["1", "Adaptador P4 fêmea com bornes de parafuso (terminais em que o fio é preso por um parafuso)", "Para levar a fonte às trilhas"],
+    ["—", "Alternativa aos dois itens acima: fonte chaveada de bornes, de 5 V e 2 A ou mais (a do laboratório é de 5 V e 6 A), com cabo de força de três pinos", "Dispensa o adaptador P4; ligação na seção 4.5"],
     ["1", "Capacitor eletrolítico de 470 µF, 10 V ou mais", "Entre as trilhas + e −; tem polaridade"],
     ["2", "Resistores de 100 kΩ, 2 de 200 kΩ e 2 capacitores de 100 nF", "Os divisores dos dois MQ"],
     ["27", "Jumpers macho-macho", "Inclui 2 para unir as metades das trilhas"],
@@ -182,7 +183,7 @@ const corpo = [
   ...FIGURA(path.join(ESQ, "m5_monitor_ar_esp32.png"), "Nó completo. Da esquerda para a direita: ESP32, DHT22, MQ-2, MQ-135, MH-Z19C, capacitor de 470 µF e a fonte de 5 V. No desenho, o DHT22 aparece ao lado dos MQ; na montagem real, ele fica afastado, na ponta do cabo. Confira cada ligação pela tabela abaixo.", 1.33),
   P("O desenho usa o par de trilhas de alimentação de baixo (o da borda da linha A). Arquivo do esquema: `aula-ar/esquemas/saida-monitor/m5_monitor_ar_esp32.fzz`."),
   TAB(["Bloco", "De", "Para", "Fio ou componente"], [
-    ["Alimentação", "+ e − da fonte (bornes do adaptador P4)", "Trilha + (a da linha vermelha) e trilha − (a da linha azul), coluna 61", "Vermelho, preto"],
+    ["Alimentação", "+ e − da fonte (bornes do adaptador P4, ou +V e −V da fonte de bornes, seção 4.5)", "Trilha + (a da linha vermelha) e trilha − (a da linha azul), coluna 61", "Vermelho, preto"],
     ["Alimentação", "Capacitor de 470 µF: − na coluna 59, + na coluna 60", "Coluna 59 à trilha −; coluna 60 à trilha +", "Preto, vermelho"],
     ["ESP32", "VIN e GND", "Trilha + e trilha −", "Vermelho, preto"],
     ["DHT22 (colunas 4 a 6)", "Vermelho (4) / amarelo (5) / preto (6)", "**3V3** direto / **D4** / trilha −", "Laranja, amarelo, preto"],
@@ -210,6 +211,7 @@ const corpo = [
     "Monte o DHT22: vermelho direto no pino **3V3** do ESP32 (nunca na trilha +), amarelo no **D4**, preto na trilha −. Deixe o sensor na ponta do cabo, a 20 cm ou mais dos MQ.",
     "Confira tudo pela tabela da seção 4.1 antes de energizar.",
   ]),
+  P("Com a fonte de bornes, os passos 2 e 3 são feitos como descreve a seção 4.5; os demais não mudam."),
 
   H2("4.3 A fonte e o cabo USB ao mesmo tempo"),
   UL([
@@ -224,13 +226,47 @@ const corpo = [
     "**Tudo desligado**, na escala de 200 Ω: entre a trilha + e a trilha − devem aparecer de **14 a 18 Ω** (os dois aquecedores em paralelo; o valor sobe por alguns segundos enquanto o capacitor carrega). Menos de 5 Ω é curto. Na escala de continuidade, o multímetro pode apitar: aqui isso é normal.",
     "Ainda desligado: entre o **3V3** do ESP32 e a trilha + **não** pode haver continuidade.",
     "Ligue a fonte. Os LEDs dos módulos MQ e do ESP32 acendem.",
-    "Meça entre a **trilha + e a trilha −**, perto dos MQ: **4,9 a 5,1 V** é o ideal para o MH-Z19C; até 5,2 V é tolerado. Acima disso, troque a fonte. Anote o valor: ele é o `TENSAO_DOS_MQ` do `sensores_ar.h`.",
+    "Meça entre a **trilha + e a trilha −**, perto dos MQ: **4,9 a 5,1 V** é o ideal para o MH-Z19C; até 5,2 V é tolerado. Acima disso, troque a fonte (na fonte de bornes, ajuste o trimpot +V ADJ, seção 4.5). Anote o valor: ele é o `TENSAO_DOS_MQ` do `sensores_ar.h`.",
     "Meça no **MH-Z19C**, entre Vin e GND: o mesmo valor, com até 0,1 V de diferença.",
     "Na escala de 200 mV, meça entre o **pino GND do ESP32** e a trilha − nas colunas 23 e 35: **menos de 10 mV**. Se der mais, encurte o fio do GND do ESP32, una as metades da trilha − com dois jumpers em paralelo e ligue a fonte perto do meio da trilha. Essa diferença entra como erro na leitura dos MQ.",
     "Meça entre o **fio vermelho e o preto do DHT22**: 3,2 a 3,4 V. Se der 5 V, o fio vermelho está na trilha +: desligue e corrija.",
     "Depois de 10 minutos, meça as colunas 19 e 31 (os pinos D34 e D35) em relação ao GND: entre 0,3 e 2,5 V em ar limpo, **nunca acima de 3,3 V**. Abaixo de 0,15 V, o RL do módulo é pequeno demais (Parte 1, seção 5.4).",
     "Opcional: com o multímetro em série com o + da fonte, na escala de 10 A, a corrente deve ficar perto de **0,45 A**. Depois, volte a ponta vermelha para a entrada de tensão antes de medir volts.",
   ]),
+
+  H2("4.5 Variante: fonte de bornes de 5 V e 6 A, ligada ao nobreak"),
+  P("A fonte disponível no laboratório é uma **DAKE ZSQH030-5V**, de 5 V e 6 A (30 W), com bornes de parafuso no lugar do plugue P4. Ela serve para o nó completo. A corrente da etiqueta é o **máximo que a fonte consegue fornecer**: o circuito consome só o que precisa, cerca de 0,45 A (seção 2.6). O que tem de coincidir é a tensão, de 5 V. Os 2 A pedidos neste guia são um mínimo."),
+  ...FIGURA(path.join(FIGS, "fonte-bornes-etiqueta.png"), "Etiqueta da fonte: entrada de 100 a 115 V ou de 200 a 240 V, saída de 5 V e 6 A.", 0.6),
+  ...FIGURA(path.join(FIGS, "fonte-bornes-ligacao.png"), "Bornes da fonte, na ordem gravada na carcaça. Os dois da esquerda recebem a tensão da rede; os dois da direita são a saída de 5 V. Confira a gravação na sua peça antes de prender os fios.", 0.8),
+  TAB(["Borne", "Gravação", "Liga em", "Fio"], [
+    ["1", "L (AC)", "Fase do cabo de força", "Marrom ou preto"],
+    ["2", "N (AC)", "Neutro do cabo de força", "Azul"],
+    ["3", "Símbolo de terra", "Terra do cabo de força", "Verde ou verde e amarelo"],
+    ["4", "−V", "Trilha − da protoboard (linha azul), coluna 61", "Preto"],
+    ["5", "+V", "Trilha + da protoboard (linha vermelha), coluna 61", "Vermelho"],
+  ], [0.1, 0.22, 0.44, 0.24]),
+  ESPACO(),
+  P("Ao lado do borne 5 ficam o trimpot **+V ADJ** (um pequeno resistor ajustável com chave de fenda, que regula a tensão de saída) e o LED verde, que acende com a fonte ligada."),
+  NOTA("Tensão da rede nos bornes L e N", [
+    "Os bornes 1 e 2 ficam com 110 V e **não têm isolamento**. Prenda ou solte fios **somente com o cabo de força fora da tomada**.",
+    "Baixe a tampa laranja sobre os bornes depois de apertar os parafusos, prenda o cabo de força para ele não ser puxado e mantenha a fonte fora do alcance dos alunos, de preferência dentro de uma caixa ventilada.",
+    "Um curto na saída desta fonte pode passar de 6 A, o bastante para derreter um jumper. Se tiver, ponha um fusível de 2 A no fio do +V.",
+  ], VERMELHO),
+  ESPACO(),
+  P("**Lado da rede (nobreak):**", { keepNext: true }),
+  OL([
+    "Procure uma **chave 115/230 V** na lateral da fonte. A etiqueta traz duas faixas de entrada separadas, o que costuma indicar essa chave. Se ela existir, deixe em 115 V, porque a saída do nobreak é de 110 V. Em 230 V, a fonte não parte ou a saída fica baixa.",
+    "Use um cabo de força de três pinos (serve um cabo de computador com a ponta fêmea cortada). Com o plugue **fora da tomada**, desencape 7 mm de cada fio, torça os fios de cobre e prenda: fase no borne L, neutro no N, terra no borne de terra. Nenhum fio de cobre pode ficar para fora do borne.",
+    "Baixe a tampa laranja e ligue o plugue numa tomada de **saída do nobreak** (uma das que continuam ligadas quando falta energia). O nó consome cerca de 3 W; o nobreak não sente essa carga.",
+  ]),
+  P("**Lado de 5 V (protoboard):**", { keepNext: true }),
+  OL([
+    "Com a saída ainda **desligada da protoboard**, ligue a fonte e meça entre +V e −V. Gire o trimpot +V ADJ, devagar, até ler **5,0 a 5,2 V**. Tire o plugue da tomada.",
+    "Prenda um fio vermelho no +V e um preto no −V e leve-os às trilhas + e −, na coluna 61. Use fio rígido 22 AWG (0,3 mm²), que prende no parafuso e entra no furo da protoboard, com 20 cm ou menos.",
+    "Continue do passo 4 da seção 4.2 (capacitor de 470 µF, VIN e GND do ESP32, sensores).",
+    "Faça a conferência da seção 4.4. Se a tensão na trilha, com tudo ligado, sair da faixa de 4,9 a 5,2 V, corrija no trimpot.",
+  ]),
+  P("Continua valendo a seção 4.3: ligue sempre a fonte antes do cabo USB. Com o nó pronto, tire o nobreak da tomada por um minuto e confira, no Monitor Serial ou no painel, que o `boot` não aumentou: o nó tem de seguir ligado pela bateria."),
 
   // =====================================================================
   ...QUEBRA(),
