@@ -16,7 +16,7 @@ documentado no README.md) e para saber como cada peça é regenerada.
 | `aula-leds/` | LEDs, botão, pot, RGB, semáforo, ESP32 + web (4 aulas) |
 | `aula-distancia/` | HC-SR04, serial + Python ao vivo, buzzer, alarme de ré, ESP32 web, WhatsApp/e-mail (6 aulas) |
 | `aula-sensores/` | DS18B20, DHT11, MQ-2, MQ-135, BME680, pH-4502C — Uno e ESP32 com monitor Wi-Fi (6 aulas) |
-| `aula-esp32cam/` | ESP32-CAM OV3660: stream, PIR+SD, Drive/Telegram, OpenCV, MediaPipe gestos→LEDs (5 aulas) |
+| `aula-esp32cam/` | ESP32-CAM OV3660: stream, PIR+SD, Drive/Telegram, OpenCV, MediaPipe gestos→LEDs (5 aulas); `05_cam_timelapse_telemetria`: time-lapse no microSD a cada 10 min, nó da telemetria-cria (`fotos`, `pendentes`), upload por `POST /api/imagens/<no>` e página ao vivo no IP da câmera (precisa da CriaTelemetria e de `credenciais.h`) |
 | `aula-ar/` | Qualidade do ar: DHT11 (módulo 3 pinos), DHT22/AM2302, MQ-2, MQ-135, MH-Z19C — teste individual Uno/ESP32 + monitor completo (Uno via gateway USB, ESP32 via CriaTelemetria → painel da telemetria-cria) |
 | `aula-agua/` | Monitor de água: pH-4502C, YF-S201/ZJ-S201 (vazão, efeito Hall), HX710B+MPS20N0040D (pressão → nível) e ADS1115 (ADC 16 bits, como no nó `horta/no1` da telemetria-cria) — teste individual Uno/ESP32 + projeto com LED RGB e buzzer (Uno e ESP32 com monitor Wi-Fi) |
 | `aula-tapo/` | Câmera Tapo C200/TC70: instalação, app, microSD/nuvem/NVR, RTSP/ONVIF, ESP32 atuador (relé/buzzer/RGB), gestos + reconhecimento facial (6 aulas) |
