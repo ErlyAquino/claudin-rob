@@ -1,0 +1,62 @@
+2026-11-25 17:36:27  INICIO  monitor ligado
+2026-11-25 19:06:27  EVENTO  no6 perdeu 1 leitura(s) (total do boot: 2 de 901)
+2026-11-25 19:12:27  EVENTO  no6 perdeu 1 leitura(s) (total do boot: 3 de 937)
+2026-11-25 19:12:27  EVENTO  no7 perdeu 1 leitura(s) (total do boot: 1 de 606)
+2026-11-25 19:12:27  EVENTO  no8 perdeu 2 leitura(s) (total do boot: 8 de 1874)
+2026-11-25 19:14:30  ERRO    no10: pagina da camera (192.168.0.10) sem resposta: <urlopen error [Errno 113] No route to host>
+2026-11-25 19:15:27  VOLTOU  no10/web (durou 1 min)
+2026-11-26 03:51:28  EVENTO  no6 perdeu 1 leitura(s) (total do boot: 4 de 4050)
+2026-11-26 07:17:28  EVENTO  no6 perdeu 1 leitura(s) (total do boot: 5 de 5286)
+2026-11-26 07:22:28  ERRO    no6 esta offline
+2026-11-26 07:22:28  EVENTO  no6 perdeu 1 leitura(s) (total do boot: 6 de 5315)
+2026-11-26 07:23:28  VOLTOU  no6/status (durou 1 min)
+2026-11-26 07:24:28  EVENTO  no6 perdeu 3 leitura(s) (total do boot: 9 de 5328)
+2026-11-26 07:26:28  ERRO    no6 esta offline
+2026-11-26 07:27:28  EVENTO  no6 perdeu 4 leitura(s) (total do boot: 13 de 5344)
+2026-11-26 07:28:28  VOLTOU  no6/status (durou 2 min)
+2026-11-26 07:28:28  EVENTO  no6 perdeu 2 leitura(s) (total do boot: 15 de 5352)
+2026-11-26 07:30:28  EVENTO  no6 perdeu 1 leitura(s) (total do boot: 16 de 5364)
+2026-11-26 07:31:28  ERRO    no6 esta offline
+2026-11-26 07:32:28  EVENTO  no6 perdeu 1 leitura(s) (total do boot: 17 de 5375)
+2026-11-26 07:33:28  ERRO    no6/mq2 parado ha mais de 60 s (ultimo valor 0.6419615)
+2026-11-26 07:33:28  VOLTOU  no6/status (durou 2 min)
+2026-11-26 07:34:28  ERRO    no6 esta offline
+2026-11-26 07:35:28  VOLTOU  no6/mq2/parado (durou 2 min)
+2026-11-26 07:35:28  EVENTO  no6 perdeu 12 leitura(s) (total do boot: 29 de 5391)
+2026-11-26 07:36:28  VOLTOU  no6/status (durou 2 min)
+2026-11-26 07:36:28  EVENTO  no6 perdeu 1 leitura(s) (total do boot: 30 de 5399)
+2026-11-26 07:38:28  ERRO    no6 esta offline
+2026-11-26 07:39:28  VOLTOU  no6/status (durou 1 min)
+2026-11-26 07:39:28  EVENTO  no6 perdeu 3 leitura(s) (total do boot: 33 de 5417)
+2026-11-26 07:43:28  EVENTO  no6 perdeu 1 leitura(s) (total do boot: 34 de 5441)
+2026-11-26 07:47:28  EVENTO  no6 perdeu 1 leitura(s) (total do boot: 35 de 5465)
+2026-11-26 07:48:28  ERRO    no6 esta offline
+2026-11-26 07:48:28  EVENTO  no6 perdeu 1 leitura(s) (total do boot: 36 de 5468)
+2026-11-26 07:49:28  VOLTOU  no6/status (durou 1 min)
+2026-11-26 07:51:28  ERRO    no6 esta offline
+2026-11-26 07:52:28  VOLTOU  no6/status (durou 1 min)
+2026-11-26 07:52:28  EVENTO  no6 perdeu 3 leitura(s) (total do boot: 39 de 5495)
+2026-11-26 07:53:28  EVENTO  no6 perdeu 1 leitura(s) (total do boot: 40 de 5500)
+2026-11-26 07:54:28  EVENTO  no6 perdeu 1 leitura(s) (total do boot: 41 de 5506)
+2026-11-26 07:55:28  ERRO    no6 esta offline
+2026-11-26 07:56:28  EVENTO  no6 perdeu 5 leitura(s) (total do boot: 46 de 5516)
+2026-11-26 07:57:28  VOLTOU  no6/status (durou 2 min)
+2026-11-26 07:57:28  EVENTO  no6 perdeu 5 leitura(s) (total do boot: 51 de 5524)
+2026-11-26 08:00:28  EVENTO  no6 perdeu 1 leitura(s) (total do boot: 52 de 5542)
+2026-11-26 08:01:28  ERRO    no6 esta offline
+2026-11-26 08:02:28  ERRO    no6/mq2 parado ha mais de 60 s (ultimo valor 0.5834953)
+2026-11-26 08:03:28  VOLTOU  no6/status (durou 2 min)
+2026-11-26 08:03:28  VOLTOU  no6/mq2/parado (durou 1 min)
+2026-11-26 08:03:28  EVENTO  no6 perdeu 7 leitura(s) (total do boot: 59 de 5560)
+2026-11-26 08:04:28  ERRO    no6 esta offline
+2026-11-26 08:04:28  EVENTO  no6 perdeu 1 leitura(s) (total do boot: 60 de 5564)
+2026-11-26 08:05:29  VOLTOU  no6/status (durou 1 min)
+2026-11-26 08:05:29  EVENTO  no6 perdeu 1 leitura(s) (total do boot: 61 de 5571)
+2026-11-26 08:06:28  ERRO    no6 esta offline
+2026-11-26 08:06:28  EVENTO  no6 perdeu 2 leitura(s) (total do boot: 63 de 5576)
+2026-11-26 08:07:28  VOLTOU  no6/status (durou 1 min)
+2026-11-26 08:07:28  EVENTO  no6 perdeu 1 leitura(s) (total do boot: 64 de 5584)
+2026-11-26 09:51:28  EVENTO  no7 perdeu 1 leitura(s) (total do boot: 2 de 5880)
+2026-11-26 09:51:28  EVENTO  no8 perdeu 2 leitura(s) (total do boot: 10 de 12422)
+2026-11-26 11:11:28  EVENTO  no6 perdeu 1 leitura(s) (total do boot: 65 de 6688)
+2026-11-26 18:16:18  FIM     teste de 24 h encerrado (periodo oficial 2026-11-25 17:47 a 2026-11-26 17:47); coletores desligados
