@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.2" width="0.600in" height="1.750in" viewBox="0 0 600 1750">
+<g id="breadboard">
+<rect x="262" y="20" width="76" height="430" rx="34" fill="#d9d9d9" stroke="#777" stroke-width="8"/>
+<rect x="255" y="430" width="90" height="120" rx="14" fill="#1b1b1b" stroke="#000" stroke-width="6"/>
+<path d="M 300 550 C 300 700, 420 760, 300 900 S 300 1050, 300 1120" fill="none" stroke="#111" stroke-width="40" stroke-linecap="round"/>
+<text x="370" y="200" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="46" font-weight="bold" fill="#444" text-anchor="start">DS18B20</text>
+<text x="370" y="255" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="34" font-weight="normal" fill="#444" text-anchor="start">à prova d'água</text>
+<path d="M 280 1110 C 280 1330, 200 1380, 200 1590" fill="none" stroke="#cc0000" stroke-width="36" stroke-linecap="round"/>
+<rect x="160" y="1570" width="80" height="80" fill="#111"/>
+<rect id="connector0pin" x="170" y="1650" width="60" height="60" fill="#c8a24a" stroke="#7a5c12" stroke-width="6"/>
+<path d="M 300 1110 C 300 1330, 300 1380, 300 1590" fill="none" stroke="#f1c232" stroke-width="36" stroke-linecap="round"/>
+<rect x="260" y="1570" width="80" height="80" fill="#111"/>
+<rect id="connector1pin" x="270" y="1650" width="60" height="60" fill="#c8a24a" stroke="#7a5c12" stroke-width="6"/>
+<path d="M 320 1110 C 320 1330, 400 1380, 400 1590" fill="none" stroke="#222222" stroke-width="36" stroke-linecap="round"/>
+<rect x="360" y="1570" width="80" height="80" fill="#111"/>
+<rect id="connector2pin" x="370" y="1650" width="60" height="60" fill="#c8a24a" stroke="#7a5c12" stroke-width="6"/>
+<text x="300" y="1530" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="36" font-weight="normal" fill="#444" text-anchor="middle">VDD  DADOS  GND</text>
+</g>
+</svg>

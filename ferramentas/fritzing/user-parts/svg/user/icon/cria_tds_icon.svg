@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.2" width="0.900in" height="1.750in" viewBox="0 0 900 1750">
+<g id="icon">
+<rect x="405" y="20" width="26" height="150" rx="8" fill="#d9d9d9" stroke="#777" stroke-width="5"/>
+<rect x="469" y="20" width="26" height="150" rx="8" fill="#d9d9d9" stroke="#777" stroke-width="5"/>
+<rect x="370" y="150" width="160" height="330" rx="40" fill="#1b1b1b" stroke="#000" stroke-width="8"/>
+<text x="650" y="110" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="40" font-weight="normal" fill="#444" text-anchor="start">2 eletrodos</text>
+<text x="650" y="330" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="46" font-weight="bold" fill="#444" text-anchor="start">sonda</text>
+<text x="650" y="385" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="34" font-weight="normal" fill="#444" text-anchor="start">(só ela vai na água)</text>
+<path d="M 450 480 C 450 560, 300 560, 300 660 S 450 740, 450 800" fill="none" stroke="#111" stroke-width="34" stroke-linecap="round"/>
+<rect x="10" y="790" width="880" height="930" rx="30" fill="#17375e" stroke="#0b1f38" stroke-width="10"/>
+<circle cx="80" cy="860" r="35" fill="#ffffff" stroke="#999" stroke-width="6"/>
+<circle cx="820" cy="860" r="35" fill="#ffffff" stroke="#999" stroke-width="6"/>
+<rect x="350" y="800" width="200" height="110" rx="10" fill="#f3f3f3" stroke="#999" stroke-width="6"/>
+<rect x="330" y="1010" width="240" height="150" rx="10" fill="#111" stroke="#000" stroke-width="6"/>
+<text x="450" y="1250" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="64" font-weight="bold" fill="#ffffff" text-anchor="middle">TDS Meter V1.0</text>
+<text x="450" y="1330" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="44" font-weight="normal" fill="#dceaf7" text-anchor="middle">condutividade · 0–1000 ppm</text>
+<text x="450" y="1400" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="44" font-weight="normal" fill="#dceaf7" text-anchor="middle">3,3–5,5 V · saída 0–2,3 V</text>
+<rect x="110" y="1040" width="130" height="60" fill="#333" stroke="#000" stroke-width="4"/>
+<rect x="660" y="1040" width="130" height="60" fill="#333" stroke="#000" stroke-width="4"/>
+<rect x="290" y="1600" width="320" height="110" rx="10" fill="#f3f3f3" stroke="#999" stroke-width="6"/>
+<text x="350" y="1570" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="70" font-weight="bold" fill="#ffffff" text-anchor="middle">−</text>
+<rect id="connector0pin" x="320" y="1650" width="60" height="60" fill="#c8a24a" stroke="#7a5c12" stroke-width="6"/>
+<text x="450" y="1570" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="70" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
+<rect id="connector1pin" x="420" y="1650" width="60" height="60" fill="#c8a24a" stroke="#7a5c12" stroke-width="6"/>
+<text x="550" y="1570" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="70" font-weight="bold" fill="#ffffff" text-anchor="middle">A</text>
+<rect id="connector2pin" x="520" y="1650" width="60" height="60" fill="#c8a24a" stroke="#7a5c12" stroke-width="6"/>
+<text x="450" y="1490" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="40" font-weight="normal" fill="#dceaf7" text-anchor="middle">GND  VCC  sinal</text>
+</g>
+</svg>

@@ -1,6 +1,11 @@
 """Gera a peca Fritzing extra da aula de agua (aula-agua):
   - cria_yfs201 : sensor de vazao YF-S201 / ZJ-S201 (turbina + sensor Hall), G1/2", cabo de 3 fios
                   (vermelho VCC, amarelo SINAL, preto GND)
+  - cria_hx710b, cria_ads1115 : modulo de pressao e conversor A/D
+  - cria_tds    : modulo "TDS Meter V1.0" (condutividade/TDS analogico, clone do Gravity TDS) com a sonda de 2 eletrodos;
+                  pinos na ordem da serigrafia: - (GND), + (VCC), A (saida analogica)
+  - cria_ds18b20_sonda : DS18B20 a prova d'agua, cabo de 3 fios (vermelho VDD, amarelo dados, preto GND)
+  - cria_ds18b20_to92  : DS18B20 no encapsulamento TO-92, visto pela face plana (1 GND, 2 DQ, 3 VDD)
 
 Saida: ferramentas/fritzing/user-parts/{user/*.fzp, svg/user/{breadboard,schematic,pcb,icon}/*.svg}
 Depois copie user-parts/* para ~/Documents/Fritzing/parts (Linux pt-BR: ~/Documentos/...) - o setup-linux-mint.sh faz isso.
@@ -101,9 +106,91 @@ def ads1115():
                        ("ALRT", "saída de alerta/pronto (opcional)"), ("A0", "entrada analógica 0"), ("A1", "entrada analógica 1"), ("A2", "entrada analógica 2"), ("A3", "entrada analógica 3")],
                 bb=svg(W, H, "\n".join(c)), w=W, h=H, xs=xs, yp=yp)
 
+def tds():
+    """modulo TDS Meter V1.0 (condutividade / TDS analogico): placa com 3 pinos  -  +  A  e a sonda de 2 eletrodos no cabo"""
+    W, H = 900, 1750
+    nomes = ["−", "+", "A"]
+    xs = [350, 450, 550]; yp = 1680
+    c = ['<g id="breadboard">',
+         # sonda (ponta para cima): dois eletrodos de metal, corpo preto a prova d'agua
+         '<rect x="405" y="20" width="26" height="150" rx="8" fill="#d9d9d9" stroke="#777" stroke-width="5"/>',
+         '<rect x="469" y="20" width="26" height="150" rx="8" fill="#d9d9d9" stroke="#777" stroke-width="5"/>',
+         '<rect x="370" y="150" width="160" height="330" rx="40" fill="#1b1b1b" stroke="#000" stroke-width="8"/>',
+         texto(650, 110, "2 eletrodos", 40, cor="#444", peso="normal", anc="start"),
+         texto(650, 330, "sonda", 46, cor="#444", anc="start"),
+         texto(650, 385, "(só ela vai na água)", 34, cor="#444", peso="normal", anc="start"),
+         # cabo da sonda ate o conector de 2 pinos da placa
+         '<path d="M 450 480 C 450 560, 300 560, 300 660 S 450 740, 450 800" fill="none" stroke="#111" stroke-width="34" stroke-linecap="round"/>',
+         # placa
+         '<rect x="10" y="790" width="880" height="930" rx="30" fill="#17375e" stroke="#0b1f38" stroke-width="10"/>',
+         '<circle cx="80" cy="860" r="35" fill="#ffffff" stroke="#999" stroke-width="6"/>',
+         '<circle cx="820" cy="860" r="35" fill="#ffffff" stroke="#999" stroke-width="6"/>',
+         '<rect x="350" y="800" width="200" height="110" rx="10" fill="#f3f3f3" stroke="#999" stroke-width="6"/>',      # conector XH da sonda
+         '<rect x="330" y="1010" width="240" height="150" rx="10" fill="#111" stroke="#000" stroke-width="6"/>',      # CI
+         texto(450, 1250, "TDS Meter V1.0", 64, cor="#ffffff"),
+         texto(450, 1330, "condutividade · 0–1000 ppm", 44, cor="#dceaf7", peso="normal"),
+         texto(450, 1400, "3,3–5,5 V · saída 0–2,3 V", 44, cor="#dceaf7", peso="normal"),
+         '<rect x="110" y="1040" width="130" height="60" fill="#333" stroke="#000" stroke-width="4"/>',
+         '<rect x="660" y="1040" width="130" height="60" fill="#333" stroke="#000" stroke-width="4"/>',
+         '<rect x="290" y="1600" width="320" height="110" rx="10" fill="#f3f3f3" stroke="#999" stroke-width="6"/>']    # conector de 3 pinos
+    for i, (x, n) in enumerate(zip(xs, nomes)):
+        c.append(texto(x, 1570, n, 70))
+        c.append(pino_bb(i, x, yp))
+    c.append(texto(450, 1490, "GND  VCC  sinal", 40, cor="#dceaf7", peso="normal"))
+    c.append("</g>")
+    return dict(mid="cria_tds", titulo="TDS Meter V1.0 (condutividade / TDS analógico) com sonda", label="TDS",
+                desc="Módulo analógico de condutividade elétrica / TDS (clone do Gravity TDS): 3,3–5,5 V, saída 0–2,3 V, 0–1000 ppm, sonda de 2 eletrodos à prova d'água excitada em corrente alternada. A placa não é à prova d'água.",
+                pinos=[("GND", "terra (−)"), ("VCC", "alimentação 3,3–5,5 V (+)"), ("A", "saída analógica 0–2,3 V")],
+                bb=svg(W, H, "\n".join(c)), w=W, h=H, xs=xs, yp=yp)
+
+def ds18b20_sonda():
+    """DS18B20 a prova d'agua: capsula de inox na ponta de um cabo de 3 fios (vermelho VDD, amarelo dados, preto GND)"""
+    W, H = 600, 1750
+    xs = [200, 300, 400]; yp = 1680
+    cores = ["#cc0000", "#f1c232", "#222222"]
+    c = ['<g id="breadboard">',
+         '<rect x="262" y="20" width="76" height="430" rx="34" fill="#d9d9d9" stroke="#777" stroke-width="8"/>',       # capsula de inox
+         '<rect x="255" y="430" width="90" height="120" rx="14" fill="#1b1b1b" stroke="#000" stroke-width="6"/>',      # termorretratil
+         '<path d="M 300 550 C 300 700, 420 760, 300 900 S 300 1050, 300 1120" fill="none" stroke="#111" stroke-width="40" stroke-linecap="round"/>',
+         texto(370, 200, "DS18B20", 46, cor="#444", anc="start"),
+         texto(370, 255, "à prova d'água", 34, cor="#444", peso="normal", anc="start")]
+    for i, (x, cor) in enumerate(zip(xs, cores)):
+        c.append(f'<path d="M {280 + i*20} 1110 C {280 + i*20} 1330, {x} 1380, {x} 1590" fill="none" stroke="{cor}" stroke-width="36" stroke-linecap="round"/>')
+        c.append(f'<rect x="{x-40}" y="1570" width="80" height="80" fill="#111"/>')
+        c.append(pino_bb(i, x, yp))
+    c.append(texto(300, 1530, "VDD  DADOS  GND", 36, cor="#444", peso="normal"))
+    c.append("</g>")
+    return dict(mid="cria_ds18b20_sonda", titulo="DS18B20 à prova d'água (sonda com cabo de 3 fios)", label="TEMP",
+                desc="Sensor de temperatura digital DS18B20 em cápsula de inox com cabo: vermelho = VDD (3,0–5,5 V), amarelo = dados (1-Wire, com resistor de 4,7 kΩ até o VDD), preto = GND.",
+                pinos=[("VDD", "fio vermelho, 3,0–5,5 V"), ("DQ", "fio amarelo, dados 1-Wire"), ("GND", "fio preto, terra")],
+                bb=svg(W, H, "\n".join(c)), w=W, h=H, xs=xs, yp=yp)
+
+
+def ds18b20_to92():
+    """DS18B20 no encapsulamento TO-92, visto de frente (face plana com a inscricao): 1 GND, 2 DQ (dados), 3 VDD.
+    Desenhado maior que o real (o corpo tem ~5 mm) para a inscricao e a ordem dos pinos ficarem legiveis."""
+    W, H = 500, 950
+    xs = [150, 250, 350]; yp = 880
+    nomes = ["GND", "DQ", "VDD"]
+    c = ['<g id="breadboard">',
+         '<path d="M 70 330 L 70 120 Q 70 40 150 40 L 350 40 Q 430 40 430 120 L 430 330 Z" fill="#1b1b1b" stroke="#000" stroke-width="8"/>',   # face plana
+         '<rect x="70" y="330" width="360" height="26" fill="#333" stroke="#000" stroke-width="6"/>',
+         texto(250, 150, "DALLAS", 50, cor="#dddddd"),
+         texto(250, 225, "18B20", 62, cor="#ffffff"),
+         texto(250, 295, "1   2   3", 46, cor="#bbbbbb", peso="normal")]
+    for i, (x, n) in enumerate(zip(xs, nomes)):
+        c.append(f'<rect x="{x-13}" y="356" width="26" height="500" fill="#bdbdbd" stroke="#777" stroke-width="4"/>')    # perna
+        c.append(texto(x, 620, n, 44, cor="#444", rot=-90))
+        c.append(pino_bb(i, x, yp))
+    c.append("</g>")
+    return dict(mid="cria_ds18b20_to92", titulo="DS18B20 TO-92 (visto pela face plana)", label="TEMP",
+                desc="Sensor de temperatura digital DS18B20 no encapsulamento TO-92, visto pela face plana: pino 1 = GND, pino 2 = DQ (dados 1-Wire, com resistor de 4,7 kΩ até o VDD), pino 3 = VDD (3,0–5,5 V).",
+                pinos=[("GND", "pino 1, terra"), ("DQ", "pino 2, dados 1-Wire"), ("VDD", "pino 3, 3,0–5,5 V")],
+                bb=svg(W, H, "\n".join(c)), w=W, h=H, xs=xs, yp=yp)
+
 
 if __name__ == "__main__":
-    for p in (yfs201(), hx710b(), ads1115()):
+    for p in (yfs201(), hx710b(), ads1115(), tds(), ds18b20_sonda(), ds18b20_to92()):
         a = p["mid"]
         gravar(f"{BASE}/user/{a}.fzp", fzp(p).replace("<tag>qualidade do ar</tag>", "<tag>agua</tag>").replace("gerar_pecas_ar.py", "gerar_pecas_agua.py"))
         gravar(f"{BASE}/svg/user/breadboard/{a}_breadboard.svg", p["bb"])

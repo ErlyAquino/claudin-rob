@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Capturas de tela do tutorial do sensor de condutividade, com o Edge/Chrome sem janela:
+#   pagina_celular.png   a pagina do sketch 06b (simular_pagina.js), em dois momentos: CE na faixa e CE baixa
+#   painel_telemetria.png  o painel da telemetria-cria (simular_painel.js) com o no teste/no7 do sketch 06c
+# Uso (Git Bash no Windows):  bash capturar_paginas.sh
+#   NAVEGADOR=/caminho/do/chrome   troca o navegador;   TELEMETRIA_DIR=/caminho/telemetria-cria   troca o repositorio
+set -e
+cd "$(dirname "$0")"
+NAV="${NAVEGADOR:-/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe}"
+win() { cygpath -w "$1" 2>/dev/null || echo "$1"; }
+foto() {   # foto <url> <arquivo> <largura,altura> <ms de espera>
+  "$NAV" --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=2 --window-size="$3" \
+         --virtual-time-budget="$4" --screenshot="$(win "$PWD/$2")" "$1" 2>/dev/null
+}
+
+node simular_pagina.js 8767 1430 & P1=$!
+node simular_pagina.js 8769 1150 & P2=$!
+sleep 1
+foto "http://localhost:8767/" pagina_ok.png 460,1190 200000
+foto "http://localhost:8769/" pagina_baixa.png 460,1190 200000
+kill $P1 $P2
+
+if [ -d "${TELEMETRIA_DIR:-../../../../telemetria-cria}/servidor/node_modules/socket.io" ]; then
+  node simular_painel.js 8768 & P3=$!
+  sleep 1
+  foto "http://localhost:8768/" painel_telemetria.png 1180,500 6000
+  kill $P3
+else
+  echo "telemetria-cria/servidor/node_modules nao encontrado: painel_telemetria.png nao foi refeito"
+fi
+
+(cd ../../../python-dados && uv run python ../aula-agua/gerador/tutorial-tds/juntar_capturas.py)
+rm -f pagina_ok.png pagina_baixa.png
