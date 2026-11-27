@@ -645,7 +645,7 @@ py calibracao/calibrar.py --porta COM5 temperatura       (conduz o ajuste)`, { a
     ["Thompson (1998) e Goto (1996)", "lidos só os resumos"],
     ["Erro do pH com a temperatura (figura 10)", "cálculo deste tutorial pela equação de Nernst, supondo o ponto de tensão zero em pH 7"],
     ["Bancada de 25 posições", "o repositório da telemetria não informa volume, material nem posição do reservatório, e não há registro da temperatura da solução"],
-    ["Duração da sonda em imersão contínua", "não há fonte; o histórico das conferências no gelo é que vai mostrar"],
+    ["Duração da sonda na água", "não há fonte; o histórico das conferências no gelo é que vai mostrar"],
     ["Boletim Técnico 180 do IAC e a ficha de hidroponia da Universidade de Oklahoma", "não foram localizados ou não trazem a temperatura da solução"],
     ["Vídeos", "endereço, título e canal conferidos; conteúdo não assistido"],
     ["Peças do Fritzing", "o DS18B20 TO‑92 e a sonda com cabo foram desenhados para estes tutoriais; o TO‑92 está maior que o real"],
