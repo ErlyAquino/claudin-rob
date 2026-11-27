@@ -14,7 +14,7 @@ const VERDE = "E8F5E9", VERMELHO = "FDECEA";
 const corpo = [
   ...CAPA({
     logosDir: LOGOS, tipo: "Tutorial",
-    titulo: "Conversor de nível lógico 5 V ↔ 3,3 V: para que serve e quando usar",
+    titulo: "Conversor de nível lógico 5 V ↔ 3,3 V: para que serve e quando usar",
     subtitulo: "A plaquinha de 4 canais que deixa o ESP32, de 3,3 V, conversar com módulos de 5 V: como funciona, quando é necessária, quando um divisor resolve, quando ela não serve, e onde entra na Rede de Telemetria do Espaço CRIA",
     info: [
       "**Peças:** ESP32 DevKit V1, conversor de nível lógico bidirecional de 4 canais (BSS138) e um módulo I²C alimentado em 5 V (aqui, o ADS1115)",
@@ -52,6 +52,7 @@ const corpo = [
   P("O terceiro caso merece atenção. No barramento I²C ninguém “empurra” a linha para o nível alto: os chips só a **puxam para 0 V**, e quem a leva de volta ao nível alto é um resistor de **pull‑up** ligado à alimentação. É o que se chama saída em dreno aberto. Se o pull‑up está num módulo alimentado em 5 V, a linha em repouso fica em 5 V."),
 
   // ---------------------------------------------------------------
+  QUEBRA(),
   H1("3. O módulo"),
   ...FIGURA(IMG("pinagem.png"), "A plaquinha de 4 canais vista de cima. Uma fileira é o lado de 5 V, a outra o de 3,3 V; cada canal liga um pino HV ao pino LV de mesmo número.", 1.2),
   TAB(["Pino", "Liga em", "Função"], [
@@ -79,7 +80,7 @@ const corpo = [
   // ---------------------------------------------------------------
   QUEBRA(),
   H1("4. Quando usar e quando não usar"),
-  ...FIGURA(IMG("decisao.png"), "Preciso de conversor? Quatro perguntas, na ordem.", 1.05),
+  ...FIGURA(IMG("decisao.png"), "Preciso de conversor? Quatro perguntas, na ordem.", 0.95),
   TAB(["Situação", "Exemplos", "Solução"], [
     ["I²C ou outro fio de mão dupla entre 5 V e 3,3 V", "ADS1115, LCD com PCF8574 ou DS3231 **alimentados em 5 V**; 1‑Wire com pull‑up em 5 V", "**conversor**, um canal por fio de dados"],
     ["Fio digital de mão única, do módulo de 5 V para o ESP32", "ECHO do HC‑SR04, pulsos do YF‑S201", "**divisor 1 kΩ / 2 kΩ** (5 V viram 3,3 V). Um canal livre do conversor também serve"],
@@ -92,7 +93,6 @@ const corpo = [
   P("Antes de pôr o conversor, vale a pergunta mais barata: **o módulo funciona em 3,3 V?** Muitos funcionam, e alimentá‑los pelo pino 3V3 do ESP32 resolve tudo sem peça extra. O conversor é para quando o módulo **precisa** dos 5 V."),
 
   // ---------------------------------------------------------------
-  QUEBRA(),
   H1("5. No projeto: a Rede de Telemetria"),
   H2("5.1 Onde o conversor entra no nó horta/no1"),
   P("O nó `horta/no1` mede a solução nutritiva da bancada hidropônica. A montagem documentada em `firmware/horta-no1/README.md` usa **um conversor de 4 canais, com três canais ocupados**."),
@@ -123,7 +123,6 @@ const corpo = [
   ]),
 
   // ---------------------------------------------------------------
-  QUEBRA(),
   H1("6. Montagem com o ESP32"),
   P("O exemplo repete o trecho de I²C do `horta/no1`: ESP32, conversor e ADS1115 alimentado em 5 V. A trilha vermelha da protoboard recebe os 5 V do pino VIN (com o ESP32 ligado pela USB) e a azul o GND."),
   ...FIGURA(ESQ("11_conversor_nivel_ads1115_esp32"), "ESP32, conversor de nível e ADS1115 em 5 V. Fileira de baixo do conversor (LV) para o ESP32; fileira de cima (HV) para a protoboard. Azul: SDA. Verde: SCL. Laranja: 3,3 V. Vermelho: 5 V.", 1.3),
@@ -148,6 +147,7 @@ const corpo = [
   P("Se o módulo responde, o conversor está passando os dados nos dois sentidos: a pergunta foi do ESP32 ao módulo, e a resposta voltou. Com um multímetro dá para completar a conferência com o barramento parado: perto de 3,3 V em LV1 e LV2, perto de 5 V em HV1 e HV2."),
 
   // ---------------------------------------------------------------
+  QUEBRA(),
   H1("7. Erros comuns"),
   TAB(["Erro", "Sintoma", "Correção"], [
     ["**HV ou LV sem ligar.** Só os fios de dados foram postos", "o scanner não acha nada, ou o barramento trava", "5 V no HV **e** 3,3 V no LV. Sem as duas referências o canal não funciona"],
