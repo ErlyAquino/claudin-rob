@@ -3,8 +3,8 @@
   erros.png             erro de pH: so offset (1 ponto) x 2 pontos, e efeito da temperatura
   bancada.png           leituras da bancada (telemetria-cria, cria/teste/no5) + resumo_bancada.json
 Uso (a partir de python-dados/):
-  uv run python ../aula-agua/gerador/relatorio-ph4502c/graficos.py            # usa bancada.json salvo
-  uv run python ../aula-agua/gerador/relatorio-ph4502c/graficos.py --baixar 120   # busca os ultimos 120 min no servidor
+  uv run python ../aula-agua/gerador/tutorial-ph4502c/graficos.py            # usa bancada.json salvo
+  uv run python ../aula-agua/gerador/tutorial-ph4502c/graficos.py --baixar 120   # busca os ultimos 120 min no servidor
 """
 import json, os, sys, statistics as st
 from datetime import datetime
