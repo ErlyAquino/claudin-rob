@@ -12,7 +12,7 @@
   estima a luz util para a planta (PPFD) e soma a luz das ultimas 24 horas (DLI estimado).
 
   Celular: entre na rede "Horta-Luz" (senha 12345678) e abra http://192.168.4.1
-  Monitor Serial (115200, "Nova linha"):  c 850 = o luximetro ao lado marca 850 lx (corrige o fator)
+  Monitor Serial (115200, "Nova linha"):  c 850 = o luximetro ao lado marca 850 lx
                                           r = apagar a correcao
 */
 #include <WiFi.h>
@@ -38,7 +38,7 @@ BH1750 sensor(ENDERECO);
 
 float fator = 1.0;                             // correcao da conferencia com o luximetro
 float luxPorUmol = 54.0;                       // fonte de luz: 54 = sol; 67 = LED branco
-float dliMin = 12, dliMax = 17;                // meta de luz diaria, em mol/m2/dia (muda na pagina)
+float dliMin = 12, dliMax = 17;                // meta de luz diaria, em mol/m2/dia
 float lux = 0, ppfd = 0;
 byte mtreg = MTREG_NORMAL;
 bool sensorPresente = false, jaMediu = false, saturado = false, pularLeitura = false;
@@ -61,19 +61,20 @@ void escolherFaixa(float luxBruto) {
   if (mtreg == MTREG_NORMAL && luxBruto > 40000) novo = MTREG_SOL;
   if (mtreg == MTREG_SOL && luxBruto < 20000) novo = MTREG_NORMAL;
   if (novo == mtreg) return;
-  if (sensor.setMTreg(novo)) { mtreg = novo; pularLeitura = true; }   // a proxima ainda e da faixa velha
+  // Depois da troca, a proxima leitura ainda foi medida na faixa velha: sera descartada.
+  if (sensor.setMTreg(novo)) { mtreg = novo; pularLeitura = true; }
 }
 
 void somarNaGaveta(float segundos) {
   unsigned long agora = millis();
-  while (agora - inicioDaGaveta >= TEMPO_DA_GAVETA) {       // passou de 5 min: abre a gaveta seguinte
+  while (agora - inicioDaGaveta >= TEMPO_DA_GAVETA) {       // passou de 5 min: gaveta seguinte
     inicioDaGaveta += TEMPO_DA_GAVETA;
     gavetaAtual = (gavetaAtual + 1) % GAVETAS;
     molDaGaveta[gavetaAtual] = 0;
     luzDaGaveta[gavetaAtual] = 0;
     if (gavetasUsadas < GAVETAS) gavetasUsadas++;
   }
-  molDaGaveta[gavetaAtual] += ppfd * segundos / 1e6;        // umol/m2/s x s = umol/m2; / 1e6 = mol/m2
+  molDaGaveta[gavetaAtual] += ppfd * segundos / 1e6;        // umol/m2 / 1e6 = mol/m2
   if (lux >= LUX_DE_DIA) luzDaGaveta[gavetaAtual] += (uint16_t)(segundos + 0.5);
 }
 
@@ -123,7 +124,7 @@ const char* situacao() {
 }
 
 // ------------------------------------------------------------------ conferencia com o luximetro
-// Com o luximetro ao lado do sensor, sob a mesma luz: fator = leitura do luximetro / leitura bruta.
+// Com o luximetro ao lado do sensor, sob a mesma luz: fator = luximetro / leitura bruta.
 bool corrigir(float referencia) {
   if (!jaMediu || saturado || lux <= 0) return false;
   float bruto = lux / fator;

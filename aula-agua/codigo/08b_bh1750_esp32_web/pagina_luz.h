@@ -39,7 +39,7 @@ const char PAGINA_LUZ[] PROGMEM = R"HTML(<!doctype html>
           margin-bottom: 10px; font-size: 16px; }
   input, select { width: 96px; font-size: 18px; padding: 8px; text-align: right;
           border: 1px solid #9aa7b3; border-radius: 8px; }
-  select { width: 190px; text-align: left; font-size: 16px; }
+  select { width: 215px; text-align: left; font-size: 15px; }
   button { width: 100%; font-size: 16px; padding: 12px 4px; border: 2px solid #1f4e79;
            border-radius: 10px; background: #1f4e79; color: #fff; margin-top: 4px; }
   button.claro { background: #fff; color: #1f4e79; }
@@ -78,18 +78,21 @@ const char PAGINA_LUZ[] PROGMEM = R"HTML(<!doctype html>
         <option value="67">LED branco (67 lx por µmol)</option>
       </select>
     </label>
-    <label>DLI mínimo (mol/m²/dia) <input id="min" type="number" min="0" max="60" step="1"></label>
-    <label>DLI máximo (mol/m²/dia) <input id="max" type="number" min="0" max="60" step="1"></label>
+    <label>DLI mínimo (mol/m²/dia)
+      <input id="min" type="number" min="0" max="60" step="1"></label>
+    <label>DLI máximo (mol/m²/dia)
+      <input id="max" type="number" min="0" max="60" step="1"></label>
     <button onclick="ajustes()">Salvar</button>
     <div class="aviso" id="avisoAjustes"></div>
   </div>
 
   <div class="cartao">
     <h2>Conferência com o luxímetro</h2>
-    <p><small>Luxímetro ao lado do sensor, na mesma altura, sob a mesma luz, sem sombra.</small></p>
+    <p><small>Luxímetro ao lado do sensor, na mesma altura, sob a mesma luz,
+      sem sombra.</small></p>
     <label>O luxímetro marca (lx) <input id="ref" type="number" min="50"></label>
     <button onclick="corrigir()">Corrigir para este valor</button>
-    <button class="claro" onclick="pedir('/zerar', 'avisoCor', 'Correção apagada (fator = 1).')">
+    <button class="claro" onclick="pedir('/zerar', 'avisoCor', 'Correção apagada.')">
       Apagar a correção</button>
     <div class="aviso" id="avisoCor"></div>
   </div>
@@ -128,14 +131,18 @@ const char PAGINA_LUZ[] PROGMEM = R"HTML(<!doctype html>
       m.className = "";
       m.textContent = "A meta (" + d.min + " a " + d.max + ") só vale com 24 h de medida.";
     } else if (d.dli < d.min) {
-      m.className = "baixa"; m.textContent = "Dia com pouca luz: abaixo de " + d.min + " mol/m².";
+      m.className = "baixa";
+      m.textContent = "Dia com pouca luz: abaixo de " + d.min + " mol/m².";
     } else if (d.dli > d.max) {
-      m.className = "alta"; m.textContent = "Dia com muita luz: acima de " + d.max + " mol/m².";
+      m.className = "alta";
+      m.textContent = "Dia com muita luz: acima de " + d.max + " mol/m².";
     } else {
-      m.className = "ok"; m.textContent = "Luz do dia dentro da meta (" + d.min + " a " + d.max + ").";
+      m.className = "ok";
+      m.textContent = "Luz do dia dentro da meta (" + d.min + " a " + d.max + ").";
     }
     if (!preencheu) {
-      el("lpu").value = d.lpu; el("min").value = d.min; el("max").value = d.max; preencheu = true;
+      el("lpu").value = d.lpu; el("min").value = d.min; el("max").value = d.max;
+      preencheu = true;
     }
   }
 
@@ -174,8 +181,8 @@ const char PAGINA_LUZ[] PROGMEM = R"HTML(<!doctype html>
   }
 
   function ajustes() {
-    const rota = "/ajustes?lpu=" + el("lpu").value + "&min=" + el("min").value + "&max=" + el("max").value;
-    pedir(rota, "avisoAjustes", "Ajustes salvos.");
+    const rota = "/ajustes?lpu=" + el("lpu").value + "&min=" + el("min").value;
+    pedir(rota + "&max=" + el("max").value, "avisoAjustes", "Ajustes salvos.");
   }
   function corrigir() {
     const ref = el("ref").value;

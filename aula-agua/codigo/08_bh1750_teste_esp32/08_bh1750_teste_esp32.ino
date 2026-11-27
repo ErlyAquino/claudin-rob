@@ -21,8 +21,8 @@
 const int PINO_SDA = 21;
 const int PINO_SCL = 22;
 const byte ENDERECO = 0x23;            // 0x5C com o pino ADDR no 3V3
-const float FATOR_DE_CORRECAO = 1.0;   // resultado da conferencia com um luximetro; 1.0 = sem corrigir
-const float LUX_POR_UMOL = 54.0;       // luz do sol: 54 lx para cada umol/m2/s. LED branco: cerca de 67
+const float FATOR_DE_CORRECAO = 1.0;   // da conferencia com um luximetro; 1.0 = sem corrigir
+const float LUX_POR_UMOL = 54.0;       // sol: 54 lx para cada umol/m2/s. LED branco: 67
 
 BH1750 sensor(ENDERECO);
 bool sensorPresente = false;

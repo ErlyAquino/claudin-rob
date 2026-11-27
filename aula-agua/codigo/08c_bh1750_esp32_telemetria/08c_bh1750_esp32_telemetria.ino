@@ -42,10 +42,10 @@ const char* NO = "no8";           // troque por um numero livre no painel
 
 const uint8_t PINO_SDA = 21, PINO_SCL = 22;
 const uint8_t ENDERECO = 0x23;                 // 0x5C com o pino ADDR no 3V3
-const float FATOR_DE_CORRECAO = 1.0;           // da conferencia com o luximetro; 1.0 = sem corrigir
+const float FATOR_DE_CORRECAO = 1.0;           // da conferencia com o luximetro; 1.0 = sem
 const bool PUBLICAR_DLI = true;                // false: publica so a iluminancia
 const float LUX_POR_UMOL = 54.0;               // fonte de luz: 54 = sol; 67 = LED branco
-const long FUSO_EM_SEGUNDOS = -3 * 3600;       // horario de Brasilia: o dia vira a meia-noite daqui
+const long FUSO_EM_SEGUNDOS = -3 * 3600;       // horario de Brasilia: o dia vira a meia-noite
 const uint8_t MTREG_NORMAL = 69;               // faixa de fabrica: ate 54612 lx
 const uint8_t MTREG_SOL = 32;                  // faixa estendida, para sol pleno: ate 117757 lx
 // ----------------------------------------------------------------------
@@ -76,8 +76,10 @@ double lerIluminancia() {
   if (bruto < 0) { sensorPresente = false; return NAN; }
   float limite = 65535.0 / 1.2 * 69.0 / mtreg; // fim da faixa atual
   // Troca de faixa para a proxima leitura (dai a 10 s): sol forte pede a faixa estendida.
-  if (mtreg == MTREG_NORMAL && bruto > 40000) { if (sensor.setMTreg(MTREG_SOL)) mtreg = MTREG_SOL; }
-  else if (mtreg == MTREG_SOL && bruto < 20000) { if (sensor.setMTreg(MTREG_NORMAL)) mtreg = MTREG_NORMAL; }
+  uint8_t novo = mtreg;
+  if (mtreg == MTREG_NORMAL && bruto > 40000) novo = MTREG_SOL;
+  if (mtreg == MTREG_SOL && bruto < 20000) novo = MTREG_NORMAL;
+  if (novo != mtreg && sensor.setMTreg(novo)) mtreg = novo;
   if (bruto >= 0.995 * limite) return NAN;     // saturou: o valor real e maior; nao publica
   return bruto * FATOR_DE_CORRECAO;
 #endif
@@ -98,7 +100,7 @@ void somarLuzDoDia(double lux) {
   }
   float segundos = (agora - ultimaSoma) / 1000.0;
   ultimaSoma = agora;
-  if (segundos > 60) segundos = 10;            // ficou sem medir (queda de rede): nao inventa luz
+  if (segundos > 60) segundos = 10;            // ficou sem medir: nao inventa luz
   if (!isnan(lux)) molDeHoje += lux / LUX_POR_UMOL * segundos / 1e6;
   if (agora - ultimaGravacao >= 600000) {
     ultimaGravacao = agora;
