@@ -5,6 +5,8 @@ python esquemas.py --so 05     -> regenera so os esquemas cujo nome comeca com 0
 python esquemas.py --so 06     -> idem, so os do sensor de condutividade (TDS Meter V1.0)
 python esquemas.py --so 07     -> idem, so os do sensor de temperatura DS18B20 (TO-92, sonda e dois no mesmo fio)
 python esquemas.py --so 11     -> idem, so o do conversor de nivel logico (peca do core "I2C level shifter bidirectional")
+python esquemas.py --so 10     -> idem, so o do nivel do reservatorio (HX710B + MPS20N0040D no ESP32)
+python esquemas.py --so 09     -> idem, so os do tutorial do YF-S201 no ESP32 (com divisor 1 k/2 k e com conversor de nivel)
 Pecas novas (YF-S201, HX710B, ADS1115, TDS Meter): ferramentas/fritzing/gerar_pecas_agua.py"""
 import os, sys, math
 from fzgen import *
@@ -279,6 +281,65 @@ def e11():
     sk.wire(cv, "connector7", bb, f"pin{col+2}G", VERDE)                 # HV2 -> SCL do ADS1115
     return sk.save(SAIDA, "11_conversor_nivel_ads1115_esp32")
 TODOS += (e11,)
+
+# ---------- 9: tutorial do YF-S201 no ESP32 (sketches 09, 09b e 09c): pulsos no GPIO 27; trilha X = 5 V (VIN) ----------
+def e9():
+    """Sensor em 5 V; amarelo -> divisor 1 k / 2 k -> GPIO 27."""
+    sk, e, bb = base_esp32("VIN"); yf(sk, e, bb, 22, "D27", divisor=True)
+    return sk.save(SAIDA, "09_yfs201_divisor_esp32")
+
+def e9b():
+    """Alternativa do horta/no1: amarelo -> HV3 do conversor de nivel (solto, entre o ESP32 e a protoboard) -> LV3 -> GPIO 27."""
+    sk = Sketch()
+    esp = sk.add(Part(ESP32, "ESP32 DevKit V1", 0, 40))
+    cv = sk.add(Part(CONV, "Conversor de nível lógico", 185, 120))
+    bb = sk.add(Part(HALF, "Protoboard", 330, 20))
+    sk.wire(esp, "VIN", bb, "pin3X", VERMELHO)
+    sk.wire(esp, "connector1", bb, "pin3W", PRETO)
+    col = 15
+    montar(sk, bb, YF, "YF-S201", col, 3)
+    sk.wire(bb, f"pin{col}F", bb, f"pin{rz(col)}X", VERMELHO)            # vermelho: 5 V
+    sk.wire(bb, f"pin{col+2}F", bb, f"pin{rz(col+2)}W", PRETO)           # preto: GND
+    sk.wire(cv, "connector3", esp, "3V3", LARANJA_3V3)                   # LV <- 3,3 V
+    sk.wire(cv, "connector2", esp, "connector1", PRETO)                  # GND (lado LV)
+    sk.wire(cv, "connector8", bb, "pin4X", VERMELHO)                     # HV <- 5 V
+    sk.wire(cv, "connector9", bb, "pin4W", PRETO)                        # GND (lado HV)
+    sk.wire(cv, "connector10", bb, f"pin{col+1}G", AMARELO)              # HV3 <- amarelo (pulsos de 5 V)
+    sk.wire(cv, "connector1", esp, "D27", AMARELO)                       # LV3 -> GPIO 27 (pulsos de 3,3 V)
+    return sk.save(SAIDA, "09b_yfs201_conversor_esp32")
+TODOS += (e9, e9b)
+
+# ---------- 10: nivel do reservatorio (HX710B + MPS20N0040D no ESP32; trilha X = 3V3, OUT no D18 e SCK no D19, sem divisor) ----------
+def e10():
+    sk, esp, bb = base_esp32("3V3"); hx(sk, esp, bb, 22, "D18", "D19")
+    return sk.save(SAIDA, "10_hx710b_esp32")
+TODOS += (e10,)
+
+# ---------- 8: luz (BH1750 / GY-302 no ESP32 por I2C; trilha X = 3V3). Peca: ferramentas/fritzing/gerar_pecas_luz.py ----------
+BH = "cria_bh1750"                                     # c0 VCC, c1 GND, c2 SCL, c3 SDA, c4 ADDR
+
+def bh1750(sk, esp, bb, col, barramento=None):
+    """GY-302: VCC na trilha X (3V3), GND na W, ADDR solto (0x23). SCL -> D22 e SDA -> D21, direto no ESP32 ou,
+    com `barramento` = (coluna do SCL, coluna do SDA) de outro modulo I2C, emendados nos fios dele."""
+    montar(sk, bb, BH, "BH1750 (GY-302)", col, 5)
+    sk.wire(bb, f"pin{col}F", bb, f"pin{rz(col)}X", LARANJA_3V3)
+    sk.wire(bb, f"pin{col+1}F", bb, f"pin{rz(col+1)}W", PRETO)
+    if barramento:
+        sk.wire(bb, f"pin{col+2}G", bb, f"pin{barramento[0]}G", VERDE)
+        sk.wire(bb, f"pin{col+3}H", bb, f"pin{barramento[1]}H", AZUL)
+    else:
+        sk.wire(bb, f"pin{col+2}H", esp, "D22", VERDE)
+        sk.wire(bb, f"pin{col+3}I", esp, "D21", AZUL)
+
+def e8():
+    sk, esp, bb = base_esp32("3V3"); bh1750(sk, esp, bb, 20)
+    return sk.save(SAIDA, "08_bh1750_esp32")
+
+def e8b():
+    """Dois modulos no mesmo barramento I2C: ADS1115 (0x48) e BH1750 (0x23) dividem os fios SDA e SCL."""
+    sk, esp, bb = base_esp32("3V3"); ads(sk, esp, bb, 9); bh1750(sk, esp, bb, 33, barramento=(11, 12))
+    return sk.save(SAIDA, "08b_bh1750_ads1115_i2c_esp32")
+TODOS += (e8, e8b)
 
 if __name__ == "__main__":
     os.makedirs(SAIDA, exist_ok=True)

@@ -1,7 +1,7 @@
 /*
   pagina_nivel.h: a pagina que o ESP32 entrega ao celular (HTML + CSS + JavaScript num so texto).
   A pagina pede /dados a cada 2 s e manda a calibracao (/zerar, /calibrar?cm=20, /apagar) e as
-  medidas do reservatorio (/reservatorio?ponta=2&lpc=1.2&min=8&cheio=30).
+  medidas do reservatorio (/reservatorio?ponta=2&lpc=1.2&min=24&cheio=30).
 */
 #pragma once
 
@@ -80,7 +80,8 @@ const char PAGINA_NIVEL[] PROGMEM = R"HTML(<!doctype html>
     <p><small>1. Com a ponta do tubo fora d'água, toque em Zerar.<br>
       2. Mergulhe a ponta, meça com a régua a distância da ponta até a superfície e
       toque em Calibrar.</small></p>
-    <button onclick="pedir('/zerar', 'avisoCal', 'Zero gravado.')">Zerar (tubo fora d'água)</button>
+    <button onclick="pedir('/zerar', 'avisoCal', 'Zero gravado.')">
+      Zerar (tubo fora d'água)</button>
     <label style="margin-top:12px">Profundidade da ponta (cm)
       <input id="cm" type="number" value="20" min="2" max="400" step="0.5"></label>
     <button onclick="calibrar()">Calibrar nesta profundidade</button>
@@ -123,7 +124,7 @@ const char PAGINA_NIVEL[] PROGMEM = R"HTML(<!doctype html>
 
   // d = resposta do ESP32, por exemplo:
   // {"nivel":23.4,"prof":21.4,"vol":28.1,"pa":2093,"bruto":1187240,"zero":91250,
-  //  "sens":51214,"cal":1,"ponta":2.0,"lpc":1.200,"min":8.0,"cheio":30.0,"sit":"ok"}
+  //  "sens":51214,"cal":1,"ponta":2.0,"lpc":1.200,"min":24.0,"cheio":30.0,"sit":"ok"}
   function mostrar(d) {
     const f = FRASES[d.sit] || FRASES.espera;
     const semMedida = d.sit == "espera" || d.sit == "falha";

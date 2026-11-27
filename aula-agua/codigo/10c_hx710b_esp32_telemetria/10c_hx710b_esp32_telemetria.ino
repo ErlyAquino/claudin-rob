@@ -43,16 +43,16 @@ const char* NO = "no10";          // troque por um numero livre no painel
 
 const int PINO_OUT = 18;
 const int PINO_SCK = 19;
-const int PINO_LED = 2;                        // LED da placa: aceso com o nivel abaixo do minimo
+const int PINO_LED = 2;                        // LED da placa: aceso com o nivel baixo
 
 // O reservatorio (meca o seu; veja o tutorial)
 const double ALTURA_DA_PONTA_CM = 2.0;         // do fundo ate a ponta do tubo
-const double LITROS_POR_CM = 1.0;              // area da base (cm2) / 1000, paredes retas
-const double NIVEL_MINIMO_CM = 8.0;            // a partir do fundo: abaixo disso, aviso
+const double LITROS_POR_CM = 1.2;              // area da base (cm2) / 1000, paredes retas
+const double NIVEL_MINIMO_CM = 24.0;           // a partir do fundo: abaixo disso, aviso
 
 const double CONTAGENS_POR_CM_PADRAO = 50000;  // so a ordem de grandeza: a calibracao troca
 const double KPA_POR_CM = 0.0978;              // rho x g x 1 cm, agua a 25 C
-const double PROFUNDIDADE_MAXIMA_CM = 150;     // acima disto a leitura nao e de um reservatorio
+const double PROFUNDIDADE_MAXIMA_CM = 150;     // acima disto, nao e leitura de reservatorio
 // ----------------------------------------------------------------------
 
 CriaNo no(PROJETO, NO);

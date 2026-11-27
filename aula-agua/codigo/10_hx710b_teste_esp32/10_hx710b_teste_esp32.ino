@@ -21,7 +21,7 @@ const int PINO_SCK = 19;
 // Quantas contagens o numero sobe para cada centimetro de agua. E so um chute para o
 // primeiro teste: o valor certo de cada sensor sai da calibracao (sketch 10b).
 const float CONTAGENS_POR_CM = 50000.0;
-const float PA_POR_CM = 97.8;        // rho x g x 1 cm = 997 kg/m3 x 9,81 m/s2 x 0,01 m (agua a 25 C)
+const float PA_POR_CM = 97.8;        // rho x g x 1 cm = 997 x 9,81 x 0,01 (agua a 25 C)
 const long SEM_RESPOSTA = 0x7FFFFFFF;
 
 long zero = 0;
@@ -30,13 +30,13 @@ portMUX_TYPE trava = portMUX_INITIALIZER_UNLOCKED;
 // Uma leitura do HX710B: 24 bits, do mais significativo para o menos, em complemento de 2.
 long lerHX710B() {
   unsigned long inicio = millis();
-  while (digitalRead(PINO_OUT) == HIGH) {            // OUT em 0 = leitura pronta (10 por segundo)
+  while (digitalRead(PINO_OUT) == HIGH) {            // OUT em 0 = leitura pronta
     if (millis() - inicio > 300) return SEM_RESPOSTA;
     delay(1);
   }
   long valor = 0;
   portENTER_CRITICAL(&trava);                        // sem interrupcoes: SCK em 1 por mais de
-  for (int i = 0; i < 24; i++) {                     // 60 us faria o chip dormir no meio da leitura
+  for (int i = 0; i < 24; i++) {                     // 60 us faria o chip dormir no meio
     digitalWrite(PINO_SCK, HIGH); delayMicroseconds(1);
     valor = (valor << 1) | digitalRead(PINO_OUT);
     digitalWrite(PINO_SCK, LOW); delayMicroseconds(1);
@@ -63,7 +63,10 @@ long lerMediana() {
 
 void zerar() {
   long z = lerMediana();
-  if (z == SEM_RESPOSTA) { Serial.println("Sem resposta do HX710B: confira os quatro fios."); return; }
+  if (z == SEM_RESPOSTA) {
+    Serial.println("Sem resposta do HX710B: confira os quatro fios.");
+    return;
+  }
   zero = z;
   Serial.printf("Zero = %ld contagens (ponta do tubo fora da agua).\n", zero);
 }
@@ -75,7 +78,7 @@ void setup() {
   digitalWrite(PINO_SCK, LOW);                       // SCK em 0: chip acordado
   delay(500);
   Serial.println("HX710B + MPS20N0040D - teste. Mande z para zerar (tubo fora da agua).");
-  lerMediana();                                      // a primeira leitura depois de ligar e descartada
+  lerMediana();                                      // a primeira leitura e descartada
   zerar();
 }
 

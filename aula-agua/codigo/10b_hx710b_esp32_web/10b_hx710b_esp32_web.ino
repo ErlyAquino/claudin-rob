@@ -42,8 +42,8 @@ long zero = 0;                                 // contagens com a ponta do tubo 
 float sens = SENS_PADRAO;                      // contagens por cm de agua
 bool calibrado = false;
 float alturaDaPonta = 2.0;                     // cm do fundo do reservatorio ate a ponta do tubo
-float litrosPorCm = 1.0;                       // litros para cada cm de altura (area da base / 1000)
-float nivelMinimo = 8.0;                       // cm a partir do fundo: abaixo disso, alerta
+float litrosPorCm = 1.2;                       // litros por cm de altura (area da base / 1000)
+float nivelMinimo = 24.0;                      // cm a partir do fundo: abaixo disso, alerta
 float nivelCheio = 30.0;                       // cm a partir do fundo: a marca de "cheio"
 
 long amostras[N];
@@ -128,7 +128,8 @@ bool zerar() {                                 // ponta do tubo fora da agua
 bool calibrar(float cm) {
   if (falha || quantas < N || cm < 2 || cm > 400) return false;
   float s = (mediana() - zero) / cm;
-  if (fabs(s) < 2000 || fabs(s) > 2000000) return false;   // fora disso: tubo fora da agua, ou vazamento
+  // fora desta faixa: tubo fora da agua, mangueira solta ou vazamento
+  if (fabs(s) < 2000 || fabs(s) > 2000000) return false;
   sens = s;
   calibrado = true;
   gravarCalibracao();
@@ -211,7 +212,8 @@ void setup() {
   servidor.begin();
   Serial.printf("Rede \"%s\" (senha %s). Abra http://%s\n", NOME_DA_REDE, SENHA_DA_REDE,
                 WiFi.softAPIP().toString().c_str());
-  Serial.printf("zero = %ld   %.0f contagens/cm%s\n", zero, sens, calibrado ? "" : " (sem calibrar)");
+  Serial.printf("zero = %ld   %.0f contagens/cm%s\n", zero, sens,
+                calibrado ? "" : " (sem calibrar)");
 }
 
 void loop() {
@@ -235,7 +237,7 @@ void loop() {
     if (cmd == "z") { if (!zerar()) Serial.println("Zero recusado: sensor sem leitura."); }
     else if (cmd.startsWith("c")) {
       if (!calibrar(cmd.substring(1).toFloat()))
-        Serial.println("Calibracao recusada: use c 20 com a ponta do tubo a 20 cm de profundidade.");
+        Serial.println("Calibracao recusada: use c 20 com a ponta do tubo a 20 cm de fundo.");
     } else if (cmd.startsWith("s")) {
       float s = cmd.substring(1).toFloat();
       if (fabs(s) >= 2000 && fabs(s) <= 2000000) {
