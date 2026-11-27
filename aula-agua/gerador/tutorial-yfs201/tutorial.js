@@ -1,0 +1,631 @@
+// Tutorial: sensor de vazao YF-S201 (1/2", efeito Hall) na hidroponia do Espaco CRIA - como funciona, por que usar na telemetria,
+// a vazao da alface em NFT, onde instalar, calibracao com o balde, montagem no ESP32, pagina no celular e no da telemetria-cria.
+// Gera ../../saida/Tutorial-Sensor-de-Vazao-YF-S201.docx (gerar_tutorial.sh faz as figuras e converte para ODT e PDF).
+const path = require("path");
+const { H1, H2, P, UL, OL, TAB, NOTA, CODIGO, CAPA, DOC, SUMARIO, QUEBRA, ESPACO, FIGURA, salvar } = require("../lib");
+
+const AQUI = __dirname;
+const LOGOS = path.join(AQUI, "..", "..", "..", "imagens", "logos");
+const SAIDA = path.join(AQUI, "..", "..", "saida", "Tutorial-Sensor-de-Vazao-YF-S201.docx");
+const ESQ = (n) => path.join(AQUI, "..", "..", "esquemas", "saida", n + ".png");
+const IMG = (n) => path.join(AQUI, n);
+const INO = (n, arq) => path.join(AQUI, "..", "..", "codigo", n, arq || n + ".ino");
+const VERDE = "E8F5E9", VERMELHO = "FDECEA";
+
+const corpo = [
+  ...CAPA({
+    logosDir: LOGOS, tipo: "Tutorial",
+    titulo: "Sensor de vazão na hidroponia: YF‑S201 com ESP32",
+    subtitulo: "Como a turbina e o sensor de efeito Hall transformam água em pulsos, a vazão que a alface pede em cada canal, onde instalar o sensor, a calibração com balde e cronômetro e os três programas: teste, página no celular e nó da Rede de Telemetria do Espaço CRIA",
+    info: [
+      "**Peças:** ESP32 DevKit V1, sensor de vazão YF‑S201 de 1/2\", resistores de 1 kΩ e 2 kΩ, um recipiente graduado e um cronômetro",
+      "**Sketches:** `09_yfs201_teste_esp32`, `09b_yfs201_esp32_web`, `09c_yfs201_esp32_telemetria`",
+      "Espaço CRIA — novembro de 2026",
+    ],
+  }),
+  ...SUMARIO(),
+
+  // ---------------------------------------------------------------
+  H1("1. Visão geral"),
+  P("No sistema NFT, as raízes ficam num filme fino de solução que corre pelo canal. Se a solução para de correr, a planta fica sem água, sem nutriente e sem oxigênio ao mesmo tempo, e em poucas horas murcha. A **vazão** é a medida que diz se a solução está de fato passando, e quanto. Este tutorial mostra como medir a vazão com o sensor **YF‑S201** e um **ESP32**, como interpretar o número para a alface da bancada do Espaço CRIA e como levar a leitura ao celular e ao painel da Rede de Telemetria."),
+  ...FIGURA(IMG("bancada_vazao.png"), "A bancada NFT e os três lugares possíveis para o sensor. O recomendado é o A: na linha que leva a solução aos canais, depois do desvio de retorno. A bancada desenhada (cinco canais de cinco plantas) é um exemplo: o número de canais da bancada real não está documentado.", 1.3),
+  NOTA("O caminho em seis etapas", [
+    "**Entender o sensor (seções 2 e 3):** uma turbina com ímã gira com a água, e um sensor de efeito Hall dá um pulso a cada volta do ímã. Contar pulsos é medir água.",
+    "**Saber para que serve (seções 4 a 6):** a vazão que a alface pede em cada canal, a conta para a bancada de 25 posições e o melhor lugar para o sensor.",
+    "**Instalar, montar e testar (seções 7 a 9):** o sensor na tubulação, três fios e dois resistores no ESP32 e o sketch `09`. A leitura aparece no Monitor Serial.",
+    "**Ver no celular (seção 10):** sketch `09b`. O ESP32 cria a rede `Horta-Vazao` e mostra a vazão, o volume e um gráfico em `http://192.168.4.1`.",
+    "**Calibrar e vigiar (seções 11 e 12):** o fator de pulsos por litro do seu sensor, medido com balde e cronômetro, e o alerta de bomba sem vazão.",
+    "**Publicar na telemetria (seção 13):** sketch `09c`, com a biblioteca CriaTelemetria. O nó aparece sozinho no painel.",
+  ], VERDE),
+  ESPACO(),
+  NOTA("Cinco avisos antes de começar", [
+    "**Nada deste tutorial foi testado em hardware.** Os três programas compilam, e a página do celular e o painel foram conferidos com simuladores no computador, mas nenhum sensor foi ligado e nenhuma água passou por ele. A seção 17 lista o que falta verificar.",
+    "**O anúncio da compra não pôde ser aberto** (o site pede login). O texto se apoia nas folhas de dados públicas do YF‑S201 (fabricante Sea) e do YF‑21 (YIFA), que tem o mesmo corpo, e nas páginas da Adafruit, da Seeed e da DFRobot. Confira no corpo do seu sensor o modelo e a seta do sentido da água.",
+    "**Não é instrumento de precisão.** A folha de dados fala em ±10 %; a Adafruit avisa que o sensor não é de precisão e que a taxa de pulsos muda com a vazão, a pressão e a posição. Só a calibração na própria bancada melhora isso (seção 11).",
+    "**O sensor não mede bem um canal sozinho.** A faixa dele começa em 1 L/min, e um canal de alface recebe de 1 a 2 L/min. O lugar dele é a linha principal, onde passa a soma dos canais (seção 6).",
+    "**Água de um lado, eletricidade do outro.** O corpo do sensor aguenta água por dentro, não por fora: o cabo, as emendas, a protoboard e o ESP32 ficam secos, acima do reservatório.",
+  ], VERMELHO),
+
+  // ---------------------------------------------------------------
+  QUEBRA(),
+  H1("2. Vazão, volume e as unidades"),
+  P("**Vazão** é o volume de líquido que passa por um ponto a cada unidade de tempo. Uma torneira que enche um balde de 10 litros em 2 minutos tem vazão de 5 litros por minuto. **Volume** é o total que passou: vazão multiplicada pelo tempo. O sensor deste tutorial mede as duas coisas com a mesma contagem."),
+  TAB(["Unidade", "Equivale a", "Onde aparece"], [
+    ["1 L/min (litro por minuto)", "60 L/h = 0,06 m³/h", "recomendações de hidroponia, a folha de dados do sensor e o painel da telemetria"],
+    ["1 L/h (litro por hora)", "0,0167 L/min", "rótulo das bombas pequenas de aquário e de fonte (por exemplo, 600 L/h = 10 L/min)"],
+    ["1 m³/h (metro cúbico por hora)", "1000 L/h = 16,7 L/min", "catálogos de motobombas e a fórmula de dimensionamento do IAC (seção 6)"],
+    ["1 L/s (litro por segundo)", "60 L/min", "manuais de irrigação"],
+  ], [0.32, 0.26, 0.42]),
+  ESPACO(),
+  CODIGO(`vazao (L/min)  =  volume (L)  /  tempo (min)
+
+Exemplo: um recipiente de 6,0 L encheu em 48 s
+         48 s = 0,80 min         6,0 / 0,80  =  7,5 L/min
+
+Ao contrario:  volume = vazao x tempo        7,5 L/min x 15 min  =  112,5 L`, { arquivo: false, titulo: "as duas contas deste tutorial" }),
+  ESPACO(),
+  P("Na bancada, a mesma solução dá voltas: sai do reservatório, percorre os canais e volta. Por isso o volume que o sensor acumula não é “água gasta”; é quanta solução **circulou**. Num ciclo de 15 minutos a 7,5 L/min passam 112 litros pelo sensor, mesmo que o reservatório tenha só 30."),
+
+  // ---------------------------------------------------------------
+  QUEBRA(),
+  H1("3. O sensor YF‑S201"),
+  H2("3.1 Por dentro: turbina, ímã e efeito Hall"),
+  ...FIGURA(IMG("corte_sensor.png"), "O princípio do sensor. A água empurra as pás; o ímã preso à turbina passa na frente do sensor Hall a cada volta. O sensor e a pequena placa ficam num compartimento seco, separados da água pela parede de plástico.", 1.3),
+  P("O corpo de plástico tem uma câmara com uma **turbina** (uma rodinha de pás) atravessada no caminho da água. Um pequeno **ímã** gira junto com ela. Do lado de fora da câmara, num compartimento seco, fica um **sensor de efeito Hall**."),
+  P("O **efeito Hall** é o aparecimento de uma tensão num condutor percorrido por corrente quando ele é posto num campo magnético: o campo empurra as cargas em movimento para um lado, e esse acúmulo vira uma pequena tensão. O sensor do YF‑S201 é um circuito pronto que usa esse efeito como **chave**: com o ímã perto, a saída fica num nível; com o ímã longe, no outro. Nenhuma peça elétrica toca a água, e é por isso que o sensor dura."),
+  H2("3.2 O sinal: uma onda quadrada"),
+  ...FIGURA(IMG("pulsos.png"), "O que sai pelo fio amarelo com o sensor alimentado em 5 V, pela fórmula nominal F = 7,5 × Q. A folha de dados dá o ciclo de trabalho de 50 % ± 10 %: metade do tempo em nível alto, metade em baixo.", 1.25),
+  P("A cada passagem do ímã a saída troca de nível. O resultado é uma **onda quadrada**: a tensão pula entre perto de 0 V e perto da tensão de alimentação. O que carrega a informação não é a altura da onda, é a **frequência**: quantos pulsos por segundo. Dobrou a vazão, a turbina gira duas vezes mais depressa e chegam duas vezes mais pulsos."),
+  P("As lojas descrevem a saída como “TTL de 5 V”. Guias de terceiros dizem que o sensor Hall tem saída em coletor aberto com um resistor de polarização (pull‑up) para o fio vermelho dentro do próprio sensor, mas **nenhuma folha de dados lida informa o circuito de saída nem o valor desse resistor**. Isso importa na hora de ligar ao ESP32 e é o motivo da conferência com o multímetro da seção 8.3."),
+  H2("3.3 A ficha técnica e as divergências"),
+  TAB(["Característica", "O que as fontes dizem", "O que significa aqui"], [
+    ["Alimentação", "4,5 a 24 V na folha da Sea (uso normal de 5 a 18 V); 5 a 18 V na Adafruit; 3,5 a 24 V na folha do YF‑21", "ligar em **5 V**, no pino VIN do ESP32. Em 3,3 V fica abaixo do mínimo da Sea"],
+    ["Corrente", "até 15 mA em 5 V", "pouca: a USB do ESP32 alimenta"],
+    ["Faixa de vazão", "1 a 30 L/min, em todas as fontes", "abaixo de 1 L/min a leitura não vale (seção 3.5)"],
+    ["Pressão máxima", "1,75 MPa no texto da folha da Sea e na DFRobot; 2,0 MPa na etiqueta e na Adafruit", "muito acima da pressão de uma bomba de bancada"],
+    ["Temperatura do líquido", "até 80 °C em operação (Sea)", "sem problema para a solução nutritiva"],
+    ["Saída", "onda quadrada; nível alto acima de 4,6 V e baixo abaixo de 0,5 V com 5 V (DFRobot)", "**passa dos 3,3 V** que o ESP32 aceita: precisa de divisor ou conversor"],
+    ["Exatidão anunciada", "±10 % nas tabelas da Sea e da YIFA; ±5 % de 2 a 30 L/min na DFRobot", "sem calibração, conte com 10 %"],
+    ["Fórmula", "F (Hz) = 7,5 × Q (L/min) na Adafruit, na Seeed e na DFRobot; F = 7 × Q na folha da YIFA", "450 ou 420 pulsos por litro: o número de partida, não o do seu sensor"],
+    ["Fios", "vermelho: positivo; preto: GND; amarelo: sinal", "iguais em todas as fontes"],
+    ["Rosca e passagem", "G 1/2\" nas duas pontas; entrada com cerca de 9 mm de diâmetro interno (Sea)", "a passagem é mais estreita que um tubo de 1/2\": o sensor freia um pouco a água"],
+  ], [0.2, 0.44, 0.36]),
+  ESPACO(),
+  H2("3.4 Frequência, vazão e pulsos por litro"),
+  CODIGO(`Formula nominal:   F (Hz)  =  7,5  x  Q (L/min)
+
+De L/min para pulsos por litro:
+   em 1 minuto passam Q litros e chegam F x 60 pulsos
+   pulsos por litro  =  F x 60 / Q  =  7,5 x 60  =  450
+   cada pulso vale 1000 / 450  =  2,2 mL
+
+O programa faz o caminho de volta:
+   vazao (L/min)  =  frequencia (Hz) x 60 / pulsos por litro
+   volume (L)     =  total de pulsos / pulsos por litro
+
+Exemplo: 56 pulsos contados em 1 s, com 450 pulsos por litro
+   56 x 60 / 450  =  7,47 L/min`, { arquivo: false, titulo: "da frequência à vazão" }),
+  ESPACO(),
+  ...FIGURA(IMG("curva_folha.png"), "A tabela de ensaio da própria folha de dados (pontos) não cai em cima da fórmula da própria folha. De 2 a 10 L/min os pontos dão de 480 a 493 pulsos por litro; em 12 L/min, 451. A conta de pulsos por litro é deste tutorial, a partir dos pares vazão e frequência da tabela.", 1.3),
+  P("Três razões fazem o número variar de um sensor para outro e, no mesmo sensor, de uma vazão para outra:"),
+  UL(["**A turbina não acompanha a água por igual.** Em vazão baixa o atrito do eixo pesa mais e a turbina “escorrega”; em vazão alta ela acompanha melhor. A relação é quase uma reta, mas não exatamente.",
+    "**Cada peça é uma peça.** Folga do eixo, rebarba de plástico, posição do ímã: tudo muda um pouco a taxa de pulsos.",
+    "**A instalação conta.** A Adafruit avisa que a taxa de pulsos varia com a vazão, a pressão e a orientação do sensor. Uma curva ou um registro logo antes do sensor mudam o jeito de a água bater nas pás."]),
+  P("Por isso o 450 é só o ponto de partida. O número que vale é o que **o seu sensor, na sua bancada, na vazão de trabalho** mostrar na calibração da seção 11."),
+  H2("3.5 Os limites, com franqueza"),
+  TAB(["Limite", "Consequência", "O que fazer"], [
+    ["**Vazão mínima de 1 L/min.** A tabela de ensaio da folha de dados só começa em 2 L/min; um guia relata que a turbina para abaixo de cerca de 1 L/min", "um canal de mudas (0,5 a 1 L/min) não é medido; um canal de alface adulta fica no limite", "instalar na linha principal, onde passa a soma dos canais (seção 6)"],
+    ["**Não é linear.** Os pulsos por litro mudam com a vazão", "calibrado em 8 L/min, erra alguns por cento em 3 L/min", "calibrar na vazão de trabalho e repetir em duas ou três vazões"],
+    ["**Leitura em degraus.** Em 1 segundo chegam poucos pulsos", "contando 1 s, cada pulso vale 0,13 L/min", "os programas mostram a média de 10 s (figura abaixo)"],
+    ["**Passagem estreita e partes móveis**", "raiz, areia ou limo travam a turbina; o sensor rouba um pouco de pressão da bomba", "filtro antes do sensor e limpeza periódica (seções 7 e 14)"],
+    ["**Não distingue ar de água**", "bolhas giram a turbina e contam como água; com a tubulação vazia, a leitura some", "sensor em trecho sempre cheio, depois da bomba"],
+    ["**Não vê o sentido**", "água voltando pela tubulação quando a bomba desliga também gera pulsos", "normal: são poucos pulsos no desligamento"],
+  ], [0.36, 0.32, 0.32]),
+  ESPACO(),
+  ...FIGURA(IMG("janela.png"), "Simulação de uma vazão de 1,6 L/min (12 pulsos por segundo). Contando segundo a segundo, a leitura pula entre 1,47, 1,60 e 1,73 L/min sem que a vazão mude. A média de 10 segundos enxerga dez vezes mais fino.", 1.2),
+
+  // ---------------------------------------------------------------
+  QUEBRA(),
+  H1("4. Por que e para que usar na telemetria do Espaço CRIA"),
+  H2("4.1 O lugar da vazão no projeto"),
+  P("A Rede de Telemetria do Espaço CRIA é uma plataforma aberta de monitoramento: sensores ligados a ESP32 mandam as medidas a um servidor da escola, que guarda as séries e mostra tudo num painel web. Dois projetos‑teste validam a plataforma: o monitor de qualidade do ar da sala e a **bancada hidropônica NFT de 25 posições**. A vazão é uma das oito grandezas da bancada, medida pelo nó `horta/no1` com um YF‑S201, o mesmo sensor deste tutorial."),
+  TAB(["O que o repositório da telemetria registra", "Onde"], [
+    ["tópico `cria/horta/no1/vazao`, em `L/min`, “calibrada pelo fator de pulsos por litro”", "catálogo de tópicos, seção 4.2"],
+    ["YF‑S201 alimentado em 5 V, com o fio amarelo passando pelo **conversor de nível lógico** (canal 3) até o GPIO 27", "README do `horta-no1`"],
+    ["a vazão publicada é a **média dos últimos 10 s**; fator inicial de 450 pulsos por litro", "programa do `horta-no1`"],
+    ["calibração pela USB: enche‑se um recipiente graduado cronometrando; a ferramenta pede o volume e o tempo e corrige o fator, com tolerância de 5 %", "pasta `calibracao`"],
+    ["o nó protege a bomba **pela boia de nível**, não pela vazão: se a solução baixar, ele corta a bomba", "decisão de 18/10/2026"],
+  ], [0.72, 0.28]),
+  ESPACO(),
+  P("O repositório **não diz** para que a vazão deve ser usada, não define faixa nem alarme para ela, e não informa a vazão da bomba, o número de canais nem o diâmetro da tubulação. O que vem a seguir, na seção 4.2, são os usos que a medida permite; os números da bancada precisam ser medidos nela."),
+  H2("4.2 Para que serve na bancada"),
+  UL(["**Saber se a solução está circulando.** A boia do `horta/no1` vê reservatório vazio. Ela não vê bomba queimada, mangueira solta, registro fechado por engano nem filtro entupido. Em todos esses casos o nível está bom e as raízes estão secando. A vazão vê.",
+    "**Perceber o entupimento antes de ele virar parada.** Raízes crescendo dentro dos canais e limo no filtro fazem a vazão cair devagar. Num experimento em Goiás (Mendonça e colaboradores, 2023), a vazão medida caiu de 16,5 para 12,9 L/h entre o transplante e os 25 dias, só pelo crescimento das raízes. No gráfico da semana essa queda aparece.",
+    "**Conferir o timer da bomba.** Com a bomba em 15 minutos ligada e 15 desligada, o gráfico da vazão tem de ser uma sequência de degraus iguais. Um degrau faltando é um ciclo que não aconteceu.",
+    "**Registrar o cultivo.** O painel exporta em CSV; a turma pode cruzar vazão, temperatura da solução, condutividade e as fotos do time‑lapse.",
+    "**Aprender Física com dado real:** vazão e volume, frequência e período, campo magnético e efeito Hall, calibração e incerteza."]),
+  H2("4.3 O nó horta/no1 e o nó deste tutorial"),
+  TAB(["", "Nó `horta/no1` (o da bancada)", "Nó deste tutorial (`09c`)"], [
+    ["Sensor e pino", "YF‑S201 no GPIO 27", "igual"],
+    ["De 5 V para 3,3 V", "conversor de nível lógico de 4 canais", "divisor de dois resistores (ou o conversor, seção 8.4)"],
+    ["Contagem", "interrupção na borda de descida", "igual, com um filtro contra pulsos de ruído"],
+    ["O que publica", "`vazao`, média de 10 s", "`vazao`, `volume` e `circulacao`"],
+    ["Onde publica", "`cria/horta/no1/vazao`", "`cria/teste/no9/vazao` (o número do nó você escolhe)"],
+    ["Calibração", "ferramenta `calibrar.py`, pela USB", "a mesma ferramenta"],
+    ["Outras funções", "pH, condutividade, temperatura, pressão, boia, relé da bomba, relógio DS3231", "alerta de bomba sem vazão"],
+  ], [0.2, 0.4, 0.4]),
+  ESPACO(),
+  P("O projeto `teste` do catálogo de tópicos existe para oficinas e ensaios: qualquer nó e qualquer grandeza, sem pedir nada ao servidor. É nele que o nó do tutorial publica. Dois nós com o mesmo nome se derrubam no broker; por isso o tutorial não usa o nome `horta/no1`."),
+
+  // ---------------------------------------------------------------
+  QUEBRA(),
+  H1("5. A vazão na hidroponia da alface"),
+  H2("5.1 Pouca vazão, vazão demais"),
+  TAB(["", "O que acontece", "Quem diz"], [
+    ["**Vazão baixa**", "a solução demora no canal, esquenta e perde oxigênio; as últimas plantas recebem menos; a planta absorve menos água", "SENAR‑PR: abaixo de 1,5 L/min, em bancada com mais de 15 m, cai o oxigênio no fim das canaletas. Dalastra e colaboradores (2020): com 0,5 L/min a produção foi cerca de 30 % menor que com 1,0"],
+    ["**Vazão alta**", "a lâmina de solução engrossa e afoga a raiz, que escurece; a correnteza machuca as raízes e pode arrastar as mudas; gasta‑se mais energia", "Dalastra (tese, 2017): com 2 e 4 L/min a lâmina passou do primeiro terço das raízes, com escurecimento e necrose. SENAR‑PR: fluxo rápido demais fere a raiz e desloca as mudas"],
+    ["**Sem vazão**", "o filme seca. Sem circulação por algumas horas, a alface murcha", "registro de decisão do projeto da telemetria; Embrapa: cuidar para que as raízes não sequem com a solução parada"],
+  ], [0.16, 0.42, 0.42]),
+  ESPACO(),
+  P("A Embrapa dá a medida prática do “quanto”: a solução em circulação deve formar uma lâmina que cubra cerca de dois terços das raízes. Dalastra e colaboradores citam a regra clássica do NFT, de lâmina com no máximo uns 4 mm."),
+  H2("5.2 O que as fontes recomendam"),
+  ...FIGURA(IMG("vazoes_fontes.png"), "Vazão recomendada por canal. A linha tracejada é o começo da faixa do YF‑S201: as recomendações para um canal ficam coladas nela ou abaixo.", 1.25),
+  TAB(["Fonte", "Vazão por canal", "Observações"], [
+    ["Furlani e colaboradores, IAC (2009)", "0,5 a 1,0 L/min para mudas; **1,5 a 2,0 para plantas de ciclo curto**, como a alface; 2,0 a 4,0 para as de ciclo longo", "a divisão é por tipo de planta, não por fase. Não associa vazão a diâmetro de perfil"],
+    ["Embrapa Hortaliças, Circular Técnica 22 (2000)", "0,5 a 1 L/min na fase inicial e **1 a 2 L/min na fase final**, para plantas pequenas como a alface", "avisa que os valores da literatura são discordantes"],
+    ["SENAR‑PR, Mello e Campagnol (2016)", "1,5 a 2 L/min em cada canaleta", "é a fonte do aviso sobre bancadas com mais de 15 m"],
+    ["Emater‑PA, Manual Técnico 16", "1,5 a 2,0 L/min, regulada no ponto mais alto dos canais", "clima quente e úmido, mais parecido com o do litoral de Pernambuco"],
+  ], [0.3, 0.38, 0.32]),
+  ESPACO(),
+  P("Todas as recomendações brasileiras lidas cabem em **1 a 2 L/min por canal para a alface adulta**, com 1,5 a 2,0 como a faixa mais repetida, e metade disso para mudas."),
+  H2("5.3 O que os experimentos mostram"),
+  TAB(["Estudo", "O que comparou", "Resultado"], [
+    ["Genuncio e colaboradores (2012), Seropédica‑RJ, máxima média de 32 °C", "0,75, 1,0 e 1,5 L/min; canais de 6 m com 4 % de declive", "maior massa com **1,5 L/min**: 121 g por planta contra 101 g com 0,75 (alface ‘Lucy Brown’, média de três ciclos)"],
+    ["Santos e colaboradores (2011), Cascavel‑PR", "0,5, 1,0 e 1,5 L/min; declive de 3 %", "272, 286 e **351 g** por planta. As três vazões atenderam as plantas; a melhor foi 1,5"],
+    ["Morais e colaboradores (2025), Alegrete‑RS", "0,5 a 2,5 L/min; perfis de 6 m", "produção subindo até 2,5 L/min, mas com ganho pequeno acima de 1,5, que deu a melhor relação entre produção e energia"],
+    ["Dalastra e colaboradores (2020), Aparecida do Taboado‑MS, 17 a 24 °C", "0,5, 1, 2 e 4 L/min; perfil de 7 m com **10 %** de declive", "melhor com **1,0 L/min**; 2 e 4 ficaram abaixo, e 0,5 foi o pior"],
+    ["Helbel Junior e colaboradores (2007), Maringá‑PR", "0,8 e 1,2 L/min; declive de 2 %", "sem diferença entre as duas"],
+  ], [0.32, 0.28, 0.40]),
+  ESPACO(),
+  ...FIGURA(IMG("estudos_vazao.png"), "Massa fresca da alface em três experimentos, cada um em relação ao seu melhor resultado. Nos três, descer de 1,5 para 0,5 a 0,75 L/min custou de 17 a 22 % da produção.", 1.15),
+  P("Os estudos não dão um número único, e a razão está na geometria: com canal muito inclinado (10 %) a solução corre depressa e 1 L/min basta; com 2 a 4 % de declive e clima quente, 1,5 L/min rendeu mais que 1,0. **Nenhum dos experimentos lidos foi feito no litoral do Nordeste.** Para a bancada, o ponto de partida razoável é a faixa das recomendações, 1,5 a 2,0 L/min por canal, observando as raízes."),
+  H2("5.4 Declividade e comprimento dos canais"),
+  TAB(["Fonte", "Declividade", "Comprimento"], [
+    ["Furlani e colaboradores (2009)", "2 a 4 %", "até 30 m, para evitar variações de temperatura, oxigênio e sais"],
+    ["Embrapa, Circular Técnica 22", "2,0 a 2,5 %", "até 18 m"],
+    ["SENAR‑PR (2016)", "3 a 8 %; acima de 12 % o fluxo fica rápido demais, abaixo de 2 % a solução esquenta e perde oxigênio", "10 a 30 m"],
+    ["Emater‑PA", "2 a 4 %", "bancada de 12 m"],
+    ["Mendonça e colaboradores (2023), experimento", "testaram 2 a 10 %; a maior produção foi com 8 %", "tubos de 3 m"],
+  ], [0.36, 0.4, 0.24]),
+  ESPACO(),
+  P("Numa bancada escolar os canais têm um ou dois metros, muito abaixo de qualquer limite de comprimento. A declividade é que merece atenção: com canal de 1,5 m, 3 % são 4,5 cm de desnível entre as pontas, e 8 % são 12 cm. Mais declive faz a mesma vazão correr numa lâmina mais fina."),
+  H2("5.5 Vazão, oxigênio e temperatura"),
+  P("A raiz respira, e o oxigênio que ela usa está dissolvido na solução. Água quente guarda menos oxigênio: em água doce, a saturação cai de cerca de 9,1 mg/L a 20 °C para 8,3 a 25 °C e 7,6 a 30 °C. A circulação ajuda de dois jeitos: renova a solução junto da raiz e, na queda de volta ao reservatório, mistura ar. A Embrapa e o IAC pedem por isso uma vazão de retorno além da que vai para os canais (seção 6.2)."),
+  P("Há um contraponto que vale conhecer. Freitas e colaboradores (2021), da Bahia, escrevem que a simples recirculação pode não garantir oxigenação suficiente. E não encontramos medida de quanto oxigênio a mais cada litro por minuto traz. O que os experimentos mostram com clareza é o resultado final: no calor, mais vazão dentro da faixa deu mais alface. Os tutoriais do DS18B20 e do sensor de condutividade tratam da temperatura e da concentração da solução."),
+  H2("5.6 Vazão e o liga e desliga da bomba"),
+  P("A bomba da bancada não precisa funcionar o tempo todo: o costume é o ciclo de 15 minutos ligada e 15 desligada durante o dia, tema do tutorial do timer da bomba. As fontes concordam que não há regra geral e que, **nas horas mais quentes, o sistema deve ficar ligado sem parar**."),
+  TAB(["Estudo", "Clima", "Resultado"], [
+    ["Zanella e colaboradores (2008), Ji‑Paraná‑RO", "média de 29 °C", "15 min ligada com pausas de 5, 15 e 30 min: produção caindo com a pausa (200, 178 e 73 g por planta, alface ‘Regina’)"],
+    ["Dalastra e colaboradores (2020)", "11 a 25 °C", "fluxo sem interrupção melhor que 15/15, 15/30 e 15/60"],
+    ["Luz e colaboradores (2008), Santa Maria‑RS", "média de 24 °C", "pausas de 15, 30 e 45 min sem diferença; a de 45 min economizou 42 % de energia"],
+  ], [0.36, 0.2, 0.44]),
+  ESPACO(),
+  P("Para o sensor de vazão, o ciclo traz duas consequências. A leitura passa metade do tempo em zero sem que haja nada errado, e o alerta precisa saber disso (seção 12). E a média do dia inteiro não diz nada: o número que interessa é a vazão **com a bomba ligada**."),
+
+  // ---------------------------------------------------------------
+  QUEBRA(),
+  H1("6. A bancada de 25 posições: quanta vazão e onde medir"),
+  H2("6.1 O que está documentado"),
+  P("O repositório da telemetria descreve a bancada como **hidropônica, NFT, de 25 posições**, com bomba alimentada por fonte de 12 V, boia de nível e os sensores do nó `horta/no1`. **Não estão documentados** o número de canais, o comprimento e o declive deles, o modelo e a vazão da bomba nem o diâmetro da tubulação. As contas desta seção usam um exemplo, **cinco canais de cinco plantas**, só para mostrar o caminho. Conte os canais da bancada e refaça as contas."),
+  H2("6.2 A conta da vazão total"),
+  CODIGO(`vazao para as plantas  =  numero de canais  x  vazao por canal
+vazao da bomba         =  vazao para as plantas  +  retorno de 20 a 50 %     (Embrapa)
+
+Exemplo, 5 canais:
+   a 1,5 L/min por canal:   5 x 1,5 =  7,5 L/min      com 50 % de retorno: 11 L/min
+   a 2,0 L/min por canal:   5 x 2,0 = 10,0 L/min      com 50 % de retorno: 15 L/min
+
+A formula do IAC ja traz os 50 %:
+   vazao da bomba (m3/h)  =  0,09 x numero de canais x vazao por canal (L/min)
+   0,09 x 5 x 1,5  =  0,675 m3/h  =  675 L/h  =  11 L/min`, { arquivo: false, titulo: "quanto a bomba precisa entregar" }),
+  ESPACO(),
+  P("O retorno é a parte da solução que a bomba puxa e devolve direto ao reservatório, por um desvio, sem passar pelos canais. Ele agita a solução, mistura os nutrientes e ajuda a arejar. O número do rótulo da bomba vale para altura zero: quanto mais alto ela precisa empurrar, menos ela entrega. Mais um motivo para medir."),
+  H2("6.3 O sensor dá conta?"),
+  ...FIGURA(IMG("faixa_sensor.png"), "A faixa do YF‑S201 comparada com as vazões da bancada do exemplo. Um canal só fica no começo da faixa, onde o sensor é menos confiável; a soma dos canais cai onde a folha de dados tem medidas.", 1.3),
+  TAB(["Onde", "Vazão esperada", "Avaliação"], [
+    ["Um canal de mudas", "0,5 a 1,0 L/min", "**fora da faixa.** A turbina pode nem girar"],
+    ["Um canal de alface adulta", "1 a 2 L/min", "**no limite.** Gira, mas é a região em que a folha de dados não traz ensaio e a leitura vem em degraus de quase 10 %. Serve para dizer “passa” ou “não passa”, não para medir"],
+    ["A linha que alimenta 5 canais", "5 a 10 L/min", "**bom.** É onde o sensor trabalha melhor e onde a calibração vale"],
+    ["A saída da bomba, com o retorno", "7,5 a 15 L/min", "bom para o sensor, mas mede também o que não vai para as plantas"],
+  ], [0.3, 0.2, 0.5]),
+  ESPACO(),
+  P("Para medir um canal sozinho existem sensores da mesma família feitos para vazão baixa: a DFRobot documenta o YF‑S401 para 0,3 a 6 L/min, com 5880 pulsos por litro. Os programas deste tutorial funcionam com ele trocando só o número de pulsos por litro. Para a bancada, porém, a pergunta que importa (“a solução está circulando?”) é respondida na linha principal."),
+  H2("6.4 Onde instalar"),
+  TAB(["Lugar (figura 1)", "O que mede", "Prós e contras"], [
+    ["**A. Linha principal, depois do desvio de retorno**", "a soma do que vai para os canais", "é o número que a planta sente. Dividido pelo número de canais, dá a média por canal. **Recomendado**"],
+    ["B. Entrada de um canal", "a vazão daquele canal", "fora da melhor faixa do sensor; não vê os outros canais"],
+    ["C. Saída da bomba, antes do desvio", "tudo o que a bomba empurra", "mostra a saúde da bomba, mas um canal entupido quase não muda o número, porque a água foge pelo retorno"],
+  ], [0.32, 0.26, 0.42]),
+  ESPACO(),
+  P("Com o sensor em A, a vazão de cada canal continua sendo conferida do jeito antigo, que é também o método dos pesquisadores: Santos e colaboradores (2011) mediram com proveta graduada e cronômetro em cada orifício, várias vezes ao longo do cultivo. Um copo medidor de cozinha debaixo da saída de cada canal, por 30 segundos, resolve. O sensor vigia o conjunto o tempo todo; o copo confere a divisão entre os canais de vez em quando."),
+
+  // ---------------------------------------------------------------
+  QUEBRA(),
+  H1("7. A instalação na tubulação"),
+  UL(["**Siga a seta.** O corpo do sensor tem uma seta moldada no plástico: é o sentido da água. Ao contrário, a turbina gira mal ou não gira.",
+    "**Depois da bomba, num trecho que fica sempre cheio.** Antes da bomba o sensor atrapalha a sucção. Num trecho que esvazia, a turbina gira com ar.",
+    "**Filtro antes do sensor.** Um pedaço de raiz ou um grão de substrato trava a turbina. Se a bomba não tiver tela na entrada, ponha um filtro de linha entre a bomba e o sensor.",
+    "**Trecho reto antes e depois.** Curva, registro ou redução logo antes do sensor fazem a água chegar torta às pás. Não encontramos em fonte um comprimento mínimo para este sensor; uns 10 cm de tubo reto de cada lado é um cuidado barato.",
+    "**Posição.** As folhas de dados do YF‑S201 não dizem em que posição instalar. A DFRobot, para um sensor de 1/2\" da mesma família, manda instalar **na vertical**, com no máximo 5 graus de inclinação; a Adafruit avisa que a taxa de pulsos muda com a orientação. A regra que resolve a dúvida: escolha a posição, **calibre nela e não mude mais**. Na horizontal, deixe a saída do cabo para cima ou de lado, nunca para baixo, onde junta água de respingo.",
+    "**Vedação.** A rosca é de 1/2\". Use adaptadores de rosca para a mangueira ou o tubo da bancada, com fita veda‑rosca, apertando com a mão. O corpo é de plástico e racha com chave.",
+    "**Tire o ar.** Na primeira partida, deixe a bomba rodar um ou dois minutos antes de confiar na leitura. Bolhas contam como água.",
+    "**Cabo.** O cabo do sensor é curto. Para chegar à caixa do ESP32, emende três fios, isole cada emenda e deixe um laço para baixo antes de entrar na caixa, para a água que escorre pingar antes."]),
+  NOTA("Ímãs por perto", ["O sensor funciona com um ímã. Um ímã forte encostado no corpo (de alto‑falante, de fecho de armário) pode atrapalhar a contagem. Não encontramos fonte que meça esse efeito; por garantia, mantenha ímãs e motores a alguns centímetros."]),
+
+  // ---------------------------------------------------------------
+  QUEBRA(),
+  H1("8. As peças e a ligação elétrica"),
+  TAB(["Peça", "Quantidade", "Para que serve"], [
+    ["ESP32 DevKit V1 (30 pinos) + cabo USB", "1", "conta os pulsos, serve a página e fala com a telemetria"],
+    ["Sensor de vazão YF‑S201, 1/2\"", "1", "o sensor"],
+    ["Resistor de 1 kΩ e resistor de 2 kΩ", "1 de cada", "o divisor que baixa os pulsos de 5 V para 3,3 V"],
+    ["Protoboard e jumpers", "—", "a montagem de bancada"],
+    ["Multímetro", "1", "a conferência da seção 8.3, antes de ligar ao ESP32"],
+    ["Recipiente graduado (balde ou jarra com marcas de litro) e cronômetro", "1", "a calibração"],
+    ["Adaptadores de 1/2\", fita veda‑rosca, mangueira", "—", "a instalação na tubulação"],
+  ], [0.5, 0.14, 0.36]),
+  ESPACO(),
+  H2("8.1 Os pinos"),
+  TAB(["Fio do sensor", "No ESP32", "Por quê"], [
+    ["**Vermelho**", "VIN (os 5 V da USB)", "o sensor pede de 4,5 a 5 V no mínimo"],
+    ["**Preto**", "GND", "terra, comum ao ESP32"],
+    ["**Amarelo**", "resistor de 1 kΩ → **GPIO 27**; do GPIO 27, resistor de 2 kΩ → GND", "os pulsos saem com 5 V e o ESP32 só aceita 3,3 V. É o mesmo pino do nó `horta/no1`"],
+  ], [0.2, 0.44, 0.36]),
+  ESPACO(),
+  H2("8.2 O divisor de tensão"),
+  ...FIGURA(IMG("divisor.png"), "Dois resistores em série dividem a tensão na proporção dos valores: no ponto do meio aparecem dois terços dos 5 V.", 1.25),
+  P("Os pinos do ESP32 trabalham com 3,3 V e não são feitos para receber 5 V. O divisor resolve com duas peças: o pulso de 5 V cai sobre os dois resistores, e o GPIO enxerga só a parte que fica sobre o de 2 kΩ. É a convenção das aulas deste repositório para todo sinal de 5 V que entra no ESP32. O resistor de 2 kΩ faz também outro serviço: com o sensor desconectado, ele segura o pino em 0 V, e o programa não conta pulsos fantasmas."),
+  H2("8.3 Confira com o multímetro antes de ligar"),
+  P("A conta do divisor supõe que o sensor consegue manter os 5 V na saída mesmo “puxado” pelos 3 kΩ dos dois resistores. Se a saída do seu sensor for de coletor aberto com um resistor interno de valor alto, o nível alto desaba e o ESP32 não enxerga os pulsos. Como as folhas de dados não informam esse circuito, **meça**:"),
+  OL(["Monte tudo, **menos o fio do ponto do meio até o GPIO 27**. Ligue a USB.",
+    "Multímetro em tensão contínua, ponta preta no GND e ponta vermelha no ponto do meio do divisor.",
+    "Sopre de leve na entrada do sensor para a turbina dar uma fração de volta e parar. Repita algumas vezes. A leitura deve parar ora perto de **0 V**, ora perto de **3,3 V**.",
+    "Se o nível alto ficar **entre 2,6 e 3,4 V**, está certo: ligue o fio ao GPIO 27.",
+    "Se o nível alto ficar **abaixo de 2,5 V**, o divisor está pesado demais para este sensor. Troque os resistores por 10 kΩ e 20 kΩ (dois de 10 kΩ em série) e meça de novo; se ainda ficar baixo, use o conversor de nível da seção 8.4.",
+    "Se o nível alto passar de **3,5 V**, há resistor trocado ou faltando o de 2 kΩ. Não ligue ao ESP32 até corrigir."]),
+  NOTA("Por que não alimentar o sensor em 3,3 V e dispensar o divisor?", ["Porque fica abaixo do mínimo das folhas de dados (4,5 V na da Sea; 3,5 V na do YF‑21). Há quem faça e funcione, mas não encontramos relato confiável, e um sensor que funciona “às vezes” é pior que um que não funciona."]),
+  ESPACO(),
+  H2("8.4 A alternativa do nó da bancada: conversor de nível"),
+  ...FIGURA(ESQ("09b_yfs201_conversor_esp32"), "A ligação usada no `horta/no1`: o fio amarelo entra no lado de 5 V do conversor (HV3) e sai no lado de 3,3 V (LV3) para o GPIO 27. O conversor recebe 3,3 V em LV, 5 V em HV e o GND.", 1.2),
+  P("O conversor de nível lógico de 4 canais, o mesmo que o `horta/no1` usa para o I2C, tem resistores próprios dos dois lados e funciona com saída de coletor aberto. É a escolha segura quando o divisor não passar na conferência, e é a montagem para a qual o sensor vai quando for instalado no nó da bancada. Os programas são os mesmos. O tutorial do conversor de nível lógico, nesta mesma série, explica a peça."),
+
+  // ---------------------------------------------------------------
+  QUEBRA(),
+  H1("9. Passo 1: o primeiro teste"),
+  ...FIGURA(ESQ("09_yfs201_divisor_esp32"), "Montagem dos três sketches: vermelho na trilha de 5 V (VIN), preto na trilha do GND, amarelo no resistor de 1 kΩ; do ponto do meio sai o fio para o GPIO 27 e o resistor de 2 kΩ para o GND. A peça do desenho foi feita para as aulas; o sensor real é ligado pelo cabo de três fios.", 1.3),
+  CODIGO(INO("09_yfs201_teste_esp32"), { titulo: "09_yfs201_teste_esp32.ino" }),
+  ESPACO(),
+  OL(["Faça a conferência da seção 8.3 e ligue o fio do GPIO 27.",
+    "Grave o sketch com a placa **ESP32 Dev Module** e abra o Monitor Serial em 115200 baud.",
+    "Com o sensor **seco, na mão**, sopre na entrada, no sentido da seta. A turbina gira e as linhas mostram pulsos, frequência e uma “vazão” (de ar; o número não significa nada, mas prova que a contagem funciona).",
+    "Pare de soprar: os pulsos voltam a zero e aparece o aviso de turbina parada. Se continuar contando sozinho, veja a seção 15.",
+    "Com o sensor na tubulação e a bomba ligada, anote a frequência e a vazão. Feche um pouco o registro e veja os dois números caírem juntos.",
+    "Digite `z` e Enter para zerar o total antes de uma medida de volume."]),
+  TAB(["Trecho", "O que faz"], [
+    ["`volatile uint32_t pulsos`", "o contador. A palavra `volatile` avisa que ele muda fora do `loop()`, dentro da interrupção"],
+    ["`void IRAM_ATTR contarPulso()`", "a **rotina de interrupção**: roda sozinha a cada pulso, some com o resto por alguns microssegundos e volta. `IRAM_ATTR` põe a rotina na memória rápida do ESP32, exigência para interrupções"],
+    ["`agora - ultimoPulsoUs < 1500`", "filtro: dois pulsos a menos de 1,5 ms um do outro não podem ser da turbina (a 30 L/min há um a cada 4,4 ms). O segundo é ruído e não conta"],
+    ["`pulsos = pulsos + 1`", "soma um. Escrito assim, e não `pulsos++`, porque o `++` em variável `volatile` é desaconselhado nas versões novas da linguagem"],
+    ["`attachInterrupt(..., FALLING)`", "liga a rotina ao pino: ela dispara na **borda de descida**, quando o sinal cai de 3,3 V para 0 V. É a borda mais limpa numa saída de coletor aberto, e a mesma do `horta/no1`"],
+    ["`uint32_t total = pulsos;`", "copia o contador uma vez só e faz as contas com a cópia, para ele não mudar no meio da conta"],
+    ["`novos * 1000.0 / (agora - horaDaUltimaConta)`", "a frequência: pulsos divididos pelo tempo de verdade que passou, e não por “1 segundo” suposto"],
+    ["`frequencia * 60.0 / PULSOS_POR_LITRO`", "a vazão em L/min (seção 3.4)"],
+  ], [0.4, 0.6]),
+  ESPACO(),
+  NOTA("Por que interrupção, e não ler o pino no loop()", ["A 8 L/min cada pulso dura 8 milésimos de segundo em cada nível. Um `loop()` ocupado com o Wi‑Fi ou com um `Serial.print` longo perderia pulsos sem avisar, e a vazão sairia menor que a real. A interrupção conta todos, faça o programa o que fizer. A regra é manter a rotina curta: sem `Serial`, sem `delay`, só a soma."]),
+
+  // ---------------------------------------------------------------
+  QUEBRA(),
+  H1("10. Passo 2: a leitura no celular"),
+  H2("10.1 Como funciona"),
+  P("A montagem é a mesma do primeiro teste. O ESP32 cria a **própria rede Wi‑Fi** e roda um pequeno servidor web. O celular entra na rede `Horta-Vazao`, abre `http://192.168.4.1` e recebe uma página. A página pergunta os dados ao ESP32 a cada 2 s. Não precisa de internet nem do Wi‑Fi da escola."),
+  TAB(["Rota", "Quem chama", "O que o ESP32 faz"], [
+    ["`/`", "o navegador, ao abrir o endereço", "entrega a página (o texto do arquivo `pagina_vazao.h`)"],
+    ["`/dados`", "a página, a cada 2 s", "responde com vazão média e do último segundo, frequência, volume, pulsos por litro, faixa, alerta e situação"],
+    ["`/calibrar?acao=comecar`", "o botão Começar a contar", "zera a contagem da calibração"],
+    ["`/calibrar?litros=5`", "o botão Terminar e calcular", "divide os pulsos contados pelos litros e grava o resultado"],
+    ["`/calibrar?acao=cancelar` e `acao=padrao`", "os botões Cancelar e Voltar a 450", "desiste da contagem, ou volta ao fator da folha de dados"],
+    ["`/faixa?min=5&max=10&alerta=20`", "o botão Salvar", "grava a faixa desejada e o tempo do alerta"],
+    ["`/zerar`", "o botão Zerar o volume", "volta o volume a zero"],
+  ], [0.36, 0.26, 0.38]),
+  ESPACO(),
+  ...FIGURA(IMG("pagina_celular.png"), "A página em dois momentos: vazão dentro da faixa (verde) e alerta de bomba sem vazão (vermelho). Capturas feitas no computador, com um simulador que serve o mesmo arquivo `pagina_vazao.h` do sketch e inventa as leituras; no ESP32 de verdade a página ainda não foi testada.", 0.85),
+  H2("10.2 O programa"),
+  CODIGO(INO("09b_yfs201_esp32_web"), { titulo: "09b_yfs201_esp32_web.ino" }),
+  ESPACO(),
+  TAB(["Trecho", "O que faz"], [
+    ["`porSegundo[SEGUNDOS_DA_MEDIA]`", "uma fila com os pulsos de cada um dos últimos 10 segundos. A cada segundo entra um número novo no lugar do mais velho"],
+    ["`fazerAConta()`", "roda uma vez por segundo: calcula a frequência, atualiza a fila, a vazão do último segundo, a média de 10 s e o volume"],
+    ["`vazaoMedia`", "soma dos pulsos da fila dividida pelo tempo da fila. É o número grande da página, dez vezes mais fino que o do último segundo (figura da seção 3.5)"],
+    ["`volume += novos / pulsosPorLitro`", "o volume cresce a cada segundo com os pulsos novos. Calibrar não muda o volume já somado"],
+    ["`semVazaoDesde`", "a hora da última vez em que houve vazão. É a base do alerta (seção 12)"],
+    ["`situacao()`", "classifica: aguardando, parada, alerta, abaixo, dentro ou acima da faixa. A página pinta o cartão conforme a resposta"],
+    ["`terminarCalibracao()`", "a conta da seção 11.2, com travas: pelo menos 0,2 L, pelo menos 100 pulsos e resultado entre 120 e 1200 pulsos por litro"],
+    ["`Preferences memoria`", "a memória permanente do ESP32: guarda os pulsos por litro, a faixa e o tempo do alerta mesmo sem energia"],
+    ["`servidor.handleClient()`", "no `loop()`: atende um pedido do celular, se houver, e volta logo. A contagem não depende disso: ela está na interrupção"],
+  ], [0.38, 0.62]),
+  ESPACO(),
+  H2("10.3 Usando"),
+  OL(["Grave o sketch. A pasta precisa ter os dois arquivos: o `.ino` e o `pagina_vazao.h`.",
+    "No Monitor Serial (115200 baud) aparecem o nome da rede, a senha e o endereço, e depois uma linha por segundo.",
+    "No celular, entre na rede **Horta‑Vazao** com a senha `12345678`. O celular avisa que a rede não tem internet: escolha continuar conectado. Se a página não abrir, desligue os dados móveis.",
+    "No navegador, digite `http://192.168.4.1` (com `http://`, sem `https`).",
+    "Com a bomba ligada e a bancada funcionando bem, anote a vazão. Ajuste a faixa desejada para uns 20 % abaixo e 20 % acima desse valor e toque em Salvar. A faixa de fábrica, de 5 a 10 L/min, é a do exemplo de cinco canais.",
+    "Ajuste o tempo do alerta conforme o timer da bomba (seção 12)."]),
+  NOTA("Troque a senha", ["Quem souber a senha da rede pode mudar a calibração e desligar o alerta. Antes de deixar o ESP32 na bancada, mude `SENHA_DA_REDE` (mínimo de 8 caracteres)."]),
+  ESPACO(),
+  H2("10.4 A página"),
+  P("O arquivo `pagina_vazao.h` tem HTML (os blocos), CSS (as cores, dentro de `<style>`) e JavaScript (o que a página faz, dentro de `<script>`). A função `mostrar()` pinta a tela com a resposta do ESP32 e troca o cartão da calibração conforme a contagem esteja parada ou em andamento; `desenhar()` faz o gráfico das últimas 150 leituras, com a faixa desejada em verde; `pedir()` faz um pedido e chama as duas. Se o ESP32 não responder, o cartão fica vermelho com o aviso SEM CONTATO."),
+  CODIGO(INO("09b_yfs201_esp32_web", "pagina_vazao.h"), { titulo: "pagina_vazao.h" }),
+
+  // ---------------------------------------------------------------
+  QUEBRA(),
+  H1("11. Calibração: o balde e o cronômetro"),
+  H2("11.1 Por que calibrar"),
+  P("O 450 da folha de dados é um número médio, e a própria tabela da folha discorda dele (seção 3.4). A calibração troca o número médio pelo número do **seu sensor, na sua tubulação, na sua vazão**. O método é o mais antigo da hidráulica, o volumétrico: encher um recipiente de volume conhecido e contar. É o que o `horta/no1` usa, e é o que o programa `calibrar.py` da telemetria conduz."),
+  ...FIGURA(IMG("calibracao_balde.png"), "À esquerda, o método: toda a água que passa pelo sensor cai no recipiente. À direita, o que se espera ao repetir em três vazões: os pontos se alinham numa reta que passa pelo zero, e a inclinação é o número de pulsos por litro. Os valores do gráfico são de exemplo.", 1.3),
+  H2("11.2 A conta"),
+  CODIGO(`pulsos por litro  =  pulsos contados  /  litros coletados
+
+Exemplo: 2 790 pulsos enquanto o recipiente encheu ate a marca de 6,00 L
+         2 790 / 6,00  =  465 pulsos por litro          (3 % acima dos 450 da folha)
+
+Conferencia pelo cronometro: os 6,00 L levaram 48,0 s
+         vazao de referencia  =  6,00 / 48,0 x 60  =  7,50 L/min
+         a pagina deve ter mostrado perto de 7,5 L/min durante o enchimento`, { arquivo: false, titulo: "o fator de pulsos por litro" }),
+  ESPACO(),
+  P("Repare que, para achar os pulsos por litro, **o cronômetro nem é necessário**: basta o volume e a contagem. O cronômetro entra para conferir a vazão e é obrigatório no método da telemetria (seção 13.4), que compara vazões."),
+  H2("11.3 O recipiente"),
+  UL(["**Quanto maior, melhor.** O erro de começar e parar (uns 0,2 s de cada vez) e o erro de ler a marca pesam menos num volume grande. A apostila de hidrometria da USP, que só vimos citada, pede enchimento de pelo menos 20 segundos; a 7,5 L/min isso são 2,5 litros. **Use 5 litros ou mais.**",
+    "**Confira as marcas.** Balde de obra tem marca aproximada. Uma garrafa PET de 2 litros cheia até a boca, despejada duas ou três vezes, faz uma marca melhor que a de fábrica. Com balança de cozinha, melhor ainda: 1 litro de água pesa 1 kg, e a solução nutritiva, menos de 0,5 % a mais.",
+    "**No nível, sobre a mesa,** e com a marca lida na altura dos olhos."]),
+  H2("11.4 Passo a passo, pelo celular (sketch 09b)"),
+  OL(["Sensor instalado **na posição definitiva**, bomba ligada há alguns minutos, sem ar na tubulação.",
+    "Desvie para a mão a mangueira que vem **depois do sensor** (a que alimenta o distribuidor), de modo que tudo o que passa pelo sensor saia por ela. Deixe a solução correr de volta para o reservatório enquanto prepara.",
+    "Uma pessoa segura a mangueira, outra o celular. Ao toque em **Começar a contar**, a mangueira vai para o recipiente, no mesmo instante. Dispare o cronômetro junto.",
+    "Quando a solução chegar à marca, tire a mangueira e pare o cronômetro. Os pulsos que chegarem depois disso estragam a medida: toque em **Terminar e calcular** logo, depois de escrever o volume.",
+    "A linha Pulsos por litro muda. Anote no caderno: data, volume, pulsos, tempo, resultado e a vazão.",
+    "Devolva a solução ao reservatório e **repita mais duas vezes**. Os três resultados devem ficar a menos de 2 % um do outro (para 465, entre 460 e 470). Se não ficarem, há ar na linha ou erro de começo e fim.",
+    "Fique com a **média dos três**. O botão grava o resultado da última contagem; para gravar a média, faça uma última contagem ou digite no Monitor Serial."]),
+  P("Pelo cabo USB, os comandos são `c` para começar, `f 6.0` para terminar com 6,0 litros, `x` para cancelar e `r` para voltar a 450."),
+  H2("11.5 Repetir em duas ou três vazões"),
+  P("Feche um pouco o registro e repita o ensaio numa vazão menor; depois, numa terceira. Monte a tabela:"),
+  TAB(["Vazão do ensaio", "Volume", "Pulsos", "Pulsos por litro", "Diferença para a média"], [
+    ["8 L/min (registro aberto)", "6,00 L", "2 772", "462", "−1,0 %"],
+    ["6 L/min", "6,00 L", "2 796", "466", "−0,1 %"],
+    ["4 L/min", "6,00 L", "2 826", "471", "+1,0 %"],
+  ], [0.3, 0.14, 0.14, 0.2, 0.22]),
+  ESPACO(),
+  P("Os números da tabela são **inventados**, só para mostrar o formato. O que se procura: se os três fatores ficarem a uns 2 % um do outro, um número só serve para toda a faixa. Se a diferença for maior, grave o fator da **vazão em que a bancada trabalha** e anote que, longe dela, o erro cresce. Os programas usam um fator único, como o `horta/no1`."),
+  H2("11.6 Que erro esperar"),
+  TAB(["Fonte de erro", "Tamanho", "Como diminuir"], [
+    ["Sem calibrar (fator 450)", "até 10 %, pela folha de dados", "calibrar"],
+    ["Leitura da marca do recipiente", "1 a 2 % num balde comum de 5 a 10 L", "marca feita com garrafa ou balança; recipiente estreito e alto"],
+    ["Começo e fim da coleta", "cerca de 0,2 s em cada ponta: 1 % em 40 s", "volume maior; duas pessoas; repetir"],
+    ["Vazão mudando durante o ensaio", "depende da bomba e do nível", "reservatório cheio; não mexer no registro"],
+    ["Mudança do fator com a vazão", "alguns por cento entre 2 e 12 L/min, pela tabela da folha", "calibrar na vazão de trabalho"],
+    ["Ar na tubulação", "imprevisível", "sangrar a linha; sensor em trecho cheio"],
+  ], [0.34, 0.34, 0.32]),
+  ESPACO(),
+  P("Com cuidado, uma calibração de balde chega a uns **3 %**. A ferramenta da telemetria aceita até 5 % entre a vazão medida no balde e a do sensor. Para a pergunta da bancada (a solução está circulando, e mais ou menos quanto?), isso sobra."),
+  NOTA("De quanto em quanto tempo", ["Calibre na instalação e **confira a cada troca de solução** ou quando mexer na tubulação. A conferência é um ensaio só: se os pulsos por litro mudarem mais de 5 % em relação ao gravado, limpe o sensor e calibre de novo. Um fator que sobe devagar ao longo dos meses é sinal de sujeira freando a turbina."]),
+
+  // ---------------------------------------------------------------
+  QUEBRA(),
+  H1("12. O alerta de bomba sem vazão"),
+  P("O defeito mais perigoso da bancada é a solução parar de circular sem ninguém perceber. Os sketches `09b` e `09c` vigiam isso com uma regra simples: **se passar tempo demais sem nenhum pulso, alerta**."),
+  ...FIGURA(IMG("alerta.png"), "Com o timer em 15 por 15 minutos, as pausas de 15 minutos são normais. Se a vazão não voltar em 20 minutos, alguma coisa falhou: a página fica vermelha, o LED da placa pisca e o painel recebe `circulacao` igual a 0.", 1.25),
+  H2("12.1 Que tempo escolher"),
+  TAB(["Como a bomba funciona", "Tempo do alerta", "Por quê"], [
+    ["Ligada o tempo todo", "2 min", "qualquer parada é defeito"],
+    ["Timer de 15 min ligada e 15 desligada", "**20 min**", "a pausa normal mais 5 minutos de folga. É o valor de fábrica"],
+    ["Timer de 15 por 30 min", "35 min", "idem"],
+    ["À noite, 15 min a cada 2 horas (sketch `05d`)", "125 min, ou 0 para desligar", "com a regra do tempo, um alerta só serve para a pausa mais longa"],
+  ], [0.4, 0.26, 0.34]),
+  ESPACO(),
+  P("A regra do tempo tem um defeito: ela precisa ser frouxa o bastante para a pausa mais longa, e por isso demora a avisar. Com o ciclo da noite, uma bomba que falha de dia só seria percebida duas horas depois."),
+  H2("12.2 O fio‑espia: saber quando a bomba deveria estar ligada"),
+  P("A solução é o programa saber **quando o timer mandou ligar**. Se o timer for o sketch `05e`, num outro ESP32, basta um fio: do pino que comanda o relé naquele ESP32 (GPIO 26) até o GPIO 33 deste, mais um fio ligando os GND das duas placas. Os dois pinos são de 3,3 V e não precisam de divisor. No programa:"),
+  CODIGO(`const int PINO_ESPIA_BOMBA = 33;               // era -1
+const int NIVEL_COM_BOMBA_LIGADA = LOW;        // sketch 05e, bomba no contato NF: LOW = ligada`, { arquivo: false, titulo: "as duas linhas que mudam nos sketches 09b e 09c" }),
+  ESPACO(),
+  P("Com o fio, o relógio do alerta só corre enquanto a bomba deveria estar ligada, e o tempo pode baixar para **1 minuto**: bomba mandada ligar há 1 minuto e nenhum pulso é alerta, de dia ou de noite. O nível certo depende da montagem do relé: no tutorial do timer, a bomba passa pelo contato normalmente fechado e fica ligada com o pino em nível baixo. Se o seu relé for ligado de outro jeito, troque para `HIGH`."),
+  NOTA("O que o alerta não faz", [
+    "**Não desliga a bomba.** Ele só avisa. Bomba girando sem puxar água pode queimar; quem protege a bomba da falta de água no reservatório é a boia do `horta/no1`.",
+    "**Não manda mensagem.** A página só mostra o alerta a quem estiver com ela aberta, e o painel da telemetria, hoje, mostra as grandezas sem alarme. A grandeza `circulacao` fica gravada e aparece no gráfico.",
+    "**Não foi testado.** A lógica compila e foi vista no simulador da página; o fio‑espia não foi ligado em nenhuma placa.",
+  ], VERMELHO),
+
+  // ---------------------------------------------------------------
+  QUEBRA(),
+  H1("13. Passo 3: o nó na Rede de Telemetria"),
+  H2("13.1 O que muda em relação ao sketch 09b"),
+  P("O ESP32 deixa de criar a própria rede e entra no **Wi‑Fi da telemetria**. Em vez de servir uma página, publica as leituras no servidor da escola com a biblioteca **CriaTelemetria**, que cuida de tudo o que não é sensor: conectar e reconectar, acertar o relógio pelo servidor, numerar as leituras e guardar na memória as que não puderem ser enviadas."),
+  TAB(["", "Sketch `09b` (celular)", "Sketch `09c` (telemetria)"], [
+    ["Rede", "a própria, `Horta-Vazao`", "o Wi‑Fi da telemetria"],
+    ["Quem vê", "um celular perto da bancada", "qualquer computador ou celular na rede, pelo painel"],
+    ["Histórico", "as últimas 150 leituras, enquanto a página está aberta", "tudo, no banco de dados, com exportação em CSV"],
+    ["Vazão", "média móvel de 10 s, atualizada a cada segundo", "média dos 10 s entre duas publicações"],
+    ["Calibração", "pela página ou pelo Monitor Serial; pulsos por litro", "pela ferramenta `calibrar.py`, na USB; a reta fica no nó"],
+    ["Sem calibrar", "usa 450 pulsos por litro", "igual: publica com o fator da folha de dados"],
+    ["Alerta", "cartão vermelho na página", "LED da placa piscando e `circulacao` em 0"],
+    ["Placa no Arduino IDE", "ESP32 Dev Module", "DOIT ESP32 DEVKIT V1"],
+  ], [0.2, 0.4, 0.4]),
+  ESPACO(),
+  H2("13.2 O programa"),
+  CODIGO(INO("09c_yfs201_esp32_telemetria"), { titulo: "09c_yfs201_esp32_telemetria.ino" }),
+  ESPACO(),
+  TAB(["Trecho", "O que faz"], [
+    ["`CriaNo no(PROJETO, NO);`", "o nó. Publica em `cria/teste/no9/...`"],
+    ["`CriaCalibracao calibracao(no, ...)`", "guarda a reta do sensor na memória do nó e atende a ferramenta de calibração pela USB"],
+    ["`SIMULAR_SENSORES`", "com 1, o nó inventa uma frequência perto de 55 Hz: serve para testar a rede e o painel antes de montar. A reta do ensaio fica noutro espaço da memória"],
+    ["`atualizarVazao()`", "a cada segundo, guarda a frequência do último segundo. É o valor “bruto” que a ferramenta de calibração pede"],
+    ["`calibracao.sensor(\"vazao\", \"Hz\", ..., 60.0 / PULSOS_POR_LITRO, 0.0, false)`", "registra o sensor: vazão = inclinação × frequência. Com 450 pulsos por litro, a inclinação é 0,133 L/min por hertz. O `false` diz que ele publica mesmo sem calibrar"],
+    ["`no.aCada(10000)`", "verdadeiro a cada 10 s, e só depois de o relógio estar certo"],
+    ["`novos / segundos`", "a frequência média do intervalo inteiro: todos os pulsos entre duas publicações entram na conta, nenhum fica de fora"],
+    ["`calibracao.converter(\"vazao\", frequenciaMedia)`", "aplica a reta gravada à frequência média"],
+    ["`no.publicar(\"circulacao\", ..., \"estado\")`", "1 em situação normal; 0 quando o tempo sem vazão passa do limite"],
+  ], [0.46, 0.54]),
+  ESPACO(),
+  P("As grandezas `volume` e `circulacao` não existem no catálogo do projeto `horta`; no projeto `teste` qualquer grandeza é aceita, desde que o nome siga as regras (minúsculas, sem acento). O volume recomeça do zero quando o nó reinicia."),
+  H2("13.3 Preparar e gravar"),
+  OL(["**Biblioteca.** Copie a pasta `firmware/biblioteca-cria` do repositório telemetria‑cria para a pasta `libraries` do Arduino (ela aparece como CriaTelemetria) e instale a **PubSubClient**.",
+    "**Credenciais.** Na pasta do sketch, copie `credenciais.exemplo.h` com o nome `credenciais.h` e preencha: nome e senha do Wi‑Fi da telemetria, IP do servidor, `MQTT_USUARIO \"teste\"` e a senha do projeto `teste`, que o coordenador fornece.",
+    "**Nome do nó.** Abra o painel, veja quais nós do projeto `teste` já existem e escolha um número livre em `NO`.",
+    "**Primeiro sem sensor.** Mude `SIMULAR_SENSORES` para 1, grave e confira se a vazão chega ao painel. Volte para 0.",
+    "**Grave** com a placa DOIT ESP32 DEVKIT V1 e abra o Monitor Serial em 115200 baud. As linhas com `[cria]`, `[cal]` e `[vazao]` dizem o que está acontecendo."]),
+  CODIGO(`arduino-cli compile --fqbn esp32:esp32:esp32doit-devkit-v1 \\
+    --library /caminho/telemetria-cria/firmware/biblioteca-cria \\
+    aula-agua/codigo/09c_yfs201_esp32_telemetria`, { arquivo: false, titulo: "pela linha de comando" }),
+  ESPACO(),
+  NOTA("A senha nunca vai para o git", ["O arquivo `credenciais.h` está no `.gitignore` do repositório. Só o `credenciais.exemplo.h`, sem senhas, é versionado. Se uma senha for enviada ao GitHub por engano, avise o coordenador: ela precisa ser trocada no servidor."], VERMELHO),
+  ESPACO(),
+  H2("13.4 Calibrar o nó pela USB"),
+  P("Na telemetria, a calibração é feita com o notebook ao lado, pela ferramenta `calibracao/calibrar.py` do repositório telemetria‑cria. Feche o Monitor Serial antes: a porta só aceita um programa de cada vez."),
+  CODIGO(`py calibracao/calibrar.py --porta COM5 --listar       (mostra as retas gravadas no no)
+py calibracao/calibrar.py --porta COM5 vazao          (conduz a calibracao)`, { arquivo: false, titulo: "na pasta do repositório telemetria-cria (no Linux: python3 e /dev/ttyUSB0)" }),
+  ESPACO(),
+  OL(["A ferramenta mostra a reta atual e manda ligar a bomba com a saída num recipiente graduado.",
+    "Encha o recipiente **cronometrando** e digite o volume, em litros, e o tempo, em segundos. A ferramenta calcula a vazão de referência.",
+    "**Mantenha a bomba ligada, na mesma vazão:** em seguida a ferramenta coleta do nó a frequência dos pulsos por alguns segundos.",
+    "Ela calcula a inclinação nova (vazão de referência dividida pela frequência média), confere se está entre 0,05 e 0,5 L/min por hertz e pergunta se grava.",
+    "Gravada, a reta fica na memória do nó e os pontos são registrados em `calibracao/`, com data."]),
+  P("A inclinação e os pulsos por litro são o mesmo número escrito de dois jeitos: inclinação = 60 ÷ pulsos por litro. Uma inclinação de 0,129 corresponde a 465 pulsos por litro. A diferença de método é que a ferramenta compara **vazões** (por isso precisa do cronômetro e de vazão constante), enquanto a página do celular compara **volume com contagem**."),
+  H2("13.5 No painel"),
+  P("O painel abre em `http://IP_DO_SERVIDOR:3000`, em qualquer aparelho da rede da telemetria. O servidor não precisa ser configurado: ele grava e mostra sozinho qualquer grandeza que siga o catálogo. O nó aparece com o estado on‑line, o tempo desde a última leitura, a perda estimada e um gráfico da última hora para cada grandeza."),
+  ...FIGURA(IMG("painel_telemetria.png"), "O painel da telemetria com o nó `teste/no9`. É o painel de verdade (os arquivos de `servidor/painel` do repositório), alimentado por um simulador com leituras inventadas: a vazão em degraus do timer de 15 por 15 minutos, o volume subindo só com a bomba ligada. Com o servidor e o sensor reais a captura ainda não foi feita.", 1.3),
+  UL(["**Os degraus da vazão** são o timer funcionando. A altura do degrau é a vazão da bancada; se ela baixar de uma semana para outra, é hora de olhar o filtro e as raízes.",
+    "**CSV deste nó** baixa as leituras para a planilha, no padrão brasileiro (ponto e vírgula, vírgula decimal).",
+    "**Off‑line** aparece em cerca de 8 s se o nó cair.",
+    "**Para conferir sem o painel,** num computador da rede: `mosquitto_sub -h IP_DO_SERVIDOR -u teste -P SENHA -t \"cria/teste/#\" -v`."]),
+  NOTA("E para levar à bancada?", ["O nó da bancada é o `horta/no1`, que já tem o YF‑S201 previsto no GPIO 27, pelo conversor de nível. O sensor testado e conhecido neste tutorial é ligado lá, e a calibração é refeita no próprio `horta/no1`, com a mesma ferramenta e na tubulação definitiva. O alerta de circulação não existe no `horta/no1`: levá‑lo para lá é uma mudança no programa e uma linha nova no catálogo de tópicos, por pull request."]),
+
+  // ---------------------------------------------------------------
+  QUEBRA(),
+  H1("14. Cuidados com o sensor"),
+  TAB(["Quando", "O que fazer"], [
+    ["Toda semana", "olhar o gráfico da vazão: o degrau está na mesma altura da semana passada?"],
+    ["A cada troca da solução", "limpar o filtro; conferir a calibração com um ensaio de balde"],
+    ["Vazão caindo aos poucos", "filtro sujo, raízes nos canais ou limo na turbina. Limpe o filtro primeiro; se não resolver, tire o sensor"],
+    ["Limpeza do sensor", "tirar da linha e passar água limpa no sentido contrário ao da seta, sem enfiar nada na câmara. Sacudir de leve: a turbina deve girar solta"],
+    ["Bancada parada por muitos dias", "esvaziar e secar o sensor. Solução nutritiva parada deixa crosta de sais no eixo"],
+    ["Sempre", "cabo e emendas secos; laço para baixo antes da caixa; nada de chave na rosca de plástico"],
+  ], [0.28, 0.72]),
+  ESPACO(),
+  P("O sensor tem partes móveis e trabalha numa solução de sais, com algas e raízes por perto. Não encontramos fonte sobre a vida útil dele nesse serviço. O histórico dos pulsos por litro, anotado a cada conferência, é o que vai mostrar o desgaste."),
+
+  // ---------------------------------------------------------------
+  H1("15. Problemas comuns"),
+  TAB(["Sintoma", "Causa provável", "O que fazer"], [
+    ["Nenhum pulso, nem soprando", "fio amarelo no pino errado; sensor sem os 5 V; nível alto baixo demais no divisor", "medir 5 V entre vermelho e preto; refazer a conferência da seção 8.3"],
+    ["Conta pulsos com a turbina parada", "fio amarelo solto ou longo captando ruído; resistor de 2 kΩ faltando; bomba ou relé perto do cabo", "conferir o divisor; afastar o cabo da bomba; cabo mais curto ou blindado"],
+    ["Vazão pela metade ou em dobro do esperado", "fator errado, ou o sensor é de outro modelo", "calibrar (seção 11). Um YF‑S401 dá 13 vezes mais pulsos por litro"],
+    ["Leitura pulando muito", "ar na tubulação; vazão perto de 1 L/min; curva logo antes do sensor", "sangrar a linha; olhar a média de 10 s; trecho reto"],
+    ["Bomba ligada, água passando, leitura em zero", "sensor ao contrário (seta); turbina travada por sujeira", "conferir a seta; limpar (seção 14)"],
+    ["Vazão menor depois de instalar o sensor", "a passagem estreita do sensor freia a água", "normal. Se faltar vazão nos canais, feche um pouco o retorno"],
+    ["Alerta disparando à noite", "pausa do timer maior que o tempo do alerta", "aumentar o tempo, pôr 0 ou usar o fio‑espia (seção 12)"],
+    ["Calibração recusada", "menos de 100 pulsos, volume fora de 0,2 a 100 L ou resultado fora de 120 a 1200", "coletar mais água; conferir o volume digitado, com ponto decimal no Monitor Serial"],
+    ["O ESP32 reinicia ao ligar o Wi‑Fi", "cabo USB ou carregador fraco", "carregador de 5 V e 1 A ou mais; cabo curto"],
+    ["O celular entra na rede, mas a página não abre", "dados móveis ligados, ou foi digitado `https`", "desligar os dados móveis; digitar `http://192.168.4.1`"],
+    ["O nó não aparece no painel", "credenciais erradas; `MQTT_USUARIO` diferente do projeto; nome de nó repetido", "ler as mensagens `[cria]` no Monitor Serial"],
+    ["Vazão do painel diferente da do copo no canal", "o sensor mede a soma dos canais", "dividir pelo número de canais; conferir canal por canal com o copo"],
+  ], [0.32, 0.34, 0.34]),
+
+  // ---------------------------------------------------------------
+  QUEBRA(),
+  H1("16. Vídeos para ver o sensor funcionando"),
+  P("Os links abaixo foram conferidos um a um: o título e o canal são os que o YouTube informa para cada endereço. **Os vídeos não foram assistidos**; a descrição do conteúdo vem do título e do texto que acompanha cada um. Não apareceu, na busca, nenhum vídeo em português que use este sensor com ESP32 e mostre a calibração com balde; vale procurar no YouTube por “YF‑S201 ESP32” e “calibrar sensor de fluxo Arduino”. Os programas feitos para Arduino Uno ligam o fio amarelo direto, em 5 V: no ESP32, não esqueça o divisor."),
+  TAB(["Vídeo e canal", "Idioma", "O que traz", "Endereço"], [
+    ["“Arduino YF‑S201 Flow Sensor calibration and usage”, Tonguç Endem (Mr ToR)", "inglês", "calibração do YF‑S201 com Arduino", "youtube.com/watch?v=gHQzjZk2LjA"],
+    ["“Tutorial Cara Program Water Flow Sensor Jumlah dan Kecepatan Air YF S201 dengan ESP32 dan Blynk IoT”, Capasitor Tech", "indonésio", "YF‑S201 com ESP32: vazão e volume num aplicativo", "youtube.com/watch?v=8LW8ea080Oo"],
+    ["“Cara Mengukur Volume Air Berbasis Iot Menggunakan Water Flow Sensor Di Esp32. dan Firebase ‑ Kodular”, Dodi Burman", "indonésio", "medida de volume com sensor de vazão e ESP32", "youtube.com/watch?v=qa9VIEax7pg"],
+    ["“Arduino: Medição de vazão, resposta rápida vs tradicional”, Rtek1000", "português", "duas formas de calcular a vazão a partir dos pulsos", "youtube.com/watch?v=Ped5b4vVxGo"],
+    ["“Teste Sensor de fluxo ou vazão ‑ Modelo: YF‑S201”, Alexandre Oliveira", "português", "teste do YF‑S201", "youtube.com/watch?v=TOblJ0FiK2o"],
+    ["“Video 19 ‑ TASMOTA ‑ Medindo vazão com sensor de fluxo”, Daniel Ghisleni", "português", "sensor de fluxo com o firmware Tasmota", "youtube.com/watch?v=Kpz_CuaT9g0"],
+    ["“Sensor de Fluxo de agua”, Usinainfo Eletrônica e Robótica", "português", "apresentação do sensor por uma loja", "youtube.com/watch?v=ALz5Wjy0Ymw"],
+    ["“046 ‑ Sensor de Fluxo de Água YF‑S401”, Mamute Eletrônica", "português", "o sensor da mesma família para vazão baixa", "youtube.com/watch?v=Km3GFJm7RO4"],
+    ["“Medición de Caudal con Arduino y YF‑S201”, Sergio A. Castaño Giraldo", "espanhol", "medida de vazão com Arduino e YF‑S201", "youtube.com/watch?v=EpkvWDsCux8"],
+    ["“Control de Flujo de Agua | Water Flow Sensor Caudalímetro YF‑S201 con Arduino”, Ing. René Domínguez", "espanhol", "YF‑S201 com Arduino", "youtube.com/watch?v=oTtikmrJoEY"],
+    ["“Water Flow Rate & Volume Measurement using Water Flow Sensor & Arduino”, How To Electronics", "inglês", "vazão e volume com Arduino", "youtube.com/watch?v=y841yf-WjqE"],
+  ], [0.38, 0.11, 0.26, 0.25]),
+
+  // ---------------------------------------------------------------
+  QUEBRA(),
+  H1("17. O que foi e o que não foi verificado"),
+  TAB(["Item", "Situação"], [
+    ["Sketches `09` e `09b`", "compilam com `arduino-cli` para `esp32:esp32:esp32` (core 3.x). **Não foram gravados numa placa**"],
+    ["Sketch `09c`", "compila para `esp32:esp32:esp32doit-devkit-v1` com a CriaTelemetria 0.2.0, nos modos normal e simulado. **Não foi gravado nem ligado ao servidor**"],
+    ["Sensor", "nada foi montado e nenhuma água passou por ele. Tensões, faixas e fórmulas vêm das folhas de dados e do programa do `horta/no1`"],
+    ["Anúncio do Mercado Livre", "não abriu sem login. O modelo foi tomado pelo nome do anúncio: YF‑S201, 1/2\", efeito Hall"],
+    ["**Divisor de 1 kΩ e 2 kΩ com este sensor**", "**é o ponto mais incerto.** As folhas de dados não informam o circuito de saída; se o resistor interno for de valor alto, o divisor não funciona. A conferência da seção 8.3 decide. O sketch `02b` da aula usa o mesmo divisor e também nunca foi testado em hardware"],
+    ["Filtro de 1,5 ms na interrupção", "escolhido pela conta (30 L/min dão um pulso a cada 4,4 ms); não foi testado contra ruído real"],
+    ["Página do celular", "aberta no computador, com simulador. Não foi aberta num celular ligado a um ESP32"],
+    ["Painel da telemetria", "o painel real, com leituras de um simulador. Não é captura do servidor da escola"],
+    ["Calibração", "o procedimento está descrito; **nenhuma calibração foi feita**. Os números das seções 11.2 e 11.5 e da figura são exemplos"],
+    ["Erro de 3 % na calibração de balde", "estimativa deste tutorial a partir dos erros de leitura e de tempo; não é valor medido nem de fonte"],
+    ["Alerta e fio‑espia", "a lógica compila e aparece no simulador da página. O fio entre dois ESP32 não foi ligado"],
+    ["Bancada de 25 posições", "o repositório da telemetria só informa “NFT de 25 posições”. Canais, declive, bomba e tubulação precisam ser vistos na bancada; os cinco canais são um exemplo"],
+    ["Papel da vazão no projeto", "o repositório registra o sensor, o tópico e a calibração; os usos da seção 4.2 são proposta deste tutorial"],
+    ["Pulsos por litro da tabela da folha de dados", "conta deste tutorial sobre os pares vazão e frequência da folha da Sea"],
+    ["Posição de instalação", "as folhas do YF‑S201 não dizem; a orientação “na vertical” é da DFRobot para outro sensor da família"],
+    ["Trecho reto, ímãs próximos, vida útil", "sem fonte encontrada; são cuidados de bom senso"],
+    ["Boletim Técnico 180 do IAC", "não foi consultado; usamos o artigo de 2009 dos mesmos autores"],
+    ["Embrapa, Circular Técnica 22", "lida num PDF digitalizado, com trechos pouco legíveis"],
+    ["Valores de oxigênio dissolvido", "aproveitados da pesquisa do tutorial do DS18B20 (tabelas do USGS e da YSI); não reabertos"],
+    ["Apostila de hidrometria da USP (20 s de enchimento)", "vista só em resultado de busca; não foi aberta"],
+    ["Vídeos", "endereço, título e canal conferidos; conteúdo não assistido"],
+    ["Peça do Fritzing", "o YF‑S201 foi desenhado para as aulas; não reproduz o sensor em detalhe"],
+  ], [0.34, 0.66]),
+
+  // ---------------------------------------------------------------
+  H1("18. Referências"),
+  H2("Sensor e ESP32"),
+  UL([
+    "SEA. Water flow sensor, model YF‑S201 (folha de dados). cdn.shopify.com/s/files/1/0058/3145/8904/files/yf-s201_sea.pdf",
+    "YIFA. Water flow sensor YF‑21 (folha de dados, distribuída pela Seeed). github.com/SeeedDocument/G1_and_2_inch_Water_Flow_Sensor",
+    "ADAFRUIT. Liquid Flow Meter – Plastic 1/2\" NPS Threaded (produto 828). adafruit.com/product/828",
+    "SEEED STUDIO. Water Flow Sensor (wiki). wiki.seeedstudio.com/Water-Flow-Sensor",
+    "DFROBOT. Water Flow Sensor 1/2\" (SEN0217) e Water Flow Sensor 1/8\" (SEN0216, YF‑S401), wikis. wiki.dfrobot.com",
+    "OFWEEK. Water flow sensor YF‑S201 (página de produto). en.ofweek.com/product/water-flow-sensor-yf-s201_2431.html",
+    "MOKXI. Arduino flow sensor (guia). mokxi.com/learn/arduino-flow-sensor",
+    "RANDOM NERD TUTORIALS. ESP32 GPIO Interrupts with Arduino IDE. randomnerdtutorials.com/esp32-gpio-interrupts-arduino",
+    "ESPRESSIF. ESP‑IDF, Pulse Counter (PCNT): o contador de pulsos por hardware do ESP32, alternativa à interrupção. docs.espressif.com",
+    "Arduino Forum, “YFS201 Hall effect water flow sensor giving wrong values” e tópico 288813.",
+  ]),
+  H2("Hidroponia e alface"),
+  UL([
+    "FURLANI, P. R.; SILVEIRA, L. C. P.; BOLONHEZI, D.; FAQUIN, V. Cultivo hidropônico de plantas: Parte 1 – Conjunto hidráulico. Infobibos, 2009. infobibos.com.br/Artigos/2009_1/hidroponiap1",
+    "CARRIJO, O. A.; MAKISHIMA, N. Princípios de Hidroponia. Embrapa Hortaliças, Circular Técnica 22, 2000.",
+    "MELLO, S. C.; CAMPAGNOL, R. Olericultura: cultivo hidropônico. SENAR‑PR, 2016.",
+    "SHIMPO, E. M.; SANCHES, R. S. Hidroponia. Emater‑Pará, Manual Técnico 16.",
+    "GENUNCIO, G. C.; GOMES, M.; FERRARI, A. C.; MAJEROWICZ, N.; ZONTA, E. Hydroponic lettuce production in different concentrations and flow rates of nutrient solution. Horticultura Brasileira, 30(3):526‑530, 2012. DOI 10.1590/S0102-05362012000300028.",
+    "SANTOS, R. F.; FURTADO, L. F.; BASSEGIO, D.; SECCO, D.; SOUZA, S. N. M.; FRIGO, E. P. Relação entre as vazões de aplicação de solução nutritiva em cultivo de alface hidropônica. Cultivando o Saber, 4(4):204‑216, 2011.",
+    "DALASTRA, C.; TEIXEIRA FILHO, M. C. M.; SILVA, M. R.; NOGUEIRA, T. A. R.; FERNANDES, G. C. Head lettuce production and nutrition in relation to nutrient solution flow. Horticultura Brasileira, 38(1):21‑26, 2020. DOI 10.1590/S0102-053620200103.",
+    "DALASTRA, C. Nutrição e produção de alface americana em função da vazão, periodicidade de exposição e condutividade elétrica da solução nutritiva em sistema hidropônico. Tese, UNESP Ilha Solteira, 2017.",
+    "DALASTRA, C.; TEIXEIRA FILHO, M. C. M.; VARGAS, P. F. Periodicity of exposure of hydroponic lettuce plants to nutrient solution. Revista Caatinga, 33(1):81‑89, 2020.",
+    "MORAIS, N. M.; PEITER, M. X.; ROBAINA, A. D.; PARIZI, A. R. C.; GEROTTO, N. Productive aspects and operating costs of hydroponic lettuce under different nutrient solution flow rates. Ciência e Inovação (IFFar), v. 11, 2025.",
+    "HELBEL JUNIOR, C.; REZENDE, R.; FRIZZONE, J. A.; SANTOS, H. S.; DALLACORT, R. Produção hidropônica da cultura da alface com soluções nutritivas e vazões distintas. Acta Scientiarum Agronomy, 29(3):391‑395, 2007.",
+    "MENDONÇA, V. V. O. e colaboradores. Lettuce production in hydroponic and fish‑farming aquaponic under different channel slopes and nutrient solutions in the NFT system. Revista Brasileira de Engenharia Agrícola e Ambiental, 27(9):746‑754, 2023.",
+    "ZANELLA, F.; LIMA, A. L. S.; SILVA JÚNIOR, F. F.; MACIEL, S. P. A. Crescimento de alface hidropônica sob diferentes intervalos de irrigação. Ciência e Agrotecnologia, 32(2):366‑370, 2008.",
+    "LUZ, G. L. e colaboradores. Consumo de energia elétrica e produção de alface hidropônica com três intervalos entre irrigações. Ciência Rural, 38(3):815‑818, 2008.",
+    "FREITAS, F. T. O.; SOARES, T. M.; SILVA, M. G.; RAFAEL, M. R. S. Cultivo de alface sob intervalos de recirculações das soluções nutritivas em sistemas hidropônicos usando água salobra. Irriga, edição especial Nordeste, 1(1):67‑96, 2021.",
+  ]),
+  H2("Projeto"),
+  UL([
+    "Telemetria‑cria: `README.md`, `mqtt/catalogo-topicos.md`, `firmware/horta-no1/` (programa e README), `firmware/biblioteca-cria/README.md`, `calibracao/` (README e `calibrar.py`) e `decisoes/2026-10-18-bomba-pelo-contato-nf.md`.",
+    "Tutoriais irmãos, na pasta `aula-agua/saida`: timer da bomba da hidroponia, sensor de condutividade, sensor de temperatura DS18B20, conversor de nível lógico e pH‑4502C.",
+  ]),
+];
+
+module.exports = DOC({ titulo: "Sensor de vazão na hidroponia: YF-S201 com ESP32", rodape: "Tutorial — Sensor de vazão (YF‑S201) — Espaço CRIA", corpo });
+if (require.main === module) salvar(module.exports, SAIDA);

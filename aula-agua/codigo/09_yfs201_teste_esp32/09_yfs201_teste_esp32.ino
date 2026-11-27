@@ -8,7 +8,7 @@
     amarelo  -> divisor de tensao -> GPIO 27
                 (amarelo - resistor de 1 k - GPIO 27 - resistor de 2 k - GND)
   O sensor trabalha em 5 V e devolve pulsos de 5 V. O ESP32 so aceita 3,3 V: o divisor
-  entrega dois tercos da tensao. Confira com o multimetro antes de ligar (tutorial, secao 9).
+  entrega dois tercos da tensao. Confira com o multimetro antes de ligar (tutorial, secao 8.3).
 
   O que aparece no Monitor Serial (115200 baud), uma linha por segundo:
     pulsos no ultimo segundo, frequencia, vazao em L/min, total de pulsos e volume em litros.
@@ -67,8 +67,9 @@ void loop() {
   horaDaUltimaConta = agora;
 
   Serial.printf("pulsos: %3lu   frequencia: %5.1f Hz   vazao: %5.2f L/min   total: %lu pulsos"
-                " = %.3f L", (unsigned long)novos, frequencia, vazao, (unsigned long)total, volume);
+                " = %.3f L", (unsigned long)novos, frequencia, vazao, (unsigned long)total,
+                volume);
   if (novos == 0)                 Serial.print("   <- turbina parada");
-  else if (vazao < VAZAO_MINIMA)  Serial.print("   <- abaixo de 1 L/min: leitura pouco confiavel");
+  else if (vazao < VAZAO_MINIMA)  Serial.print("   <- abaixo de 1 L/min: pouco confiavel");
   Serial.println();
 }

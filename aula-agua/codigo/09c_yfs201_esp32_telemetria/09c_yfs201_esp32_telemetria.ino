@@ -37,7 +37,7 @@ const char* PROJETO = "teste";    // "teste" = oficinas e ensaios (a bancada e o
 const char* NO = "no9";           // troque por um numero livre no painel
 
 // 1: o no inventa leituras, sem sensor ligado, para testar a rede e o painel. Volte para 0.
-#define SIMULAR_SENSORES 1
+#define SIMULAR_SENSORES 0
 
 const int PINO_VAZAO = 27;                     // fio amarelo, depois do divisor
 const int PINO_LED = 2;                        // LED azul da placa
@@ -81,7 +81,8 @@ void atualizarVazao() {
   pulsos = pulsos + (uint32_t)(frequenciaDaUltimaJanela * (agora - inicioDaJanela) / 1000.0);
 #else
   uint32_t total = pulsos;
-  frequenciaDaUltimaJanela = (total - pulsosNoInicioDaJanela) * 1000.0 / (agora - inicioDaJanela);
+  uint32_t novos = total - pulsosNoInicioDaJanela;
+  frequenciaDaUltimaJanela = novos * 1000.0 / (agora - inicioDaJanela);
   pulsosNoInicioDaJanela = total;
 #endif
   inicioDaJanela = agora;
@@ -146,7 +147,7 @@ void loop() {
   if (vazao > 0 && vazao < 1.0)
     Serial.println("[vazao] abaixo de 1 L/min: fora da faixa garantida do sensor.");
   if (!circulacaoNormal())
-    Serial.printf("[vazao] ALERTA: sem vazao ha %.0f min.\n", (agora - semVazaoDesde) / 60000.0);
+    Serial.printf("[vazao] ALERTA: sem vazao ha %.0f min.\n", (agora - semVazaoDesde) / 60e3);
 
   no.publicar("vazao", vazao, "L/min");
   no.publicar("volume", volume, "L");

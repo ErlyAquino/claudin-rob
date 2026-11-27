@@ -138,7 +138,8 @@ void rotaDados() {
   char json[280];
   snprintf(json, sizeof(json),
            "{\"q\":%.2f,\"agora\":%.2f,\"hz\":%.1f,\"vol\":%.2f,\"ppl\":%.1f,\"min\":%.1f,"
-           "\"max\":%.1f,\"alerta\":%.0f,\"parada\":%.1f,\"cal\":%d,\"pcal\":%lu,\"sit\":\"%s\"}",
+           "\"max\":%.1f,\"alerta\":%.0f,\"parada\":%.1f,\"cal\":%d,\"pcal\":%lu,"
+           "\"sit\":\"%s\"}",
            vazaoMedia, vazaoAgora, frequencia, volume, pulsosPorLitro, faixaMin, faixaMax,
            minutosDoAlerta, minutosSemVazao(), calibrando ? 1 : 0,
            (unsigned long)pulsosDaCalibracao(), situacao());
@@ -220,7 +221,7 @@ void loop() {
       if (!terminarCalibracao(cmd.substring(1).toFloat()))
         Serial.println("Recusado: use c, encha pelo menos 0,2 L e termine com f <litros>.");
     } else if (cmd == "x") { calibrando = false; Serial.println("Calibracao cancelada."); }
-    else if (cmd == "r") { voltarAoPadrao(); Serial.println("De volta a 450 pulsos por litro."); }
+    else if (cmd == "r") { voltarAoPadrao(); Serial.println("De volta a 450 pulsos/L."); }
     else if (cmd == "z") { volume = 0; Serial.println("Volume zerado."); }
   }
 }
