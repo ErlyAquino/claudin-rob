@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.2" width="0.500in" height="0.950in" viewBox="0 0 500 950">
+<g id="breadboard">
+<path d="M 70 330 L 70 120 Q 70 40 150 40 L 350 40 Q 430 40 430 120 L 430 330 Z" fill="#1b1b1b" stroke="#000" stroke-width="8"/>
+<rect x="70" y="330" width="360" height="26" fill="#333" stroke="#000" stroke-width="6"/>
+<text x="250" y="150" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="50" font-weight="bold" fill="#dddddd" text-anchor="middle">DALLAS</text>
+<text x="250" y="225" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="62" font-weight="bold" fill="#ffffff" text-anchor="middle">18B20</text>
+<text x="250" y="295" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="46" font-weight="normal" fill="#bbbbbb" text-anchor="middle">1   2   3</text>
+<rect x="137" y="356" width="26" height="500" fill="#bdbdbd" stroke="#777" stroke-width="4"/>
+<text x="150" y="620" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="44" font-weight="bold" fill="#444" text-anchor="middle" transform="rotate(-90 150 620)">GND</text>
+<rect id="connector0pin" x="120" y="850" width="60" height="60" fill="#c8a24a" stroke="#7a5c12" stroke-width="6"/>
+<rect x="237" y="356" width="26" height="500" fill="#bdbdbd" stroke="#777" stroke-width="4"/>
+<text x="250" y="620" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="44" font-weight="bold" fill="#444" text-anchor="middle" transform="rotate(-90 250 620)">DQ</text>
+<rect id="connector1pin" x="220" y="850" width="60" height="60" fill="#c8a24a" stroke="#7a5c12" stroke-width="6"/>
+<rect x="337" y="356" width="26" height="500" fill="#bdbdbd" stroke="#777" stroke-width="4"/>
+<text x="350" y="620" font-family="Droid Sans, DejaVu Sans, sans-serif" font-size="44" font-weight="bold" fill="#444" text-anchor="middle" transform="rotate(-90 350 620)">VDD</text>
+<rect id="connector2pin" x="320" y="850" width="60" height="60" fill="#c8a24a" stroke="#7a5c12" stroke-width="6"/>
+</g>
+</svg>
