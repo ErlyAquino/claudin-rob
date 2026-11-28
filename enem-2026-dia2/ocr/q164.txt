@@ -1,0 +1,27 @@
+QUESTÃO 164
+
+Em um tipo de mesa de bilhar, sem caçapas, cujo tampo
+tem o formato de um quadrado com 206 cm de lado e as bolas
+têm 3 cm de raio, um jogador precisa dar uma tacada na bola
+branca e fazê-la acertar a bola amarela, sem tocar em outra
+bola. Para isso, ele considerou uma trajetória poligonal que
+a bola branca poderia percorrer, rebatendo em três lados
+distintos da mesa, antes de acertar a bola amarela, conforme
+indicado na figura, apresentada fora de escala.
+
+103 cm
+
+WD €9
+
+1 1
+é 206 cm di
+
+Qual deve ser a distância d, em centímetro, indicada na figura,
+para que a bola branca consiga acertar a bola amarela ao
+percorrer a trajetória considerada pelo jogador?
+
+04%
+Oss
+O 58
+061
+e 70

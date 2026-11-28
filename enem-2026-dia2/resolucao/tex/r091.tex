@@ -1,0 +1,64 @@
+\questao{91}{corB}{Eletricidade}{Força elétrica (lei de Coulomb)}{Só de conceito}
+\begin{enunciado}
+\input{enun/q091}
+\end{enunciado}
+
+\quer{qual gráfico mostra o que acontece com a força elétrica entre o núcleo e o elétron, com o passar do tempo, enquanto
+o elétron ``cai'' em espiral na direção do núcleo.}
+
+\begin{ideia}
+Cargas de sinais opostos se atraem. O núcleo é positivo e o elétron é negativo, então um puxa o outro.
+A lei de Coulomb diz de que tamanho é esse puxão:
+\[ F = \frac{k \cdot e^2}{d^2} \]
+Aqui, $k$ é uma constante e $e$ é a carga do elétron: \textbf{esses dois valores não mudam}. A única coisa que muda é a
+distância $d$ entre o elétron e o núcleo. Como $d$ está \textbf{embaixo} da fração (e ao quadrado, isto é, $d \times d$), vale a regra:
+\textbf{quanto menor a distância, maior a força, e ela cresce muito depressa.}
+
+\textbf{Pense em um ímã de geladeira.} Longe da porta, você quase não sente nada. Chegando perto, o puxão aparece. Bem
+pertinho, ele ``gruda'' de uma vez. A força não cresce aos poucos: ela dispara quando a distância fica pequena.
+(A força do ímã é de outro tipo, mas se comporta de jeito parecido.)
+\end{ideia}
+
+\passoapasso
+\npasso{Descubra o que acontece com a distância.}
+Na figura, o elétron anda em espiral e vai se aproximando do núcleo. Então, com o passar do tempo, a distância $d$
+\textbf{diminui}.
+
+\npasso{Descubra o que acontece com a força.}
+Distância menor quer dizer força maior. Então, com o passar do tempo, a força \textbf{aumenta}.
+Só com isso já eliminamos três gráficos: o A (força sempre igual), o B e o E (força diminuindo).
+Sobram o C e o D.
+
+\npasso{A força cresce em linha reta (C) ou em curva (D)?}
+O gráfico é de força contra \textbf{tempo}. Vamos testar com números fáceis. O valor de $k \cdot e^2$ não muda; para a conta
+ficar simples, faça de conta que ele vale 36. Imagine que, a cada segundo, o elétron chega 1 passo mais perto
+(distância 3, depois 2, depois 1):
+\begin{conta}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{cccc}
+\textbf{Tempo} & \textbf{Distância $d$} & \textbf{$d^2$} & \textbf{Força $= 36 \div d^2$}\\ \hline
+0 & 3 & $3 \times 3 = 9$ & $36 \div 9 = 4$\\
+1 & 2 & $2 \times 2 = 4$ & $36 \div 4 = 9$\\
+2 & 1 & $1 \times 1 = 1$ & $36 \div 1 = 36$
+\end{tabular}
+\end{conta}
+Os passos da distância são iguais (sempre 1), mas os saltos da força não: de 4 para 9 ela subiu 5; de 9 para 36 subiu 27.
+\textbf{O aumento é cada vez maior.}
+
+Um gráfico em linha reta (C) mostraria um aumento sempre igual. O gráfico que começa subindo devagar e depois dispara para
+cima é o \textbf{D}. (Na teoria clássica, o elétron ainda cai cada vez mais depressa, o que deixa a subida final mais
+forte ainda.)
+
+\resposta{D}{A distância diminui com o tempo, então a força elétrica aumenta, e aumenta cada vez mais depressa.}
+
+\begin{outras}
+\alt{A} Força constante só aconteceria se a distância não mudasse (órbita circular). Na espiral, a distância muda.\par
+\altl{B} e \alt{E} A força diminuiria se o elétron estivesse se \emph{afastando} do núcleo. Ele está se aproximando.\par
+\alt{C} A força aumenta, mas não em linha reta: ela depende de $1/d^2$, e por isso cresce cada vez mais rápido.
+\end{outras}
+
+\begin{pegadinha}[Onde muita gente erra]
+O texto diz que a força é ``inversamente proporcional ao quadrado da distância''. Quem lê depressa pensa: ``inversamente\ldots{}
+então a força diminui'' e marca B ou E. Cuidado: \emph{inversamente} quer dizer que, quando uma coisa diminui, a outra aumenta.
+Aqui a \textbf{distância diminui}; logo, a \textbf{força aumenta}.
+\end{pegadinha}

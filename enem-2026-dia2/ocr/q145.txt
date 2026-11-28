@@ -1,0 +1,20 @@
+QUESTÃO 145 -
+
+A bancada na cozinha de um imóvel tem um fogão cooktop
+e uma pia com torneira, conforme a figura.
+
+O proprietário do imóvel decidiu aumentar a distância, que é
+de 5 cm, entre o bojo da pia e o fogão para ampliar a área do
+retângulo sombreado, de modo que esta passe a ocupar 35%
+da área total da bancada. Para isso, colocará um bojo menor
+na pia.
+
+A distância entre o fogão e o bojo da pia deverá ser aumentada
+em quantos centímetros?
+
+02
+[BRT
+O 49
+D6
+87
+

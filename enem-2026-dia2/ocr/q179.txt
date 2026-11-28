@@ -1,0 +1,25 @@
+QU ESTÃO 179 “
+
+No esquema estão representadas cinco cidades, P, Q, R, S e
+As estradas que conectam as cidades Qa Re Ra S foram omitidas
+
+QaRdoqueRas.
+
+P
+
+Será realizada uma viagem saindo da cidade P até a cidade
+de 30 possíveis rotas para fazer essa viagem.
+
+A quantidade de estradas que conectam a cidade Q à cidade R é
+30
+
+3x2
+
+30
+3+2
+
+02
+
+2
+030-(3x2)
+8030-(3+2)

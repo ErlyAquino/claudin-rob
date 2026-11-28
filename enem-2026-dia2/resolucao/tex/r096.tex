@@ -1,0 +1,74 @@
+\questao{96}{corC}{Ondas e óptica}{Velocidade das ondas: o eco do radar}{Com conta}
+\begin{enunciado}
+\input{enun/q096}
+\end{enunciado}
+
+\quer{quanto tempo a onda do radar leva para ir até o avião e voltar.}
+
+\begin{ideia}
+O radar funciona como um \textbf{eco}. Quando você grita na frente de um paredão, o som vai até a parede, bate e volta.
+Você só escuta o eco depois que o som fez \textbf{a ida e a volta}.
+
+Com o radar é igual, só que a onda é eletromagnética (da mesma ``família'' da luz) e muito mais rápida: 300 mil quilômetros
+em um único segundo. A antena solta a onda, ela bate no avião e retorna. O tempo medido é o da viagem completa.
+
+Para calcular tempo de viagem, a relação é a mesma de um carro na estrada:
+\[ \text{tempo} = \frac{\text{distância}}{\text{velocidade}} \]
+
+\begin{center}
+\begin{tikzpicture}[font=\small]
+  \node[draw=cinza,fill=cinzaclaro,rounded corners=1mm,minimum width=14mm,minimum height=8mm] (r) at (0,0) {radar};
+  \node[draw=cinza,fill=cinzaclaro,rounded corners=1mm,minimum width=14mm,minimum height=8mm] (a) at (8,0) {avião};
+  \draw[seta,corC] ([yshift=2mm]r.east) -- ([yshift=2mm]a.west) node[midway,above]{ida: 75\un{km}};
+  \draw[seta,corB] ([yshift=-2mm]a.west) -- ([yshift=-2mm]r.east) node[midway,below]{volta: 75\un{km}};
+\end{tikzpicture}
+\end{center}
+\end{ideia}
+
+\passoapasso
+\npasso{Calcule a distância total percorrida pela onda.}
+O enunciado diz que o avião foi localizado ``em um raio de 75 quilômetros''. Entenda assim: o avião está a 75\un{km} do radar.
+A onda vai e volta:
+\begin{conta}
+$d = 75 + 75 = 150\un{km}$
+\end{conta}
+
+\npasso{Escreva a velocidade com todos os zeros e confira as unidades.}
+O enunciado escreve a velocidade por extenso: ``300 mil quilômetros por segundo''. Em número, é $300\,000\un{km/s}$ (300 seguido de três zeros).
+A distância está em \textbf{km} e a velocidade em \textbf{km por segundo}. As duas usam quilômetro, então não é preciso
+converter nada. O tempo vai sair em segundos, como a questão pede.
+
+\npasso{Divida a distância pela velocidade.}
+\begin{conta}
+$t = \dfrac{150}{300\,000}$
+\end{conta}
+Para simplificar, corte um zero em cima e um embaixo. Depois divida os dois por 15 ($15 \div 15 = 1$ e $30\,000 \div 15 = 2\,000$, porque $30 \div 15 = 2$):
+\begin{conta}
+$\dfrac{150}{300\,000} = \dfrac{15}{30\,000} = \dfrac{1}{2\,000} = 0{,}0005\un{s}$
+\end{conta}
+(Para fazer $1 \div 2\,000$: dividir por 2\,000 é dividir por 2 e depois por 1\,000. Metade de 1 é 0,5. Dividir 0,5 por 1\,000 é andar a vírgula três casas para a esquerda: 0,0005.)
+
+\npasso{Escreva em notação científica.}
+As alternativas estão com potências de 10. No número 0,0005, conte quantas casas a vírgula anda para a direita até parar
+depois do 5: \textbf{4 casas}. Esse é o expoente. Como o número é menor que 1, o expoente é negativo:
+\begin{conta}
+$0{,}0005 = 5{,}0 \times 10^{-4}\un{s}$
+\end{conta}
+É meio milésimo de segundo. Faz sentido ser um tempo minúsculo: a onda é rapidíssima.
+
+\resposta{E}{A onda percorre 150\un{km} (ida e volta) a 300\,000\un{km/s}. Isso leva $5{,}0 \times 10^{-4}\un{s}$.}
+
+\begin{outras}
+\alt{A} $2{,}0 \times 10^{3}$ aparece quando se faz a divisão ao contrário ($300\,000 \div 150 = 2\,000$). Seriam 2\,000 segundos, mais de meia hora!\par
+\alt{C} $5{,}0 \times 10^{-1}$ aparece para quem esquece o ``mil'' e faz $150 \div 300 = 0{,}5$. Seria meio segundo: tempo demais para uma onda tão rápida.\par
+\alt{B} $4{,}0 \times 10^{0}$ aparece para quem faz $300 \div 75 = 4$: esqueceu o ``mil'', esqueceu a volta e inverteu a divisão.\par
+\alt{D} $1{,}5 \times 10^{-3}$ não sai de nenhuma conta correta com esses dados.
+\end{outras}
+
+\begin{pegadinha}[Onde muita gente erra]
+\begin{itemize}
+  \item \textbf{Esquecer a volta.} Quem usa só 75\un{km} encontra $2{,}5 \times 10^{-4}\un{s}$, que nem aparece nas alternativas.
+        Se a sua conta não bate com nenhuma alternativa, confira se usou ida \textbf{e} volta.
+  \item \textbf{Contar os zeros em vez das casas.} 0,0005 tem três zeros depois da vírgula, mas a vírgula anda \emph{quatro} casas: $10^{-4}$.
+\end{itemize}
+\end{pegadinha}

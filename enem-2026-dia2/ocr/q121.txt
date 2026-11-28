@@ -1,0 +1,31 @@
+QUESTÃO 121
+
+Um estudante acende uma lâmpada de 6 W de luz vermelha
+(comprimento de onda igual a 650 nm) em um quarto escuro.
+A 1,0 m de distância dessa lâmpada, encontra-se uma planta
+cujas folhas têm área de 4,0 cm?. Em uma rápida pesquisa na
+internet, o estudante verifica que plantas dessa mesma espécie
+possuem espectro de absorção conforme ilustrado no gráfico,
+que apresenta a porcentagem de luz incidente absorvida em
+função do comprimento de onda.
+
+essas
+
+400 500 600 700
+Comprimento de onda (nm)
+Considere a lâmpada como uma fonte puntiforme cuja
+
+intensidade luminosa é dada pela razão entre a sua potência e
+a área da superfície esférica formada a uma distância r da fonte.
+
+Utilize 3 como valor aproximado para 7.
+
+Com base nessas informações e no gráfico, qual é o valor
+mais próximo da energia, em joule, que cada folha absorverá
+a cada segundo?
+
+0 3,8x 107)
+O 4,8x 104)
+O 2,0x 107)
+O 1,8x 10")
+O 12x 10")

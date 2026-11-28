@@ -1,0 +1,15 @@
+QUESTÃO 136
+
+O comprimento de escala de um violão é dado pela distância,
+em polegada, entre o rastilho e a pestana, conforme figura.
+
+.— >>>
+ni polegadas
+
+A representação decimal desse número é
+
+O 25,40.
+O 22,75.
+O 21,25.
+O 16,50.
+e 6,25.

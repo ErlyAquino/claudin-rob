@@ -1,0 +1,76 @@
+\questao{114}{corD}{Energia e calor}{Energia por distância: de kWh para joule}{Com conta}
+\begin{enunciado}
+\input{enun/q114}
+\end{enunciado}
+
+\quer{quantos meios de transporte do gráfico gastam \textbf{menos} energia que o protótipo (o carro elétrico em teste), por metro e por passageiro.}
+
+\begin{ideia}
+Só dá para comparar coisas que estão \textbf{na mesma unidade}. É como comparar preços: um em reais e outro em dólares não se
+comparam direto.
+
+O gráfico usa \textbf{joule por metro por passageiro}: quantos joules são gastos para levar \textbf{uma pessoa} por
+\textbf{um metro}. O protótipo foi dado de outro jeito: 1\un{kWh} para cada 10\un{km}, com 4 pessoas.
+O trabalho da questão é passar o protótipo para a unidade do gráfico.
+
+E atenção ao significado: \textbf{mais eficiente é quem gasta menos}. O próprio gráfico avisa: ``mais eficiente'' fica do
+lado do zero.
+\end{ideia}
+
+\passoapasso
+\npasso{Transforme 1\un{kWh} em joules.}
+O quilowatt-hora é uma unidade de energia: é a energia de um aparelho de 1\un{kW} ligado durante 1 hora.
+\begin{itemize}
+  \item $1\un{kW} = 1\,000\un{W}$, e 1\un{W} é 1 joule por segundo. Então 1\un{kW} são 1\,000 joules por segundo.
+  \item $1\un{h} = 60\un{min} = 60 \times 60 = 3\,600\un{s}$.
+\end{itemize}
+\begin{conta}
+$1\un{kWh} = 1\,000 \times 3\,600 = 3\,600\,000\un{J}$
+\end{conta}
+
+\npasso{Transforme 10\un{km} em metros.}
+\begin{conta}
+$10\un{km} = 10 \times 1\,000 = 10\,000\un{m}$
+\end{conta}
+
+\npasso{Calcule o gasto do carro por metro.}
+O carro gasta 3\,600\,000\un{J} para andar 10\,000\un{m}. Divida para saber o gasto em cada metro:
+\begin{conta}
+$\dfrac{3\,600\,000}{10\,000} = 360\un{J}$ por metro
+\end{conta}
+(Para dividir por 10\,000, corte quatro zeros: 3\,600\,000 vira 360.)
+
+\npasso{Divida entre os passageiros.}
+Esses 360\un{J} levam 4 pessoas. Para cada uma:
+\begin{conta}
+$\dfrac{360}{4} = 90\un{J}$ por metro por passageiro
+\end{conta}
+
+\npasso{Compare com o gráfico.}
+Procure quem gasta \textbf{menos de 90}:
+\begin{itemize}
+  \item Velomóvel: 18 \ (menos que 90) \ \faCheck
+  \item Bicicleta: 60 \ (menos que 90) \ \faCheck
+  \item Pedonalidade (andar a pé): 132 \ (mais que 90) \ \faTimes
+\end{itemize}
+Daí para baixo no gráfico, todos gastam ainda mais. Então são \textbf{2} meios de transporte mais eficientes que o protótipo.
+
+\resposta{B}{O protótipo gasta 90\un{J} por metro por passageiro. Só o velomóvel (18) e a bicicleta (60) gastam menos.}
+
+\begin{outras}
+\alt{C} 4 aparece para quem para em 360\un{J} por metro e esquece de dividir pelos 4 passageiros (18, 60, 132 e 200 ficam abaixo de 360).\par
+\altl{A}, \altl{D} e \alt{E} não batem com a contagem: só duas barras (18 e 60) ficam abaixo de 90.
+\end{outras}
+
+\begin{pegadinha}[Onde muita gente erra]
+\begin{itemize}
+  \item \textbf{Esquecer de dividir pelos 4 passageiros.} O gráfico é \textbf{por passageiro}.
+  \item \textbf{Usar a autonomia de 1\,000\un{km}} (a distância que o carro roda com uma carga). Esse dado não entra na conta.
+  \item \textbf{Achar que ``maior eficiência'' é número maior.} É o contrário: mais eficiente é quem gasta \textbf{menos} energia.
+\end{itemize}
+\end{pegadinha}
+
+\begin{guardar}
+$1\un{kWh} = 3\,600\,000\un{J} = 3{,}6 \times 10^{6}\un{J}$. Essa conversão aparece muito no ENEM. Se esquecer, refaça:
+1\,000 joules por segundo, durante 3\,600 segundos.
+\end{guardar}

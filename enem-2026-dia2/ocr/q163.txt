@@ -1,0 +1,22 @@
+QUESTÃO 163
+
+Uma padaria vende pizzas de calabresa e de frango.
+Há 3 funcionários nessa padaria: Ana, Carla e José. No sábado,
+Ana vendeu 6 pizzas de calabresa e 15 de frango, tendo recebido
+780 reais por essas vendas; Carla vendeu 5 pizzas de calabresa
+e 8 de frango, pelas quais recebeu 470 reais; e José vendeu
+4 pizzas de calabresa, porém não anotou a quantidade de pizzas
+de frango que vendeu, mas sabe que recebeu um total de
+520 reais pela venda de pizzas.
+
+Qual a quantidade total de pizzas que José vendeu nesse sábado?
+04
+
+Os
+
+CRE)
+
+Ou
+
+Q 18
+

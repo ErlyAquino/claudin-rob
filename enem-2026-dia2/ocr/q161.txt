@@ -1,0 +1,42 @@
+QUESTÃO 161
+
+A diretora de uma creche coletou, das caderneta
+de vacinação de cinco crianças, a informação sobre o número d
+doses de vacinas aplicadas nos primeiros quatro semestre
+de vida. A seguir são apresentadas as sequências das quantidade
+de doses que cada criança recebeu no 1º, 28, 3º e 4º semestre:
+respectivamente:
+
+e criança |: 10,5,5,5;
+
+e criança ll: 12,3,5,5;
+
+e criança Ill: 13,4,5,4;
+
+e criança 1V: 11,5,5,3;
+
+e criança V: 13,3,7,3.
+
+A diretora fará uma reunião com os pais das crianças dess
+creche com o objetivo de conscientizá-los da importância d
+completarem as doses de vacinas que faltam. Para ilustrar.
+importância desse assunto, ela escolherá os dados de uma dessa
+cinco cadernetas para apresentar na reunião. Serão escolhido
+os dados da caderneta de vacinação que apresentar a meno
+média semestral das quantidades de doses de vacinas aplicada
+nos primeiros quatro semestres de vida dessas crianças.
+
+
+l,
+
+S,
+
+A caderneta que contém os dados a serem escolhidos pela
+diretora para a reunião é a da criança
+
+o.
+
+On.
+On.
+On.
+Ov.

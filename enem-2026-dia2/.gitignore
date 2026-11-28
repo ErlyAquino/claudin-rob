@@ -1,0 +1,7 @@
+# intermediários regeráveis
+slides.html
+slides-fisica.html
+resolucao/tex/*.aux
+resolucao/tex/*.log
+resolucao/tex/*.out
+resolucao/tex/*.pdf

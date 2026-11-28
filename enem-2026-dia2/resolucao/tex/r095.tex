@@ -1,0 +1,92 @@
+\questao{95}{corB}{Eletricidade}{Circuitos elétricos: divisão da tensão}{Com conta}
+\begin{enunciado}
+\input{enun/q095}
+\end{enunciado}
+
+\quer{qual é a diferença de tensão entre os pontos A e B quando o sensor está a 800\un{K}.}
+
+\begin{ideia}
+O desenho em forma de losango assusta, mas ele é só \textbf{dois caminhos} ligados à mesma bateria de 12\un{V}:
+\begin{itemize}
+  \item caminho da esquerda: resistor de 40\,$\Omega$ e depois o sensor $R_s$ (o ponto A fica entre os dois);
+  \item caminho da direita: resistor de 40\,$\Omega$ e depois o de 20\,$\Omega$ (o ponto B fica entre os dois).
+\end{itemize}
+\textbf{Pense em dois escorregadores.} A \textbf{tensão} (a ``voltagem'', medida em volts) faz o papel da altura: os dois saem
+de 12\un{V} e chegam ao chão (0\un{V}, o símbolo de terra). Cada resistor é um trecho da descida. Resistor maior, descida maior.
+Os pontos A e B são ``paradas'' no meio de cada escorregador; vamos chamar a altura de cada parada de $V_A$ e $V_B$.
+A pergunta é: \textbf{qual é a diferença de altura entre as duas paradas?}
+\end{ideia}
+
+\passoapasso
+\npasso{Calcule a resistência do sensor a 800\un{K}.}
+Troque $T$ por 800 na expressão e resolva de dentro para fora:
+\begin{conta}
+$R_s = 20\,[\,1 + 0{,}002 \cdot (800 - 300)\,]$\\[1.5mm]
+$800 - 300 = 500 \qquad\rightarrow\qquad 0{,}002 \times 500 = 1 \qquad\rightarrow\qquad 1 + 1 = 2 \qquad\rightarrow\qquad 20 \times 2 = 40\,\Omega$
+\end{conta}
+(Para fazer $0{,}002 \times 500$: $2 \times 500 = 1\,000$; como 0,002 tem três casas depois da vírgula, $1\,000$ vira $1{,}000 = 1$.)
+
+\npasso{Redesenhe o circuito como dois caminhos.}
+\begin{center}
+\begin{circuitikz}[font=\small]
+  \draw (0,0) to[battery1,l=$12\un{V}$] (0,3.6);
+  \draw (0,3.6) -- (5.8,3.6);
+  \draw (0,0) -- (5.8,0);
+  \draw (2.6,3.6) to[R,l_=$40\,\Omega$] (2.6,1.8) to[R,l_={$R_s = 40\,\Omega$}] (2.6,0);
+  \draw (5.8,3.6) to[R,l=$40\,\Omega$] (5.8,1.8) to[R,l=$20\,\Omega$] (5.8,0);
+  \node[circle,fill=corB,inner sep=1.6pt,label={[corB]right:\textbf{A}}] at (2.6,1.8) {};
+  \node[circle,fill=corB,inner sep=1.6pt,label={[corB]left:\textbf{B}}] at (5.8,1.8) {};
+  \node[cinza,above] at (4.2,3.6) {12\un{V} (em cima)};
+  \node[cinza,below] at (4.2,0) {0\un{V} (terra)};
+\end{circuitikz}
+\end{center}
+
+\npasso{Caminho da esquerda: ache a tensão no ponto A.}
+Os dois resistores estão em série (um depois do outro), então as resistências se somam: $40 + 40 = 80\,\Omega$.
+A corrente nesse caminho sai da lei de Ohm ($U = R \cdot i$, ou seja, $i = U \div R$):
+\begin{conta}
+$i = \dfrac{12}{80} = \dfrac{3}{20} = \dfrac{15}{100} = 0{,}15$ ampere
+\end{conta}
+(Simplifique $\frac{12}{80}$ dividindo os dois por 4: $\frac{3}{20}$. Depois multiplique os dois por 5: $\frac{15}{100}$, que é 0,15.)
+
+No primeiro resistor (40\,$\Omega$), a tensão cai $U = R \cdot i = 40 \times 0{,}15 = 6\un{V}$.
+(Faça $40 \times 15 = 600$; como 0,15 tem duas casas depois da vírgula, 600 vira 6,00.) Saímos de 12\un{V} e descemos 6\un{V}:
+\begin{conta}
+$V_A = 12 - 6 = 6\un{V}$
+\end{conta}
+Faz sentido: os dois resistores são iguais, então a tensão se divide meio a meio.
+
+\npasso{Caminho da direita: ache a tensão no ponto B.}
+Resistência total: $40 + 20 = 60\,\Omega$. Corrente:
+\begin{conta}
+$i = \dfrac{12}{60} = \dfrac{1}{5} = \dfrac{2}{10} = 0{,}2$ ampere
+\end{conta}
+(Divida os dois por 12: $\frac{1}{5}$. Multiplique os dois por 2: $\frac{2}{10}$, que é 0,2.)
+
+No primeiro resistor (40\,$\Omega$), a tensão cai $40 \times 0{,}2 = 8\un{V}$ ($40 \times 2 = 80$; uma casa depois da vírgula: 8,0):
+\begin{conta}
+$V_B = 12 - 8 = 4\un{V}$
+\end{conta}
+\confere{no resistor de baixo (20\,$\Omega$) caem $20 \times 0{,}2 = 4\un{V}$. Somando as duas quedas: $8 + 4 = 12\un{V}$. Bateu.}
+
+\Needspace{95mm}% diagramação: último passo + resposta + caixas finais ficam juntos na 3ª página (evita página final quase vazia)
+\npasso{Faça a diferença entre A e B.}
+\begin{conta}
+$U_{AB} = V_A - V_B = 6 - 4 = 2\un{V}$
+\end{conta}
+
+\resposta{D}{O ponto A está em 6\un{V} e o ponto B em 4\un{V}. A diferença entre eles é de 2,0\un{V}.}
+
+\begin{outras}
+\alt{B} 4,0\un{V} é a tensão só do ponto B. Falta comparar com o ponto A.\par
+\altl{A}, \altl{C} e \alt{E} não saem de nenhuma conta correta com esses dados.
+\end{outras}
+
+\begin{pegadinha}[Onde muita gente erra]
+\begin{itemize}
+  \item \textbf{Usar $R_s = 20\,\Omega$} (o número que aparece na fórmula) sem calcular o valor a 800\un{K}. Com $20\,\Omega$,
+        os dois caminhos ficariam iguais e a diferença daria zero.
+  \item \textbf{Parar no meio:} 6\un{V} e 4\un{V} são as tensões \emph{de cada ponto}. A pergunta pede a diferença \emph{entre} eles.
+  \item \textbf{Achar que A e B estão ligados por um fio.} Não estão: são dois pontos soltos, onde se encostaria um voltímetro.
+\end{itemize}
+\end{pegadinha}

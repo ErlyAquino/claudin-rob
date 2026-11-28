@@ -1,0 +1,69 @@
+\questao{133}{corB}{Eletricidade}{Energia elétrica consumida}{Com conta}
+\begin{enunciado}
+\input{enun/q133}
+\end{enunciado}
+
+\quer{de toda a energia que a TV gasta em um dia, quantos por cento são gastos enquanto ela está só em espera (\emph{stand-by}).}
+
+\begin{ideia}
+\textbf{Potência} é o ritmo com que o aparelho gasta energia. A \textbf{energia} gasta depende desse ritmo e do tempo ligado:
+\[ \text{energia} = \text{potência} \times \text{tempo} \qquad (E = P \cdot \Delta t\text{, em que } \Delta t \text{ é o tempo de uso}) \]
+\textbf{Pense em uma torneira.} A potência é a abertura da torneira; a energia é a água que encheu o balde. Uma torneira
+quase fechada (1\un{W}), pingando por muitas horas, também junta água.
+
+Se a potência está em watts e o tempo em horas, a energia sai em \textbf{watt-hora (Wh)}. É a mesma ideia do kWh da conta de luz.
+Como a pergunta é uma porcentagem (uma comparação), não é preciso converter para nenhuma outra unidade.
+\end{ideia}
+
+\passoapasso
+\npasso{Descubra quantas horas a TV fica em cada modo.}
+O dia tem 24 horas. Ela ficou 4 horas ligada. O resto foi em espera:
+\begin{conta}
+$24 - 4 = 20$ horas em espera
+\end{conta}
+
+\npasso{Calcule a energia gasta com a TV em uso.}
+\begin{conta}
+$E_{\text{uso}} = 158 \times 4 = 632\un{Wh}$
+\end{conta}
+(Para fazer $158 \times 4$: $100 \times 4 = 400$; $50 \times 4 = 200$; $8 \times 4 = 32$. Somando: $400 + 200 + 32 = 632$.)
+
+\npasso{Calcule a energia gasta em espera.}
+\begin{conta}
+$E_{\text{espera}} = 1 \times 20 = 20\un{Wh}$
+\end{conta}
+
+\npasso{Calcule a energia total do dia.}
+\begin{conta}
+$E_{\text{total}} = 632 + 20 = 652\un{Wh}$
+\end{conta}
+
+\npasso{Calcule a porcentagem.}
+Porcentagem é a parte dividida pelo todo, vezes 100: $\dfrac{20}{652} \times 100$. Essa divisão é trabalhosa; é mais fácil
+\textbf{testar as alternativas}. Arredonde 652 para 650. Então 1\% de 650 é 6,5 (ande a vírgula duas casas para a esquerda):
+\begin{conta}
+1\%: 6,5 \qquad\qquad 3\%: $3 \times 6{,}5 = 19{,}5$ \qquad\qquad 20\%: $20 \times 6{,}5 = 130$
+\end{conta}
+A energia em espera é 20\un{Wh}. O valor mais próximo é o de \textbf{3\%} (19,5).
+\confere{na calculadora, $20 \div 652 \times 100 \approx 3{,}07\%$.}
+
+\resposta{D}{Em espera, a TV gasta 20\un{Wh} de um total de 652\un{Wh}: cerca de 3,0\%.}
+
+\begin{outras}
+\alt{B} 0,6\% aparece para quem compara só as \emph{potências}: $1 \div 158 \approx 0{,}006 = 0{,}6\%$. Mas a pergunta é sobre \emph{energia}, e o tempo em espera (20\un{h}) é bem maior que o tempo em uso (4\un{h}).\par
+\alt{E} 20\% aparece para quem confunde os 20\un{Wh} (ou as 20\un{h}) com a porcentagem.\par
+\altl{A} e \alt{C} não saem de nenhuma conta correta com esses dados.
+\end{outras}
+
+\begin{pegadinha}[Onde muita gente erra]
+\begin{itemize}
+  \item \textbf{Esquecer que o dia tem 24 horas} e não calcular as 20 horas de espera. O enunciado diz ``no restante do dia''.
+  \item \textbf{Comparar potência em vez de energia} (o erro da alternativa B).
+  \item \textbf{Dividir pelo valor errado.} A pergunta compara com o \textbf{total} (652), não só com a energia em uso (632).
+\end{itemize}
+\end{pegadinha}
+
+\begin{guardar}[Para a vida]
+1\un{W} parece nada. Mas, ligado 20 horas por dia, o modo de espera desta TV responde por 3\% do gasto dela. Somando todos os
+aparelhos da casa em \emph{stand-by}, o gasto aparece na conta de luz.
+\end{guardar}

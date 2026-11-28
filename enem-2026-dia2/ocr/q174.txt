@@ -1,0 +1,34 @@
+O gráfico registra, sobre uma malha quadriculada, as quantidades de unidades habitacionais vendidas em um município,
+nos dois primeiros meses do ano, e a curva que fornece a estimativa E da quantidade de unidades vendidas nesse município,
+para o segundo semestre do mesmo ano, descrita pela função
+
+E(n) = 1 500 + 2 000 x log, (1 + n), com 6< ns 12,
+
+sendo n o número que identifica o mês. Por exemplo, a estimativa da quantidade de unidades vendidas ao longo do mês de
+agosto é E(8) = 1 500 + 2 000 x logs (1 + 8).
+
+3500
+
+Quantidade de unidades habitacionais
+
+0- À À - + : - : - + -
+O Jan. 1 Fev. 2 Mar. 3 Abr. 4 Maio s Jun. 6 Jul. 7 Ago. 8 Set. 9 Out.10 Nov.11 Dez.12
+
+Estimativas de vendas
+
+EM Unidades vendidas
+
+Ao final do primeiro bimestre, calculou-se a média mensal de unidades vendidas nesse período e, para projetar o crescimento
+das vendas nesse ano, estimou-se a média mensal de unidades habitacionais que serão vendidas no último bimestre desse ano
+comparando-se essas duas médias.
+
+Utilize log, 12 = 1,079 e log, 13 = 1,114.
+
+Em quantas unidades a média de vendas estimada para o último bimestre superou a média calculada do primeiro bimestre?
+
+01079
+O 1193
+O 3688
+O 10000
+O 20000
+RTZTÉHHIHHHHÍÉÉÉÍÉÉÉC”C”C”C C ÍTKÉÉRFRIKKKÉIIKIÉRÉHÉHIÉIHÉIHIIÉFÉIÉRÉFÉKRÉÉI€ÍEÉÉEÉIÉIÉ ÉFÉÉIÍYIÉ *É*É*<KÉÉPKME*HÉEÉZPZ=R*PZPZTPRTPTRTJH=" ITR? RPRZRZRZRRZRZRZERERELIRR££Lõ$R£R3ÉRÃÉKÉKHKHÉR3HRHÉHRIL=RIÉIHEHE=ERETEEHIEIEÃH£F€£ºÊÍHIHI££-£?L?€ÀâÂâOÓÀâÀÃffZ?"—
