@@ -75,6 +75,7 @@ const corpo = [
   ], [0.2, 0.36, 0.44]),
   ESPACO(),
   UL([
+    "**A energia sai do pino 5V, nunca do 3V3.** Ligada no 3V3, a ESP32-CAM aceita a gravação, mas depois reinicia sem parar (`Brownout detector was triggered`) e o Wi-Fi não aparece. Na placa, o fio entra no pino **5V**, não no VCC.",
     "**Os fios de dados são cruzados:** o TXD de um lado vai no receptor do outro. TXD do CH340 no U0R da placa; RXD do CH340 no U0T.",
     "**Jumper S1 em 3V3.** Ele define a tensão dos sinais TXD e RXD. Os pinos da ESP32-CAM trabalham em 3,3 V; por isso o jumper fica unindo o pino do meio ao lado marcado 3V3. O pino 5V do adaptador continua fornecendo 5 V nas duas posições.",
     "**Retire o jumper entre RXD e TXD.** Ele vem de fábrica para um teste do próprio adaptador (o que o computador envia volta para ele). Com esse jumper no lugar, a gravação não funciona.",
@@ -137,6 +138,7 @@ const corpo = [
 
   H1("8. Problemas comuns"),
   TAB(["Sintoma", "Causa provável", "O que fazer"], [
+    ["Gravou, mas a rede não aparece; o Monitor Serial repete `Brownout detector was triggered` sem parar", "Fio de energia no pino **3V3** do CH340 (ou no VCC da ESP32-CAM) em vez do 5V", "Passe o fio para o pino **5V** dos dois lados e meça: perto de 5 V entre 5V e GND da placa"],
     ["A placa reinicia sozinha; o Monitor Serial mostra `Brownout detector was triggered`", "Tensão caindo nos picos de corrente", "Fonte de 5 V e 2 A, capacitor de 470 µF perto da placa, fios curtos"],
     ["`Camera init failed`", "Cabo flat da câmera mal encaixado ou alimentação fraca", "Reencaixe o cabo flat e feche a trava; confira os 5 V na placa"],
     ["Imagem com faixas ou travando", "Alimentação fraca ou sinal de Wi-Fi ruim", "Meça os 5 V na placa; aproxime do roteador; reduza a resolução"],
